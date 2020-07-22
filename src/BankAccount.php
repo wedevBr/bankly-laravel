@@ -1,4 +1,5 @@
 <?php
+
 /**
  * BankAccount class
  *
@@ -18,6 +19,10 @@ class BankAccount extends \stdClass
     public $document;
     public $name;
 
+    /**
+     * This validate and return an array
+     * @return array
+     */
     public function toArray(): array
     {
         $this->validate();
@@ -25,6 +30,9 @@ class BankAccount extends \stdClass
         return $this->toArray();
     }
 
+    /**
+     * This function validate a bank account
+     */
     public function validate()
     {
         $validator = new BankAccountValidator($this);

@@ -33,17 +33,22 @@ class Bankly
         $this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
     }
 
+    /**
+     * @param array|null $credentials
+     * @return $this
+     */
     public function setClientCredentials(array $credentials = null)
     {
         $this->client_secret = $credentials['client_secret'] ?? config('bankly')['client_secret'];
         $this->client_id = $credentials['client_id'] ?? config('bankly')['client_id'];
+        return $this;
     }
 
     /**
      * @return array|mixed
      * @throws RequestException
      */
-    public function getBankList()
+    final public function getBankList()
     {
         return $this->get('/bankList');
     }
@@ -54,7 +59,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getBalance(string $branch, string $account)
+    final public function getBalance(string $branch, string $account)
     {
         return $this->get('/account/balance', [
             'branch' => $branch,
@@ -72,7 +77,14 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getStatement($branch, $account, $offset = 1, $limit = 20, $details = 'true', $detailsLevelBasic = 'true') {
+    final public function getStatement(
+        $branch,
+        $account,
+        $offset = 1,
+        $limit = 20,
+        $details = 'true',
+        $detailsLevelBasic = 'true'
+    ) {
         return $this->get('/account/statement', array(
             'branch' => $branch,
             'account' => $account,
@@ -92,9 +104,15 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getEvents(string $branch, string $account, int $page = 1, int $pagesize = 20, $include_details = 'true')
-    {
-        return $this->get('/events',
+    public function getEvents(
+        string $branch,
+        string $account,
+        int $page = 1,
+        int $pagesize = 20,
+        $include_details = 'true'
+    ) {
+        return $this->get(
+            '/events',
             [
                 'Branch' => $branch,
                 'Account' => $account,
@@ -113,13 +131,14 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function transfer(string $amount, string $description, array $sender, array $recipient) {
-
+    public function transfer(string $amount, string $description, array $sender, array $recipient)
+    {
         if ($sender['bankCode']) {
             unset($sender['bankCode']);
         }
 
-        return $this->post('/fund-transfers',
+        return $this->post(
+            '/fund-transfers',
             [
                 'amount' => $amount,
                 'description' => $description,
@@ -138,27 +157,28 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getTransferStatus($branch, $account, $authentication_id) {
-        return $this->get('/fund-transfers/' . $authentication_id . '/status', array(
+    public function getTransferStatus(string $branch, string $account, string $authentication_id)
+    {
+        return $this->get('/fund-transfers/' . $authentication_id . '/status', [
             'branch' => $branch,
             'account' => $account
-        ));
+        ]);
     }
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      * @param array $query
      * @param null $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
-    private function get($endpoint, array $query = null, $correlation_id = null)
+    private function get(string $endpoint, array $query = null, $correlation_id = null)
     {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
         }
 
-        if(is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
 
@@ -167,11 +187,10 @@ class Bankly
             ->get($this->getFinalUrl($endpoint), $query)
             ->throw()
             ->json();
-
     }
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      * @param array|null $body
      * @param null $correlation_id
      * @param bool $asJson
@@ -184,7 +203,7 @@ class Bankly
             $this->auth();
         }
 
-        if(is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4();
         }
 
@@ -201,35 +220,36 @@ class Bankly
 
     /**
      * @param string $version API version
+     * @return $this
      */
     private function setApiVersion($version = '1.0')
     {
         $this->api_version = $version;
+        return $this;
     }
 
     /**
      * @param array $headers
      * @return array|string[]
      */
-    private function getHeaders($headers = [])
+    final private function getHeaders($headers = [])
     {
         $default_headers = [
             'API-Version' => $this->api_version
         ];
 
-        if(count($headers) > 0) {
+        if (count($headers) > 0) {
             $default_headers = array_merge($headers, $default_headers);
         }
 
         return $default_headers;
-
     }
 
     /**
      * @param string $endpoint
      * @return bool
      */
-    private function requireCorrelationId($endpoint)
+    final private function requireCorrelationId($endpoint)
     {
         $not_required_endpoints = [
             '/bankList',
@@ -243,7 +263,7 @@ class Bankly
      * @param $endpoint
      * @return string
      */
-    private function getFinalUrl($endpoint)
+    final private function getFinalUrl($endpoint)
     {
         return $this->api_url . $endpoint;
     }
