@@ -1,8 +1,9 @@
 <?php
+
 /**
  * BankAccountValidator class
  *
- * PHP version 7.4
+ * PHP version 7.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Adeildo Amorim <adeildo@capitaldigitalaberto.com.br>
@@ -11,7 +12,6 @@
  */
 
 namespace WeDevBr\Bankly\Validators;
-
 
 use WeDevBr\Bankly\BankAccount;
 
@@ -45,7 +45,7 @@ class BankAccountValidator
     private function validateBranch()
     {
         $branch = $this->bank_account->branch;
-        if(is_null($branch) || !is_string($branch) || !is_numeric($branch)) {
+        if (is_null($branch) || !is_string($branch) || !is_numeric($branch)) {
             throw new \InvalidArgumentException('branch should be a numeric string');
         }
     }
@@ -56,7 +56,7 @@ class BankAccountValidator
     private function validateAccount()
     {
         $account = $this->bank_account->account;
-        if(is_null($account) || !is_string($account)  || !is_numeric($account)) {
+        if (is_null($account) || !is_string($account)  || !is_numeric($account)) {
             throw new \InvalidArgumentException('account should be a numeric string');
         }
     }
@@ -67,7 +67,7 @@ class BankAccountValidator
     private function validateDocument()
     {
         $document = $this->bank_account->document;
-        if(is_null($document) || !is_string($document)) {
+        if (is_null($document) || !is_string($document)) {
             throw new \InvalidArgumentException('document should be a string');
         }
         $documentValidator = new CpfCnpjValidator($document);
@@ -80,7 +80,7 @@ class BankAccountValidator
     private function validateName()
     {
         $name = $this->bank_account->name;
-        if(is_null($name) || !is_string($name)) {
+        if (is_null($name) || !is_string($name)) {
             throw new \InvalidArgumentException('name should be a string');
         }
     }
