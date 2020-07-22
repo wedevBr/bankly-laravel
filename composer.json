@@ -25,11 +25,11 @@
     ],
     "require": {
         "php": "^7.1",
-        "illuminate/http": "^7.0",
+        "laravel/framework": "^7.0",
         "guzzlehttp/guzzle": "^6.5"
     },
     "require-dev": {
-        "orchestra/testbench": "^4.0",
+        "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "^8.0"
     },
     "autoload": {
