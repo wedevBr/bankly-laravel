@@ -1,0 +1,63 @@
+{
+    "name": "wedevbr/bankly-laravel",
+    "description": "Bankly API Wrapper",
+    "keywords": [
+        "wedevbr",
+        "bankly",
+        "banks",
+        "open_banking",
+        "baas"
+    ],
+    "homepage": "https://github.com/wedevbr/bankly",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "We Dev Tecnologia",
+            "email": "contato@wedev.software",
+            "role": "Business"
+        },
+        {
+            "name": "Adeildo Amorim",
+            "email": "adeildo@capitaldigitalaberto.com.br",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/http": "^7.0",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WeDevBr\\Bankly\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "WeDevBr\\Bankly\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WeDevBr\\Bankly\\BanklyServiceProvider"
+            ],
+            "aliases": {
+                "Bankly": "WeDevBr\\Bankly\\BanklyFacade"
+            }
+        }
+    }
+}
