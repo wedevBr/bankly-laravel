@@ -1,5 +1,7 @@
 <?php
+
 namespace WeDevBr\Bankly\Validators;
+
 /**
  * ValidaCPFCNPJ valida e formata CPF e CNPJ
  *
@@ -25,9 +27,10 @@ class CpfCnpjValidator
      *
      * @param string $document
      */
-    function __construct ($document = null) {
+    public function __construct($document = null)
+    {
         // Deixa apenas números no valor
-        $this->document = preg_replace( '/[^0-9]/', '', $document );
+        $this->document = preg_replace('/[^0-9]/', '', $document);
 
         // Garante que o valor é uma string
         $this->document = (string) $this->document;
@@ -42,13 +45,12 @@ class CpfCnpjValidator
      * @return string
      * @throws \InvalidArgumentException;
      */
-    protected function verifyCpfCnpj () {
+    protected function verifyCpfCnpj()
+    {
         // Verifica CPF
-        if ( strlen( $this->document ) === 11 ) {
+        if (strlen($this->document) === 11) {
             return 'CPF';
-        }
-        // Verifica CNPJ
-        elseif ( strlen( $this->document ) === 14 ) {
+        } elseif (strlen($this->document) === 14) { // Verifica CNPJ
             return 'CNPJ';
         }
         throw new \InvalidArgumentException('cpf_cnpj invalid');
@@ -63,22 +65,23 @@ class CpfCnpjValidator
      * @param  int       $soma_digitos A soma das multiplicações entre posições e dígitos
      * @return int                     Os dígitos enviados concatenados com o último dígito
      */
-    protected function calcPositionDigits($digitos, $posicoes = 10, $soma_digitos = 0 ) {
+    protected function calcPositionDigits($digitos, $posicoes = 10, $soma_digitos = 0)
+    {
         // Faz a soma dos dígitos com a posição
         // Ex. para 10 posições:
         //   0    2    5    4    6    2    8    8   4
         // x10   x9   x8   x7   x6   x5   x4   x3  x2
         //   0 + 18 + 40 + 28 + 36 + 10 + 32 + 24 + 8 = 196
-        for ( $i = 0; $i < strlen( $digitos ); $i++  ) {
+        for ($i = 0; $i < strlen($digitos); $i++) {
             // Preenche a soma com o dígito vezes a posição
-            $soma_digitos = $soma_digitos + ( $digitos[$i] * $posicoes );
+            $soma_digitos = $soma_digitos + ($digitos[$i] * $posicoes);
 
             // Subtrai 1 da posição
             $posicoes--;
 
             // Parte específica para CNPJ
             // Ex.: 5-4-3-2-9-8-7-6-5-4-3-2
-            if ( $posicoes < 2 ) {
+            if ($posicoes < 2) {
                 // Retorno a posição para 9
                 $posicoes = 9;
             }
@@ -89,7 +92,7 @@ class CpfCnpjValidator
         $soma_digitos = $soma_digitos % 11;
 
         // Verifica se $soma_digitos é menor que 2
-        if ( $soma_digitos < 2 ) {
+        if ($soma_digitos < 2) {
             // $soma_digitos agora será zero
             $soma_digitos = 0;
         } else {
@@ -112,19 +115,20 @@ class CpfCnpjValidator
      * @access protected
      * @return bool           True para CPF correto - False para CPF incorreto
      */
-    protected function validateCpf() {
+    protected function validateCpf()
+    {
         // Captura os 9 primeiros dígitos do CPF
         // Ex.: 02546288423 = 025462884
         $digitos = substr($this->document, 0, 9);
 
         // Faz o cálculo dos 9 primeiros dígitos do CPF para obter o primeiro dígito
-        $novo_cpf = $this->calcPositionDigits( $digitos );
+        $new_cpf = $this->calcPositionDigits($digitos);
 
         // Faz o cálculo dos 10 dígitos do CPF para obter o último dígito
-        $novo_cpf = $this->calcPositionDigits( $novo_cpf, 11 );
+        $new_cpf = $this->calcPositionDigits($new_cpf, 11);
 
         // Verifica se o novo CPF gerado é idêntico ao CPF enviado
-        return $novo_cpf === $this->document;
+        return $new_cpf === $this->document;
     }
 
     /**
@@ -134,25 +138,25 @@ class CpfCnpjValidator
      * @access protected
      * @return bool             true para CNPJ correto
      */
-    protected function validateCnpj ()
+    protected function validateCnpj()
     {
         // O valor original
-        $cnpj_original = $this->document;
+        $original_cnpj = $this->document;
 
         // Captura os primeiros 12 números do CNPJ
-        $primeiros_numeros_cnpj = substr( $this->document, 0, 12 );
+        $primeiros_numeros_cnpj = substr($this->document, 0, 12);
 
         // Faz o primeiro cálculo
-        $primeiro_calculo = $this->calcPositionDigits( $primeiros_numeros_cnpj, 5 );
+        $primeiro_calculo = $this->calcPositionDigits($primeiros_numeros_cnpj, 5);
 
         // O segundo cálculo é a mesma coisa do primeiro, porém, começa na posição 6
-        $segundo_calculo = $this->calcPositionDigits( $primeiro_calculo, 6 );
+        $segundo_calculo = $this->calcPositionDigits($primeiro_calculo, 6);
 
         // Concatena o segundo dígito ao CNPJ
-        $cnpj = $segundo_calculo;
+        $new_cnpj = $segundo_calculo;
 
         // Verifica se o CNPJ gerado é idêntico ao enviado
-        return $cnpj === $cnpj_original;
+        return $new_cnpj === $original_cnpj;
     }
 
     /**
@@ -163,21 +167,17 @@ class CpfCnpjValidator
      * @access public
      * @return bool      True para válido, false para inválido
      */
-    public function validate ()
+    public function validate()
     {
         // Valida CPF
         $validation = $this->verifyCpfCnpj();
-        if ($validation === 'CPF' ) {
+        if ($validation === 'CPF') {
             // Retorna true para cpf válido
             return $this->validateCpf() && $this->verifySort(11);
-        }
-        // Valida CNPJ
-        elseif ( $validation === 'CNPJ' ) {
+        } elseif ($validation === 'CNPJ') { // Valida CNPJ
             // Retorna true para CNPJ válido
             return $this->validateCnpj() && $this->verifySort(14);
-        }
-        // Não retorna nada
-        else {
+        } else {
             return false;
         }
     }
@@ -195,26 +195,24 @@ class CpfCnpjValidator
         $validation = $this->verifyCpfCnpj();
 
         // Valida CPF
-        if ( $validation === 'CPF' ) {
+        if ($validation === 'CPF') {
             // Verifica se o CPF é válido
-            if ( $this->validateCpf() ) {
+            if ($this->validateCpf()) {
                 // Formata o CPF ###.###.###-##
-                $formatado  = substr( $this->document, 0, 3 ) . '.';
-                $formatado .= substr( $this->document, 3, 3 ) . '.';
-                $formatado .= substr( $this->document, 6, 3 ) . '-';
-                $formatado .= substr( $this->document, 9, 2 ) . '';
+                $formatado  = substr($this->document, 0, 3) . '.';
+                $formatado .= substr($this->document, 3, 3) . '.';
+                $formatado .= substr($this->document, 6, 3) . '-';
+                $formatado .= substr($this->document, 9, 2) . '';
             }
-        }
-        // Valida CNPJ
-        elseif ( $validation === 'CNPJ' ) {
+        } elseif ($validation === 'CNPJ') { // Valida CNPJ
             // Verifica se o CPF é válido
-            if ( $this->validateCnpj() ) {
+            if ($this->validateCnpj()) {
                 // Formata o CNPJ ##.###.###/####-##
-                $formatado  = substr( $this->document,  0,  2 ) . '.';
-                $formatado .= substr( $this->document,  2,  3 ) . '.';
-                $formatado .= substr( $this->document,  5,  3 ) . '/';
-                $formatado .= substr( $this->document,  8,  4 ) . '-';
-                $formatado .= substr( $this->document, 12, 14 ) . '';
+                $formatado  = substr($this->document, 0, 2) . '.';
+                $formatado .= substr($this->document, 2, 3) . '.';
+                $formatado .= substr($this->document, 5, 3) . '/';
+                $formatado .= substr($this->document, 8, 4) . '-';
+                $formatado .= substr($this->document, 12, 14) . '';
             }
         }
 
@@ -230,7 +228,7 @@ class CpfCnpjValidator
     public function verifySort($multiplos)
     {
         // cpf
-        for($i=0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             if (str_repeat($i, $multiplos) == $this->document) {
                 return false;
             }
