@@ -1,9 +1,9 @@
 # Very short description of the package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/wedevbr/bankly-laravel.svg?style=flat-square)](https://packagist.org/packages/wedevbr/bankly)
-[![Build Status](https://img.shields.io/travis/wedevbr/bankly-laravel/master.svg?style=flat-square)](https://travis-ci.org/wedevbr/bankly)
-[![Quality Score](https://img.shields.io/scrutinizer/g/wedevbr/bankly-laravel.svg?style=flat-square)](https://scrutinizer-ci.com/g/wedevbr/bankly)
-[![Total Downloads](https://img.shields.io/packagist/dt/wedevbr/bankly-laravel.svg?style=flat-square)](https://packagist.org/packages/wedevbr/bankly)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/wedevbr/bankly-laravel.svg?style=flat-square)](https://packagist.org/packages/wedevbr/bankly-laravel)
+[![Build Status](https://img.shields.io/travis/wedevbr/bankly-laravel/master.svg?style=flat-square)](https://travis-ci.org/wedevbr/bankly-laravel)
+[![Quality Score](https://img.shields.io/scrutinizer/g/wedevbr/bankly-laravel.svg?style=flat-square)](https://scrutinizer-ci.com/g/wedevbr/bankly-laravel)
+[![Total Downloads](https://img.shields.io/packagist/dt/wedevbr/bankly-laravel.svg?style=flat-square)](https://packagist.org/packages/wedevbr/bankly-laravel)
 
 This package is a API Wrapper for [Bankly]().
 
