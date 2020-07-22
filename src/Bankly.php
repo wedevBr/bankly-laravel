@@ -35,10 +35,8 @@ class Bankly
 
     public function setClientCredentials(array $credentials = null)
     {
-        if (count($credentials) > 0) {
-            $this->client_secret = $credentials['client_secret'] ?? config('bankly')['client_secret'];
-            $this->client_id = $credentials['client_id'] ?? config('bankly')['client_id'];
-        }
+        $this->client_secret = $credentials['client_secret'] ?? config('bankly')['client_secret'];
+        $this->client_id = $credentials['client_id'] ?? config('bankly')['client_id'];
     }
 
     /**
@@ -69,12 +67,12 @@ class Bankly
      * @param $account
      * @param int $offset
      * @param int $limit
-     * @param bool $details
-     * @param bool $detailsLevelBasic
+     * @param string $details
+     * @param string $detailsLevelBasic
      * @return array|mixed
      * @throws RequestException
      */
-    public function getStatement($branch, $account, $offset = 1, $limit = 20, $details = true, $detailsLevelBasic = true) {
+    public function getStatement($branch, $account, $offset = 1, $limit = 20, $details = 'true', $detailsLevelBasic = 'true') {
         return $this->get('/account/statement', array(
             'branch' => $branch,
             'account' => $account,
@@ -86,15 +84,15 @@ class Bankly
     }
 
     /**
-     * @param $branch
-     * @param $account
+     * @param string $branch
+     * @param string $account
      * @param int $page
      * @param int $pagesize
-     * @param bool $include_details
+     * @param string $include_details
      * @return array|mixed
      * @throws RequestException
      */
-    public function getEvents(string $branch, string $account, int $page = 1, int $pagesize = 20, $include_details = true)
+    public function getEvents(string $branch, string $account, int $page = 1, int $pagesize = 20, $include_details = 'true')
     {
         return $this->get('/events',
             [
@@ -156,12 +154,12 @@ class Bankly
      */
     private function get($endpoint, array $query = null, $correlation_id = null)
     {
-        if (now()->unix() > $this->token_expiry) {
+        if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
         }
 
         if(is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
-            $correlation_id = Uuid::uuid4();
+            $correlation_id = Uuid::uuid4()->toString();
         }
 
         return Http::withToken($this->token)
@@ -182,7 +180,7 @@ class Bankly
      */
     private function post($endpoint, array $body = null, $correlation_id = null, $asJson = false)
     {
-        if (now()->unix() > $this->token_expiry) {
+        if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
         }
 
