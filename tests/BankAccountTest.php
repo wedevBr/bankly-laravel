@@ -19,9 +19,6 @@ use WeDevBr\Bankly\BankAccount;
 
 class BankAccountTest extends TestCase
 {
-    /**
-     * @test
-     */
     private function validBankAccount()
     {
         $bankAccount = new BankAccount();
