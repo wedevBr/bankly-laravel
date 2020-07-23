@@ -20,7 +20,7 @@ class BanklyTest extends TestCase
 {
     private function bankly()
     {
-        return new Bankly();
+        return $this->mock(Bankly::class);
     }
 
     /**
