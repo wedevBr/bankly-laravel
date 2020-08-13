@@ -128,7 +128,7 @@ class Bankly
      * @param string $description
      * @param array $sender
      * @param array $recipient
-     * @param string $correlation_id
+     * @param string|null $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
@@ -266,7 +266,7 @@ class Bankly
     }
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      * @return string
      */
     final private function getFinalUrl($endpoint)
