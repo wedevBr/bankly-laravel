@@ -198,12 +198,12 @@ class Bankly
     /**
      * @param string $endpoint
      * @param array|null $body
-     * @param null $correlation_id
+     * @param string|null $correlation_id
      * @param bool $asJson
      * @return array|mixed
      * @throws RequestException
      */
-    private function post($endpoint, array $body = null, $correlation_id = null, $asJson = false)
+    private function post(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
     {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
