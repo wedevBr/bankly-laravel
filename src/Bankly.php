@@ -124,15 +124,21 @@ class Bankly
     }
 
     /**
-     * @param string $amount
+     * @param int $amount
      * @param string $description
      * @param array $sender
      * @param array $recipient
+     * @param string $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
-    public function transfer(string $amount, string $description, array $sender, array $recipient)
-    {
+    public function transfer(
+        int $amount,
+        string $description,
+        array $sender,
+        array $recipient,
+        string $correlation_id = null
+    ) {
         if ($sender['bankCode']) {
             unset($sender['bankCode']);
         }
@@ -145,7 +151,7 @@ class Bankly
                 'sender' => $sender,
                 'recipient' => $recipient
             ],
-            null,
+            $correlation_id,
             true
         );
     }
