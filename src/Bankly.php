@@ -204,7 +204,7 @@ class Bankly
         }
 
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
-            $correlation_id = Uuid::uuid4();
+            $correlation_id = Uuid::uuid4()->toString();
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
