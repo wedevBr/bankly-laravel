@@ -124,15 +124,21 @@ class Bankly
     }
 
     /**
-     * @param string $amount
+     * @param int $amount
      * @param string $description
      * @param array $sender
      * @param array $recipient
+     * @param string|null $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
-    public function transfer(string $amount, string $description, array $sender, array $recipient)
-    {
+    public function transfer(
+        int $amount,
+        string $description,
+        array $sender,
+        array $recipient,
+        string $correlation_id = null
+    ) {
         if ($sender['bankCode']) {
             unset($sender['bankCode']);
         }
@@ -145,7 +151,7 @@ class Bankly
                 'sender' => $sender,
                 'recipient' => $recipient
             ],
-            null,
+            $correlation_id,
             true
         );
     }
@@ -192,12 +198,12 @@ class Bankly
     /**
      * @param string $endpoint
      * @param array|null $body
-     * @param null $correlation_id
+     * @param string|null $correlation_id
      * @param bool $asJson
      * @return array|mixed
      * @throws RequestException
      */
-    private function post($endpoint, array $body = null, $correlation_id = null, $asJson = false)
+    private function post(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
     {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
@@ -260,7 +266,7 @@ class Bankly
     }
 
     /**
-     * @param $endpoint
+     * @param string $endpoint
      * @return string
      */
     final private function getFinalUrl($endpoint)
