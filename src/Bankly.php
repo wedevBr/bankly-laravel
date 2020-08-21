@@ -50,7 +50,7 @@ class Bankly
      */
     final public function getBankList()
     {
-        return $this->get('/bankList');
+        return $this->get('/banklist');
     }
 
     /**
@@ -252,7 +252,7 @@ class Bankly
     final private function requireCorrelationId($endpoint)
     {
         $not_required_endpoints = [
-            '/bankList',
+            '/banklist',
             '/connect/token'
         ];
 
