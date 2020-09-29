@@ -23,8 +23,8 @@ class Bankly
 
     /**
      * Bankly constructor.
-     * @param string $client_secret provided by Bankly Staff
-     * @param string $client_id provided by Bankly Staff
+     * @param null|string $client_secret provided by Bankly Staff
+     * @param null|string $client_id provided by Bankly Staff
      */
     public function __construct($client_secret = null, $client_id = null)
     {
@@ -54,16 +54,26 @@ class Bankly
     }
 
     /**
-     * @param string $branch
      * @param string $account
      * @return array|mixed
      * @throws RequestException
      */
-    final public function getBalance(string $branch, string $account)
+    final public function getBalance(string $account)
     {
-        return $this->get('/account/balance', [
-            'branch' => $branch,
-            'account' => $account
+        $account = $this->getAccount($account);
+        return $account['balance'];
+    }
+
+    /**
+     * @param string $account
+     * @param string $includeBalance
+     * @return array|mixed
+     * @throws RequestException
+     */
+    final public function getAccount(string $account, string $includeBalance = 'true')
+    {
+        return $this->get('/accounts/' . $account, [
+            'includeBalance' => $includeBalance,
         ]);
     }
 
