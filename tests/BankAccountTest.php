@@ -81,4 +81,18 @@ class BankAccountTest extends TestCase
         $bankAccount->name = null;
         $bankAccount->validate();
     }
+
+    /**
+     * @test
+     */
+    public function testInvalidAccountType()
+    {
+        {
+            $this->expectException(\InvalidArgumentException::class);
+            $this->expectErrorMessage('accountType should be one of them: CHECKING, SAVINGS');
+            $bankAccount = $this->validBankAccount();
+            $bankAccount->accountType = null;
+            $bankAccount->validate();
+        }
+    }
 }
