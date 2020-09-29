@@ -37,6 +37,7 @@ class BankAccountValidator
         $this->validateAccount();
         $this->validateDocument();
         $this->validateName();
+        $this->validateAccountType();
     }
 
     /**
@@ -82,6 +83,18 @@ class BankAccountValidator
         $name = $this->bank_account->name;
         if (is_null($name) || !is_string($name)) {
             throw new \InvalidArgumentException('name should be a string');
+        }
+    }
+
+    /**
+     * This validates bank account type
+     */
+    private function validateAccountType()
+    {
+        $allowed = ['CHECKING', 'SAVINGS'];
+        $accountType = $this->bank_account->accountType;
+        if (!in_array($accountType, $allowed) || is_null($accountType)) {
+            throw new \InvalidArgumentException('accountType should be one of them: ' . implode(', ', $allowed));
         }
     }
 }
