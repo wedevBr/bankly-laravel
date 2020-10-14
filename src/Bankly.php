@@ -23,8 +23,8 @@ class Bankly
 
     /**
      * Bankly constructor.
-     * @param string $client_secret provided by Bankly Staff
-     * @param string $client_id provided by Bankly Staff
+     * @param null|string $client_secret provided by Bankly Staff
+     * @param null|string $client_id provided by Bankly Staff
      */
     public function __construct($client_secret = null, $client_id = null)
     {
@@ -54,16 +54,26 @@ class Bankly
     }
 
     /**
-     * @param string $branch
      * @param string $account
      * @return array|mixed
      * @throws RequestException
      */
-    final public function getBalance(string $branch, string $account)
+    final public function getBalance(string $account)
     {
-        return $this->get('/account/balance', [
-            'branch' => $branch,
-            'account' => $account
+        $account = $this->getAccount($account);
+        return $account['balance'];
+    }
+
+    /**
+     * @param string $account
+     * @param string $includeBalance
+     * @return array|mixed
+     * @throws RequestException
+     */
+    final public function getAccount(string $account, string $includeBalance = 'true')
+    {
+        return $this->get('/accounts/' . $account, [
+            'includeBalance' => $includeBalance,
         ]);
     }
 
@@ -157,6 +167,45 @@ class Bankly
     }
 
     /**
+     * Get transfer funds from an account
+     * @param string $branch
+     * @param string $account
+     * @param int $pageSize
+     * @param string|null $nextPage
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function getTransferFunds(string $branch, string $account, int $pageSize = 10, string $nextPage = null)
+    {
+        $queryParams = [
+            'branch' => $branch,
+            'account' => $account,
+            'pageSize' => $pageSize
+        ];
+        if ($nextPage) {
+            $queryParams['nextPage'] = $nextPage;
+        }
+        return $this->get('/fund-transfers', $queryParams);
+    }
+
+    /**
+     * Get Transfer Funds By Authentication Code
+     * @param string $branch
+     * @param string $account
+     * @param string $authenticationCode
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function findTransferFundByAuthCode(string $branch, string $account, string $authenticationCode)
+    {
+        $queryParams = [
+            'branch' => $branch,
+            'account' => $account
+        ];
+        return $this->get('/fund-transfers/' . $authenticationCode, $queryParams);
+    }
+
+    /**
      * @param string $branch
      * @param string $account
      * @param string $authentication_id
@@ -173,7 +222,7 @@ class Bankly
 
     /**
      * @param string $endpoint
-     * @param array $query
+     * @param array|null $query
      * @param null $correlation_id
      * @return array|mixed
      * @throws RequestException
@@ -255,7 +304,7 @@ class Bankly
      * @param string $endpoint
      * @return bool
      */
-    final private function requireCorrelationId($endpoint)
+    final private function requireCorrelationId(string $endpoint)
     {
         $not_required_endpoints = [
             '/banklist',
@@ -269,7 +318,7 @@ class Bankly
      * @param string $endpoint
      * @return string
      */
-    final private function getFinalUrl($endpoint)
+    final private function getFinalUrl(string $endpoint)
     {
         return $this->api_url . $endpoint;
     }

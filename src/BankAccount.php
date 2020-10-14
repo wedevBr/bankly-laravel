@@ -18,6 +18,7 @@ class BankAccount extends \stdClass
     public $account;
     public $document;
     public $name;
+    public $accountType = 'CHECKING';
 
     /**
      * This validate and return an array
