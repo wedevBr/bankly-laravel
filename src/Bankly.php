@@ -124,11 +124,11 @@ class Bankly
         return $this->get(
             '/events',
             [
-                'Branch' => $branch,
-                'Account' => $account,
-                'Page' => $page,
-                'Pagesize' => $pagesize,
-                'IncludeDetails' => (string) $include_details
+                'branch' => $branch,
+                'account' => $account,
+                'page' => $page,
+                'pageSize' => $pagesize,
+                'includeDetails' => (string) $include_details
             ]
         );
     }
