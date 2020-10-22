@@ -54,6 +54,8 @@ class Bankly
     }
 
     /**
+     * Retrieve your balance account
+     * @param string $branch
      * @param string $account
      * @return array|mixed
      * @throws RequestException
@@ -62,8 +64,10 @@ class Bankly
     public function getBalance(string $branch, string $account)
 
     {
-        $account = $this->getAccount($account);
-        return $account['balance'];
+        return $this->get('/account/balance', [
+            'branch' => $branch,
+            'account' => $account
+        ]);
     }
 
     /**
