@@ -54,18 +54,16 @@ class Bankly
     }
 
     /**
-     * @param string $branch
      * @param string $account
      * @return array|mixed
      * @throws RequestException
      * @note If you have a RequestException on this endpoint in staging environment, please use getAccount() method instead.
      */
     public function getBalance(string $branch, string $account)
+
     {
-        return $this->get('/account/balance', [
-            'branch' => $branch,
-            'account' => $account
-        ]);
+        $account = $this->getAccount($account);
+        return $account['balance'];
     }
 
     /**
@@ -138,6 +136,7 @@ class Bankly
                 'page' => $page,
                 'pageSize' => $pagesize,
                 'includeDetails' => $include_details
+
             ]
         );
     }

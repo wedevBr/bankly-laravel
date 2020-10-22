@@ -112,4 +112,14 @@ class BanklyTest extends TestCase
             method_exists($this->bankly(), 'findTransferFundByAuthCode')
         );
     }
+
+    /**
+     * @test
+     */
+    public function testEnsureMethodGetAccountExists()
+    {
+        $this->assertTrue(
+            method_exists($this->bankly(), 'getAccount')
+        );
+    }
 }
