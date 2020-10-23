@@ -2,6 +2,11 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.2.0 - 2020-10-22
+- Fixed events params
+- Fixed balance request
+- Added notes on methods that have different responses from staging and production environment
+
 ## 1.1.1 - 2020-10-15
 - Fixed /events params
 
