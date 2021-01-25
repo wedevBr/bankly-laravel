@@ -23,8 +23,8 @@ class Bankly
 
     /**
      * Bankly constructor.
-     * @param string $client_secret provided by Bankly Staff
-     * @param string $client_id provided by Bankly Staff
+     * @param null|string $client_secret provided by Bankly Staff
+     * @param null|string $client_id provided by Bankly Staff
      */
     public function __construct($client_secret = null, $client_id = null)
     {
@@ -48,22 +48,39 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    final public function getBankList()
+    public function getBankList()
     {
         return $this->get('/banklist');
     }
 
     /**
+     * Retrieve your balance account
      * @param string $branch
      * @param string $account
      * @return array|mixed
      * @throws RequestException
+     * @note If you have a RequestException on this endpoint in staging environment, please use getAccount() method instead.
      */
-    final public function getBalance(string $branch, string $account)
+    public function getBalance(string $branch, string $account)
+
     {
         return $this->get('/account/balance', [
             'branch' => $branch,
             'account' => $account
+        ]);
+    }
+
+    /**
+     * @param string $account
+     * @param string $includeBalance
+     * @return array|mixed
+     * @throws RequestException
+     * @note This method on this date (2020-10-21) works only on staging environment. Contact Bankly/Acesso for more details
+     */
+    public function getAccount(string $account, string $includeBalance = 'true')
+    {
+        return $this->get('/accounts/' . $account, [
+            'includeBalance' => $includeBalance,
         ]);
     }
 
@@ -77,21 +94,21 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    final public function getStatement(
+    public function getStatement(
         $branch,
         $account,
         $offset = 1,
         $limit = 20,
-        $details = 'true',
-        $detailsLevelBasic = 'true'
+        string $details = 'true',
+        string $detailsLevelBasic = 'true'
     ) {
         return $this->get('/account/statement', array(
             'branch' => $branch,
             'account' => $account,
             'offset' => $offset,
             'limit' => $limit,
-            'details' => (string) $details,
-            'detailsLevelBasic' => (string) $detailsLevelBasic
+            'details' => $details,
+            'detailsLevelBasic' => $detailsLevelBasic
         ));
     }
 
@@ -103,22 +120,27 @@ class Bankly
      * @param string $include_details
      * @return array|mixed
      * @throws RequestException
+     * @note This endpoint has been deprecated for some clients.
+     * You need to check with Acesso/Bankly if your environment has different parameters also.
+     * The response of this request does not have a default interface between environments.
+     * Pay attention when use this in your project.
      */
     public function getEvents(
         string $branch,
         string $account,
         int $page = 1,
         int $pagesize = 20,
-        $include_details = 'true'
+        string $include_details = 'true'
     ) {
         return $this->get(
             '/events',
             [
-                'Branch' => $branch,
-                'Account' => $account,
-                'Page' => $page,
-                'Pagesize' => $pagesize,
-                'IncludeDetails' => (string) $include_details
+                'branch' => $branch,
+                'account' => $account,
+                'page' => $page,
+                'pageSize' => $pagesize,
+                'includeDetails' => $include_details
+
             ]
         );
     }
@@ -277,7 +299,7 @@ class Bankly
      * @param array $headers
      * @return array|string[]
      */
-    final private function getHeaders($headers = [])
+    private function getHeaders($headers = [])
     {
         $default_headers = [
             'API-Version' => $this->api_version
@@ -294,7 +316,7 @@ class Bankly
      * @param string $endpoint
      * @return bool
      */
-    final private function requireCorrelationId(string $endpoint)
+    private function requireCorrelationId(string $endpoint)
     {
         $not_required_endpoints = [
             '/banklist',
@@ -308,7 +330,7 @@ class Bankly
      * @param string $endpoint
      * @return string
      */
-    final private function getFinalUrl(string $endpoint)
+    private function getFinalUrl(string $endpoint)
     {
         return $this->api_url . $endpoint;
     }
