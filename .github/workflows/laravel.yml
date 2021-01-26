@@ -12,10 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup composer
+      uses: shivammathur/setup-php@v2
+      with:
+        tools: composer:v2
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
     - name: Install Dependencies
       run: composer install --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       run: vendor/bin/phpunit
