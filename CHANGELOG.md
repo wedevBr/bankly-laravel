@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.3.0 - 2021-01-26
+- Added support to Laravel 8.x
+- Added support to PHP8
 
 ## 1.2.0 - 2020-10-22
 - Fixed events params
