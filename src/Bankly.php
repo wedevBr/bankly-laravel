@@ -178,6 +178,8 @@ class Bankly
         );
     }
 
+    fun
+
     /**
      * Get transfer funds from an account
      * @param string $branch
@@ -281,6 +283,35 @@ class Bankly
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format)
             ->post($this->getFinalUrl($endpoint), $body)
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * @param string $endpoint
+     * @param array|null $body
+     * @param string|null $correlation_id
+     * @param bool $asJson
+     * @return array|mixed
+     * @throws RequestException
+     */
+    private function put(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
+    {
+        if (now()->unix() > $this->token_expiry || !$this->token) {
+            $this->auth();
+        }
+
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+            $correlation_id = Uuid::uuid4()->toString();
+        }
+
+        $body_format = $asJson ? 'json' : 'form_params';
+
+        return Http
+            ::withToken($this->token)
+            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
+            ->bodyFormat($body_format)
+            ->put($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
