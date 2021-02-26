@@ -17,28 +17,28 @@ use WeDevBr\Bankly\Support\Contracts\CustomerAddressInterface;
 class CustomerAddress implements CustomerAddressInterface
 {
     /** @var string */
-    protected string $zipCode;
+    protected $zipCode;
 
     /** @var string */
-    protected string $addressLine;
+    protected $addressLine;
 
     /** @var string */
-    protected string $buildingNumber;
+    protected $buildingNumber;
 
     /** @var string */
-    protected string $complement;
+    protected $complement;
 
     /** @var string */
-    protected string $neighborhood;
+    protected $neighborhood;
 
     /** @var string */
-    protected string $city;
+    protected $city;
 
     /** @var string */
-    protected string $state;
+    protected $state;
 
     /** @var string */
-    protected string $country;
+    protected $country;
 
     /**
      * @param string $zipCode
