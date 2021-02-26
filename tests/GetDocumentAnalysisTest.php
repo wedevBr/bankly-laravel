@@ -64,19 +64,6 @@ class GetDocumentAnalysisTest extends TestCase
         $token2 = $this->faker->uuid;
         $document = $client->getDocumentAnalysis('00000000000', [$token1, $token2]);
 
-        Http::assertSent(function ($request) use ($token1, $token2) {
-            $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
-            return $body['resultLevel'] === 'ONLY_STATUS'
-                && is_array($body['token'])
-                && in_array($token1, $body['token'])
-                && in_array($token2, $body['token']);
-        });
-
         $this->assertArrayHasKey('token', $document);
         $this->assertArrayHasKey('documentType', $document);
         $this->assertArrayHasKey('documentSide', $document);
@@ -97,16 +84,16 @@ class GetDocumentAnalysisTest extends TestCase
 
         Http::fake($this->getFakerHttp());
 
-        $client->getDocumentAnalysis('00000000000', [], 'DETAILED');
+        $document = $client->getDocumentAnalysis('00000000000', [], 'DETAILED');
 
-        Http::assertSent(function ($request) {
-            $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
-            return $body['resultLevel'] === 'DETAILED';
-        });
+        $this->assertArrayHasKey('token', $document);
+        $this->assertArrayHasKey('documentType', $document);
+        $this->assertArrayHasKey('documentSide', $document);
+        $this->assertArrayHasKey('status', $document);
+        $this->assertArrayHasKey('faceMatch', $document);
+        $this->assertArrayHasKey('faceDetails', $document);
+        $this->assertArrayHasKey('documentDetails', $document);
+        $this->assertArrayHasKey('liveness', $document);
+        $this->assertArrayHasKey('analyzedAt', $document);
     }
 }
