@@ -262,8 +262,7 @@ class Bankly
             $correlationId,
             true,
             true,
-            $document,
-            $document->getFieldName()
+            $document
         );
     }
 
@@ -378,12 +377,11 @@ class Bankly
      */
     private function put(
         string $endpoint,
-        array $body = null,
+        array $body = [],
         string $correlation_id = null,
         bool $asJson = false,
         bool $attachment = false,
-        DocumentAnalysis $document = null,
-        string $fieldName = 'document'
+        DocumentAnalysis $document = null
     ) {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
@@ -401,7 +399,7 @@ class Bankly
             ->bodyFormat($body_format);
 
         if ($attachment) {
-            $request->attach($fieldName, $document->getFileContents(), $document->getFileName());
+            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
         }
 
         return $request->put($this->getFinalUrl($endpoint), $body)
