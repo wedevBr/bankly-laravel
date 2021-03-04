@@ -5,6 +5,11 @@ namespace WeDevBr\Bankly;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
+use TypeError;
+use WeDevBr\Bankly\Inputs\Customer;
+use WeDevBr\Bankly\Inputs\DocumentAnalysis;
+use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
+use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 
 /**
  * Class Bankly
@@ -233,6 +238,80 @@ class Bankly
     }
 
     /**
+     * @param string $documentNumber
+     * @param DocumentAnalysis $document
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function documentAnalysis(
+        string $documentNumber,
+        $document,
+        string $correlationId = null
+    ) {
+        if (!$document instanceof DocumentInterface) {
+            throw new TypeError('The document must be an instance of DocumentInterface');
+        }
+
+        return $this->put(
+            "/document-analysis/{$documentNumber}",
+            [
+                'documentType' => $document->getDocumentType(),
+                'documentSide' => $document->getDocumentSide(),
+            ],
+            $correlationId,
+            true,
+            true,
+            $document
+        );
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param array $tokens
+     * @param string $resultLevel
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function getDocumentAnalysis(
+        string $documentNumber,
+        array $tokens = [],
+        string $resultLevel = 'ONLY_STATUS',
+        string $correlationId = null
+    ) {
+        $query = ['resultLevel' => $resultLevel];
+
+        if (!empty($tokens)) {
+            $query['token'] = $tokens;
+        }
+
+        return $this->get(
+            "/document-analysis/{$documentNumber}",
+            $query,
+            $correlationId
+        );
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param Customer $customer
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function customer(
+        string $documentNumber,
+        $customer,
+        string $correlationId = null
+    ) {
+        if (!$customer instanceof CustomerInterface) {
+            throw new TypeError('The customer must be an instance of CustomerInterface');
+        }
+
+        return $this->put("/customers/{$documentNumber}", $customer->toArray(), $correlationId);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|null $query
      * @param null $correlation_id
@@ -290,11 +369,20 @@ class Bankly
      * @param array|null $body
      * @param string|null $correlation_id
      * @param bool $asJson
+     * @param bool $attachment
+     * @param DocumentAnalysis $document
+     * @param string $fieldName
      * @return array|mixed
      * @throws RequestException
      */
-    private function put(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
-    {
+    private function put(
+        string $endpoint,
+        array $body = [],
+        string $correlation_id = null,
+        bool $asJson = false,
+        bool $attachment = false,
+        DocumentAnalysis $document = null
+    ) {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
         }
@@ -305,11 +393,16 @@ class Bankly
 
         $body_format = $asJson ? 'json' : 'form_params';
 
-        return Http
+        $request = Http
             ::withToken($this->token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
-            ->bodyFormat($body_format)
-            ->put($this->getFinalUrl($endpoint), $body)
+            ->bodyFormat($body_format);
+
+        if ($attachment) {
+            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
+        }
+
+        return $request->put($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
