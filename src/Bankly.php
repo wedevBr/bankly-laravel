@@ -178,8 +178,6 @@ class Bankly
         );
     }
 
-    fun
-
     /**
      * Get transfer funds from an account
      * @param string $branch
