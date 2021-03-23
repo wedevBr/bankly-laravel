@@ -312,6 +312,47 @@ class Bankly
     }
 
     /**
+     * Validate of boleto or dealership
+     *
+     * @param string $code - Digitable line
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function paymentValidate(string $code, string $correlationId)
+    {
+        return $this->post('/bill-payment/validate', ['code' => $code], $correlationId, true);
+    }
+
+    /**
+     * Confirmation of payment of boleto or dealership
+     *
+     * @param float $amount
+     * @param string $branch
+     * @param string $account
+     * @param string $description
+     * @param string $id
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function paymentConfirm(
+        float $amount,
+        string $branch,
+        string $account,
+        string $description,
+        string $id,
+        string $correlationId
+    ) {
+        return $this->post('/bill-payment/confirm', [
+            'amount' => $amount,
+            'description' => $description,
+            'bankBranch' => $branch,
+            'bankAccount' => $account,
+            'id' => $id
+        ], $correlationId, true);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|null $query
      * @param null $correlation_id
