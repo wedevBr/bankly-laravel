@@ -327,29 +327,15 @@ class Bankly
     /**
      * Confirmation of payment of boleto or dealership
      *
-     * @param float $amount
-     * @param string $branch
-     * @param string $account
-     * @param string $description
-     * @param string $id
+     * @param BillPayment $billPayment
      * @param string $correlationId
      * @return array|mixed
      */
     public function paymentConfirm(
-        float $amount,
-        string $branch,
-        string $account,
-        string $description,
-        string $id,
+        BillPayment $billPayment,
         string $correlationId
     ) {
-        return $this->post('/bill-payment/confirm', [
-            'amount' => $amount,
-            'description' => $description,
-            'bankBranch' => $branch,
-            'bankAccount' => $account,
-            'id' => $id
-        ], $correlationId, true);
+        return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
     }
 
     /**

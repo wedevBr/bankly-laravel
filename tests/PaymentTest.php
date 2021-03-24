@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
+use WeDevBr\Bankly\BillPayment;
 
 /**
  * PaymentTest class
@@ -81,22 +82,16 @@ class PaymentTest extends TestCase
             'authenticationCode' => '94c45428-65f1-4e96-a16c-748119e26a96'
         ]));
 
-        $amount = 789.49;
-        $description = 'Mensalidade Escola';
-        $branch = '0001';
-        $account = '1111';
-        $id = 'AAABBBCCCDDDEEE';
+        $billPayment = new BillPayment();
+        $billPayment->amount = 789.49;
+        $billPayment->description = 'Mensalidade Escola';
+        $billPayment->bankBranch = '0001';
+        $billPayment->bankAccount = '1111';
+        $billPayment->id = 'AAABBBCCCDDDEEE';
         $correlationId = '111222333444555';
 
         $client = new Bankly();
-        $response = $client->paymentConfirm(
-            $amount,
-            $branch,
-            $account,
-            $description,
-            $id,
-            $correlationId
-        );
+        $response = $client->paymentConfirm($billPayment, $correlationId);
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
