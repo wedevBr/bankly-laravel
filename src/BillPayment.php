@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\BillPaymentValidator;
 
 /**
@@ -14,7 +15,7 @@ use WeDevBr\Bankly\Validators\BillPaymentValidator;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class BillPayment extends \stdClass
+class BillPayment extends \stdClass implements Arrayable
 {
     public $amount;
     public $branch;
@@ -29,8 +30,7 @@ class BillPayment extends \stdClass
     public function toArray(): array
     {
         $this->validate();
-
-        return $this->toArray();
+        return (array) $this;
     }
 
     /**

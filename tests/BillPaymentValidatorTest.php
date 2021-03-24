@@ -78,4 +78,10 @@ class BillPaymentValidatorTest extends TestCase
         $billPayment->id = null;
         $billPayment->validate();
     }
+
+    public function testReturnConvertBillPaymentObjectToArray()
+    {
+        $array = $this->validBillPayment()->toArray();
+        $this->assertIsArray($array);
+    }
 }
