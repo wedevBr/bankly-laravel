@@ -18,8 +18,8 @@ use WeDevBr\Bankly\Validators\BillPaymentValidator;
 class BillPayment extends \stdClass implements Arrayable
 {
     public $amount;
-    public $branch;
-    public $account;
+    public $bankBranch;
+    public $bankAccount;
     public $description;
     public $id;
 

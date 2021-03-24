@@ -34,8 +34,8 @@ class BillPaymentValidator
      */
     public function validate(): void
     {
-        $this->validateBranch();
-        $this->validateAccount();
+        $this->validateBankBranch();
+        $this->validateBankAccount();
         $this->validateAmount();
         $this->validateId();
     }
@@ -46,10 +46,10 @@ class BillPaymentValidator
      * @return void
      * @throws InvalidArgumentException
      */
-    private function validateBranch()
+    private function validateBankBranch()
     {
-        $branch = $this->billPayment->branch;
-        if (is_null($branch) || !is_string($branch) || !is_numeric($branch)) {
+        $bankBranch = $this->billPayment->bankBranch;
+        if (is_null($bankBranch) || !is_string($bankBranch) || !is_numeric($bankBranch)) {
             throw new \InvalidArgumentException('branch should be a numeric string');
         }
     }
@@ -60,10 +60,10 @@ class BillPaymentValidator
      * @return void
      * @throws InvalidArgumentException
      */
-    private function validateAccount()
+    private function validateBankAccount()
     {
-        $account = $this->billPayment->account;
-        if (is_null($account) || !is_string($account)  || !is_numeric($account)) {
+        $bankAccount = $this->billPayment->bankAccount;
+        if (is_null($bankAccount) || !is_string($bankAccount)  || !is_numeric($bankAccount)) {
             throw new \InvalidArgumentException('account should be a numeric string');
         }
     }

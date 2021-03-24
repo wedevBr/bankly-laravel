@@ -23,8 +23,8 @@ class BillPaymentValidatorTest extends TestCase
     private function validBillPayment()
     {
         $billPayment = new BillPayment();
-        $billPayment->branch = '0001';
-        $billPayment->account = '1122334455';
+        $billPayment->bankBranch = '0001';
+        $billPayment->bankAccount = '1122334455';
         $billPayment->amount = '466.99';
         $billPayment->id = 'AAA111BBB222CCC333DDD444';
         return $billPayment;
@@ -38,7 +38,7 @@ class BillPaymentValidatorTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectErrorMessage('branch should be a numeric string');
         $billPayment = $this->validBillPayment();
-        $billPayment->branch = null;
+        $billPayment->bankBranch = null;
         $billPayment->validate();
     }
 
@@ -51,7 +51,7 @@ class BillPaymentValidatorTest extends TestCase
         $this->expectErrorMessage('account should be a numeric string');
 
         $billPayment = $this->validBillPayment();
-        $billPayment->account = null;
+        $billPayment->bankAccount = null;
         $billPayment->validate();
     }
 
