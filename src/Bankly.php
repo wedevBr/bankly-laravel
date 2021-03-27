@@ -10,6 +10,7 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
 
 /**
  * Class Bankly
@@ -360,6 +361,18 @@ class Bankly
             ->get($this->getFinalUrl($endpoint), $query)
             ->throw()
             ->json();
+    }
+
+    /**
+     * Create a new virtual card
+     *
+     * @param VirtualCard $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function virtualCard(VirtualCard $virtualCard)
+    {
+        return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
     }
 
     /**
