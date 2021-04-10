@@ -10,6 +10,7 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
 
 /**
  * Class Bankly
@@ -312,6 +313,33 @@ class Bankly
     }
 
     /**
+     * Validate of boleto or dealership
+     *
+     * @param string $code - Digitable line
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function paymentValidate(string $code, string $correlationId)
+    {
+        return $this->post('/bill-payment/validate', ['code' => $code], $correlationId, true);
+    }
+
+    /**
+     * Confirmation of payment of boleto or dealership
+     *
+     * @param BillPayment $billPayment
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function paymentConfirm(
+        BillPayment $billPayment,
+        string $correlationId
+    ) {
+        return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|null $query
      * @param null $correlation_id
@@ -333,6 +361,18 @@ class Bankly
             ->get($this->getFinalUrl($endpoint), $query)
             ->throw()
             ->json();
+    }
+
+    /**
+     * Create a new virtual card
+     *
+     * @param VirtualCard $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function virtualCard(VirtualCard $virtualCard)
+    {
+        return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
     }
 
     /**
