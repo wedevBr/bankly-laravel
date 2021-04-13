@@ -280,11 +280,12 @@ class Bankly
         string $resultLevel = 'ONLY_STATUS',
         string $correlationId = null
     ) {
-        $query = ['resultLevel' => $resultLevel];
-
-        if (!empty($tokens)) {
-            $query['token'] = $tokens;
-        }
+        $query = collect($tokens)
+            ->map(function ($token) {
+                return "token={$token}";
+            })
+            ->concat(["resultLevel={$resultLevel}"])
+            ->implode('&');
 
         return $this->get(
             "/document-analysis/{$documentNumber}",
@@ -341,12 +342,12 @@ class Bankly
 
     /**
      * @param string $endpoint
-     * @param array|null $query
+     * @param array|string|null $query
      * @param null $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
-    private function get(string $endpoint, array $query = null, $correlation_id = null)
+    private function get(string $endpoint, $query = null, $correlation_id = null)
     {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
