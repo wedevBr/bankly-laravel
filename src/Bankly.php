@@ -26,6 +26,7 @@ class Bankly
     private $token_expiry = 0;
     private $token = null;
     private $api_version = '1.0';
+    private $headers;
 
     /**
      * Bankly constructor.
@@ -37,6 +38,7 @@ class Bankly
         $this->api_url = config('bankly')['api_url'];
         $this->login_url = config('bankly')['login_url'];
         $this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
+        $this->headers = ['API-Version' => $this->api_version];
     }
 
     /**
@@ -464,15 +466,22 @@ class Bankly
      */
     private function getHeaders($headers = [])
     {
-        $default_headers = [
-            'API-Version' => $this->api_version
-        ];
+        $default_headers = $this->headers;
 
         if (count($headers) > 0) {
             $default_headers = array_merge($headers, $default_headers);
         }
 
         return $default_headers;
+    }
+
+    /**
+     * @param array $header
+     * @return void
+     */
+    private function setHeaders($header)
+    {
+        $this->headers = array_merge($this->headers, $header);
     }
 
     /**
