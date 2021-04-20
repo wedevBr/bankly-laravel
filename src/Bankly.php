@@ -10,6 +10,7 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
 
 /**
@@ -343,6 +344,55 @@ class Bankly
     }
 
     /**
+     * Create a new PIX key link with account.
+     *
+     * @param PixEntries $pixEntries
+     * @return array|mixed
+     */
+    public function registerPixKey(PixEntries $pixEntries)
+    {
+        return $this->post('/pix/entries', [
+            'addressingKey' => $pixEntries->addressingKey->toArray(),
+            'account' => $pixEntries->account->toArray(),
+        ], null, true);
+    }
+
+    /**
+     * Gets the list of address keys linked to an account.
+     *
+     * @param string $accountNumber
+     * @return array|mixed
+     */
+    public function getPixAddressingKeys(string $accountNumber)
+    {
+        return $this->get("/accounts/$accountNumber/addressing-keys");
+    }
+
+    /**
+     * Gets details of the account linked to an addressing key.
+     *
+     * @param string $documentNumber
+     * @param string $addressinKeyValue
+     * @return array|mixed
+     */
+    public function getPixAddressingKeyValue(string $documentNumber, string $addressinKeyValue)
+    {
+        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        return $this->get("/pix/entries/$addressinKeyValue");
+    }
+
+    /**
+     * Delete a key link with account.
+     *
+     * @param string $addressingKeyValue
+     * @return array|mixed
+     */
+    public function deletePixAddressingKeyValue(string $addressingKeyValue)
+    {
+        return $this->delete("/pix/entries/$addressingKeyValue");
+    }
+
+    /**
      * @param string $endpoint
      * @param array|string|null $query
      * @param null $correlation_id
@@ -446,6 +496,27 @@ class Bankly
         }
 
         return $request->put($this->getFinalUrl($endpoint), $body)
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * Http delete method.
+     *
+     * @param string $endpoint
+     * @return array|mixed
+     * @throws RequestException
+     */
+    private function delete(string $endpoint)
+    {
+        if (now()->unix() > $this->token_expiry || !$this->token) {
+            $this->auth();
+        }
+
+        $request = Http::withToken($this->token)
+            ->withHeaders($this->getHeaders($this->headers));
+
+        return $request->delete($this->getFinalUrl($endpoint))
             ->throw()
             ->json();
     }
