@@ -10,7 +10,7 @@ use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
- * RegisterPixKeyTest class
+ * GetPixAddressingKeysTest class
  *
  * PHP version 7.4|8.0
  *

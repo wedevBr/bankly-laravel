@@ -8,7 +8,7 @@ use WeDevBr\Bankly\Types\Pix\AddressingKey;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 
 /**
- * PixEntriesTest class
+ * PixEntriesValidatorTest class
  *
  * PHP version 7.3|7.4|8.0
  *
