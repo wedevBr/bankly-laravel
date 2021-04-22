@@ -10,6 +10,8 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\Pix\PixEntries;
+use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
 
 /**
  * Class Bankly
@@ -25,6 +27,7 @@ class Bankly
     private $token_expiry = 0;
     private $token = null;
     private $api_version = '1.0';
+    private $headers;
 
     /**
      * Bankly constructor.
@@ -36,6 +39,7 @@ class Bankly
         $this->api_url = config('bankly')['api_url'];
         $this->login_url = config('bankly')['login_url'];
         $this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
+        $this->headers = ['API-Version' => $this->api_version];
     }
 
     /**
@@ -279,11 +283,12 @@ class Bankly
         string $resultLevel = 'ONLY_STATUS',
         string $correlationId = null
     ) {
-        $query = ['resultLevel' => $resultLevel];
-
-        if (!empty($tokens)) {
-            $query['token'] = $tokens;
-        }
+        $query = collect($tokens)
+            ->map(function ($token) {
+                return "token={$token}";
+            })
+            ->concat(["resultLevel={$resultLevel}"])
+            ->implode('&');
 
         return $this->get(
             "/document-analysis/{$documentNumber}",
@@ -312,13 +317,89 @@ class Bankly
     }
 
     /**
+     * Validate of boleto or dealership
+     *
+     * @param string $code - Digitable line
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function paymentValidate(string $code, string $correlationId)
+    {
+        return $this->post('/bill-payment/validate', ['code' => $code], $correlationId, true);
+    }
+
+    /**
+     * Confirmation of payment of boleto or dealership
+     *
+     * @param BillPayment $billPayment
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function paymentConfirm(
+        BillPayment $billPayment,
+        string $correlationId
+    ) {
+        return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
+    }
+
+    /**
+     * Create a new PIX key link with account.
+     *
+     * @param PixEntries $pixEntries
+     * @return array|mixed
+     */
+    public function registerPixKey(PixEntries $pixEntries)
+    {
+        return $this->post('/pix/entries', [
+            'addressingKey' => $pixEntries->addressingKey->toArray(),
+            'account' => $pixEntries->account->toArray(),
+        ], null, true);
+    }
+
+    /**
+     * Gets the list of address keys linked to an account.
+     *
+     * @param string $accountNumber
+     * @return array|mixed
+     */
+    public function getPixAddressingKeys(string $accountNumber)
+    {
+        return $this->get("/accounts/$accountNumber/addressing-keys");
+    }
+
+    /**
+     * Gets details of the account linked to an addressing key.
+     *
+     * @param string $documentNumber
+     * @param string $addressinKeyValue
+     * @return array|mixed
+     */
+    public function getPixAddressingKeyValue(string $documentNumber, string $addressinKeyValue)
+    {
+        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        return $this->get("/pix/entries/$addressinKeyValue");
+    }
+
+    /**
+     * Delete a key link with account.
+     *
+     * @param string $addressingKeyValue
+     * @return array|mixed
+     */
+    public function deletePixAddressingKeyValue(string $addressingKeyValue)
+    {
+        return $this->delete("/pix/entries/$addressingKeyValue");
+    }
+
+    /**
      * @param string $endpoint
-     * @param array|null $query
+     * @param array|string|null $query
      * @param null $correlation_id
      * @return array|mixed
      * @throws RequestException
      */
-    private function get(string $endpoint, array $query = null, $correlation_id = null)
+    private function get(string $endpoint, $query = null, $correlation_id = null)
     {
         if (now()->unix() > $this->token_expiry || !$this->token) {
             $this->auth();
@@ -333,6 +414,18 @@ class Bankly
             ->get($this->getFinalUrl($endpoint), $query)
             ->throw()
             ->json();
+    }
+
+    /**
+     * Create a new virtual card
+     *
+     * @param VirtualCard $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function virtualCard(VirtualCard $virtualCard)
+    {
+        return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
     }
 
     /**
@@ -408,6 +501,27 @@ class Bankly
     }
 
     /**
+     * Http delete method.
+     *
+     * @param string $endpoint
+     * @return array|mixed
+     * @throws RequestException
+     */
+    private function delete(string $endpoint)
+    {
+        if (now()->unix() > $this->token_expiry || !$this->token) {
+            $this->auth();
+        }
+
+        $request = Http::withToken($this->token)
+            ->withHeaders($this->getHeaders($this->headers));
+
+        return $request->delete($this->getFinalUrl($endpoint))
+            ->throw()
+            ->json();
+    }
+
+    /**
      * @param string $version API version
      * @return $this
      */
@@ -423,15 +537,22 @@ class Bankly
      */
     private function getHeaders($headers = [])
     {
-        $default_headers = [
-            'API-Version' => $this->api_version
-        ];
+        $default_headers = $this->headers;
 
         if (count($headers) > 0) {
             $default_headers = array_merge($headers, $default_headers);
         }
 
         return $default_headers;
+    }
+
+    /**
+     * @param array $header
+     * @return void
+     */
+    private function setHeaders($header)
+    {
+        $this->headers = array_merge($this->headers, $header);
     }
 
     /**
