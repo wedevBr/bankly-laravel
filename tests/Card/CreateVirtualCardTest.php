@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\Types\VirtualCard\Address;
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Address;
+use WeDevBr\Bankly\Types\Card\Card;
 
 /**
  * CreateVirtualCardTest class
@@ -48,11 +48,11 @@ class CreateVirtualCardTest extends TestCase
     }
 
     /**
-     * @return VirtualCard
+     * @return Card
      */
     private function validVirtualCard()
     {
-        $virtualCard = new VirtualCard();
+        $virtualCard = new Card();
         $virtualCard->documentNumber = '01234567890';
         $virtualCard->cardName = 'Carla Dias';
         $virtualCard->alias = 'Carlinha';

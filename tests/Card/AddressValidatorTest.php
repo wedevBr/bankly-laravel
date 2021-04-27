@@ -3,7 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Types\VirtualCard\Address;
+use WeDevBr\Bankly\Types\Card\Address;
 
 /**
  * AddressValidatorTest class
