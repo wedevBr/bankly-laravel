@@ -127,6 +127,9 @@ class Bankly
      * @param int $page
      * @param int $pagesize
      * @param string $include_details
+     * @param string[] $cardProxy
+     * @param string|null $begin_date
+     * @param string|null $end_date
      * @return array|mixed
      * @throws RequestException
      * @note This endpoint has been deprecated for some clients.
@@ -139,18 +142,34 @@ class Bankly
         string $account,
         int $page = 1,
         int $pagesize = 20,
-        string $include_details = 'true'
+        string $include_details = 'true',
+        array $cardProxy = [],
+        string $begin_date = null,
+        string $end_date = null
     ) {
+        $query = [
+            'branch' => $branch,
+            'account' => $account,
+            'page' => $page,
+            'pageSize' => $pagesize,
+            'includeDetails' => $include_details
+        ];
+
+        if (!empty($cardProxy)) {
+            $query['cardProxy'] = $cardProxy;
+        }
+
+        if ($begin_date) {
+            $query['beginDateTime'] = $begin_date;
+        }
+
+        if ($end_date) {
+            $query['endDateTime'] = $end_date;
+        }
+
         return $this->get(
             '/events',
-            [
-                'branch' => $branch,
-                'account' => $account,
-                'page' => $page,
-                'pageSize' => $pagesize,
-                'includeDetails' => $include_details
-
-            ]
+            $query
         );
     }
 
