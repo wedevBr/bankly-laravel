@@ -7,7 +7,7 @@ use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Card;
 
 /**
- * VirtualCardValidatorTest class
+ * CardValidatorTest class
  *
  * PHP version 7.3|7.4|8.0
  *
@@ -16,7 +16,7 @@ use WeDevBr\Bankly\Types\Card\Card;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class VirtualCardValidatorTest extends TestCase
+class CardValidatorTest extends TestCase
 {
     /**
      * @return Address
