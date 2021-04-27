@@ -1,12 +1,12 @@
 <?php
 
-namespace WeDevBr\Bankly\Validators\VirtualCard;
+namespace WeDevBr\Bankly\Validators\Card;
 
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 
 /**
- * VirtualCardValidator class
+ * CardValidator class
  *
  * PHP version 7.3|7.4|8.0
  *
@@ -15,17 +15,17 @@ use WeDevBr\Bankly\Validators\CpfCnpjValidator;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class VirtualCardValidator
+class CardValidator
 {
-    private $virtualCard;
+    private $card;
 
     /**
-     * VirtualCardValidator constructor.
-     * @param VirtualCard $virtualCard
+     * CardValidator constructor.
+     * @param Card $card
      */
-    public function __construct(VirtualCard $virtualCard)
+    public function __construct(Card $card)
     {
-        $this->virtualCard = $virtualCard;
+        $this->card = $card;
     }
 
     /**
@@ -51,7 +51,7 @@ class VirtualCardValidator
      */
     private function validateDocumentNumber()
     {
-        $documentNumber = $this->virtualCard->documentNumber;
+        $documentNumber = $this->card->documentNumber;
         if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
             throw new \InvalidArgumentException('document number should be a numeric string');
         }
@@ -68,7 +68,7 @@ class VirtualCardValidator
      */
     private function validateCardName()
     {
-        $cardName = $this->virtualCard->cardName;
+        $cardName = $this->card->cardName;
         if (empty($cardName) || !is_string($cardName)) {
             throw new \InvalidArgumentException('card name should be a string');
         }
@@ -82,7 +82,7 @@ class VirtualCardValidator
      */
     private function validateAlias()
     {
-        $alias = $this->virtualCard->alias;
+        $alias = $this->card->alias;
         if (empty($alias) || !is_string($alias)) {
             throw new \InvalidArgumentException('alias should be a string');
         }
@@ -96,7 +96,7 @@ class VirtualCardValidator
      */
     private function validateBankAgency()
     {
-        $bankAgency = $this->virtualCard->bankAgency;
+        $bankAgency = $this->card->bankAgency;
         if (empty($bankAgency) || !is_string($bankAgency) || !is_numeric($bankAgency) || strlen($bankAgency) != 4) {
             throw new \InvalidArgumentException('bank agency should be a numeric string');
         }
@@ -110,7 +110,7 @@ class VirtualCardValidator
      */
     private function validateBankAccount()
     {
-        $bankAccount = $this->virtualCard->bankAccount;
+        $bankAccount = $this->card->bankAccount;
         if (empty($bankAccount) || !is_string($bankAccount) || !is_numeric($bankAccount)) {
             throw new \InvalidArgumentException('bank account should be a numeric string');
         }
@@ -124,7 +124,7 @@ class VirtualCardValidator
      */
     private function validateProgramId()
     {
-        $programId = $this->virtualCard->programId;
+        $programId = $this->card->programId;
         if (!empty($programId) && (!is_string($programId) || !is_numeric($programId) || strlen($programId) != 32)) {
             throw new \InvalidArgumentException('program ID should be a numeric string');
         }
@@ -138,7 +138,7 @@ class VirtualCardValidator
      */
     private function validatePassword()
     {
-        $password = $this->virtualCard->password;
+        $password = $this->card->password;
         if (empty($password) || !is_string($password) || !is_numeric($password) || strlen($password) != 4) {
             throw new \InvalidArgumentException('password should be a numeric string');
         }
@@ -152,7 +152,7 @@ class VirtualCardValidator
      */
     private function validateAddress()
     {
-        $address = $this->virtualCard->address;
+        $address = $this->card->address;
         $address->validate();
     }
 }

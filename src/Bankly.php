@@ -11,7 +11,7 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Card;
 
 /**
  * Class Bankly
@@ -419,11 +419,11 @@ class Bankly
     /**
      * Create a new virtual card
      *
-     * @param VirtualCard $virtualCard
+     * @param Card $virtualCard
      * @return array|mixed
      * @throws RequestException
      */
-    public function virtualCard(VirtualCard $virtualCard)
+    public function virtualCard(Card $virtualCard)
     {
         return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
     }
