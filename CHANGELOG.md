@@ -1,6 +1,18 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.7.0 - 2021-04-27
+- Refactor Virtual Card
+- Feature event dates
+
+## 1.6.0 - 2021-04-21
+- Added PIX for this package
+- Added a method for headers on HTTP calls
+
+## 1.5.0 - 2021-03-27
+- Virtual cards creation
+- Pay bills
+
 ## 1.4.0 - 2021-03-04
 - Fixed support for PHP8
 - Added Inputs for Customer (Customer, Address, Phone, Analysis)
@@ -20,7 +32,7 @@ All notable changes to `bankly-laravel` will be documented in this file
 
 ## 1.1.0 - 2020-10-14
 - Added new settings API
-- Removed /baas from staging 
+- Removed /baas from staging
 
 ## 1.0.0 - 2020-09-29
 
