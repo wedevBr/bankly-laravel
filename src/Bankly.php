@@ -429,6 +429,18 @@ class Bankly
     }
 
     /**
+     * Create a new virtual card
+     *
+     * @param Card $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function phisicalCard(Card $phisicalCard)
+    {
+        return $this->post('/cards/phisical', $phisicalCard->toArray(), null, true);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|null $body
      * @param string|null $correlation_id
