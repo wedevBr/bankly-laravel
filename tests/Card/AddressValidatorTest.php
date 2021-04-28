@@ -3,7 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Types\VirtualCard\Address;
+use WeDevBr\Bankly\Types\Card\Address;
 
 /**
  * AddressValidatorTest class
@@ -121,7 +121,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testConvertVirtualCardObjectToArray()
+    public function testConvertCardObjectToArray()
     {
         $address = $this->validAddress();
         $array = $address->toArray();

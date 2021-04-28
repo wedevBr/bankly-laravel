@@ -1,8 +1,8 @@
 <?php
 
-namespace WeDevBr\Bankly\Types\VirtualCard;
+namespace WeDevBr\Bankly\Types\Card;
 
-use WeDevBr\Bankly\Validators\VirtualCard\AddressValidator;
+use WeDevBr\Bankly\Validators\Card\AddressValidator;
 
 class Address extends \stdClass
 {

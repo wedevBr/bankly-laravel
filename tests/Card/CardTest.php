@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\Types\VirtualCard\Address;
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Address;
+use WeDevBr\Bankly\Types\Card\Card;
 
 /**
- * CreateVirtualCardTest class
+ * CardTest class
  *
  * PHP version 7.4|8.0
  *
@@ -20,7 +20,7 @@ use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-class CreateVirtualCardTest extends TestCase
+class CardTest extends TestCase
 {
     use WithFaker;
 
@@ -48,21 +48,22 @@ class CreateVirtualCardTest extends TestCase
     }
 
     /**
-     * @return VirtualCard
+     * @return Card
      */
-    private function validVirtualCard()
+    private function validCard($type = 'virtual')
     {
-        $virtualCard = new VirtualCard();
-        $virtualCard->documentNumber = '01234567890';
-        $virtualCard->cardName = 'Carla Dias';
-        $virtualCard->alias = 'Carlinha';
-        $virtualCard->bankAgency = '0001';
-        $virtualCard->bankAccount = '11223344';
-        $virtualCard->programId = '11223344112233441122334411223344';
-        $virtualCard->password = '1234';
-        $virtualCard->address = $this->validAddress();
+        $card = new Card();
+        $card->documentNumber = '01234567890';
+        $card->cardName = 'Carla Dias';
+        $card->alias = 'Carlinha';
+        $card->bankAgency = '0001';
+        $card->bankAccount = '11223344';
+        $card->programId = '11223344112233441122334411223344';
+        $card->password = '1234';
+        $card->address = $this->validAddress();
+        $card->type = $type;
 
-        return $virtualCard;
+        return $card;
     }
 
     /**
@@ -91,7 +92,52 @@ class CreateVirtualCardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $response = $client->virtualCard($this->validVirtualCard());
+        $response = $client->virtualCard($this->validCard('virtual'));
+
+        Http::assertSent(function ($request) {
+            $body = collect($request->data());
+
+            if (array_key_exists('grant_type', $body->toArray())) {
+                return true;
+            }
+
+            $address = $body['address'];
+
+            return $body['documentNumber'] === '01234567890'
+                && $body['cardName'] === 'Carla Dias'
+                && $body['alias'] === 'Carlinha'
+                && $body['bankAgency'] === '0001'
+                && $body['bankAccount'] === '11223344'
+                && $body['programId'] === '11223344112233441122334411223344'
+                && $body['password'] === '1234'
+                && $address['zipCode'] === '29155909'
+                && $address['address'] === 'Rua Olegário Maciel'
+                && $address['number'] === '100'
+                && $address['complement'] === 'Complement'
+                && $address['state'] === 'ES'
+                && $address['city'] === 'Vila Velha'
+                && $address['neighborhood'] === 'Centro'
+                && $address['complement'] === 'APT 222'
+                && $address['country'] === 'BR';
+        });
+
+        $this->assertArrayHasKey('proxy', $response);
+        $this->assertArrayHasKey('activateCode', $response);
+    }
+
+    /**
+     * @return void
+     */
+    public function testSuccessCreatePhisicalCard()
+    {
+        $client = new Bankly();
+
+        Http::fake($this->getFakerHttp("/cards/phisical", [
+            'proxy' => '2370021007715002820',
+            'activateCode' => 'A0DDDC0951D1',
+        ], 202));
+
+        $response = $client->phisicalCard($this->validCard('phisical'));
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
