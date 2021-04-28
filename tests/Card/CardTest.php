@@ -50,7 +50,7 @@ class CardTest extends TestCase
     /**
      * @return Card
      */
-    private function validCard()
+    private function validCard($type = 'virtual')
     {
         $card = new Card();
         $card->documentNumber = '01234567890';
@@ -61,6 +61,7 @@ class CardTest extends TestCase
         $card->programId = '11223344112233441122334411223344';
         $card->password = '1234';
         $card->address = $this->validAddress();
+        $card->type = $type;
 
         return $card;
     }
@@ -91,7 +92,7 @@ class CardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $response = $client->virtualCard($this->validCard());
+        $response = $client->virtualCard($this->validCard('virtual'));
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
@@ -136,7 +137,7 @@ class CardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $response = $client->phisicalCard($this->validCard());
+        $response = $client->phisicalCard($this->validCard('phisical'));
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
