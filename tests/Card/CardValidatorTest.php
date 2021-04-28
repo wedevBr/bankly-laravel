@@ -3,11 +3,11 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Types\VirtualCard\Address;
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Address;
+use WeDevBr\Bankly\Types\Card\Card;
 
 /**
- * VirtualCardValidatorTest class
+ * CardValidatorTest class
  *
  * PHP version 7.3|7.4|8.0
  *
@@ -16,7 +16,7 @@ use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class VirtualCardValidatorTest extends TestCase
+class CardValidatorTest extends TestCase
 {
     /**
      * @return Address
@@ -36,11 +36,11 @@ class VirtualCardValidatorTest extends TestCase
     }
 
     /**
-     * @return VirtualCard
+     * @return Card
      */
     private function validVirtualCard()
     {
-        $virtualCard = new VirtualCard();
+        $virtualCard = new Card();
         $virtualCard->documentNumber = '01234567890';
         $virtualCard->cardName = 'Carla Dias';
         $virtualCard->alias = 'Carlinha';

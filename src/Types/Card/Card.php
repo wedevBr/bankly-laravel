@@ -1,11 +1,11 @@
 <?php
 
-namespace WeDevBr\Bankly\Types\VirtualCard;
+namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
-use WeDevBr\Bankly\Validators\VirtualCard\VirtualCardValidator;
+use WeDevBr\Bankly\Validators\Card\CardValidator;
 
-class VirtualCard extends \stdClass implements Arrayable
+class Card extends \stdClass implements Arrayable
 {
     /** @var string */
     public $documentNumber;
@@ -28,8 +28,11 @@ class VirtualCard extends \stdClass implements Arrayable
     /** @var string */
     public $password;
 
-    /** @var \WeDevBr\Bankly\Types\VirtualCard\Address */
+    /** @var \WeDevBr\Bankly\Types\Card\Address */
     public $address;
+
+    /** @var string */
+    public $type;
 
     /**
      * This validate and return an array
@@ -44,11 +47,11 @@ class VirtualCard extends \stdClass implements Arrayable
     }
 
     /**
-     * This function validate a virtual card address
+     * This function validate a card address
      */
     public function validate()
     {
-        $validator = new VirtualCardValidator($this);
+        $validator = new CardValidator($this);
         $validator->validate();
 
         return $this;
