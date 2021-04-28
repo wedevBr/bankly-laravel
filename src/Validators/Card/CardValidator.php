@@ -155,4 +155,18 @@ class CardValidator
         $address = $this->card->address;
         $address->validate();
     }
+
+    /**
+     * This validate a card type
+     *
+     * @return void
+     * @throws InvalidArgumentException
+     */
+    private function validateType()
+    {
+        $type = $this->card->type;
+        if (empty($type) || !is_string($type)) {
+            throw new \InvalidArgumentException('type should be a string');
+        }
+    }
 }

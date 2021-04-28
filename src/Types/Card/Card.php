@@ -31,6 +31,9 @@ class Card extends \stdClass implements Arrayable
     /** @var \WeDevBr\Bankly\Types\Card\Address */
     public $address;
 
+    /** @var string */
+    public $type;
+
     /**
      * This validate and return an array
      * @return array
