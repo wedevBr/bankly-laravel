@@ -12,6 +12,7 @@ use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Types\Card\Card;
+use WeDevBr\Bankly\Types\Pix\PixCashout;
 
 /**
  * Class Bankly
@@ -409,6 +410,39 @@ class Bankly
     public function deletePixAddressingKeyValue(string $addressingKeyValue)
     {
         return $this->delete("/pix/entries/$addressingKeyValue");
+    }
+
+    /**
+     * @param PixCashout $pixCashout
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function pixCashout(PixCashout $pixCashout, string $correlationId)
+    {
+        $cashout = $pixCashout->toArray();
+        $sender = $cashout['sender']->toArray();
+        $recipient = $cashout['recipient']->toArray();
+
+        return $this->post('/pix/cash-out', [
+            'amount' => $cashout['amount'],
+            'description' => $cashout['description'],
+            'sender' => [
+                'account' => $sender['account']->toArray(),
+                'bank' => $sender['bank']->toArray(),
+                'documentNumber' => $sender['documentNumber'],
+                'name' => $sender['name'],
+            ],
+            'recipient' => [
+                'account' => $recipient['account']->toArray(),
+                'bank' => $recipient['bank']->toArray(),
+                'documentNumber' => $recipient['documentNumber'],
+                'name' => $recipient['name'],
+            ],
+            'initializationType' => $cashout['initializationType'],
+            'addressKey' => $cashout['addressKey'],
+            'receiverReconciliationId' => $cashout['receiverReconciliationId'],
+            'endToEndId' => $cashout['endToEndId'],
+        ], $correlationId, true);
     }
 
     /**
