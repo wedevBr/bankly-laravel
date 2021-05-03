@@ -5,8 +5,6 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
@@ -34,10 +32,6 @@ class GetPixAddressingKeysTest extends TestCase
     public function getFakerHttp(array $response, int $statusCode)
     {
         return [
-            config('bankly')['login_url'] => Http::response([
-                'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
-            ], 200),
             config('bankly')['api_url'] . '/accounts/*' => Http::response($response, $statusCode)
         ];
     }
@@ -54,15 +48,10 @@ class GetPixAddressingKeysTest extends TestCase
             ]
         ], 200));
 
-        $client = new Bankly();
+        $client = $this->getBanklyClient();
         $response = $client->getPixAddressingKeys('1234');
 
         Http::assertSent(function ($request) {
-            $body = collect($request->data());
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
             return Str::contains($request->url(), 'accounts/1234/addressing-keys');
         });
 

@@ -4,8 +4,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Card;
@@ -72,10 +70,6 @@ class CardTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['login_url'] => Http::response([
-                'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
-            ], 200),
             config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
         ];
     }
@@ -85,7 +79,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreateVirtualCard()
     {
-        $client = new Bankly();
+        $client = $this->getBanklyClient();
 
         Http::fake($this->getFakerHttp("/cards/virtual", [
             'proxy' => '2370021007715002820',
@@ -96,11 +90,6 @@ class CardTest extends TestCase
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
             $address = $body['address'];
 
             return $body['documentNumber'] === '01234567890'
@@ -112,12 +101,11 @@ class CardTest extends TestCase
                 && $body['password'] === '1234'
                 && $address['zipCode'] === '29155909'
                 && $address['address'] === 'Rua Olegário Maciel'
-                && $address['number'] === '100'
+                && $address['number'] === '333'
                 && $address['complement'] === 'Complement'
                 && $address['state'] === 'ES'
                 && $address['city'] === 'Vila Velha'
                 && $address['neighborhood'] === 'Centro'
-                && $address['complement'] === 'APT 222'
                 && $address['country'] === 'BR';
         });
 
@@ -130,7 +118,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreatePhisicalCard()
     {
-        $client = new Bankly();
+        $client = $this->getBanklyClient();
 
         Http::fake($this->getFakerHttp("/cards/phisical", [
             'proxy' => '2370021007715002820',
@@ -141,11 +129,6 @@ class CardTest extends TestCase
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
             $address = $body['address'];
 
             return $body['documentNumber'] === '01234567890'
@@ -157,12 +140,11 @@ class CardTest extends TestCase
                 && $body['password'] === '1234'
                 && $address['zipCode'] === '29155909'
                 && $address['address'] === 'Rua Olegário Maciel'
-                && $address['number'] === '100'
+                && $address['number'] === '333'
                 && $address['complement'] === 'Complement'
                 && $address['state'] === 'ES'
                 && $address['city'] === 'Vila Velha'
                 && $address['neighborhood'] === 'Centro'
-                && $address['complement'] === 'APT 222'
                 && $address['country'] === 'BR';
         });
 
