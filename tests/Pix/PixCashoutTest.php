@@ -4,9 +4,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
-use ReflectionProperty;
-use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\Bank;
@@ -154,15 +151,7 @@ class PixCashoutTest extends TestCase
     {
         $this->successResponse();
 
-        $client = new Bankly();
-        $token = new ReflectionProperty(Bankly::class, 'token');
-        $token->setAccessible(true);
-        $token->setValue($client, $this->faker->uuid);
-
-        $tokenExpiry = new ReflectionProperty(Bankly::class, 'token_expiry');
-        $tokenExpiry->setAccessible(true);
-        $tokenExpiry->setValue($client, now()->addSeconds(3600)->unix());
-
+        $client = $this->getBanklyClient();
         $response = $client->pixCashout($this->validPixCashout(), $this->faker->uuid);
 
         Http::assertSent(function ($request) {
