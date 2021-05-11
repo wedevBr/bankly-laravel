@@ -12,7 +12,7 @@ use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Types\Card\Card;
-use WeDevBr\Bankly\Types\Pix\PixCashout;
+use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 
 /**
  * Class Bankly
@@ -413,36 +413,13 @@ class Bankly
     }
 
     /**
-     * @param PixCashout $pixCashout
+     * @param PixCashoutInterface $pixCashout
      * @param string $correlationId
      * @return array|mixed
      */
-    public function pixCashout(PixCashout $pixCashout, string $correlationId)
+    public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId)
     {
-        $cashout = $pixCashout->toArray();
-        $sender = $cashout['sender']->toArray();
-        $recipient = $cashout['recipient']->toArray();
-
-        return $this->post('/pix/cash-out', [
-            'amount' => $cashout['amount'],
-            'description' => $cashout['description'],
-            'sender' => [
-                'account' => $sender['account']->toArray(),
-                'bank' => $sender['bank']->toArray(),
-                'documentNumber' => $sender['documentNumber'],
-                'name' => $sender['name'],
-            ],
-            'recipient' => [
-                'account' => $recipient['account']->toArray(),
-                'bank' => $recipient['bank']->toArray(),
-                'documentNumber' => $recipient['documentNumber'],
-                'name' => $recipient['name'],
-            ],
-            'initializationType' => $cashout['initializationType'],
-            'addressKey' => $cashout['addressKey'],
-            'receiverReconciliationId' => $cashout['receiverReconciliationId'],
-            'endToEndId' => $cashout['endToEndId'],
-        ], $correlationId, true);
+        return $this->post('/pix/cash-out', $pixCashout->toArray(), $correlationId, true);
     }
 
     /**
