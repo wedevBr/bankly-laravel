@@ -4,7 +4,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
 use TypeError;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -31,7 +30,6 @@ class SendDocumentAnalysisTest extends TestCase
 
     public function testSendDocumentAnalysis()
     {
-        $client = new Bankly();
         $document = $this->getMockBuilder(DocumentAnalysis::class)
             ->onlyMethods(['getFileContents'])
             ->getMock();
@@ -46,23 +44,16 @@ class SendDocumentAnalysisTest extends TestCase
             ->setFieldName('image');
 
         Http::fake([
-            config('bankly')['login_url'] => Http::response([
-                'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
-            ], 200),
             config('bankly')['api_url'] . '/*' => Http::response([
                 'token' => $this->faker->uuid
             ], 202)
         ]);
 
+        $client = $this->getBanklyClient();
         $sendDocument = $client->documentAnalysis('00000000000', $document);
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
 
             $documentType = $body->where('name', 'documentType')->first();
             $documentSide = $body->where('name', 'documentSide')->first();
