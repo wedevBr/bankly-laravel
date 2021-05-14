@@ -1,7 +1,9 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
-## 1.9.0
+
+## 1.8.0 - 2021-05-14
+- Added deposit billet management
 - Added PIX cashout Manual
 - Added PIX cashout StaticQrCode
 - Fix features tests
