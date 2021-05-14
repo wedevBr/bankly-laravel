@@ -4,8 +4,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
-use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BillPayment;
 
@@ -34,10 +32,6 @@ class PaymentTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['login_url'] => Http::response([
-                'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
-            ], 200),
             config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
         ];
     }
@@ -54,17 +48,11 @@ class PaymentTest extends TestCase
         $code = '34191790010104351004791020150008785680026000';
         $correlationId = '111222333444555';
 
-        $client = new Bankly();
+        $client = $this->getBanklyClient();
         $response = $client->paymentValidate($code, $correlationId);
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
-
-            $header = collect($request->header('x-correlation-id'))->first();
 
             return $body['code'] === '34191790010104351004791020150008785680026000'
                 && $request->hasHeader('x-correlation-id', '111222333444555');
@@ -90,15 +78,11 @@ class PaymentTest extends TestCase
         $billPayment->id = 'AAABBBCCCDDDEEE';
         $correlationId = '111222333444555';
 
-        $client = new Bankly();
+        $client = $this->getBanklyClient();
         $response = $client->paymentConfirm($billPayment, $correlationId);
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
 
             return $body['amount'] === 789.49
                 && $body['bankBranch'] === '0001'

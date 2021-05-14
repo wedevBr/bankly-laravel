@@ -10,8 +10,10 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Types\Card\Card;
+use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 
 /**
  * Class Bankly
@@ -363,6 +365,53 @@ class Bankly
     }
 
     /**
+     * @param DepositBillet $depositBillet
+     * @return array|mixed
+     */
+    public function depositBillet(DepositBillet $depositBillet)
+    {
+        return $this->post('/bankslip', $depositBillet->toArray(), null, true);
+    }
+
+    /**
+     * @param string $authenticationCode
+     * @return mixed
+     */
+    public function printBillet(string $authenticationCode)
+    {
+        return $this->get("/bankslip/{$authenticationCode}/pdf");
+    }
+
+    /**
+     * @param string $branch
+     * @param string $accountNumber
+     * @param string $authenticationCode
+     * @return array|mixed
+     */
+    public function getBillet(string $branch, string $accountNumber, string $authenticationCode)
+    {
+        return $this->get("/bankslip/branch/{$branch}/number/{$accountNumber}/{$authenticationCode}");
+    }
+
+    /**
+     * @param string $datetime
+     * @return array|mixed
+     */
+    public function getBilletByDate(string $datetime)
+    {
+        return $this->get("/bankslip/searchstatus/{$datetime}");
+    }
+
+    /**
+     * @param string $barcode
+     * @return array|mixed
+     */
+    public function getBilletByBarcode(string $barcode)
+    {
+        return $this->get("/bankslip/{$barcode}");
+    }
+
+    /**
      * Create a new PIX key link with account.
      *
      * @param PixEntries $pixEntries
@@ -409,6 +458,16 @@ class Bankly
     public function deletePixAddressingKeyValue(string $addressingKeyValue)
     {
         return $this->delete("/pix/entries/$addressingKeyValue");
+    }
+
+    /**
+     * @param PixCashoutInterface $pixCashout
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId)
+    {
+        return $this->post('/pix/cash-out', $pixCashout->toArray(), $correlationId, true);
     }
 
     /**
