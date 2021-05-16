@@ -349,7 +349,6 @@ class Bankly
 
     /**
      * @param string $documentNumber
-     * @param string $resultLevel
      * @return array|mixed
      */
     public function getCustomerAccounts(string $documentNumber)
