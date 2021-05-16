@@ -352,7 +352,7 @@ class Bankly
      * @param string $resultLevel
      * @return array|mixed
      */
-    public function getCustomersAccount(string $documentNumber)
+    public function getCustomerAccounts(string $documentNumber)
     {
         return $this->get("/customers/{$documentNumber}/accounts");
     }
