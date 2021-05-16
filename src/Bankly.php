@@ -338,6 +338,26 @@ class Bankly
     }
 
     /**
+     * @param string $documentNumber
+     * @param string $resultLevel
+     * @return array|mixed
+     */
+    public function getCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
+    {
+        return $this->get("/customers/{$documentNumber}?resultLevel={$resultLevel}");
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param string $resultLevel
+     * @return array|mixed
+     */
+    public function getCustomersAccount(string $documentNumber)
+    {
+        return $this->get("/customers/{$documentNumber}/accounts");
+    }
+
+    /**
      * Validate of boleto or dealership
      *
      * @param string $code - Digitable line
