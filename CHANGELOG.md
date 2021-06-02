@@ -15,7 +15,7 @@ All notable changes to `bankly-laravel` will be documented in this file
 ## 1.7.0 - 2021-04-27
 - Refactor Virtual Card
 - Feature event dates
-- Phisical card creation
+- Physical card creation
 
 ## 1.6.0 - 2021-04-21
 - Added PIX for this package

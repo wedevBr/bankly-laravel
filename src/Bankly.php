@@ -526,15 +526,15 @@ class Bankly
     }
 
     /**
-     * Create a new virtual card
+     * Create a new physical card
      *
-     * @param Card $virtualCard
+     * @param Card $physicalCard
      * @return array|mixed
      * @throws RequestException
      */
-    public function phisicalCard(Card $phisicalCard)
+    public function physicalCard(Card $physicalCard)
     {
-        return $this->post('/cards/phisical', $phisicalCard->toArray(), null, true);
+        return $this->post('/cards/physical', $physicalCard->toArray(), null, true);
     }
 
     /**
