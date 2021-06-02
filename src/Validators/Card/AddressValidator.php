@@ -11,9 +11,9 @@
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 
-namespace WeDevBr\Bankly\Validators\VirtualCard;
+namespace WeDevBr\Bankly\Validators\Card;
 
-use WeDevBr\Bankly\Types\VirtualCard\Address;
+use WeDevBr\Bankly\Types\Card\Address;
 
 class AddressValidator
 {
@@ -29,7 +29,7 @@ class AddressValidator
     }
 
     /**
-     * This validate the virtual card
+     * This validate the card
      */
     public function validate(): void
     {

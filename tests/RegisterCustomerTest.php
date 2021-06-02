@@ -4,7 +4,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
 use TypeError;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -37,10 +36,6 @@ class RegisterCustomerTest extends TestCase
     public function getFakerHttp(string $path)
     {
         return [
-            config('bankly')['login_url'] => Http::response([
-                'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
-            ], 200),
             config('bankly')['api_url'] . "{$path}" => Http::response([], 202)
         ];
     }
@@ -50,8 +45,6 @@ class RegisterCustomerTest extends TestCase
      */
     public function testSuccessRegisterCustomer()
     {
-        $client = new Bankly();
-
         $customerPhone = new CustomerPhone();
         $customerPhone->setCountryCode('55')
             ->setNumber('27999999999');
@@ -79,14 +72,11 @@ class RegisterCustomerTest extends TestCase
 
         Http::fake($this->getFakerHttp("/customers/{$nifNumber}"));
 
+        $client = $this->getBanklyClient();
         $client->customer($nifNumber, $customer);
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
-
-            if (array_key_exists('grant_type', $body->toArray())) {
-                return true;
-            }
 
             $phone = $body['phone'];
             $address = $body['address'];

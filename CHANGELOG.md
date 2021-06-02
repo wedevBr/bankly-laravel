@@ -1,9 +1,21 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+
+## 1.9.0 - 2021-05-16
+- Added obtaining customer data
+- Added obtaining customer accounts
+
+## 1.8.0 - 2021-05-14
+- Added deposit billet management
+- Added PIX cashout Manual
+- Added PIX cashout StaticQrCode
+- Fix features tests
+
 ## 1.7.0 - 2021-04-27
 - Refactor Virtual Card
 - Feature event dates
+- Phisical card creation
 
 ## 1.6.0 - 2021-04-21
 - Added PIX for this package
@@ -32,7 +44,7 @@ All notable changes to `bankly-laravel` will be documented in this file
 
 ## 1.1.0 - 2020-10-14
 - Added new settings API
-- Removed /baas from staging 
+- Removed /baas from staging
 
 ## 1.0.0 - 2020-09-29
 

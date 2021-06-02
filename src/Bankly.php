@@ -10,8 +10,10 @@ use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
+use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
-use WeDevBr\Bankly\Types\VirtualCard\VirtualCard;
+use WeDevBr\Bankly\Types\Card\Card;
+use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 
 /**
  * Class Bankly
@@ -127,6 +129,9 @@ class Bankly
      * @param int $page
      * @param int $pagesize
      * @param string $include_details
+     * @param string[] $cardProxy
+     * @param string|null $begin_date
+     * @param string|null $end_date
      * @return array|mixed
      * @throws RequestException
      * @note This endpoint has been deprecated for some clients.
@@ -139,18 +144,34 @@ class Bankly
         string $account,
         int $page = 1,
         int $pagesize = 20,
-        string $include_details = 'true'
+        string $include_details = 'true',
+        array $cardProxy = [],
+        string $begin_date = null,
+        string $end_date = null
     ) {
+        $query = [
+            'branch' => $branch,
+            'account' => $account,
+            'page' => $page,
+            'pageSize' => $pagesize,
+            'includeDetails' => $include_details
+        ];
+
+        if (!empty($cardProxy)) {
+            $query['cardProxy'] = $cardProxy;
+        }
+
+        if ($begin_date) {
+            $query['beginDateTime'] = $begin_date;
+        }
+
+        if ($end_date) {
+            $query['endDateTime'] = $end_date;
+        }
+
         return $this->get(
             '/events',
-            [
-                'branch' => $branch,
-                'account' => $account,
-                'page' => $page,
-                'pageSize' => $pagesize,
-                'includeDetails' => $include_details
-
-            ]
+            $query
         );
     }
 
@@ -317,6 +338,25 @@ class Bankly
     }
 
     /**
+     * @param string $documentNumber
+     * @param string $resultLevel
+     * @return array|mixed
+     */
+    public function getCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
+    {
+        return $this->get("/customers/{$documentNumber}?resultLevel={$resultLevel}");
+    }
+
+    /**
+     * @param string $documentNumber
+     * @return array|mixed
+     */
+    public function getCustomerAccounts(string $documentNumber)
+    {
+        return $this->get("/customers/{$documentNumber}/accounts");
+    }
+
+    /**
      * Validate of boleto or dealership
      *
      * @param string $code - Digitable line
@@ -341,6 +381,53 @@ class Bankly
         string $correlationId
     ) {
         return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
+    }
+
+    /**
+     * @param DepositBillet $depositBillet
+     * @return array|mixed
+     */
+    public function depositBillet(DepositBillet $depositBillet)
+    {
+        return $this->post('/bankslip', $depositBillet->toArray(), null, true);
+    }
+
+    /**
+     * @param string $authenticationCode
+     * @return mixed
+     */
+    public function printBillet(string $authenticationCode)
+    {
+        return $this->get("/bankslip/{$authenticationCode}/pdf");
+    }
+
+    /**
+     * @param string $branch
+     * @param string $accountNumber
+     * @param string $authenticationCode
+     * @return array|mixed
+     */
+    public function getBillet(string $branch, string $accountNumber, string $authenticationCode)
+    {
+        return $this->get("/bankslip/branch/{$branch}/number/{$accountNumber}/{$authenticationCode}");
+    }
+
+    /**
+     * @param string $datetime
+     * @return array|mixed
+     */
+    public function getBilletByDate(string $datetime)
+    {
+        return $this->get("/bankslip/searchstatus/{$datetime}");
+    }
+
+    /**
+     * @param string $barcode
+     * @return array|mixed
+     */
+    public function getBilletByBarcode(string $barcode)
+    {
+        return $this->get("/bankslip/{$barcode}");
     }
 
     /**
@@ -393,6 +480,16 @@ class Bankly
     }
 
     /**
+     * @param PixCashoutInterface $pixCashout
+     * @param string $correlationId
+     * @return array|mixed
+     */
+    public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId)
+    {
+        return $this->post('/pix/cash-out', $pixCashout->toArray(), $correlationId, true);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|string|null $query
      * @param null $correlation_id
@@ -419,13 +516,25 @@ class Bankly
     /**
      * Create a new virtual card
      *
-     * @param VirtualCard $virtualCard
+     * @param Card $virtualCard
      * @return array|mixed
      * @throws RequestException
      */
-    public function virtualCard(VirtualCard $virtualCard)
+    public function virtualCard(Card $virtualCard)
     {
         return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
+    }
+
+    /**
+     * Create a new virtual card
+     *
+     * @param Card $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function phisicalCard(Card $phisicalCard)
+    {
+        return $this->post('/cards/phisical', $phisicalCard->toArray(), null, true);
     }
 
     /**
