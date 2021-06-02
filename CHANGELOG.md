@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.9.1 - 2021-06-02
+- Fix of create customer method
+
 ## 1.9.0 - 2021-05-16
 - Added obtaining customer data
 - Added obtaining customer accounts
