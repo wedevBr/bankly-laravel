@@ -323,7 +323,7 @@ class Bankly
      * @param Customer $customer
      * @param string $correlationId
      * @return array|mixed
-     * @throws RequestException
+     * @throws TypeError|RequestException
      */
     public function customer(
         string $documentNumber,
@@ -334,7 +334,7 @@ class Bankly
             throw new TypeError('The customer must be an instance of CustomerInterface');
         }
 
-        return $this->put("/customers/{$documentNumber}", $customer->toArray(), $correlationId);
+        return $this->put("/customers/{$documentNumber}", $customer->toArray(), $correlationId, true);
     }
 
     /**
