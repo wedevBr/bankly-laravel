@@ -116,16 +116,16 @@ class CardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessCreatePhisicalCard()
+    public function testSuccessCreatePhysicalCard()
     {
         $client = $this->getBanklyClient();
 
-        Http::fake($this->getFakerHttp("/cards/phisical", [
+        Http::fake($this->getFakerHttp("/cards/physical", [
             'proxy' => '2370021007715002820',
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $response = $client->phisicalCard($this->validCard('phisical'));
+        $response = $client->physicalCard($this->validCard('physical'));
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());

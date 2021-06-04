@@ -2,8 +2,11 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
-## 1.9.1 - 2021-06-02
+## 1.10.0 - 2021-06-04
 - Allows you to enter empty key for EVP type
+- Fixed physical card url route
+- Adjusted physical card names
+- Fix of create customer method
 
 ## 1.9.0 - 2021-05-16
 - Added obtaining customer data
@@ -18,7 +21,7 @@ All notable changes to `bankly-laravel` will be documented in this file
 ## 1.7.0 - 2021-04-27
 - Refactor Virtual Card
 - Feature event dates
-- Phisical card creation
+- Physical card creation
 
 ## 1.6.0 - 2021-04-21
 - Added PIX for this package
