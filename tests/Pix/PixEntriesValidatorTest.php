@@ -123,4 +123,17 @@ class PixEntriesValidatorTest extends TestCase
         $pixEntries->addressingKey->value = null;
         $pixEntries->validate();
     }
+
+    /**
+     * @return void
+     */
+    public function testValidateAccountTypeIfEVPNotEmptyValue()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectErrorMessage('value must be empty for EVP type');
+        $pixEntries = $this->validPixEntries();
+        $pixEntries->addressingKey->type = 'EVP';
+        $pixEntries->addressingKey->value = '123456789123456789';
+        $pixEntries->validate();
+    }
 }

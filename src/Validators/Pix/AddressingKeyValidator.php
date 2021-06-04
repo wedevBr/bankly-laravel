@@ -26,6 +26,7 @@ class AddressingKeyValidator
     {
         $this->validateType();
         $this->validateValue();
+        $this->validateEvpType();
     }
 
     /**
@@ -62,8 +63,23 @@ class AddressingKeyValidator
     private function validateValue()
     {
         $value = $this->addressingKey->value;
-        if (empty($value) || !is_string($value)) {
+        if ($this->addressingKey->type !== 'EVP' && (empty($value) || !is_string($value))) {
             throw new \InvalidArgumentException('value should be a string');
+        }
+    }
+
+    /**
+     * This validates a key value
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateEvpType()
+    {
+        $value = $this->addressingKey->value;
+        if ($this->addressingKey->type === 'EVP' && !empty($value))
+        {
+            throw new \InvalidArgumentException('value must be empty for EVP type');
         }
     }
 }
