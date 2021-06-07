@@ -5,6 +5,7 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use ReflectionProperty;
+use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Bankly;
 
 /**
@@ -36,5 +37,20 @@ abstract class TestCase extends TestbenchTestCase
         $tokenExpiry->setValue($client, now()->addSeconds(3600)->unix());
 
         return $client;
+    }
+
+    /**
+     * @return Bankly
+     */
+    public function auth()
+    {
+        $auth = Auth::login();
+        $token = new ReflectionProperty($auth, 'token');
+        $token->setAccessible(true);
+        $token->setValue($auth, $this->faker->uuid);
+
+        $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
+        $tokenExpiry->setAccessible(true);
+        $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
     }
 }
