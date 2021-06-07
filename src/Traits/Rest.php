@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Traits;
 
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
 use WeDevBr\Bankly\Auth\Auth;
