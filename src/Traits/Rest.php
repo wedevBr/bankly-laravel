@@ -70,7 +70,7 @@ trait Rest
     /**
      * @param string $endpoint
      * @param array|string|null $query
-     * @param null $correlationId
+     * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
      */
@@ -95,13 +95,13 @@ trait Rest
 
     /**
      * @param string $endpoint
-     * @param array|null $body
-     * @param string|null $correlation_id
+     * @param array $body
+     * @param string|null $correlationId
      * @param bool $asJson
      * @return array|mixed
      * @throws RequestException
      */
-    private function post(string $endpoint, array $body = null, string $correlationId = null, bool $asJson = false)
+    private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false)
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -125,19 +125,18 @@ trait Rest
 
     /**
      * @param string $endpoint
-     * @param array|null $body
-     * @param string|null $correlation_id
+     * @param array $body
+     * @param string|null $correlationId
      * @param bool $asJson
      * @param bool $attachment
      * @param DocumentAnalysis $document
-     * @param string $fieldName
      * @return array|mixed
      * @throws RequestException
      */
     private function put(
         string $endpoint,
         array $body = [],
-        string $correlationId = null,
+        $correlationId = null,
         bool $asJson = false,
         bool $attachment = false,
         DocumentAnalysis $document = null
@@ -169,19 +168,16 @@ trait Rest
 
     /**
      * @param string $endpoint
-     * @param array|null $body
-     * @param string|null $correlation_id
+     * @param array $body
+     * @param string|null $correlationId
      * @param bool $asJson
-     * @param bool $attachment
-     * @param DocumentAnalysis $document
-     * @param string $fieldName
      * @return array|mixed
      * @throws RequestException
      */
     private function patch(
         string $endpoint,
         array $body = [],
-        string $correlationId = null,
+        $correlationId = null,
         bool $asJson = false
     ) {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
