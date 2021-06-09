@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
  * @package WeDevBr\Bankly
  */
-class Auth
+final class Auth
 {
     /** @var self */
     private static $login;
@@ -33,9 +33,6 @@ class Auth
     /** @var string */
     private $tokenExpiry;
 
-    /**
-     * @return void
-     */
     private function __construct()
     {
         //

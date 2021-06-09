@@ -157,7 +157,7 @@ trait Rest
             ->withHeaders($this->headers)
             ->bodyFormat($bodyFormat);
 
-        if ($attachment) {
+        if ($attachment && !is_null($document)) {
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
         }
 

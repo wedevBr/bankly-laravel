@@ -17,7 +17,6 @@ class BanklyCard
     /**
      * @param string $clientSecret
      * @param string $clientId
-     * @return void
      */
     public function __construct($clientSecret = null, $clientId = null)
     {
