@@ -2,6 +2,11 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.11.0 - 20-06-09
+- Added class for cards management
+- Card management class to use with the facade
+- Get card transactions
+
 ## 1.10.0 - 2021-06-04
 - Allows you to enter empty key for EVP type
 - Fixed physical card url route
