@@ -44,4 +44,18 @@ class BanklyCard
 
         return $this->get("/cards/{$proxy}/transactions", $query);
     }
+
+    /**
+     * @param string $proxy
+     * @param string $password
+     * @return array
+     */
+    public function pciData(string $proxy, string $password)
+    {
+        $params = [
+            'password' => $password
+        ];
+
+        return $this->post("/cards/{$proxy}/pci", $params);
+    }
 }
