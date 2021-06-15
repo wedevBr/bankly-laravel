@@ -56,15 +56,17 @@ class DuplicateCardTest extends TestCase
     }
 
     /**
-     * @return Card
+     * @return Duplicate
      */
-    private function validDuplicateCard($status = 'LostMyCard')
+    private function validDuplicateCard($status = 'LostMyCard', $address = true)
     {
         $duplicateCard = new Duplicate();
         $duplicateCard->status = $status;
         $duplicateCard->documentNumber = '01234567890';
         $duplicateCard->password = '1234';
-        $duplicateCard->address = $this->validAddress();
+        if ($address) {
+            $duplicateCard->address = $this->validAddress();
+        }
 
         return $duplicateCard;
     }
@@ -116,10 +118,38 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
+    public function testSuccessDuplicateCardWhitoutAddress()
+    {
+        Http::fake($this->getFakerHttp("/cards/2370021007715002820/duplicate", [
+            'proxy' => '2370021007715002820',
+            'activateCode' => 'A0DDDC0951D1',
+        ], 202));
+
+        $card = new BanklyCard();
+        $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard', false));
+
+        Http::assertSent(function ($request) {
+            $body = collect($request->data());
+            $address = $body['address'];
+
+            return $body['documentNumber'] === '01234567890'
+                && $body['status'] == 'LostMyCard'
+                && $body['password'] === '1234';
+        });
+
+        $this->assertArrayHasKey('proxy', $response);
+        $this->assertArrayHasKey('activateCode', $response);
+    }
+
+    /**
+     * @return void
+     */
     public function testValidateStatus()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('invalid status, needs to be one of these LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase');
+        $message = 'invalid status, needs to be one of these';
+        $message .= ' LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase';
+        $this->expectErrorMessage($message);
         $virtualCard = $this->validDuplicateCard('asd');
         $virtualCard->validate();
     }
