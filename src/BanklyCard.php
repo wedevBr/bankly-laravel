@@ -48,7 +48,7 @@ class BanklyCard
 
     /**
      * @param string $proxy
-     * @param string $password
+     * @param Password $password
      * @return array
      */
     public function pciData(string $proxy, Password $password)
