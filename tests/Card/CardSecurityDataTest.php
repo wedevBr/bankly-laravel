@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Types\Card\Password;
 
 /**
  * CardTest class
@@ -52,6 +53,28 @@ class CardSecurityDataTest extends TestCase
     }
 
     /**
+     * @return Password
+     */
+    private function invalidPassword()
+    {
+        $passwordCard = new Password();
+        $passwordCard->password = '123a';
+
+        return $passwordCard;
+    }
+
+    /**
+     * @return Password
+     */
+    private function validPassword()
+    {
+        $passwordCard = new Password();
+        $passwordCard->password = '1234';
+
+        return $passwordCard;
+    }
+
+    /**
      * @return void
      */
     public function testSuccessGetCardPciData()
@@ -61,7 +84,7 @@ class CardSecurityDataTest extends TestCase
         Http::fake($this->getFakerHttp("/cards/2370021007715002820/pci", 200));
 
         $card = new BanklyCard();
-        $response = $card->pciData("2370021007715002820", "1234");
+        $response = $card->pciData("2370021007715002820", $this->validPassword());
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
@@ -72,5 +95,16 @@ class CardSecurityDataTest extends TestCase
         $this->assertArrayHasKey('cardNumber', $response);
         $this->assertArrayHasKey('cvv', $response);
         $this->assertArrayHasKey('expirationDate', $response);
+    }
+
+    /**
+     * @return void
+     */
+    public function testValidatePassword()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectErrorMessage('password should be a numeric string');
+        $password = $this->invalidPassword();
+        $password->validate();
     }
 }
