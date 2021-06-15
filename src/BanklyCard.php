@@ -4,6 +4,7 @@ namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
+use WeDevBr\Bankly\types\Card\Duplicate;
 
 /**
  * Class Card
@@ -43,5 +44,15 @@ class BanklyCard
         ];
 
         return $this->get("/cards/{$proxy}/transactions", $query);
+    }
+
+    /**
+     * @param string $proxy
+     * @param Duplicate $duplicate
+     * @return array
+     */
+    public function duplicate(string $proxy, Duplicate $duplicate)
+    {
+        return $this->post("/cards/{$proxy}/duplicate", $duplicate->toArray());
     }
 }
