@@ -17,7 +17,21 @@ use WeDevBr\Bankly\Validators\CpfCnpjValidator;
  */
 class DuplicateCardValidator
 {
+    /**
+     * @var Duplicate
+     */
     private $duplicateCard;
+
+    /**
+     * @var array
+     */
+    private $status = [
+        'LostMyCard',
+        'CardWasStolen',
+        'CardWasDamaged',
+        'CardNotDelivered',
+        'UnrecognizedOnlinePurchase'
+    ];
 
     /**
      * DuplicateCardValidator constructor.
@@ -47,8 +61,10 @@ class DuplicateCardValidator
     public function validateStatus()
     {
         $status = $this->duplicateCard->status;
-        if (!in_array($status, ['LostMyCard', 'CardWasStolen', 'CardWasDamaged', 'CardNotDelivered', 'UnrecognizedOnlinePurchase'])) {
-            throw new \InvalidArgumentException('invalid status, needs to be one of these LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase');
+        if (!in_array($status, $this->status)) {
+            $message = 'invalid status, needs to be one of these';
+            $message .= ' LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase';
+            throw new \InvalidArgumentException($message);
         }
     }
 
@@ -87,11 +103,12 @@ class DuplicateCardValidator
      * This validate a duplicate card address
      *
      * @return void
-     * @throws InvalidArgumentException
      */
     private function validateAddress()
     {
-        $address = $this->duplicateCard->address;
-        $address->validate();
+        if (!is_null($this->duplicateCard->address)) {
+            $address = $this->duplicateCard->address;
+            $address->validate();
+        }
     }
 }
