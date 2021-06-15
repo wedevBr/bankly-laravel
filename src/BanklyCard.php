@@ -4,7 +4,7 @@ namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
-use WeDevBr\Bankly\types\Card\Duplicate;
+use WeDevBr\Bankly\Types\Card\Duplicate;
 
 /**
  * Class Card
