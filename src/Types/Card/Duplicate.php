@@ -29,7 +29,9 @@ class Duplicate extends \stdClass implements Arrayable
     public function toArray(): array
     {
         $this->validate();
-        $this->address = $this->address->toArray();
+        if (!is_null($this->address)) {
+            $this->address = $this->address->toArray();
+        }
 
         return (array) $this;
     }
