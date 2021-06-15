@@ -4,6 +4,7 @@ namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
+use WeDevBr\Bankly\Types\Card\Password;
 
 /**
  * Class Card
@@ -50,12 +51,8 @@ class BanklyCard
      * @param string $password
      * @return array
      */
-    public function pciData(string $proxy, string $password)
+    public function pciData(string $proxy, Password $password)
     {
-        $params = [
-            'password' => $password
-        ];
-
-        return $this->post("/cards/{$proxy}/pci", $params);
+        return $this->post("/cards/{$proxy}/pci", $password->toArray());
     }
 }
