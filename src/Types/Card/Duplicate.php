@@ -30,11 +30,11 @@ class Duplicate extends \stdClass implements Arrayable
     public function toArray(): array
     {
         $this->validate();
-        if (!is_null($this->address)) {
-            $this->address = $this->address->toArray();
+        if ($this->address instanceof Address) {
+            $this->address = $this->address;
         }
 
-        return (array) $this;
+        return json_decode(json_encode($this), true);
     }
 
     /**
