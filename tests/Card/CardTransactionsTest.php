@@ -10,7 +10,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
 
 /**
- * CardTest class
+ * CardTransactionsTest class
  *
  * PHP version 7.4|8.0
  *
