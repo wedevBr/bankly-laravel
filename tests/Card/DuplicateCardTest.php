@@ -10,7 +10,7 @@ use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\BanklyCard;
 
 /**
- * CardTest class
+ * DuplicateCardTest class
  *
  * PHP version 7.4|8.0
  *

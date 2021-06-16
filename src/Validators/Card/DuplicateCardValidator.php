@@ -6,7 +6,7 @@ use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 
 /**
- * CardValidator class
+ * DuplicateCardValidator class
  *
  * PHP version 7.3|7.4|8.0
  *
