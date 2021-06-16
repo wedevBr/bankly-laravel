@@ -15,7 +15,7 @@ class Duplicate extends \stdClass implements Arrayable
 
     /** @var string */
     public $description;
-    
+
     /** @var string */
     public $password;
 
@@ -24,6 +24,7 @@ class Duplicate extends \stdClass implements Arrayable
 
     /**
      * This validate and return an array
+     *
      * @return array
      */
     public function toArray(): array
@@ -38,6 +39,8 @@ class Duplicate extends \stdClass implements Arrayable
 
     /**
      * This function validate the data for duplicate card
+     *
+     * @return self
      */
     public function validate()
     {

@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 
@@ -35,6 +36,7 @@ class DuplicateCardValidator
 
     /**
      * DuplicateCardValidator constructor.
+     *
      * @param Duplicate $duplicateCard
      */
     public function __construct(Duplicate $duplicateCard)
@@ -44,6 +46,8 @@ class DuplicateCardValidator
 
     /**
      * This validate the duplicate card data
+     *
+     * @return void
      */
     public function validate(): void
     {
@@ -55,8 +59,9 @@ class DuplicateCardValidator
 
     /**
      * This validate duplicate card status
-     * 
-     * @return InvalidArgumentException
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
     public function validateStatus()
     {
@@ -106,7 +111,7 @@ class DuplicateCardValidator
      */
     private function validateAddress()
     {
-        if (!is_null($this->duplicateCard->address)) {
+        if ($this->duplicateCard->address instanceof Address) {
             $address = $this->duplicateCard->address;
             $address->validate();
         }
