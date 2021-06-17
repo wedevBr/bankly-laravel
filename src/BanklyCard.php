@@ -64,7 +64,7 @@ class BanklyCard
      */
     public function pciData(string $proxy, Password $password)
     {
-        return $this->post("/cards/{$proxy}/pci", $password->toArray());
+        return $this->post("/cards/{$proxy}/pci", $password->toArray(), null, true);
     }
 
     /**
