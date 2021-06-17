@@ -2,6 +2,10 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+
+## 1.13.0 - 2021-06-16
+- Get card data by proxy number
+
 ## 1.12.0 - 2021-06-16
 - Card security data query
 - Duplicate of card

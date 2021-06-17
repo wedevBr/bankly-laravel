@@ -56,7 +56,7 @@ class BanklyCard
     {
         return $this->post("/cards/{$proxy}/duplicate", $duplicate->toArray());
     }
-  
+
     /**
      * @param string $proxy
      * @param Password $password
@@ -65,5 +65,14 @@ class BanklyCard
     public function pciData(string $proxy, Password $password)
     {
         return $this->post("/cards/{$proxy}/pci", $password->toArray());
+    }
+
+    /**
+     * @param string $proxy
+     * @return array
+     */
+    public function getByProxy(string $proxy)
+    {
+        return $this->get("/cards/{$proxy}");
     }
 }
