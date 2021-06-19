@@ -97,4 +97,13 @@ class BanklyCard
         $allowContactless = $allow ? 'true' : 'false';
         return $this->patch("/cards/{$proxy}/contactless?allowContactless={$allowContactless}", [], null, true);
     }
+
+    /**
+     * @param string $proxy
+     * @return array
+     */
+    public function nextStatus(string $proxy)
+    {
+        return $this->get("/cards/{$proxy}/nextStatus");
+    }
 }
