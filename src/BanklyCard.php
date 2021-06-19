@@ -106,4 +106,14 @@ class BanklyCard
     {
         return $this->get("/cards/{$proxy}/nextStatus");
     }
+
+    /**
+     * @param string $proxy
+     * @param Password $password
+     * @return array
+     */
+    public function changePassword(string $proxy, Password $password)
+    {
+        return $this->patch("/cards/{$proxy}/password", $password->toArray(), null, true);
+    }
 }
