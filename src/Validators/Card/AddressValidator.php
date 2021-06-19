@@ -1,12 +1,12 @@
 <?php
 
 /**
- * BankAccountValidator class
+ * AddressValidator class
  *
  * PHP version 7.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
- * @author    Adeildo Amorim <adeildo@capitaldigitalaberto.com.br>
+ * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
@@ -46,7 +46,7 @@ class AddressValidator
      * This validate a zip code
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateZipCode()
     {
@@ -60,7 +60,7 @@ class AddressValidator
      * This validates a address
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAddress()
     {
@@ -74,7 +74,7 @@ class AddressValidator
      * This validate a address number
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateNumber()
     {
@@ -88,7 +88,7 @@ class AddressValidator
      * This validate a virtual card neighborhood
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateNeighborhood()
     {
@@ -102,7 +102,7 @@ class AddressValidator
      * This validate a virtual card city
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateCity()
     {
@@ -116,7 +116,7 @@ class AddressValidator
      * This validate a virtual card state
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateState()
     {
@@ -130,7 +130,7 @@ class AddressValidator
      * This validate a virtual card country
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateCountry()
     {

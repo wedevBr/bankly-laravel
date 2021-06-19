@@ -44,7 +44,7 @@ class BillPaymentValidator
      * This validate a bank branch
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBankBranch()
     {
@@ -58,7 +58,7 @@ class BillPaymentValidator
      * This validate a bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBankAccount()
     {
@@ -72,7 +72,7 @@ class BillPaymentValidator
      * This validates a amount
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAmount()
     {
@@ -86,7 +86,7 @@ class BillPaymentValidator
      * This validates a given ID
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateId()
     {

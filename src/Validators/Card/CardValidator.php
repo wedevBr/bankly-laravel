@@ -47,7 +47,7 @@ class CardValidator
      * This validate a virtual card document
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDocumentNumber()
     {
@@ -64,7 +64,7 @@ class CardValidator
      * This validates a card name
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateCardName()
     {
@@ -78,7 +78,7 @@ class CardValidator
      * This validate a virtual card alias
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAlias()
     {
@@ -92,7 +92,7 @@ class CardValidator
      * This validate a virtual card bank agency
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBankAgency()
     {
@@ -106,7 +106,7 @@ class CardValidator
      * This validate a virtual card bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBankAccount()
     {
@@ -120,7 +120,7 @@ class CardValidator
      * This validate a virtual card program ID
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateProgramId()
     {
@@ -134,7 +134,7 @@ class CardValidator
      * This validate a virtual card password
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validatePassword()
     {
@@ -148,7 +148,7 @@ class CardValidator
      * This validate a virtual card address
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAddress()
     {
@@ -160,7 +160,7 @@ class CardValidator
      * This validate a card type
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateType()
     {
