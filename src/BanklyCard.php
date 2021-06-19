@@ -7,9 +7,10 @@ use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
+use WeDevBr\Bankly\Types\Card\Wallet;
 
 /**
- * Class Card
+ * Class BanklyCard
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
  * @package WeDevBr\Bankly
  */
@@ -142,5 +143,19 @@ class BanklyCard
     public function getByAccount(string $account)
     {
         return $this->get("/cards/account/{$account}");
+    }
+
+    /**
+     * @param Wallet $wallet
+     * @return array
+     */
+    public function digitalWallet(Wallet $wallet)
+    {
+        $pathData = $wallet->toArray();
+        $endpoint = '/cards-pci/' . $pathData['proxy']
+            . '/wallet/' . $pathData['wallet']
+            . '/brand/' . $pathData['brand'];
+
+        return $this->post($endpoint, [], null, true);
     }
 }
