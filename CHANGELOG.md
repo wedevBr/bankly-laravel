@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.13.1 - 2021-06-17
+- Fixed the body format on request when obtaining the security card data
+- Fixed the body format on request on the duplicate card
 
 ## 1.13.0 - 2021-06-16
 - Get card data by proxy number
