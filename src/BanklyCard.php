@@ -116,4 +116,31 @@ class BanklyCard
     {
         return $this->patch("/cards/{$proxy}/password", $password->toArray(), null, true);
     }
+
+    /**
+     * @param string $documentNumber
+     * @return array
+     */
+    public function getByDocument(string $documentNumber)
+    {
+        return $this->get("/cards/document/{$documentNumber}");
+    }
+
+    /**
+     * @param string $activateCode
+     * @return array
+     */
+    public function getByActivateCode(string $activateCode)
+    {
+        return $this->get("/cards/activateCode/{$activateCode}");
+    }
+
+    /**
+     * @param string $account
+     * @return array
+     */
+    public function getByAccount(string $account)
+    {
+        return $this->get("/cards/account/{$account}");
+    }
 }
