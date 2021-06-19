@@ -6,6 +6,7 @@ use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Types\Card\Password;
+use WeDevBr\Bankly\Types\Card\ChangeStatus;
 
 /**
  * Class Card
@@ -74,5 +75,15 @@ class BanklyCard
     public function getByProxy(string $proxy)
     {
         return $this->get("/cards/{$proxy}");
+    }
+
+    /**
+     * @param string $proxy
+     * @param ChangeStatus $changeStatus
+     * @return array
+     */
+    public function changeStatus(string $proxy, ChangeStatus $changeStatus)
+    {
+        return $this->patch("/cards/{$proxy}/status", $changeStatus->toArray(), null, true);
     }
 }
