@@ -2,6 +2,18 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.14.0 - 2021-06-21
+- Card status change
+- Card password change
+- Contactless configuration
+- Card query by document
+- Card query by activate code
+- Card query by account
+- Get the next card statuses
+- Token generate for digital wallet
+- Corrected documentation block
+- Unused Imports Removed
+
 ## 1.13.1 - 2021-06-17
 - Fixed the body format on request when obtaining the security card data
 - Fixed the body format on request on the duplicate card
