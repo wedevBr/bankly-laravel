@@ -11,7 +11,7 @@ use WeDevBr\Bankly\Types\Pix\AddressingAccount;
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
- * @copyright 2020 We Dev Tecnologia Ltda
+ * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class AddressingAccountValidator
@@ -43,7 +43,7 @@ class AddressingAccountValidator
      * This validates a branch account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBranch()
     {
@@ -57,7 +57,7 @@ class AddressingAccountValidator
      * This validates a number account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateNumber()
     {
@@ -71,7 +71,7 @@ class AddressingAccountValidator
      * This validates a type account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateType()
     {

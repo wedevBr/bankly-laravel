@@ -13,7 +13,7 @@ use WeDevBr\Bankly\Validators\CpfCnpjValidator;
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail.com>
- * @copyright 2020 We Dev Tecnologia Ltda
+ * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class DuplicateCardValidator
@@ -61,7 +61,7 @@ class DuplicateCardValidator
      * This validate duplicate card status
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     public function validateStatus()
     {
@@ -77,7 +77,7 @@ class DuplicateCardValidator
      * This validate a duplicate card document
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDocumentNumber()
     {
@@ -94,7 +94,7 @@ class DuplicateCardValidator
      * This validate a duplicate card password
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validatePassword()
     {

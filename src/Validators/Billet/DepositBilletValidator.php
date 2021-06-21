@@ -50,7 +50,7 @@ class DepositBilletValidator
      * This validates the alias
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAlias()
     {
@@ -64,7 +64,7 @@ class DepositBilletValidator
      * This validates the document number
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDocumentNumber()
     {
@@ -78,7 +78,7 @@ class DepositBilletValidator
      * This validates the amount
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAmount()
     {
@@ -92,7 +92,7 @@ class DepositBilletValidator
      * This validates the due date
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDueDate()
     {
@@ -112,7 +112,7 @@ class DepositBilletValidator
      * This validates the emission fee
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateEmissionFee()
     {
@@ -127,7 +127,7 @@ class DepositBilletValidator
      * This validates a type
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateType()
     {
@@ -146,7 +146,7 @@ class DepositBilletValidator
      * This validates a bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBankAccount()
     {
@@ -163,7 +163,7 @@ class DepositBilletValidator
      * This validates a bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validatePayer()
     {

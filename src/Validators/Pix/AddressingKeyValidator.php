@@ -33,7 +33,7 @@ class AddressingKeyValidator
      * This validates a type of pix key
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateType()
     {
@@ -58,7 +58,7 @@ class AddressingKeyValidator
      * This validates a key value
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateValue()
     {

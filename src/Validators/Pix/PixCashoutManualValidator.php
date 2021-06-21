@@ -6,13 +6,13 @@ use WeDevBr\Bankly\Types\Pix\BankAccount;
 use WeDevBr\Bankly\Types\Pix\PixCashoutManual;
 
 /**
- * PixCashoutValidator class
+ * PixCashoutManualValidator class
  *
  * PHP version 7.3|7.4|8.0
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
- * @copyright 2020 We Dev Tecnologia Ltda
+ * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixCashoutManualValidator
@@ -46,7 +46,7 @@ class PixCashoutManualValidator
      * This validates the amount
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAmount()
     {
@@ -60,7 +60,7 @@ class PixCashoutManualValidator
      * This validates a description
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDescription()
     {
@@ -74,7 +74,7 @@ class PixCashoutManualValidator
      * This validates a sender bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateSender()
     {
@@ -91,7 +91,7 @@ class PixCashoutManualValidator
      * This validates a recipient bank account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateRecipient()
     {
@@ -108,7 +108,7 @@ class PixCashoutManualValidator
      * This validates a initialization type
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateInitializationType()
     {
