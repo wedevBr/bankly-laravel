@@ -167,6 +167,6 @@ class BanklyCard
      */
     public function activate(string $proxy, Activate $activate)
     {
-        return $this->post("/cards/{$proxy}/activate", $activate->toArray(), null, true);
+        return $this->patch("/cards/{$proxy}/activate", $activate->toArray(), null, true);
     }
 }
