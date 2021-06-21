@@ -2,7 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
-use WeDevBr\Bankly\Types\Card\Password;
+use WeDevBr\Bankly\Types\Card\Activate;
 
 /**
  * ActivateValidator class
@@ -17,7 +17,7 @@ use WeDevBr\Bankly\Types\Card\Password;
 class ActivateValidator
 {
     /**
-     * @var Password
+     * @var Activate
      */
     private $activate;
 
@@ -25,7 +25,7 @@ class ActivateValidator
      * ActivateValidator constructor.
      * @param Activate $activate
      */
-    public function __construct(activate $activate)
+    public function __construct(Activate $activate)
     {
         $this->activate = $activate;
     }
@@ -35,7 +35,7 @@ class ActivateValidator
      */
     public function validate(): void
     {
-        $this->validateActivationCode();
+        $this->validateActivateCode();
         $this->validatePassword();
     }
 
@@ -45,10 +45,10 @@ class ActivateValidator
      * @return void
      * @throws \InvalidArgumentException
      */
-    private function validateActivationCode()
+    private function validateActivateCode()
     {
-        $activationCode = $this->activate->activationCode;
-        if (empty($activationCode) || !is_string($activationCode) || strlen($activationCode) != 12) {
+        $activateCode = $this->activate->activateCode;
+        if (empty($activateCode) || !is_string($activateCode) || strlen($activateCode) != 12) {
             throw new \InvalidArgumentException('Invalid Activation code');
         }
     }
