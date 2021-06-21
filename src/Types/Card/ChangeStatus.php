@@ -28,7 +28,7 @@ class ChangeStatus extends \stdClass implements Arrayable
     }
 
     /**
-     * This function validate a card password
+     * This function validate a change status
      */
     public function validate()
     {

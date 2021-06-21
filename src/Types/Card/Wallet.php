@@ -28,7 +28,7 @@ class Wallet extends \stdClass implements Arrayable
     }
 
     /**
-     * This function validate a card password
+     * This function validate a digital wallet
      */
     public function validate()
     {

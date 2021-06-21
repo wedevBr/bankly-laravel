@@ -55,12 +55,12 @@ class WalletValidator
 
     /**
      * @return void
+     * @throws \InvalidArgumentException
      */
     public function proxy()
     {
         $proxy = $this->wallet->proxy;
-        if (empty($proxy) || !is_string($proxy))
-        {
+        if (empty($proxy) || !is_string($proxy)) {
             throw new \InvalidArgumentException('proxy should be a string');
         }
     }
@@ -88,13 +88,11 @@ class WalletValidator
     public function brand()
     {
         $brand = $this->wallet->brand;
-        if (empty($brand) || !is_string($brand))
-        {
+        if (empty($brand) || !is_string($brand)) {
             throw new \InvalidArgumentException('brand should be a string');
         }
 
-        if (!in_array($brand, $this->brands))
-        {
+        if (!in_array($brand, $this->brands)) {
             throw new \InvalidArgumentException('this brand is not valid');
         }
     }

@@ -69,7 +69,7 @@ class ChangeStatusValidator
     }
 
     /**
-     * This validate the password
+     * This validate the attributes
      */
     public function validate(): void
     {
