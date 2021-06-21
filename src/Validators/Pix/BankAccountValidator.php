@@ -2,7 +2,6 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
-use WeDevBr\Bankly\Types\Pix\Bank;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
 
 /**
@@ -45,7 +44,7 @@ class BankAccountValidator
      * This validates a account
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAccount()
     {
@@ -56,7 +55,7 @@ class BankAccountValidator
      * This validates a bank
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBank()
     {
@@ -67,7 +66,7 @@ class BankAccountValidator
      * This validates a document number
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDocumentNumber()
     {
@@ -81,7 +80,7 @@ class BankAccountValidator
      * This validates a name
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateName()
     {

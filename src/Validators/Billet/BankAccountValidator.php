@@ -3,8 +3,6 @@
 namespace WeDevBr\Bankly\Validators\Billet;
 
 use WeDevBr\Bankly\Types\Billet\BankAccount;
-use WeDevBr\Bankly\Types\Billet\DepositBillet;
-use WeDevBr\Bankly\Types\Billet\Payer;
 
 /**
  * BankAccountValidator class
@@ -44,7 +42,7 @@ class BankAccountValidator
      * This validates the branch
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateBranch()
     {
@@ -58,7 +56,7 @@ class BankAccountValidator
      * This validates the bank account number
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateNumber()
     {
