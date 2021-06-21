@@ -29,7 +29,7 @@ class Activate extends \stdClass implements Arrayable
      */
     public function validate()
     {
-        $validator = new Activatevalidator($this);
+        $validator = new ActivateValidator($this);
         $validator->validate();
 
         return $this;
