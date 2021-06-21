@@ -158,4 +158,14 @@ class BanklyCard
 
         return $this->post($endpoint, [], null, true);
     }
+
+    /**
+     * @param string $proxy
+     * @param Activate $activateCard
+     * @return array
+     */
+    public function activateCard(string $proxy, Activate $activateCard)
+    {
+        return $this->post("/cards/{$proxy}/activate", $activate->toArray(), null, true);
+    }
 }
