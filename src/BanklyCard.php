@@ -8,6 +8,7 @@ use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
 use WeDevBr\Bankly\Types\Card\Wallet;
+use WeDevBr\Bankly\Types\Card\Activate;
 
 /**
  * Class BanklyCard
@@ -161,10 +162,10 @@ class BanklyCard
 
     /**
      * @param string $proxy
-     * @param Activate $activateCard
+     * @param Activate $activate
      * @return array
      */
-    public function activateCard(string $proxy, Activate $activateCard)
+    public function activate(string $proxy, Activate $activate)
     {
         return $this->post("/cards/{$proxy}/activate", $activate->toArray(), null, true);
     }
