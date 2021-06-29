@@ -31,7 +31,5 @@ class Activate extends \stdClass implements Arrayable
     {
         $validator = new ActivateValidator($this);
         $validator->validate();
-
-        return $this;
     }
 }
