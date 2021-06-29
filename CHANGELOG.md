@@ -3,7 +3,7 @@
 All notable changes to `bankly-laravel` will be documented in this file
 
 ## 1.15.0 - 2021-06-29
-- Card activation for the first time
+- First card activation by proxy
 
 ## 1.14.0 - 2021-06-21
 - Card status change
