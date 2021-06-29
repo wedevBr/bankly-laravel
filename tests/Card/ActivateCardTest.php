@@ -15,7 +15,7 @@ use WeDevBr\Bankly\BanklyCard;
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail@gmail.com>
- * @copyright 2020 We Dev Tecnologia Ltda
+ * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class ActivateCardTest extends TestCase
