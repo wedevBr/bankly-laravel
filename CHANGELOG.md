@@ -2,7 +2,7 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
-## 1.15.0 - 2021-06-29
+## 1.15.0 - 2021-06-30
 - Card activation for the first time
 
 ## 1.14.0 - 2021-06-21
