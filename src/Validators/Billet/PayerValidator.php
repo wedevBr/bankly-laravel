@@ -45,7 +45,7 @@ class PayerValidator
      * This validates the document
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateDocument()
     {
@@ -59,7 +59,7 @@ class PayerValidator
      * This validates the payer name
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateName()
     {
@@ -73,7 +73,7 @@ class PayerValidator
      * This validates the payer trade name
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateTradeName()
     {
@@ -87,7 +87,7 @@ class PayerValidator
      * This validates a payer address
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAddress()
     {

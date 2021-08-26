@@ -3,7 +3,6 @@
 namespace WeDevBr\Bankly\Validators\Billet;
 
 use WeDevBr\Bankly\Types\Billet\Address;
-use WeDevBr\Bankly\Types\Billet\Payer;
 
 /**
  * AddressValidator class
@@ -45,7 +44,7 @@ class AddressValidator
      * This validates the address line
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateAddressLine()
     {
@@ -59,7 +58,7 @@ class AddressValidator
      * This validates the city address
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateCity()
     {
@@ -73,7 +72,7 @@ class AddressValidator
      * This validates the state address
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateState()
     {
@@ -87,7 +86,7 @@ class AddressValidator
      * This validates a zip code
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateZipCode()
     {

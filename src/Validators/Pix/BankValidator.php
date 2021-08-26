@@ -11,7 +11,7 @@ use WeDevBr\Bankly\Types\Pix\Bank;
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
- * @copyright 2020 We Dev Tecnologia Ltda
+ * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class BankValidator
@@ -43,7 +43,7 @@ class BankValidator
      * This validates a bank ispb
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateIspb()
     {
@@ -57,7 +57,7 @@ class BankValidator
      * This validates a bank compe
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateCompe()
     {
@@ -71,7 +71,7 @@ class BankValidator
      * This validates a bank name
      *
      * @return void
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      */
     private function validateName()
     {
