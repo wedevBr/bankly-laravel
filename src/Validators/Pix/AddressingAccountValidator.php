@@ -84,6 +84,7 @@ class AddressingAccountValidator
             'CHECKING',
             'SAVINGS',
             'SALARY',
+            'PAYMENT',
         ];
         if (!in_array($this->addressingAccount->type, $typeList)) {
             throw new \InvalidArgumentException('this account type is not valid');
