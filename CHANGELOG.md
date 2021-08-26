@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.16.0 - 2021-08-26
+- Allows sending PIX to payment type accounts
+
 ## 1.15.0 - 2021-06-30
 - Card activation for the first time
 
