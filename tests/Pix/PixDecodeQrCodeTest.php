@@ -25,7 +25,7 @@ class PixDecodeQrCodeTest extends TestCase
     /**
      * @var string
      */
-    private string $encodedValue;
+    private $encodedValue;
 
     /**
      * @return void
