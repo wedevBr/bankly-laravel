@@ -5,9 +5,6 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\Types\Card\Address;
-use WeDevBr\Bankly\Types\Card\Duplicate;
-use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
 use WeDevBr\Bankly\BanklyPix;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
@@ -41,7 +38,7 @@ class PixStaticQrCodeTest extends TestCase
     }
 
     /**
-     * @return Address
+     * @return AddressingKey
      */
     private function validAddressingKey()
     {
@@ -57,11 +54,11 @@ class PixStaticQrCodeTest extends TestCase
      */
     private function validStaticQrCodeData()
     {
-        $duplicateCard = new PixStaticQrCode();
-        $duplicateCard->recipientName = 'Place Holder';
-        $duplicateCard->addressingKey = $this->validAddressingKey();
+        $data = new PixStaticQrCode();
+        $data->recipientName = 'Place Holder';
+        $data->addressingKey = $this->validAddressingKey();
 
-        return $duplicateCard;
+        return $data;
     }
 
     /**
@@ -107,9 +104,9 @@ class PixStaticQrCodeTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectErrorMessage('this key type is not valid');
-        $pixEntries = $this->validStaticQrCodeData();
-        $pixEntries->addressingKey->type = 'RG';
-        $pixEntries->validate();
+        $qrCodeData = $this->validStaticQrCodeData();
+        $qrCodeData->addressingKey->type = 'RG';
+        $qrCodeData->validate();
     }
 
     /**
@@ -119,9 +116,9 @@ class PixStaticQrCodeTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectErrorMessage('type should be a string');
-        $pixEntries = $this->validStaticQrCodeData();
-        $pixEntries->addressingKey->type = null;
-        $pixEntries->validate();
+        $qrCodeData = $this->validStaticQrCodeData();
+        $qrCodeData->addressingKey->type = null;
+        $qrCodeData->validate();
     }
 
     /**
@@ -131,8 +128,8 @@ class PixStaticQrCodeTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectErrorMessage('recipient name should be a string');
-        $pixEntries = $this->validStaticQrCodeData();
-        $pixEntries->recipientName = null;
-        $pixEntries->validate();
+        $qrCodeData = $this->validStaticQrCodeData();
+        $qrCodeData->recipientName = null;
+        $qrCodeData->validate();
     }
 }
