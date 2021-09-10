@@ -5,6 +5,7 @@ namespace WeDevBr\Bankly;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
+use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
 
 /**
  * Class BanklyPix
@@ -26,8 +27,27 @@ class BanklyPix
             ->setClientId($clientSecret);
     }
 
+    /**
+     * @param PixStaticQrCode $data
+     * @return void
+     */
     public function qrCode(PixStaticQrCode $data)
     {
         return $this->post('/baas/pix/qrcodes', $data->toArray());
+    }
+
+    /**
+     * @param PixQrCodeData $data
+     * @return void
+     */
+    public function qrCodeDecode(PixQrCodeData $data)
+    {
+        $qrCode = $data->toArray();
+
+        $this->setHeaders([
+            'x-bkly-pix-user-id' => $qrCode['documentNumber'],
+        ]);
+
+        return $this->post('/baas/pix/qrcodes/decode', $qrCode);
     }
 }
