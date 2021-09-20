@@ -38,7 +38,7 @@ class BanklyPix
 
     /**
      * @param PixQrCodeData $data
-     * @return void
+     * @return array
      */
     public function qrCodeDecode(PixQrCodeData $data)
     {
