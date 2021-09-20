@@ -10,7 +10,7 @@ use WeDevBr\Bankly\BanklyPix;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 
 /**
- * DuplicateCardTest class
+ * PixStaticQrCodeTest class
  *
  * PHP version 7.4|8.0
  *
@@ -82,8 +82,8 @@ class PixStaticQrCodeTest extends TestCase
             'encodedValue' => $encoded,
         ], 200));
 
-        $card = new BanklyPix();
-        $response = $card->qrCode($this->validStaticQrCodeData());
+        $pix = new BanklyPix();
+        $response = $pix->qrCode($this->validStaticQrCodeData());
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
