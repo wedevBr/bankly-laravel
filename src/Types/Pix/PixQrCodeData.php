@@ -10,7 +10,7 @@ class PixQrCodeData
     public $encodedValue;
 
     /** @var string */
-    public $clientDocumentNumber;
+    public $documentNumber;
 
     /**
      * This validate and return an array
