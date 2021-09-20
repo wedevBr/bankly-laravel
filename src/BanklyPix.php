@@ -29,11 +29,11 @@ class BanklyPix
 
     /**
      * @param PixStaticQrCode $data
-     * @return void
+     * @return array
      */
     public function qrCode(PixStaticQrCode $data)
     {
-        return $this->post('/baas/pix/qrcodes', $data->toArray());
+        return $this->post('/baas/pix/qrcodes', $data->toArray(), null, true);
     }
 
     /**
@@ -48,6 +48,6 @@ class BanklyPix
             'x-bkly-pix-user-id' => $qrCode['documentNumber'],
         ]);
 
-        return $this->post('/baas/pix/qrcodes/decode', $qrCode);
+        return $this->post('/baas/pix/qrcodes/decode', $qrCode, null, true);
     }
 }
