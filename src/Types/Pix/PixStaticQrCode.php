@@ -10,9 +10,6 @@ class PixStaticQrCode
     public $addressingKey;
 
     /** @var string */
-    public $description;
-
-    /** @var string */
     public $amount;
 
     /** @var string */
@@ -20,9 +17,6 @@ class PixStaticQrCode
 
     /** @var \WeDevBr\Bankly\Types\Pix\Location */
     public $location;
-
-    /** @var string */
-    public $conciliationId;
 
     /** @var string */
     public $categoryCode;
@@ -47,7 +41,7 @@ class PixStaticQrCode
      */
     public function validate(): void
     {
-        $pixCashout = new PixStaticQrCodeValidator($this);
-        $pixCashout->validate();
+        $pixStaticQrCode = new PixStaticQrCodeValidator($this);
+        $pixStaticQrCode->validate();
     }
 }
