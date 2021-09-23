@@ -36,6 +36,8 @@ class PixStaticQrCodeValidator
     {
         $this->validateRecipientName();
         $this->validateAddressingKey();
+        $this->validateAdditionalData();
+        $this->validateLocation();
     }
 
     /**
@@ -61,5 +63,37 @@ class PixStaticQrCodeValidator
     private function validateAddressingKey()
     {
         $this->pixStaticQrCode->addressingKey->validate();
+    }
+
+    /**
+     * This validates the recipient name
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateAdditionalData()
+    {
+        $additionalData = $this->pixStaticQrCode->additionalData;
+        $pixKeyValue = $this->pixStaticQrCode->addressingKey->value;
+        if (!empty($additionalData)) {
+            $stringToValidate = $additionalData . $pixKeyValue;
+            if (strlen($stringToValidate <= 73)) {
+                throw new \InvalidArgumentException('additional data to large');
+            }
+        }
+    }
+
+    /**
+     * This validates the recipient name
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateLocation()
+    {
+        if (empty($this->pixStaticQrCode->location)) {
+            throw new \InvalidArgumentException('location array is required');
+        }
+        $this->pixStaticQrCode->location->validate();
     }
 }
