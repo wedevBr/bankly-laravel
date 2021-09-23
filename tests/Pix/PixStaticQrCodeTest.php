@@ -8,6 +8,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
 use WeDevBr\Bankly\BanklyPix;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
+use WeDevBr\Bankly\Types\Pix\Location;
 
 /**
  * PixStaticQrCodeTest class
@@ -50,6 +51,18 @@ class PixStaticQrCodeTest extends TestCase
     }
 
     /**
+     * @return Location
+     */
+    private function validLocation()
+    {
+        $addressingKey = new Location();
+        $addressingKey->city = 'Vila Velha';
+        $addressingKey->zipCode = '29112000';
+
+        return $addressingKey;
+    }
+
+    /**
      * @return PixStaticQrCode
      */
     private function validStaticQrCodeData()
@@ -57,6 +70,7 @@ class PixStaticQrCodeTest extends TestCase
         $data = new PixStaticQrCode();
         $data->recipientName = 'Place Holder';
         $data->addressingKey = $this->validAddressingKey();
+        $data->location = $this->validLocation();
 
         return $data;
     }
