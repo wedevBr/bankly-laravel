@@ -2,6 +2,8 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use WeDevBr\Bankly\Validators\Pix\LocationValidator;
+
 class Location
 {
     /** @var string */
@@ -16,6 +18,18 @@ class Location
      */
     public function toArray(): array
     {
+        $this->validate();
         return (array) $this;
+    }
+
+    /**
+     * This function validate the Location type
+     *
+     * @return void
+     */
+    public function validate(): void
+    {
+        $locationValidator = new LocationValidator($this);
+        $locationValidator->validate();
     }
 }
