@@ -153,7 +153,7 @@ class PixStaticQrCodeTest extends TestCase
     public function testValidateIfAdditionalDataIsToLarge()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('additional data to large');
+        $this->expectErrorMessage('additional data too large');
         $qrCodeData = $this->validStaticQrCodeData();
 
         $qrCodeData->additionalData = '123123123123123123123131231123123123123123';
