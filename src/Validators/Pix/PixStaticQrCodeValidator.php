@@ -77,7 +77,7 @@ class PixStaticQrCodeValidator
         $pixKeyValue = $this->pixStaticQrCode->addressingKey->value;
         if (!empty($additionalData)) {
             $stringToValidate = $additionalData . $pixKeyValue;
-            if (strlen($stringToValidate >= 73)) {
+            if (strlen($stringToValidate) >= 73) {
                 throw new \InvalidArgumentException('additional data too large');
             }
         }
