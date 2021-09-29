@@ -35,5 +35,10 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly_card', function () {
             return new BanklyCard();
         });
+
+        // Register the pix management class to use with the facade
+        $this->app->singleton('bankly_pix', function () {
+            return new BanklyPix();
+        });
     }
 }
