@@ -14,6 +14,7 @@ use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
+use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 
 /**
  * Class Bankly
@@ -354,6 +355,21 @@ class Bankly
     public function getCustomerAccounts(string $documentNumber)
     {
         return $this->get("/customers/{$documentNumber}/accounts");
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param PaymentAccount $paymentAccount
+     * @return array|mixed
+     */
+    public function createCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount)
+    {
+        return $this->post(
+            "/customers/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            null,
+            true
+        );
     }
 
     /**
