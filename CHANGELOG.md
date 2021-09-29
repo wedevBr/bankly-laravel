@@ -2,6 +2,10 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.18.0 - 2021-09-29
+- Create static QRCodes
+- Reading static and dynamic QRCodes
+
 ## 1.17.0 - 2021-09-23
 - Create customer account
 
