@@ -4,7 +4,7 @@ namespace WeDevBr\Bankly\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class BanklyCardFacade extends Facade
+class BanklyPixFacade extends Facade
 {
     /**
      * Get the registered name of the component.
