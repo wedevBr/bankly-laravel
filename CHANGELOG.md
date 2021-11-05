@@ -2,6 +2,12 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.19.0 - 2021-11-04
+- Changed authentication method
+- Added getters and setters in auth class
+- Added event after authentication
+
+
 ## 1.18.1 - 2021-10-19
 - Fixed bankly pix facade class name
 

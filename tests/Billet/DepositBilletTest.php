@@ -5,7 +5,6 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
-use Orchestra\Testbench\TestCase;
 use ReflectionProperty;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -35,23 +34,6 @@ class DepositBilletTest extends TestCase
     protected function getPackageProviders($app)
     {
         return [BanklyServiceProvider::class];
-    }
-
-    /**
-     * @return Bankly
-     */
-    public function getBanklyClient()
-    {
-        $client = new Bankly();
-        $token = new ReflectionProperty(Bankly::class, 'token');
-        $token->setAccessible(true);
-        $token->setValue($client, $this->faker->uuid);
-
-        $tokenExpiry = new ReflectionProperty(Bankly::class, 'token_expiry');
-        $tokenExpiry->setAccessible(true);
-        $tokenExpiry->setValue($client, now()->addSeconds(3600)->unix());
-
-        return $client;
     }
 
     /**

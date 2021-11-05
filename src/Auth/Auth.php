@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Auth;
 
 use Illuminate\Support\Facades\Http;
+use WeDevBr\Bankly\Events\BanklyAuthenticatedEvent;
 
 /**
  * Class Auth
@@ -98,6 +99,16 @@ final class Auth
     }
 
     /**
+     * @param string $token
+     * @return self
+     */
+    public function setToken(string $token)
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getToken()
@@ -107,6 +118,24 @@ final class Auth
         }
 
         return $this->token;
+    }
+
+    /**
+     * @param string $tokenExpiry
+     * @return self
+     */
+    public function setTokenExpiry(string $tokenExpiry)
+    {
+        $this->tokenExpiry = $tokenExpiry;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTokenExpiry()
+    {
+        return $this->tokenExpiry;
     }
 
     /**
@@ -126,5 +155,7 @@ final class Auth
         $response = Http::asForm()->post($this->loginUrl, $body)->throw()->json();
         $this->token = $response['access_token'];
         $this->tokenExpiry = now()->addSeconds($response['expires_in'])->unix();
+
+        event(new BanklyAuthenticatedEvent($this->token, $this->tokenExpiry));
     }
 }
