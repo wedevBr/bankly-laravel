@@ -2,6 +2,8 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.19.1 - 2021-12-02
+- Removed character length validation on program ID
 ## 1.19.0 - 2021-11-04
 - Changed authentication method
 - Added getters and setters in auth class
