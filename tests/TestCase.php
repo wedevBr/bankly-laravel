@@ -28,13 +28,14 @@ abstract class TestCase extends TestbenchTestCase
     public function getBanklyClient()
     {
         $client = new Bankly();
-        $token = new ReflectionProperty(Bankly::class, 'token');
+        $auth = Auth::login();
+        $token = new ReflectionProperty($auth, 'token');
         $token->setAccessible(true);
-        $token->setValue($client, $this->faker->uuid);
+        $token->setValue($auth, $this->faker->uuid);
 
-        $tokenExpiry = new ReflectionProperty(Bankly::class, 'token_expiry');
+        $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
         $tokenExpiry->setAccessible(true);
-        $tokenExpiry->setValue($client, now()->addSeconds(3600)->unix());
+        $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
 
         return $client;
     }

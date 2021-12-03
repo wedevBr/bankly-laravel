@@ -6,6 +6,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
 use TypeError;
+use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
@@ -27,8 +28,19 @@ class Bankly
     public $login_url;
     private $client_id;
     private $client_secret;
+
+    /**
+     * @var integer
+     * @deprecated 1.19.0
+     */
     private $token_expiry = 0;
+
+    /**
+     * @var integer
+     * @deprecated 1.19.0
+     */
     private $token = null;
+
     private $api_version = '1.0';
     private $headers;
 
@@ -41,8 +53,12 @@ class Bankly
     {
         $this->api_url = config('bankly')['api_url'];
         $this->login_url = config('bankly')['login_url'];
-        $this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
         $this->headers = ['API-Version' => $this->api_version];
+
+        //$this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
+        Auth::login()
+            ->setClientId($client_id)
+            ->setClientSecret($client_secret);
     }
 
     /**
@@ -514,15 +530,12 @@ class Bankly
      */
     private function get(string $endpoint, $query = null, $correlation_id = null)
     {
-        if (now()->unix() > $this->token_expiry || !$this->token) {
-            $this->auth();
-        }
-
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
 
-        return Http::withToken($this->token)
+        $token = Auth::login()->getToken();
+        return Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->get($this->getFinalUrl($endpoint), $query)
             ->throw()
@@ -563,18 +576,14 @@ class Bankly
      */
     private function post(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
     {
-        if (now()->unix() > $this->token_expiry || !$this->token) {
-            $this->auth();
-        }
-
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-
+        $token = Auth::login()->getToken();
         return Http
-            ::withToken($this->token)
+            ::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format)
             ->post($this->getFinalUrl($endpoint), $body)
@@ -601,18 +610,14 @@ class Bankly
         bool $attachment = false,
         DocumentAnalysis $document = null
     ) {
-        if (now()->unix() > $this->token_expiry || !$this->token) {
-            $this->auth();
-        }
-
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-
+        $token = Auth::login()->getToken();
         $request = Http
-            ::withToken($this->token)
+            ::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
 
@@ -634,11 +639,8 @@ class Bankly
      */
     private function delete(string $endpoint)
     {
-        if (now()->unix() > $this->token_expiry || !$this->token) {
-            $this->auth();
-        }
-
-        $request = Http::withToken($this->token)
+        $token = Auth::login()->getToken();
+        $request = Http::withToken($token)
             ->withHeaders($this->getHeaders($this->headers));
 
         return $request->delete($this->getFinalUrl($endpoint))
@@ -707,6 +709,7 @@ class Bankly
      * Do authentication
      * @param string $grant_type Default sets to 'client_credentials'
      * @throws RequestException
+     * @deprecated 1.19.0
      */
     private function auth($grant_type = 'client_credentials'): void
     {
