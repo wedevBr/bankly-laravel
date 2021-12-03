@@ -125,7 +125,7 @@ class CardValidator
     private function validateProgramId()
     {
         $programId = $this->card->programId;
-        if (!empty($programId) && (!is_string($programId) || !is_numeric($programId) || strlen($programId) != 32)) {
+        if (!empty($programId) && (!is_string($programId) || !is_numeric($programId))) {
             throw new \InvalidArgumentException('program ID should be a numeric string');
         }
     }
