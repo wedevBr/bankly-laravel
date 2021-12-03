@@ -119,18 +119,6 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateProgramId()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('program ID should be a numeric string');
-        $virtualCard = $this->validVirtualCard();
-        $virtualCard->programId = '2370021007715354237002100771535';
-        $virtualCard->validate();
-    }
-
-    /**
-     * @return void
-     */
     public function testValidatePassword()
     {
         $this->expectException(\InvalidArgumentException::class);
