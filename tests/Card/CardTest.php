@@ -56,7 +56,7 @@ class CardTest extends TestCase
         $card->alias = 'Carlinha';
         $card->bankAgency = '0001';
         $card->bankAccount = '11223344';
-        $card->programId = '11223344112233441122334411223344';
+        $card->programId = '123';
         $card->password = '1234';
         $card->address = $this->validAddress();
         $card->type = $type;
