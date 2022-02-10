@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.19.2 - 2022-02-10
+- Scope property added in token request
+
 ## 1.19.1 - 2021-12-02
 - Removed character length validation on program ID
 ## 1.19.0 - 2021-11-04

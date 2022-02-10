@@ -29,6 +29,9 @@ final class Auth
     protected $grantType = 'client_credentials';
 
     /** @var string */
+    protected $scope;
+
+    /** @var string */
     private $token;
 
     /** @var string */
@@ -65,6 +68,9 @@ final class Auth
     {
         $this->clientId = $this->clientId ?? config('bankly')['client_id'];
         $this->clientSecret = $this->clientSecret ?? config('bankly')['client_secret'];
+        if (empty($this->scope)) {
+            $this->setScope();
+        }
         return $this;
     }
 
@@ -95,6 +101,22 @@ final class Auth
     public function setGrantType(string $grantType)
     {
         $this->grantType = $grantType;
+        return $this;
+    }
+
+    /**
+     * @param string|array $scope
+     * @return self
+     */
+    public function setScope(mixed $scope = null)
+    {
+        $this->scope = config('bankly')['scope'] ?? [];
+        if (!empty($scope)) {
+            $this->scope = $scope;
+        }
+        if (is_array($this->scope)) {
+            $this->scope = join(' ', $this->scope);
+        }
         return $this;
     }
 
@@ -151,6 +173,10 @@ final class Auth
             'client_secret' => $this->clientSecret,
             'client_id' => $this->clientId
         ];
+
+        if ($this->scope) {
+            $body['scope'] = $this->scope;
+        }
 
         $response = Http::asForm()->post($this->loginUrl, $body)->throw()->json();
         $this->token = $response['access_token'];
