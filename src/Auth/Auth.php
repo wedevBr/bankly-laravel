@@ -108,7 +108,7 @@ final class Auth
      * @param string|array $scope
      * @return self
      */
-    public function setScope(mixed $scope = null)
+    public function setScope($scope = null)
     {
         $this->scope = config('bankly')['scope'] ?? [];
         if (!empty($scope)) {
