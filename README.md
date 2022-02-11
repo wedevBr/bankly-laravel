@@ -27,6 +27,8 @@ php artisan vendor:publish --provider="WeDevBr\Bankly\BanklyServiceProvider"
 ## Usage
 First you need to set up your credentials. Define yours `BANKLY_CLIENT_SECRET` and `BANKLY_CLIENT_ID` at .env file.
 
+You can also define scopes for your credentials, just define `BANKLY_TOKEN_SCOPE` or enter them in `config/bankly.php`. See more: [Bankly Scopes](https://docs.bankly.com.br/docs/scopes)
+
 Tip: If you are running on Staging, you can set up Bankly endpoints also. Just define `BANKLY_LOGIN_URL` and `BANKLY_API_URL` variables.
 
 Then, finally use:
