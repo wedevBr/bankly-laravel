@@ -7,6 +7,7 @@ All notable changes to `bankly-laravel` will be documented in this file
 - Dropped support for PHP 7.x
 - Added support for Laravel 9.x
 - Dropped support for Laravel 7.x
+- Scope property added in token request
 
 ## 1.19.1 - 2021-12-02
 - Removed character length validation on program ID
