@@ -2,6 +2,12 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.20.1 - 2022-02-23
+- Added income report
+- Changed bank slip printing
+- Added PIX key transfer
+- Changed PIX static QrCode transfer
+
 ## 1.20.0 - 2022-02-11
 - Added support for PHP 8.1
 - Dropped support for PHP 7.x
