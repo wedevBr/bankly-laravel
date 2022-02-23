@@ -16,9 +16,6 @@ class PixCashoutStaticQrCode implements PixCashoutInterface
     /** @var \WeDevBr\Bankly\Types\Pix\BankAccount */
     public $sender;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\BankAccount */
-    public $recipient;
-
     /**
      * [Manual, Key, StaticQrCode, DynamicQrCode]
      * @var string

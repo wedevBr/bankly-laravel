@@ -8,10 +8,11 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
 /**
  * PixCashoutStaticQrCodeValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
+ * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
@@ -38,7 +39,6 @@ class PixCashoutStaticQrCodeValidator
         $this->validateAmount();
         $this->validateDescription();
         $this->validateSender();
-        $this->validateRecipient();
         $this->validateInitializationType();
         $this->validateEndToEndId();
     }
@@ -85,23 +85,6 @@ class PixCashoutStaticQrCodeValidator
 
         $this->pixCashoutStaticQrCode
             ->sender
-            ->validate();
-    }
-
-    /**
-     * This validates a recipient bank account
-     *
-     * @return void
-     * @throws \InvalidArgumentException
-     */
-    private function validateRecipient()
-    {
-        if (!$this->pixCashoutStaticQrCode->recipient instanceof BankAccount) {
-            throw new \InvalidArgumentException('recipient should be a BankAccount');
-        }
-
-        $this->pixCashoutStaticQrCode
-            ->recipient
             ->validate();
     }
 

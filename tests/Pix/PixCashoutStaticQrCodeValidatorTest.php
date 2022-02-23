@@ -7,17 +7,16 @@ use stdClass;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\Bank;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
-use WeDevBr\Bankly\Types\Pix\PixCashout;
-use WeDevBr\Bankly\Types\Pix\PixCashoutManual;
 use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
 
 /**
  * PixCashoutValidatorTest class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
+ * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
@@ -48,30 +47,6 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     }
 
     /**
-     * @return BankAccount
-     */
-    public function validRecipient()
-    {
-        $addressingAccount = new AddressingAccount();
-        $addressingAccount->branch = '0002';
-        $addressingAccount->number = '2222';
-        $addressingAccount->type = 'CHECKING';
-
-        $bank = new Bank();
-        $bank->ispb = '00000000';
-        $bank->compe = '001';
-        $bank->name = 'Banco BB S.A.';
-
-        $recipient = new BankAccount();
-        $recipient->documentNumber = '12345678909';
-        $recipient->name = 'Sara Smith';
-        $recipient->account = $addressingAccount;
-        $recipient->bank = $bank;
-
-        return $recipient;
-    }
-
-    /**
      * @return PixCashoutStaticQrCode
      */
     public function validPixCashout()
@@ -80,7 +55,6 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
         $pixCashout->amount = '83.23';
         $pixCashout->description = 'Mercado';
         $pixCashout->sender = $this->validSender();
-        $pixCashout->recipient = $this->validRecipient();
         $pixCashout->initializationType = 'StaticQrCode';
         $pixCashout->endToEndId = 'fhoqiwuehf98adhsf89a7dhf9ahsdofhlasdhofa';
 
@@ -240,126 +214,6 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
         $this->expectErrorMessage('name should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->name = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientObject()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('recipient should be a BankAccount');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient = new stdClass;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientAccountBranch()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->account->branch = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientAccountNumber()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('number account should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->account->number = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientAccountTypeIsNull()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('type account should be a string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->account->type = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientAccountTypeIsValid()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this account type is not valid');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->account->type = 'CORRENTE';
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientBankIspb()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank ispb should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->bank->ispb = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientBankCompe()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank compe account should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->bank->compe = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientBankName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank name should be a string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->bank->name = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientDocumentNumber()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->documentNumber = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('name should be a string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->recipient->name = null;
         $pixCashout->validate();
     }
 

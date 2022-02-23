@@ -8,16 +8,16 @@ use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\Bank;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
-use WeDevBr\Bankly\Types\Pix\PixCashoutManual;
 use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
 
 /**
  * PixCashoutTest class
  *
- * PHP version 7.4|8.0
+ * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
+ * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
@@ -55,30 +55,6 @@ class PixCashoutStaticQrCodeTest extends TestCase
     }
 
     /**
-     * @return BankAccount
-     */
-    public function validRecipient()
-    {
-        $addressingAccount = new AddressingAccount();
-        $addressingAccount->branch = '0002';
-        $addressingAccount->number = '2222';
-        $addressingAccount->type = 'CHECKING';
-
-        $bank = new Bank();
-        $bank->ispb = '00000000';
-        $bank->compe = '001';
-        $bank->name = 'Banco BB S.A.';
-
-        $recipient = new BankAccount();
-        $recipient->documentNumber = '12345678909';
-        $recipient->name = 'Sara Smith';
-        $recipient->account = $addressingAccount;
-        $recipient->bank = $bank;
-
-        return $recipient;
-    }
-
-    /**
      * @return PixCashoutStaticQrCode
      */
     public function validPixCashout()
@@ -87,7 +63,6 @@ class PixCashoutStaticQrCodeTest extends TestCase
         $pixCashout->amount = '83.23';
         $pixCashout->description = 'Mercado';
         $pixCashout->sender = $this->validSender();
-        $pixCashout->recipient = $this->validRecipient();
         $pixCashout->endToEndId = '09asd8njfas09dn90adnc90a8sdn9f8ha0s9dhjfkljas';
 
         return $pixCashout;
@@ -156,7 +131,6 @@ class PixCashoutStaticQrCodeTest extends TestCase
             $body = collect($request->data());
 
             $sender = $body['sender'];
-            $recipient = $body['recipient'];
 
             return $body['amount'] === '83.23'
                 && $body['description'] === 'Mercado'
@@ -170,16 +144,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
                 && $sender['bank']['compe'] === '323'
                 && $sender['bank']['name'] === 'Banco Test S.A.'
                 && $sender['documentNumber'] === '12345678909'
-                && $sender['name'] === 'Jhon Smith'
-
-                && $recipient['account']['branch'] === '0002'
-                && $recipient['account']['number'] === '2222'
-                && $recipient['account']['type'] === 'CHECKING'
-                && $recipient['bank']['ispb'] === '00000000'
-                && $recipient['bank']['compe'] === '001'
-                && $recipient['bank']['name'] === 'Banco BB S.A.'
-                && $recipient['documentNumber'] === '12345678909'
-                && $recipient['name'] === 'Sara Smith';
+                && $sender['name'] === 'Jhon Smith';
         });
 
         $this->assertArrayHasKey('amount', $response);
