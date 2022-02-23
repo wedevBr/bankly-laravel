@@ -113,6 +113,36 @@ class Bankly
     }
 
     /**
+     * Returns the income report for a given year
+     *
+     * @param string $account
+     * @param string|null $year If not informed, the previous year will be used
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function getIncomeReport(string $account, string $year = null)
+    {
+        return $this->get('/accounts/' . $account . '/income-report', [
+            'calendar' => $year
+        ]);
+    }
+
+    /**
+     * Returns the PDF of the income report for a given year in base64 format
+     *
+     * @param string $account
+     * @param string|null $year If not informed, the previous year will be used
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function getIncomeReportPrint(string $account, string $year = null)
+    {
+        return $this->get('/accounts/' . $account . '/income-report/print', [
+            'calendar' => $year
+        ]);
+    }
+
+    /**
      * @param $branch
      * @param $account
      * @param int $offset
@@ -430,7 +460,7 @@ class Bankly
      */
     public function printBillet(string $authenticationCode)
     {
-        return $this->get("/bankslip/{$authenticationCode}/pdf");
+        return $this->get("/bankslip/{$authenticationCode}/pdf", null, null, false);
     }
 
     /**
@@ -525,21 +555,23 @@ class Bankly
      * @param string $endpoint
      * @param array|string|null $query
      * @param null $correlation_id
+     * @param bool $responseJson
      * @return array|mixed
      * @throws RequestException
      */
-    private function get(string $endpoint, $query = null, $correlation_id = null)
+    private function get(string $endpoint, $query = null, $correlation_id = null, $responseJson = true)
     {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
 
         $token = Auth::login()->getToken();
-        return Http::withToken($token)
+        $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->get($this->getFinalUrl($endpoint), $query)
-            ->throw()
-            ->json();
+            ->throw();
+
+        return ($responseJson) ? $request->json() : $request;
     }
 
     /**
