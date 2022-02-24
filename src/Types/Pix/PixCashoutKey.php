@@ -3,9 +3,9 @@
 namespace WeDevBr\Bankly\Types\Pix;
 
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
-use WeDevBr\Bankly\Validators\Pix\PixCashoutStaticQrCodeValidator;
+use WeDevBr\Bankly\Validators\Pix\PixCashoutKeyValidator;
 
-class PixCashoutStaticQrCode implements PixCashoutInterface
+class PixCashoutKey implements PixCashoutInterface
 {
     /** @var string */
     public $amount;
@@ -20,7 +20,7 @@ class PixCashoutStaticQrCode implements PixCashoutInterface
      * [Manual, Key, StaticQrCode, DynamicQrCode]
      * @var string
      */
-    public $initializationType = 'StaticQrCode';
+    public $initializationType = 'Key';
 
     /** @var string */
     public $endToEndId;
@@ -36,13 +36,13 @@ class PixCashoutStaticQrCode implements PixCashoutInterface
     }
 
     /**
-     * This function validate the PixCashoutStaticQrCode type
+     * This function validate the PixCashoutKeyValidator type
      *
      * @return void
      */
     public function validate(): void
     {
-        $pixCashout = new PixCashoutStaticQrCodeValidator($this);
+        $pixCashout = new PixCashoutKeyValidator($this);
         $pixCashout->validate();
     }
 }
