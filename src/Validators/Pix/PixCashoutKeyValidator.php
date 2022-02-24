@@ -3,30 +3,29 @@
 namespace WeDevBr\Bankly\Validators\Pix;
 
 use WeDevBr\Bankly\Types\Pix\BankAccount;
-use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
+use WeDevBr\Bankly\Types\Pix\PixCashoutKey;
 
 /**
- * PixCashoutStaticQrCodeValidator class
+ * PixCashoutKeyValidator class
  *
  * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
- * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class PixCashoutStaticQrCodeValidator
+class PixCashoutKeyValidator
 {
-    /** @var PixCashoutStaticQrCode */
-    private $pixCashoutStaticQrCode;
+    /** @var PixCashoutKey */
+    private $pixCashoutKey;
 
     /**
-     * @param PixCashoutStaticQrCode $pixCashoutStaticQrCode
+     * @param PixCashoutKey $pixCashoutKey
      */
-    public function __construct(PixCashoutStaticQrCode $pixCashoutStaticQrCode)
+    public function __construct(PixCashoutKey $pixCashoutKey)
     {
-        $this->pixCashoutStaticQrCode = $pixCashoutStaticQrCode;
+        $this->pixCashoutKey = $pixCashoutKey;
     }
 
     /**
@@ -51,7 +50,7 @@ class PixCashoutStaticQrCodeValidator
      */
     private function validateAmount()
     {
-        $amount = $this->pixCashoutStaticQrCode->amount;
+        $amount = $this->pixCashoutKey->amount;
         if (empty($amount) || !is_string($amount) || !is_numeric($amount) || $amount <= 0) {
             throw new \InvalidArgumentException('amount should be a numeric string and greater than zero');
         }
@@ -65,7 +64,7 @@ class PixCashoutStaticQrCodeValidator
      */
     private function validateDescription()
     {
-        $description = $this->pixCashoutStaticQrCode->description;
+        $description = $this->pixCashoutKey->description;
         if (empty($description) || !is_string($description)) {
             throw new \InvalidArgumentException('cashout description should be a string');
         }
@@ -79,11 +78,11 @@ class PixCashoutStaticQrCodeValidator
      */
     private function validateSender()
     {
-        if (!$this->pixCashoutStaticQrCode->sender instanceof BankAccount) {
+        if (!$this->pixCashoutKey->sender instanceof BankAccount) {
             throw new \InvalidArgumentException('sender should be a BankAccount');
         }
 
-        $this->pixCashoutStaticQrCode
+        $this->pixCashoutKey
             ->sender
             ->validate();
     }
@@ -96,12 +95,12 @@ class PixCashoutStaticQrCodeValidator
      */
     private function validateInitializationType()
     {
-        $initializationType = $this->pixCashoutStaticQrCode->initializationType;
+        $initializationType = $this->pixCashoutKey->initializationType;
         if (empty($initializationType) || !is_string($initializationType)) {
             throw new \InvalidArgumentException('initialization type should be a string');
         }
 
-        if ($this->pixCashoutStaticQrCode->initializationType != 'StaticQrCode') {
+        if ($this->pixCashoutKey->initializationType != 'Key') {
             throw new \InvalidArgumentException('this initialization type is not valid');
         }
     }
@@ -114,7 +113,7 @@ class PixCashoutStaticQrCodeValidator
      */
     private function validateEndToEndId()
     {
-        $endToEndId = $this->pixCashoutStaticQrCode->endToEndId;
+        $endToEndId = $this->pixCashoutKey->endToEndId;
         if (empty($endToEndId) || !is_string($endToEndId)) {
             throw new \InvalidArgumentException('end to end id should be a string');
         }

@@ -8,7 +8,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\Bank;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
-use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
+use WeDevBr\Bankly\Types\Pix\PixCashoutKey;
 
 /**
  * PixCashoutTest class
@@ -16,12 +16,11 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
  * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
- * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-class PixCashoutStaticQrCodeTest extends TestCase
+class PixCashoutKeyTest extends TestCase
 {
     use WithFaker;
 
@@ -55,11 +54,11 @@ class PixCashoutStaticQrCodeTest extends TestCase
     }
 
     /**
-     * @return PixCashoutStaticQrCode
+     * @return PixCashoutKey
      */
     public function validPixCashout()
     {
-        $pixCashout = new PixCashoutStaticQrCode();
+        $pixCashout = new PixCashoutKey();
         $pixCashout->amount = '83.23';
         $pixCashout->description = 'Mercado';
         $pixCashout->sender = $this->validSender();
@@ -134,7 +133,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
 
             return $body['amount'] === '83.23'
                 && $body['description'] === 'Mercado'
-                && $body['initializationType'] === 'StaticQrCode'
+                && $body['initializationType'] === 'Key'
                 && $body['endToEndId'] === '09asd8njfas09dn90adnc90a8sdn9f8ha0s9dhjfkljas'
 
                 && $sender['account']['branch'] === '0001'
