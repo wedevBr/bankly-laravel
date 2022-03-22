@@ -25,10 +25,8 @@ use WeDevBr\Bankly\Types\Customer\PaymentAccount;
  */
 class Bankly
 {
+    /** @var string */
     public $api_url;
-    public $login_url;
-    private $client_id;
-    private $client_secret;
 
     /** @var string */
     private $mtlsCert;
@@ -39,19 +37,13 @@ class Bankly
     /** @var string */
     private $mtlsPassphrase;
 
-    /**
-     * @var integer
-     * @deprecated 1.19.0
-     */
-    private $token_expiry = 0;
+    /** @var string */
+    protected $token = null;
 
-    /**
-     * @var integer
-     * @deprecated 1.19.0
-     */
-    private $token = null;
-
+    /** @var string */
     private $api_version = '1.0';
+
+    /** @var array */
     private $headers;
 
     /**
@@ -70,7 +62,6 @@ class Bankly
     )
     {
         $this->api_url = $apiUrl ?? config('bankly')['api_url'];
-        $this->login_url = config('bankly')['login_url'];
         $this->headers = ['API-Version' => $this->api_version];
 
         $this->mtlsCert = $mtlsCert;
@@ -79,14 +70,14 @@ class Bankly
     }
 
     /**
-     * @param array|null $credentials
-     * @return $this
+     * Set token
+     *
+     * @param string $token
+     * @return void
      */
-    public function setClientCredentials(array $credentials = null)
+    public function setToken(string $token): void
     {
-        $this->client_secret = $credentials['client_secret'] ?? config('bankly')['client_secret'];
-        $this->client_id = $credentials['client_id'] ?? config('bankly')['client_id'];
-        return $this;
+        $this->token = $token;
     }
 
     /**
@@ -582,7 +573,7 @@ class Bankly
             $correlation_id = Uuid::uuid4()->toString();
         }
 
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]));
 
@@ -635,7 +626,7 @@ class Bankly
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
@@ -673,7 +664,7 @@ class Bankly
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
@@ -700,7 +691,7 @@ class Bankly
      */
     private function delete(string $endpoint)
     {
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders($this->headers));
 
@@ -784,23 +775,4 @@ class Bankly
         return $this->api_url . $endpoint;
     }
 
-    /**
-     * Do authentication
-     * @param string $grant_type Default sets to 'client_credentials'
-     * @throws RequestException
-     * @deprecated 1.19.0
-     */
-    private function auth($grant_type = 'client_credentials'): void
-    {
-        //TODO: Add auth for username and password
-        $body = [
-            'grant_type' => $grant_type,
-            'client_secret' => $this->client_secret,
-            'client_id' => $this->client_id
-        ];
-
-        $response = Http::asForm()->post($this->login_url, $body)->throw()->json();
-        $this->token = $response['access_token'];
-        $this->token_expiry = now()->addSeconds($response['expires_in'])->unix();
-    }
 }

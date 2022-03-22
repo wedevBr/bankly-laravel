@@ -34,6 +34,9 @@ trait Rest
     /** @var string */
     protected $mtlsPassphrase;
 
+    /** @var string */
+    protected $token = null;
+
     /**
      * @param string $apiUrl
      * @return self
@@ -78,6 +81,17 @@ trait Rest
     }
 
     /**
+     * Set token
+     *
+     * @param string $token
+     * @return void
+     */
+    public function setToken(string $token): void
+    {
+        $this->token = $token;
+    }
+
+    /**
      * @param string $endpoint
      * @param array|string|null $query
      * @param string|null $correlationId
@@ -95,7 +109,7 @@ trait Rest
             'x-correlation-id' => $correlationId
         ]);
 
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 
@@ -128,7 +142,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -171,7 +185,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -214,7 +228,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -238,7 +252,7 @@ trait Rest
      */
     private function delete(string $endpoint)
     {
-        $token = Auth::login()->getToken();
+        $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 

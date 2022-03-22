@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.20.3 - 2022-03-22
+- Added multiple token support
+
 ## 1.20.2 - 2022-03-22
 - Added mTLS PIX support
 
