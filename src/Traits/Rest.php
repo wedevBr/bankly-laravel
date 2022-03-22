@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Traits;
 
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
@@ -23,6 +24,15 @@ trait Rest
 
     /** @var string */
     protected $apiVersion = '1.0';
+
+    /** @var string */
+    protected $mtlsCert;
+
+    /** @var string */
+    protected $mtlsKey;
+
+    /** @var string */
+    protected $mtlsPassphrase;
 
     /**
      * @param string $apiUrl
@@ -86,9 +96,14 @@ trait Rest
         ]);
 
         $token = Auth::login()->getToken();
-        return Http::withToken($token)
-            ->withHeaders($this->headers)
-            ->get($this->getFinalUrl($endpoint), $query)
+        $request = Http::withToken($token)
+            ->withHeaders($this->headers);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        return $request->get($this->getFinalUrl($endpoint), $query)
             ->throw()
             ->json();
     }
@@ -115,10 +130,15 @@ trait Rest
         $bodyFormat = $asJson ? 'json' : 'form_params';
         $token = Auth::login()->getToken();
 
-        return Http::withToken($token)
+        $request = Http::withToken($token)
             ->withHeaders($this->headers)
-            ->bodyFormat($bodyFormat)
-            ->post($this->getFinalUrl($endpoint), $body)
+            ->bodyFormat($bodyFormat);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        return $request->post($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
@@ -156,6 +176,10 @@ trait Rest
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
             ->bodyFormat($bodyFormat);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
 
         if ($attachment && !is_null($document)) {
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
@@ -196,6 +220,10 @@ trait Rest
             ->withHeaders($this->headers)
             ->bodyFormat($bodyFormat);
 
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
         return $request->patch($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
@@ -214,9 +242,27 @@ trait Rest
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
         return $request->delete($this->getFinalUrl($endpoint))
             ->throw()
             ->json();
+    }
+
+    /**
+     * Add cert options to request
+     *
+     * @param PendingRequest $request
+     * @return PendingRequest
+     */
+    private function setRequestMtls(PendingRequest $request): PendingRequest
+    {
+        return $request->withOptions([
+            'cert' => $this->mtlsCert,
+            'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+        ]);
     }
 
     /**

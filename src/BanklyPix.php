@@ -2,7 +2,6 @@
 
 namespace WeDevBr\Bankly;
 
-use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
@@ -17,14 +16,24 @@ class BanklyPix
     use Rest;
 
     /**
-     * @param string $clientSecret
-     * @param string $clientId
+     * Bankly constructor.
+     *
+     * @param null|string $mtlsCert
+     * @param null|string $mtlsKey
+     * @param null|string $mtlsPassphrase
+     * @param null|string $apiUrl
      */
-    public function __construct($clientSecret = null, $clientId = null)
+    public function __construct(
+        string $mtlsCert = null,
+        string $mtlsKey = null,
+        string $mtlsPassphrase = null,
+        string $apiUrl = null
+    )
     {
-        Auth::login()
-            ->setClientId($clientId)
-            ->setClientId($clientSecret);
+        $this->mtlsCert = $mtlsCert;
+        $this->mtlsKey = $mtlsKey;
+        $this->mtlsPassphrase = $mtlsPassphrase;
+        $this->apiUrl = $apiUrl;
     }
 
     /**
