@@ -20,14 +20,24 @@ class BanklyCard
     use Rest;
 
     /**
-     * @param string $clientSecret
-     * @param string $clientId
+     * Bankly constructor.
+     *
+     * @param null|string $mtlsCert
+     * @param null|string $mtlsKey
+     * @param null|string $mtlsPassphrase
+     * @param null|string $apiUrl
      */
-    public function __construct($clientSecret = null, $clientId = null)
+    public function __construct(
+        string $mtlsCert = null,
+        string $mtlsKey = null,
+        string $mtlsPassphrase = null,
+        string $apiUrl = null
+    )
     {
-        Auth::login()
-            ->setClientId($clientId)
-            ->setClientId($clientSecret);
+        $this->mtlsCert = $mtlsCert;
+        $this->mtlsKey = $mtlsKey;
+        $this->mtlsPassphrase = $mtlsPassphrase;
+        $this->apiUrl = $apiUrl;
     }
 
     /**

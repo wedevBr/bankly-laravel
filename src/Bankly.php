@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly;
 
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
@@ -29,6 +30,15 @@ class Bankly
     private $client_id;
     private $client_secret;
 
+    /** @var string */
+    private $mtlsCert;
+
+    /** @var string */
+    private $mtlsKey;
+
+    /** @var string */
+    private $mtlsPassphrase;
+
     /**
      * @var integer
      * @deprecated 1.19.0
@@ -46,19 +56,26 @@ class Bankly
 
     /**
      * Bankly constructor.
-     * @param null|string $client_secret provided by Bankly Staff
-     * @param null|string $client_id provided by Bankly Staff
+     *
+     * @param null|string $mtlsCert
+     * @param null|string $mtlsKey
+     * @param null|string $mtlsPassphrase
+     * @param null|string $apiUrl
      */
-    public function __construct($client_secret = null, $client_id = null)
+    public function __construct(
+        string $mtlsCert = null,
+        string $mtlsKey = null,
+        string $mtlsPassphrase = null,
+        string $apiUrl = null
+    )
     {
-        $this->api_url = config('bankly')['api_url'];
+        $this->api_url = $apiUrl ?? config('bankly')['api_url'];
         $this->login_url = config('bankly')['login_url'];
         $this->headers = ['API-Version' => $this->api_version];
 
-        //$this->setClientCredentials(['client_secret' => $client_secret, 'client_id' => $client_id]);
-        Auth::login()
-            ->setClientId($client_id)
-            ->setClientSecret($client_secret);
+        $this->mtlsCert = $mtlsCert;
+        $this->mtlsKey = $mtlsKey;
+        $this->mtlsPassphrase = $mtlsPassphrase;
     }
 
     /**
@@ -567,8 +584,13 @@ class Bankly
 
         $token = Auth::login()->getToken();
         $request = Http::withToken($token)
-            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
-            ->get($this->getFinalUrl($endpoint), $query)
+            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]));
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        $request = $request->get($this->getFinalUrl($endpoint), $query)
             ->throw();
 
         return ($responseJson) ? $request->json() : $request;
@@ -614,11 +636,15 @@ class Bankly
 
         $body_format = $asJson ? 'json' : 'form_params';
         $token = Auth::login()->getToken();
-        return Http
-            ::withToken($token)
+        $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
-            ->bodyFormat($body_format)
-            ->post($this->getFinalUrl($endpoint), $body)
+            ->bodyFormat($body_format);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        return $request->post($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
@@ -648,10 +674,13 @@ class Bankly
 
         $body_format = $asJson ? 'json' : 'form_params';
         $token = Auth::login()->getToken();
-        $request = Http
-            ::withToken($token)
+        $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
 
         if ($attachment) {
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
@@ -675,6 +704,10 @@ class Bankly
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders($this->headers));
 
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
         return $request->delete($this->getFinalUrl($endpoint))
             ->throw()
             ->json();
@@ -688,6 +721,20 @@ class Bankly
     {
         $this->api_version = $version;
         return $this;
+    }
+
+    /**
+     * Add cert options to request
+     *
+     * @param PendingRequest $request
+     * @return PendingRequest
+     */
+    private function setRequestMtls(PendingRequest $request): PendingRequest
+    {
+        return $request->withOptions([
+            'cert' => $this->mtlsCert,
+            'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+        ]);
     }
 
     /**
