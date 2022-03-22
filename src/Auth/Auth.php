@@ -37,6 +37,15 @@ final class Auth
     /** @var string */
     private $tokenExpiry;
 
+    /** @var string */
+    private $mtlsCert;
+
+    /** @var string */
+    private $mtlsKey;
+
+    /** @var string */
+    private $mtlsPassphrase;
+
     private function __construct()
     {
         //
@@ -46,17 +55,26 @@ final class Auth
      * Returns the instance of this class
      *
      * @param string|null $loginUrl
+     * @param string|null $mtlsCert
+     * @param string|null $mtlsKey
+     * @param string|null $mtlsPassphrase
      * @return self
      */
-    public static function login($loginUrl = null)
+    public static function login(
+        string $loginUrl = null,
+        string $mtlsCert = null,
+        string $mtlsKey = null,
+        string $mtlsPassphrase = null
+    )
     {
         if (is_null(self::$login)) {
             self::$login = new Auth();
         }
 
-        if (is_null($loginUrl)) {
-            self::$login->loginUrl = config('bankly')['login_url'];
-        }
+        self::$login->loginUrl = $loginUrl ?? config('bankly')['login_url'];
+        self::$login->mtlsCert = $mtlsCert ?? null;
+        self::$login->mtlsKey = $mtlsKey ?? null;
+        self::$login->mtlsPassphrase = $mtlsPassphrase ?? null;
 
         return self::$login;
     }
@@ -131,6 +149,17 @@ final class Auth
     }
 
     /**
+     * Reset token for new request
+     *
+     * @return self
+     */
+    public function resetToken(): self
+    {
+        $this->token = null;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getToken()
@@ -178,7 +207,15 @@ final class Auth
             $body['scope'] = $this->scope;
         }
 
-        $response = Http::asForm()->post($this->loginUrl, $body)->throw()->json();
+        $request = Http::asForm();
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $request->withOptions([
+                'cert' => $this->mtlsCert,
+                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+            ]);
+        }
+        $response = $request->post($this->loginUrl, $body)->throw()->json();
+
         $this->token = $response['access_token'];
         $this->tokenExpiry = now()->addSeconds($response['expires_in'])->unix();
 
