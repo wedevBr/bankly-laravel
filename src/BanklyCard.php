@@ -2,13 +2,13 @@
 
 namespace WeDevBr\Bankly;
 
-use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
 use WeDevBr\Bankly\Types\Card\Wallet;
 use WeDevBr\Bankly\Types\Card\Activate;
+use WeDevBr\Bankly\Types\Card\Card;
 
 /**
  * Class BanklyCard
@@ -38,6 +38,30 @@ class BanklyCard
         $this->mtlsKey = $mtlsKey;
         $this->mtlsPassphrase = $mtlsPassphrase;
         $this->apiUrl = $apiUrl;
+    }
+
+    /**
+     * Create a new virtual card
+     *
+     * @param Card $virtualCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function virtualCard(Card $virtualCard)
+    {
+        return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
+    }
+
+    /**
+     * Create a new physical card
+     *
+     * @param Card $physicalCard
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function physicalCard(Card $physicalCard)
+    {
+        return $this->post('/cards/physical', $physicalCard->toArray(), null, true);
     }
 
     /**
@@ -117,6 +141,15 @@ class BanklyCard
     public function nextStatus(string $proxy)
     {
         return $this->get("/cards/{$proxy}/nextStatus");
+    }
+
+    /**
+     * @param string $proxy
+     * @return array
+     */
+    public function cardTracking(string $proxy)
+    {
+        return $this->get("/cards/{$proxy}/tracking");
     }
 
     /**
