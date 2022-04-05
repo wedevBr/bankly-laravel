@@ -14,7 +14,6 @@ use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
-use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 
@@ -585,30 +584,6 @@ class Bankly
             ->throw();
 
         return ($responseJson) ? $request->json() : $request;
-    }
-
-    /**
-     * Create a new virtual card
-     *
-     * @param Card $virtualCard
-     * @return array|mixed
-     * @throws RequestException
-     */
-    public function virtualCard(Card $virtualCard)
-    {
-        return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
-    }
-
-    /**
-     * Create a new physical card
-     *
-     * @param Card $physicalCard
-     * @return array|mixed
-     * @throws RequestException
-     */
-    public function physicalCard(Card $physicalCard)
-    {
-        return $this->post('/cards/physical', $physicalCard->toArray(), null, true);
     }
 
     /**

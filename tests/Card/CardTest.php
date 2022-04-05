@@ -4,6 +4,7 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
+use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Card;
@@ -79,7 +80,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreateVirtualCard()
     {
-        $client = $this->getBanklyClient();
+        $client = new BanklyCard();
 
         Http::fake($this->getFakerHttp("/cards/virtual", [
             'proxy' => '2370021007715002820',
@@ -118,7 +119,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreatePhysicalCard()
     {
-        $client = $this->getBanklyClient();
+        $client = new BanklyCard();
 
         Http::fake($this->getFakerHttp("/cards/physical", [
             'proxy' => '2370021007715002820',
