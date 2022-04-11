@@ -83,9 +83,11 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getBankList()
+    public function getBankList($product = 'None')
     {
-        return $this->get('/banklist');
+        return $this->get('/banklist', [
+            'product' => $product
+        ]);
     }
 
     /**
