@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.20.5 - 2022-04-11
+- Improved banks methods
+
 ## 1.20.4 - 2022-04-05
 - Added physical card tracking method
 - Changed card methods
