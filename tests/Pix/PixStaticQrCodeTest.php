@@ -6,7 +6,6 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
-use WeDevBr\Bankly\BanklyPix;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 use WeDevBr\Bankly\Types\Pix\Location;
 
@@ -92,12 +91,12 @@ class PixStaticQrCodeTest extends TestCase
     {
         $encoded = "MDAwMjAxMjYzMzAwMTRici5nb3YuYmNiLnBpeDAxMTE1NjUyNzkzODIxNzUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwN";
 
-        Http::fake($this->getFakerHttp("/baas/pix/qrcodes", [
+        Http::fake($this->getFakerHttp("/pix/qrcodes", [
             'encodedValue' => $encoded,
         ], 200));
 
-        $pix = new BanklyPix();
-        $response = $pix->qrCode($this->validStaticQrCodeData());
+        $client = $this->getBanklyClient();
+        $response = $client->qrCode($this->validStaticQrCodeData());
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());

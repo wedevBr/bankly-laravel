@@ -54,27 +54,17 @@ final class Auth
     /**
      * Returns the instance of this class
      *
-     * @param string|null $loginUrl
-     * @param string|null $mtlsCert
-     * @param string|null $mtlsKey
-     * @param string|null $mtlsPassphrase
      * @return self
      */
-    public static function login(
-        string $loginUrl = null,
-        string $mtlsCert = null,
-        string $mtlsKey = null,
-        string $mtlsPassphrase = null
-    )
+    public static function login()
     {
         if (is_null(self::$login)) {
             self::$login = new Auth();
         }
 
-        self::$login->loginUrl = $loginUrl ?? config('bankly')['login_url'];
-        self::$login->mtlsCert = $mtlsCert ?? null;
-        self::$login->mtlsKey = $mtlsKey ?? null;
-        self::$login->mtlsPassphrase = $mtlsPassphrase ?? null;
+        self::$login->loginUrl = config('bankly')['login_url'];
+        self::$login->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
+        self::$login->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
 
         return self::$login;
     }
@@ -86,6 +76,7 @@ final class Auth
     {
         $this->clientId = $this->clientId ?? config('bankly')['client_id'];
         $this->clientSecret = $this->clientSecret ?? config('bankly')['client_secret'];
+        $this->mtlsPassphrase = $this->mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
         if (empty($this->scope)) {
             $this->setScope();
         }
@@ -109,6 +100,16 @@ final class Auth
     public function setClientSecret($clientSecret)
     {
         $this->clientSecret = $clientSecret;
+        return $this;
+    }
+
+    /**
+     * @param string $passPhrase
+     * @return self
+     */
+    public function setPassphrase(string $passPhrase): self
+    {
+        $this->mtlsPassphrase = $passPhrase;
         return $this;
     }
 
@@ -221,4 +222,31 @@ final class Auth
 
         event(new BanklyAuthenticatedEvent($this->token, $this->tokenExpiry));
     }
+
+    /**
+     * Register new mTLS client
+     *
+     * @param string $subjectDn
+     * @return array
+     */
+    public function registerClient(string $subjectDn):array
+    {
+        $this->setClientCredentials();
+        $body = [
+            'grant_types' => [$this->grantType],
+            'tls_client_auth_subject_dn' => $subjectDn,
+            'token_endpoint_auth_method' => 'tls_client_auth',
+            'response_types' => ['access_token'],
+            'company_key' => config('bankly')['company_key'],
+            'scope' => $this->scope
+        ];
+
+        return Http::asForm()
+            ->withOptions([
+                'cert' => $this->mtlsCert,
+                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+            ])
+            ->post(str_replace('token', 'register', $this->loginUrl), $body)->throw()->json();
+    }
+
 }
