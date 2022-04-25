@@ -5,7 +5,6 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyPix;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
 
 /**
@@ -72,7 +71,7 @@ class PixDecodeQrCodeTest extends TestCase
      */
     public function testSuccessDecodeStaticQrCode()
     {
-        Http::fake($this->getFakerHttp("/baas/pix/qrcodes/decode", [
+        Http::fake($this->getFakerHttp("/pix/qrcodes/decode", [
             "endToEndId" => "E13140088202105201500345922912340",
             "conciliationId" => "testePagamento",
             "addressingKey" => [
@@ -108,8 +107,8 @@ class PixDecodeQrCodeTest extends TestCase
             ]
         ], 200));
 
-        $pix = new BanklyPix();
-        $response = $pix->qrCodeDecode($this->validCodedQrCodeData());
+        $client = $this->getBanklyClient();
+        $response = $client->qrCodeDecode($this->validCodedQrCodeData());
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
