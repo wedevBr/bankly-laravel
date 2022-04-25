@@ -16,6 +16,8 @@ use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
+use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
+use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 
 /**
  * Class Bankly
@@ -48,23 +50,15 @@ class Bankly
     /**
      * Bankly constructor.
      *
-     * @param null|string $mtlsCert
-     * @param null|string $mtlsKey
      * @param null|string $mtlsPassphrase
-     * @param null|string $apiUrl
      */
-    public function __construct(
-        string $mtlsCert = null,
-        string $mtlsKey = null,
-        string $mtlsPassphrase = null,
-        string $apiUrl = null
-    )
+    public function __construct(string $mtlsPassphrase = null)
     {
-        $this->api_url = $apiUrl ?? config('bankly')['api_url'];
         $this->headers = ['API-Version' => $this->api_version];
 
-        $this->mtlsCert = $mtlsCert;
-        $this->mtlsKey = $mtlsKey;
+        $this->api_url = config('bankly')['api_url'];
+        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
+        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
         $this->mtlsPassphrase = $mtlsPassphrase;
     }
 
@@ -77,6 +71,16 @@ class Bankly
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    /**
+     * @param string $passPhrase
+     * @return self
+     */
+    public function setPassphrase(string $passPhrase): self
+    {
+        $this->mtlsPassphrase = $passPhrase;
+        return $this;
     }
 
     /**
@@ -558,6 +562,30 @@ class Bankly
     public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId)
     {
         return $this->post('/pix/cash-out', $pixCashout->toArray(), $correlationId, true);
+    }
+
+    /**
+     * @param PixStaticQrCode $data
+     * @return array
+     */
+    public function qrCode(PixStaticQrCode $data)
+    {
+        return $this->post('/pix/qrcodes', $data->toArray(), null, true);
+    }
+
+    /**
+     * @param PixQrCodeData $data
+     * @return array
+     */
+    public function qrCodeDecode(PixQrCodeData $data)
+    {
+        $qrCode = $data->toArray();
+
+        $this->setHeaders([
+            'x-bkly-pix-user-id' => $qrCode['documentNumber'],
+        ]);
+
+        return $this->post('/pix/qrcodes/decode', $qrCode, null, true);
     }
 
     /**

@@ -22,22 +22,23 @@ class BanklyCard
     /**
      * Bankly constructor.
      *
-     * @param null|string $mtlsCert
-     * @param null|string $mtlsKey
      * @param null|string $mtlsPassphrase
-     * @param null|string $apiUrl
      */
-    public function __construct(
-        string $mtlsCert = null,
-        string $mtlsKey = null,
-        string $mtlsPassphrase = null,
-        string $apiUrl = null
-    )
+    public function __construct(string $mtlsPassphrase = null)
     {
-        $this->mtlsCert = $mtlsCert;
-        $this->mtlsKey = $mtlsKey;
+        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
+        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
         $this->mtlsPassphrase = $mtlsPassphrase;
-        $this->apiUrl = $apiUrl;
+    }
+
+    /**
+     * @param string $passPhrase
+     * @return self
+     */
+    public function setPassphrase(string $passPhrase): self
+    {
+        $this->mtlsPassphrase = $passPhrase;
+        return $this;
     }
 
     /**
