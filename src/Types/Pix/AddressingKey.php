@@ -12,6 +12,9 @@ class AddressingKey
     /** @var string */
     public $value;
 
+    /** @var bool */
+    public $registering = true;
+
     /**
      * This validate and return an array
      * @return array
@@ -19,7 +22,9 @@ class AddressingKey
     public function toArray(): array
     {
         $this->validate();
-        return (array) $this;
+        $array = (array) $this;
+        unset($array['registering']);
+        return $array;
     }
 
     /**
@@ -27,7 +32,7 @@ class AddressingKey
      */
     public function validate()
     {
-        $validator = new AddressingKeyValidator($this);
+        $validator = new AddressingKeyValidator($this, $this->registering);
         $validator->validate();
     }
 }

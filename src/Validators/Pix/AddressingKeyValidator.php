@@ -9,12 +9,17 @@ class AddressingKeyValidator
     /** @var AddressingKey */
     private $addressingKey;
 
+    /** @var bool */
+    private $registering;
+
     /**
      * @param AddressingKey $addressingKey
+     * @param bool $registering
      */
-    public function __construct(AddressingKey $addressingKey)
+    public function __construct(AddressingKey $addressingKey, bool $registering = true)
     {
         $this->addressingKey = $addressingKey;
+        $this->registering = $registering;
     }
 
     /**
@@ -63,7 +68,13 @@ class AddressingKeyValidator
     private function validateValue()
     {
         $value = $this->addressingKey->value;
-        if ($this->addressingKey->type !== 'EVP' && (empty($value) || !is_string($value))) {
+        if (
+            (
+                !$this->registering
+                || ($this->registering && $this->addressingKey->type !== 'EVP')
+            )
+            && (empty($value) || !is_string($value))
+        ) {
             throw new \InvalidArgumentException('value should be a string');
         }
     }
@@ -77,7 +88,11 @@ class AddressingKeyValidator
     private function validateEvpType()
     {
         $value = $this->addressingKey->value;
-        if ($this->addressingKey->type === 'EVP' && !empty($value))
+        if (
+            $this->registering
+            && $this->addressingKey->type === 'EVP'
+            && !empty($value)
+        )
         {
             throw new \InvalidArgumentException('value must be empty for EVP type');
         }
