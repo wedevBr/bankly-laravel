@@ -2,8 +2,11 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.1 - 2022-05-03
+- Fix Pix Qr Code Validation
+
 ## 1.21.0 - 2022-04-25
-- - Added full mTLS support
+- Added full mTLS support
 
 ## 1.20.5 - 2022-04-11
 - Improved banks methods
