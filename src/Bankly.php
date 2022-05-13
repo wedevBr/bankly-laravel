@@ -565,6 +565,15 @@ class Bankly
     }
 
     /**
+     * @param PixCashoutInterface $pixCashout
+     * @return array|mixed
+     */
+    public function pixRefund(PixCashoutInterface $pixRefund)
+    {
+        return $this->post('/pix/cash-out:refund', $pixRefund->toArray(), null, true);
+    }
+
+    /**
      * @param PixStaticQrCode $data
      * @return array
      */
