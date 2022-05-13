@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.2 - 2022-05-13
+- Added Pix refound
+
 ## 1.21.1 - 2022-05-03
 - Fix Pix Qr Code Validation
 
