@@ -2,6 +2,10 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.3 - 2022-05-21
+- Added account closure
+- Refactored billets
+
 ## 1.21.2 - 2022-05-13
 - Added Pix refound
 

@@ -398,6 +398,22 @@ class Bankly
     }
 
     /**
+     * Close account
+     *
+     * @param string $account
+     * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function closeAccount(string $account, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    {
+        return $this->patch('/accounts/' . $account . '/closure', [
+            'reason' => $reason
+        ], $correlationId, true);
+    }
+
+    /**
      * @param string $documentNumber
      * @param string $resultLevel
      * @return array|mixed
@@ -692,6 +708,39 @@ class Bankly
         }
 
         return $request->put($this->getFinalUrl($endpoint), $body)
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * @param string $endpoint
+     * @param array|null $body
+     * @param string|null $correlation_id
+     * @param bool $asJson
+     * @return array|mixed
+     * @throws RequestException
+     */
+    private function patch(
+        string $endpoint,
+        array $body = [],
+        string $correlation_id = null,
+        bool $asJson = false
+    ) {
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+            $correlation_id = Uuid::uuid4()->toString();
+        }
+
+        $body_format = $asJson ? 'json' : 'form_params';
+        $token = $this->token ?? Auth::login()->getToken();
+        $request = Http::withToken($token)
+            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
+            ->bodyFormat($body_format);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        return $request->patch($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
