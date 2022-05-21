@@ -4,15 +4,19 @@ namespace WeDevBr\Bankly\Validators\Billet;
 
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
+use WeDevBr\Bankly\Types\Billet\Discounts;
+use WeDevBr\Bankly\Types\Billet\Fine;
+use WeDevBr\Bankly\Types\Billet\Interest;
 use WeDevBr\Bankly\Types\Billet\Payer;
 
 /**
  * DepositBilletValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP version 8.0|8.1
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
+ * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2021 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
@@ -40,10 +44,13 @@ class DepositBilletValidator
         $this->validateDocumentNumber();
         $this->validateAmount();
         $this->validateDueDate();
-        $this->validateEmissionFee();
         $this->validateType();
         $this->validateBankAccount();
         $this->validatePayer();
+        $this->validateClosePayment();
+        $this->validateInterest();
+        $this->validateFine();
+        $this->validateDiscounts();
     }
 
     /**
@@ -109,21 +116,6 @@ class DepositBilletValidator
     }
 
     /**
-     * This validates the emission fee
-     *
-     * @return void
-     * @throws \InvalidArgumentException
-     */
-    private function validateEmissionFee()
-    {
-        $emissionFee = $this->depositBillet->emissionFee;
-
-        if (!is_bool($emissionFee)) {
-            throw new \InvalidArgumentException('emission fee should be a boolean');
-        }
-    }
-
-    /**
      * This validates a type
      *
      * @return void
@@ -160,7 +152,7 @@ class DepositBilletValidator
     }
 
     /**
-     * This validates a bank account
+     * This validates the payer
      *
      * @return void
      * @throws \InvalidArgumentException
@@ -174,5 +166,74 @@ class DepositBilletValidator
         $this->depositBillet
             ->payer
             ->validate();
+    }
+
+    /**
+     * This validates the close payment date
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateClosePayment()
+    {
+        $closePayment = $this->depositBillet->closePayment;
+        if (!empty($closePayment)) {
+            try {
+                $date = now()->createFromFormat('Y-m-d', $closePayment);
+                if (!$date->gt(now())) {
+                    throw new \InvalidArgumentException('close payment date must be greater than the current date');
+                }
+            } catch (\Throwable $th) {
+                throw new \InvalidArgumentException('close payment date should be a valid date');
+            }
+        }
+    }
+
+    /**
+     * This validates the interest
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateInterest()
+    {
+        if (!empty($this->depositBillet->interest)) {
+            if (!$this->depositBillet->interest instanceof Interest) {
+                throw new \InvalidArgumentException('interest should be a Interest type');
+            }
+            $this->depositBillet->interest->validate();
+        }
+    }
+
+    /**
+     * This validates the fine
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateFine()
+    {
+        if (!empty($this->depositBillet->fine)) {
+            if (!$this->depositBillet->fine instanceof Fine) {
+                throw new \InvalidArgumentException('fine should be a Fine type');
+            }
+            $this->depositBillet->fine->validate();
+        }
+    }
+
+    /**
+     * This validates the discounts
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateDiscounts()
+    {
+        if (!empty($this->depositBillet->discounts)) {
+            if (!$this->depositBillet->discounts instanceof Discounts) {
+                throw new \InvalidArgumentException('discounts should be a Discounts type');
+            }
+            $this->depositBillet->discounts->validate();
+        }
     }
 }

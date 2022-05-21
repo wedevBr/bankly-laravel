@@ -64,7 +64,6 @@ class DepositBilletTest extends TestCase
         $depositBillet->documentNumber = '12345678909';
         $depositBillet->amount = '69.99';
         $depositBillet->dueDate = now()->addDay()->format('Y-m-d');
-        $depositBillet->emissionFee = false;
         $depositBillet->type = 'Deposit';
 
         return $depositBillet;
@@ -119,7 +118,6 @@ class DepositBilletTest extends TestCase
                 && $body['documentNumber'] === '12345678909'
                 && $body['amount'] === '69.99'
                 && $body['dueDate'] === now()->addDay()->format('Y-m-d')
-                && $body['emissionFee'] === false
                 && $body['type'] === 'Deposit';
         });
 
