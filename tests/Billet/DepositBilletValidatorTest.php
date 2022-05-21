@@ -52,7 +52,6 @@ class DepositBilletValidatorTest extends TestCase
         $depositBillet->documentNumber = '12345678909';
         $depositBillet->amount = '69.99';
         $depositBillet->dueDate = now()->addDay()->format('Y-m-d');
-        $depositBillet->emissionFee = false;
         $depositBillet->type = 'Deposit';
 
         return $depositBillet;
@@ -259,18 +258,6 @@ class DepositBilletValidatorTest extends TestCase
         $this->expectErrorMessage('due date should be a valid date');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->dueDate = now()->format('Y-m-d');
-        $depositBillet->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateEmissiouFee()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('emission fee should be a boolean');
-        $depositBillet = $this->validDepositBillet();
-        $depositBillet->emissionFee = 'truth';
         $depositBillet->validate();
     }
 

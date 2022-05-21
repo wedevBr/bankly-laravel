@@ -24,14 +24,23 @@ class DepositBillet
     /** @var string */
     public $dueDate;
 
-    /** @var bool */
-    public $emissionFee;
-
     /**
      * [Deposit, Levy]
      * @var string
      * */
     public $type;
+
+    /** @var string */
+    public $closePayment;
+
+    /** @var Interest */
+    public $interest;
+
+    /** @var Fine */
+    public $fine;
+
+    /** @var Discounts */
+    public $discounts;
 
     /**
      * This validate and return an array
