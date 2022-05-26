@@ -15,6 +15,7 @@ use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
+use WeDevBr\Bankly\Types\Billet\CancelBillet;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
@@ -522,6 +523,15 @@ class Bankly
     }
 
     /**
+     * @param CancelBillet $cancelBillet
+     * @return array|mixed
+     */
+    public function cancelBillet(CancelBillet $cancelBillet)
+    {
+        return $this->delete('/bankslip/cancel', $cancelBillet->toArray());
+    }
+
+    /**
      * Create a new PIX key link with account.
      *
      * @param PixEntries $pixEntries
@@ -749,10 +759,11 @@ class Bankly
      * Http delete method.
      *
      * @param string $endpoint
+     * @param array|null $body
      * @return array|mixed
      * @throws RequestException
      */
-    private function delete(string $endpoint)
+    private function delete(string $endpoint, array $body = [])
     {
         $token = $this->token ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -762,7 +773,7 @@ class Bankly
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->delete($this->getFinalUrl($endpoint))
+        return $request->delete($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
