@@ -415,6 +415,38 @@ class Bankly
     }
 
     /**
+     * Customer offboarding
+     *
+     * @param string $documentNumber
+     * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function cancelCustomer(string $documentNumber, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    {
+        return $this->patch('/customers/' . $documentNumber . '/cancel', [
+            'reason' => $reason
+        ], $correlationId, true);
+    }
+
+    /**
+     * Business offboarding
+     *
+     * @param string $documentNumber
+     * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param string $correlationId
+     * @return array|mixed
+     * @throws RequestException
+     */
+    public function cancelBusiness(string $documentNumber, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    {
+        return $this->patch('/business/' . $documentNumber . '/cancel', [
+            'reason' => $reason
+        ], $correlationId, true);
+    }
+
+    /**
      * @param string $documentNumber
      * @param string $resultLevel
      * @return array|mixed
