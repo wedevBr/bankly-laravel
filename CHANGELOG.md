@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.5 - 2022-06-06
+- Added offboarding support
+
 ## 1.21.4 - 2022-05-26
 - Added billet cancellation
 
