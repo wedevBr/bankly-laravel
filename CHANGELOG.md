@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.6 - 2022-06-21
+- Fix card address number validation
+
 ## 1.21.5 - 2022-06-06
 - Added offboarding support
 
