@@ -64,9 +64,9 @@ class AddressValidatorTest extends TestCase
     public function testValidateNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('number should be a numeric string');
+        $this->expectErrorMessage('number should be a numeric or string');
         $address = $this->validAddress();
-        $address->number = 'null';
+        $address->number = null;
         $address->validate();
     }
 
