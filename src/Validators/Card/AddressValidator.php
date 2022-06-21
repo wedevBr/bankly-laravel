@@ -79,8 +79,8 @@ class AddressValidator
     private function validateNumber()
     {
         $number = $this->address->number;
-        if (empty($number) || !is_string($number) || !is_numeric($number)) {
-            throw new \InvalidArgumentException('number should be a numeric string');
+        if (empty($number)) {
+            throw new \InvalidArgumentException('number should be a numeric or string');
         }
     }
 
