@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.21.7 - 2022-07-01
+- Add get token method
+
 ## 1.21.6 - 2022-06-21
 - Fix card address number validation
 
