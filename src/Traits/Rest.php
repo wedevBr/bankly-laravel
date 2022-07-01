@@ -35,7 +35,7 @@ trait Rest
     protected $mtlsPassphrase;
 
     /** @var string */
-    protected $token = null;
+    private $token = null;
 
     /**
      * @param string $apiUrl
@@ -92,6 +92,16 @@ trait Rest
     }
 
     /**
+     * Return token
+     *
+     * @return string|null
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string $endpoint
      * @param array|string|null $query
      * @param string|null $correlationId
@@ -109,7 +119,7 @@ trait Rest
             'x-correlation-id' => $correlationId
         ]);
 
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 
@@ -142,7 +152,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -185,7 +195,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -228,7 +238,7 @@ trait Rest
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
 
         $request = Http::withToken($token)
             ->withHeaders($this->headers)
@@ -252,7 +262,7 @@ trait Rest
      */
     private function delete(string $endpoint)
     {
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 

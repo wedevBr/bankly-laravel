@@ -40,7 +40,7 @@ class Bankly
     private $mtlsPassphrase;
 
     /** @var string */
-    protected $token = null;
+    private $token = null;
 
     /** @var string */
     private $api_version = '1.0';
@@ -72,6 +72,16 @@ class Bankly
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    /**
+     * Return token
+     *
+     * @return string|null
+     */
+    public function getToken()
+    {
+        return $this->token;
     }
 
     /**
@@ -669,7 +679,7 @@ class Bankly
             $correlation_id = Uuid::uuid4()->toString();
         }
 
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]));
 
@@ -698,7 +708,7 @@ class Bankly
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
@@ -736,7 +746,7 @@ class Bankly
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
@@ -773,7 +783,7 @@ class Bankly
         }
 
         $body_format = $asJson ? 'json' : 'form_params';
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
             ->bodyFormat($body_format);
@@ -797,7 +807,7 @@ class Bankly
      */
     private function delete(string $endpoint, array $body = [])
     {
-        $token = $this->token ?? Auth::login()->getToken();
+        $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->getHeaders($this->headers));
 
