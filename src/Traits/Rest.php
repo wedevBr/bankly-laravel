@@ -94,9 +94,9 @@ trait Rest
     /**
      * Return token
      *
-     * @return string
+     * @return string|null
      */
-    public function getToken(): string
+    public function getToken()
     {
         return $this->token;
     }
