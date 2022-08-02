@@ -2,6 +2,10 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.22.0 - 2022-08-02
+- Added webhook messages management
+- Added get limits by feature
+
 ## 1.21.7 - 2022-07-01
 - Add get token method
 

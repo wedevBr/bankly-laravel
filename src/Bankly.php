@@ -43,7 +43,7 @@ class Bankly
     private $token = null;
 
     /** @var string */
-    private $api_version = '1.0';
+    private $api_version = '1';
 
     /** @var array */
     private $headers;
@@ -55,7 +55,7 @@ class Bankly
      */
     public function __construct(string $mtlsPassphrase = null)
     {
-        $this->headers = ['API-Version' => $this->api_version];
+        $this->headers = ['api-version' => $this->api_version];
 
         $this->api_url = config('bankly')['api_url'];
         $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
@@ -663,6 +663,67 @@ class Bankly
         ]);
 
         return $this->post('/pix/qrcodes/decode', $qrCode, null, true);
+    }
+
+    /**
+     * Get webhooks processed messages
+     *
+     * @param string $startDate
+     * @param string $endDate
+     * @param string|null $state
+     * @param string|null $eventName
+     * @param string|null $context
+     * @param integer $page
+     * @param integer $pagesize
+     * @return array
+     */
+    public function getWebhookMessages(
+        string $startDate,
+        string $endDate,
+        string $state = null,
+        string $eventName = null,
+        string $context = null,
+        int $page = 1,
+        int $pagesize = 100
+    ) {
+        $query = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'state' => $state,
+            'eventName' => $eventName,
+            'context' => $context,
+            'page' => $page,
+            'pageSize' => $pagesize,
+        ];
+
+        return $this->get(
+            '/webhooks/processed-messages',
+            $query
+        );
+    }
+
+    /**
+     * Reprocess webhook message
+     *
+     * @param string $idempotencyKey
+     * @return null
+     */
+    public function reprocessWebhookMessage(string $idempotencyKey)
+    {
+        return $this->post('/webhooks/processed-messages/' . $idempotencyKey, [], null, true);
+    }
+
+    /**
+     * Get limits by feature
+     *
+     * @param string $documentNumber
+     * @param string $limitType
+     * @param string $featureName
+     * @return array
+     */
+    public function getFeatureLimits(string $documentNumber, string $limitType, string $featureName)
+    {
+        return $this->get('/holders/' . $documentNumber . '/limits/' . $limitType . '/features/' . $featureName);
     }
 
     /**
