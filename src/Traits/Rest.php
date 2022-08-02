@@ -23,7 +23,7 @@ trait Rest
     protected $apiUrl;
 
     /** @var string */
-    protected $apiVersion = '1.0';
+    protected $apiVersion = '1';
 
     /** @var string */
     protected $mtlsCert;
@@ -115,7 +115,7 @@ trait Rest
         }
 
         $this->setHeaders([
-            'API-Version' => $this->apiVersion,
+            'api-version' => $this->apiVersion,
             'x-correlation-id' => $correlationId
         ]);
 
@@ -147,7 +147,7 @@ trait Rest
         }
 
         $this->setHeaders([
-            'API-Version' => $this->apiVersion,
+            'api-version' => $this->apiVersion,
             'x-correlation-id' => $correlationId
         ]);
 
@@ -190,7 +190,7 @@ trait Rest
         }
 
         $this->setHeaders([
-            'API-Version' => $this->apiVersion,
+            'api-version' => $this->apiVersion,
             'x-correlation-id' => $correlationId
         ]);
 
@@ -233,7 +233,7 @@ trait Rest
         }
 
         $this->setHeaders([
-            'API-Version' => $this->apiVersion,
+            'api-version' => $this->apiVersion,
             'x-correlation-id' => $correlationId
         ]);
 
