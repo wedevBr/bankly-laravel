@@ -15,6 +15,7 @@ use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
+use WeDevBr\Bankly\Inputs\BusinessCustomer;
 use WeDevBr\Bankly\Types\Billet\CancelBillet;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
@@ -390,6 +391,8 @@ class Bankly
     }
 
     /**
+     * Customer register
+     *
      * @param string $documentNumber
      * @param Customer $customer
      * @param string $correlationId
@@ -406,6 +409,23 @@ class Bankly
         }
 
         return $this->put("/customers/{$documentNumber}", $customer->toArray(), $correlationId, true);
+    }
+
+    /**
+     * Business customer register
+     *
+     * @param string $documentNumber
+     * @param BusinessCustomer $customer
+     * @param string|null $correlationId
+     * @return array|mixed
+     * @throws TypeError|RequestException
+     */
+    public function businessCustomer(
+        string $documentNumber,
+        BusinessCustomer $customer,
+        string $correlationId = null
+    ) {
+        return $this->put("/business/{$documentNumber}", $customer->toArray(), $correlationId, true);
     }
 
     /**
@@ -457,6 +477,8 @@ class Bankly
     }
 
     /**
+     * Get customer
+     *
      * @param string $documentNumber
      * @param string $resultLevel
      * @return array|mixed
@@ -464,6 +486,18 @@ class Bankly
     public function getCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
     {
         return $this->get("/customers/{$documentNumber}?resultLevel={$resultLevel}");
+    }
+
+    /**
+     * Get customer
+     *
+     * @param string $documentNumber
+     * @param string $resultLevel
+     * @return array|mixed
+     */
+    public function getBusinessCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
+    {
+        return $this->get("/business/{$documentNumber}?resultLevel={$resultLevel}");
     }
 
     /**
@@ -477,6 +511,15 @@ class Bankly
 
     /**
      * @param string $documentNumber
+     * @return array|mixed
+     */
+    public function getBusinessCustomerAccounts(string $documentNumber)
+    {
+        return $this->get("/business/{$documentNumber}/accounts");
+    }
+
+    /**
+     * @param string $documentNumber
      * @param PaymentAccount $paymentAccount
      * @return array|mixed
      */
@@ -484,6 +527,21 @@ class Bankly
     {
         return $this->post(
             "/customers/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            null,
+            true
+        );
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param PaymentAccount $paymentAccount
+     * @return array|mixed
+     */
+    public function createBusinessCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount)
+    {
+        return $this->post(
+            "/business/{$documentNumber}/accounts",
             $paymentAccount->toArray(),
             null,
             true
@@ -642,11 +700,13 @@ class Bankly
     }
 
     /**
+     * @param string $documentNumber
      * @param PixStaticQrCode $data
      * @return array
      */
-    public function qrCode(PixStaticQrCode $data)
+    public function qrCode(string $documentNumber, PixStaticQrCode $data)
     {
+        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->post('/pix/qrcodes', $data->toArray(), null, true);
     }
 
