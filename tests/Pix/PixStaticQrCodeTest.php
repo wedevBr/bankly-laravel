@@ -96,7 +96,7 @@ class PixStaticQrCodeTest extends TestCase
         ], 200));
 
         $client = $this->getBanklyClient();
-        $response = $client->qrCode($this->validStaticQrCodeData());
+        $response = $client->qrCode('12345678910', $this->validStaticQrCodeData());
 
         Http::assertSent(function ($request) {
             $body = collect($request->data());
