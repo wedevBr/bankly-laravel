@@ -3,7 +3,7 @@
 All notable changes to `bankly-laravel` will be documented in this file
 
 ## 1.22.1 - 2022-08-30
- - Added business customers
+ - Added business customers management
 ## 1.22.0 - 2022-08-02
 - Added webhook messages management
 - Added get limits by feature
