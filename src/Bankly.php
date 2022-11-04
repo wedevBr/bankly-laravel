@@ -18,6 +18,7 @@ use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Inputs\BusinessCustomer;
 use WeDevBr\Bankly\Types\Billet\CancelBillet;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
+use WeDevBr\Bankly\Types\Pix\PixDynamicQrCode;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 
@@ -707,7 +708,18 @@ class Bankly
     public function qrCode(string $documentNumber, PixStaticQrCode $data)
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
-        return $this->post('/pix/qrcodes', $data->toArray(), null, true);
+        return $this->post('/pix/qrcodes/static/transfer', $data->toArray(), null, true);
+    }
+
+    /**
+     * @param string $documentNumber
+     * @param PixDynamicQrCode $data
+     * @return array
+     */
+    public function dynamicQrCode(string $documentNumber, PixDynamicQrCode $data)
+    {
+        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        return $this->post('/pix/qrcodes/dynamic/payment', $data->toArray(), null, true);
     }
 
     /**
