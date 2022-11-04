@@ -38,6 +38,7 @@ class PixStaticQrCodeValidator
         $this->validateAddressingKey();
         $this->validateAdditionalData();
         $this->validateLocation();
+        $this->validateConciliationId();
     }
 
     /**
@@ -95,5 +96,19 @@ class PixStaticQrCodeValidator
             throw new \InvalidArgumentException('location array is required');
         }
         $this->pixStaticQrCode->location->validate();
+    }
+
+    /**
+     * This validates the recipient name
+     *
+     * @return void
+     * @throws \InvalidArgumentException
+     */
+    private function validateConciliationId()
+    {
+        $conciliationId = $this->pixStaticQrCode->conciliationId;
+        if (!empty($conciliationId) && strlen($conciliationId) > 25) {
+            throw new \InvalidArgumentException('conciliation id should be until 25 characters');
+        }
     }
 }

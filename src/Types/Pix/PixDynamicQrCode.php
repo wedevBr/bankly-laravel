@@ -2,30 +2,39 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
-use WeDevBr\Bankly\Validators\Pix\PixStaticQrCodeValidator;
+use WeDevBr\Bankly\Validators\Pix\PixDynamicQrCodeValidator;
 
-class PixStaticQrCode
+class PixDynamicQrCode
 {
+    /** @var string */
+    public $recipientName;
+
     /** @var \WeDevBr\Bankly\Types\Pix\AddressingKey */
     public $addressingKey;
+
+    /** @var string */
+    public $conciliationId;
+
+    /** @var \WeDevBr\Bankly\Types\Pix\Payer */
+    public $payer;
+
+    /** @var bool */
+    public $singlePayment;
+
+    /** @var string */
+    public $changeAmountType;
 
     /** @var string */
     public $amount;
 
     /** @var string */
-    public $recipientName;
-
-    /** @var \WeDevBr\Bankly\Types\Pix\Location */
-    public $location;
+    public $expiresAt;
 
     /** @var string */
-    public $categoryCode;
+    public $payerRequestText;
 
-    /** @var string */
+    /** @var array */
     public $additionalData;
-
-    /** @var string */
-    public $conciliationId;
 
     /**
      * This validate and return an array
@@ -44,7 +53,7 @@ class PixStaticQrCode
      */
     public function validate(): void
     {
-        $pixStaticQrCode = new PixStaticQrCodeValidator($this);
+        $pixStaticQrCode = new PixDynamicQrCodeValidator($this);
         $pixStaticQrCode->validate();
     }
 }

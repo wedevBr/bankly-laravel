@@ -91,7 +91,7 @@ class PixStaticQrCodeTest extends TestCase
     {
         $encoded = "MDAwMjAxMjYzMzAwMTRici5nb3YuYmNiLnBpeDAxMTE1NjUyNzkzODIxNzUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwN";
 
-        Http::fake($this->getFakerHttp("/pix/qrcodes", [
+        Http::fake($this->getFakerHttp("/pix/qrcodes/static/transfer", [
             'encodedValue' => $encoded,
         ], 200));
 
