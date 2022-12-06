@@ -799,6 +799,18 @@ class Bankly
     }
 
     /**
+     * Update customer limits by feature
+     *
+     * @param string $documentNumber
+     * @param array|mixed $data
+     * @return array
+     */
+    public function updateCustomerLimits(string $documentNumber, array $data)
+    {
+        return $this->put('/holders/' . $documentNumber . '/max-limits', $data);
+    }
+
+    /**
      * @param string $endpoint
      * @param array|string|null $query
      * @param null $correlation_id
