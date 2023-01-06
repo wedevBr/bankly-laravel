@@ -46,6 +46,14 @@ class Customer implements CustomerInterface
     /** @var string */
     protected $declaredIncome;
 
+    /** @var string */
+    protected $selfieToken;
+
+    /** @var string */
+    protected $idCardFrontToken;
+
+    /** @var string */
+    protected $idCardBackToken;
 
     /**
      * @param string $name
@@ -118,6 +126,7 @@ class Customer implements CustomerInterface
         $this->pepLevel = $pepLevel;
         return $this;
     }
+
     /**
      * @param string $ocupation
      * @return Customer
@@ -127,6 +136,7 @@ class Customer implements CustomerInterface
         $this->ocupation = $ocupation;
         return $this;
     }
+
     /**
      * @param string $declaredIncome
      * @return Customer
@@ -134,6 +144,36 @@ class Customer implements CustomerInterface
     public function setDeclaredIncome(string $declaredIncome): Customer
     {
         $this->declaredIncome = $declaredIncome;
+        return $this;
+    }
+
+    /**
+     * @param string $declaredIncome
+     * @return Customer
+     */
+    public function setSelfieToken(string $selfieToken): Customer
+    {
+        $this->selfieToken = $selfieToken;
+        return $this;
+    }
+
+    /**
+     * @param string $declaredIncome
+     * @return Customer
+     */
+    public function setIdCardFrontToken(string $idCardFrontToken): Customer
+    {
+        $this->idCardFrontToken = $idCardFrontToken;
+        return $this;
+    }
+
+    /**
+     * @param string $declaredIncome
+     * @return Customer
+     */
+    public function setIdCardBackToken(string $idCardBackToken): Customer
+    {
+        $this->idCardBackToken = $idCardBackToken;
         return $this;
     }
 
@@ -205,12 +245,37 @@ class Customer implements CustomerInterface
     {
         return $this->declaredIncome;
     }
+
     /**
      * @return string
      */
     public function getOcupation(): string
     {
         return $this->ocupation;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSelfieToken(): string
+    {
+        return $this->selfieToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdCardFrontToken(): string
+    {
+        return $this->idCardFrontToken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdCardBackToken(): string
+    {
+        return $this->idCardBackToken;
     }
 
     /**
@@ -230,6 +295,11 @@ class Customer implements CustomerInterface
             'ocupation' => $this->ocupation,
             'pep' => [
                 'level' => $this->pepLevel
+            ],
+            'documentation' => [
+                'selfie' => $this->selfieToken,
+                'idCardFront' => $this->idCardFrontToken,
+                'idCardBack' => $this->idCardBackToken,
             ]
         ];
     }
