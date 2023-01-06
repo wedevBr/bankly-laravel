@@ -37,6 +37,16 @@ class Customer implements CustomerInterface
     /** @var string */
     protected $email;
 
+    /** @var string */
+    protected $pepLevel;
+
+    /** @var string */
+    protected $ocupation;
+
+    /** @var string */
+    protected $declaredIncome;
+
+
     /**
      * @param string $name
      * @return Customer
@@ -100,6 +110,34 @@ class Customer implements CustomerInterface
     }
 
     /**
+     * @param string $pepLevel
+     * @return Customer
+     */
+    public function setPepLevel(string $pepLevel): Customer
+    {
+        $this->pepLevel = $pepLevel;
+        return $this;
+    }
+    /**
+     * @param string $ocupation
+     * @return Customer
+     */
+    public function setOcupation(string $ocupation): Customer
+    {
+        $this->ocupation = $ocupation;
+        return $this;
+    }
+    /**
+     * @param string $declaredIncome
+     * @return Customer
+     */
+    public function setDeclaredIncome(string $declaredIncome): Customer
+    {
+        $this->declaredIncome = $declaredIncome;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getRegisterName(): string
@@ -153,6 +191,29 @@ class Customer implements CustomerInterface
     }
 
     /**
+     * @return string
+     */
+    public function getPepLevel(): string
+    {
+        return $this->pepLevel;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeclaredIncome(): string
+    {
+        return $this->declaredIncome;
+    }
+    /**
+     * @return string
+     */
+    public function getOcupation(): string
+    {
+        return $this->ocupation;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
@@ -165,6 +226,11 @@ class Customer implements CustomerInterface
             'birthDate' => $this->birthDate,
             'motherName' => $this->motherName,
             'email' => $this->email,
+            'declaredIncome' => $this->declaredIncome,
+            'ocupation' => $this->ocupation,
+            'pep' => [
+                'level' => $this->pepLevel
+            ]
         ];
     }
 }
