@@ -107,7 +107,7 @@ class BusinessCustomer
         $this->businessAddress = $businessAddress;
         return $this;
     }
-    
+
     /**
      * @param LegalRepresentative $legalRepresentative
      * @return BusinessCustomer
