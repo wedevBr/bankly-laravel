@@ -291,11 +291,11 @@ class Customer implements CustomerInterface
             'birthDate' => $this->birthDate,
             'motherName' => $this->motherName,
             'email' => $this->email,
-            //'declaredIncome' => $this->declaredIncome,
-            //'ocupation' => $this->ocupation,
-            // 'pep' => [
-            //     'level' => $this->pepLevel
-            // ],
+            'declaredIncome' => $this->declaredIncome,
+            'ocupation' => $this->ocupation,
+            'pep' => [
+                'level' => $this->pepLevel
+            ],
             'documentation' => [
                 'selfie' => $this->selfieToken,
                 'idCardFront' => $this->idCardFrontToken,
