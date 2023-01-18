@@ -99,6 +99,27 @@ class BusinessCustomer
     }
 
     /**
+     * @param CustomerAddress $businessAddress
+     * @return BusinessCustomer
+     */
+    public function setBusinessAddress(CustomerAddress $businessAddress): BusinessCustomer
+    {
+        $this->businessAddress = $businessAddress;
+        return $this;
+    }
+    
+    /**
+     * @param LegalRepresentative $legalRepresentative
+     * @return BusinessCustomer
+     */
+    public function setLegalRepresentative(LegalRepresentative $legalRepresentative): BusinessCustomer
+    {
+        $this->legalRepresentative = $legalRepresentative;
+        return $this;
+    }
+
+
+    /**
      * @return string
      */
     public function getBusinessName(): string
