@@ -15,38 +15,151 @@ namespace WeDevBr\Bankly\Inputs;
 class BusinessCustomer
 {
     /** @var string */
-    public $businessName;
+    protected $businessName;
 
     /** @var string */
-    public $tradingName;
+    protected $tradingName;
 
     /** @var string */
-    public $businessEmail;
+    protected $businessEmail;
 
     /** @var string */
-    public $businessType;
+    protected $businessType;
 
     /** @var string */
-    public $businessSize;
+    protected $businessSize;
 
     /** @var string */
-    public $declaredAnnualBilling;
+    protected $declaredAnnualBilling;
 
     /** @var CustomerAddress */
-    public $businessAddress;
+    protected $businessAddress;
 
     /** @var LegalRepresentative */
-    public $legalRepresentative;
+    protected $legalRepresentative;
 
     /**
-     * This validate and return an array
+     * @param string $businessName
+     * @return BusinessCustomer
+     */
+    public function setBusinessName(string $businessName): BusinessCustomer
+    {
+        $this->businessName = $businessName;
+        return $this;
+    }
+
+    /**
+     * @param string $tradingName
+     * @return BusinessCustomer
+     */
+    public function setTradingName(string $tradingName): BusinessCustomer
+    {
+        $this->tradingName = $tradingName;
+        return $this;
+    }
+
+    /**
+     * @param string $businessEmail
+     * @return BusinessCustomer
+     */
+    public function setBusinessEmail(string $businessEmail): BusinessCustomer
+    {
+        $this->businessEmail = $businessEmail;
+        return $this;
+    }
+
+    /**
+     * @param string $businessType
+     * @return BusinessCustomer
+     */
+    public function setBusinessType(string $businessType): BusinessCustomer
+    {
+        $this->businessType = $businessType;
+        return $this;
+    }
+
+    /**
+     * @param string $businessSize
+     * @return BusinessCustomer
+     */
+    public function setBusinessSize(string $businessSize): BusinessCustomer
+    {
+        $this->businessSize = $businessSize;
+        return $this;
+    }
+
+    /**
+     * @param string $declaredAnnualBilling
+     * @return BusinessCustomer
+     */
+    public function setDeclaredAnnualBilling(string $declaredAnnualBilling): BusinessCustomer
+    {
+        $this->declaredAnnualBilling = $declaredAnnualBilling;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessName(): string
+    {
+        return $this->businessName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTradingName(): string
+    {
+        return $this->tradingName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessEmail(): string
+    {
+        return $this->businessEmail;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessType(): string
+    {
+        return $this->businessType;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBusinessSize(): string
+    {
+        return $this->businessSize;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDeclaredAnnualBilling(): string
+    {
+        return $this->declaredAnnualBilling;
+    }
+
+    /**
      * @return array
      */
     public function toArray(): array
     {
-        $this->businessAddress = $this->businessAddress->toArray();
-        $this->legalRepresentative = $this->legalRepresentative->toArray();
-
-        return (array) $this;
+        return [
+            'businessAddress' => $this->businessAddress->toArray(),
+            'legalRepresentative' => $this->legalRepresentative->toArray(),
+            'tradingName' => $this->tradingName,
+            'businessName' => $this->businessName,
+            'businessEmail' => $this->businessEmail,
+            'declaredAnnualBilling' => $this->declaredAnnualBilling,
+            'businessSize' => $this->businessSize,
+            'businessType' => $this->businessType
+        ];
     }
 }
