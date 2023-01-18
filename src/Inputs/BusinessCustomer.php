@@ -29,8 +29,8 @@ class BusinessCustomer
     /** @var string */
     public $businessSize;
 
-    // /** @var string */
-    // public $declaredAnnualBilling;
+    /** @var string */
+    public $declaredAnnualBilling;
 
     /** @var CustomerAddress */
     public $businessAddress;
