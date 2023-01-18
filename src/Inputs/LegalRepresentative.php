@@ -57,6 +57,16 @@ class LegalRepresentative
     protected $ocupation;
 
     /**
+     * @param string $documentNumber
+     * @return LegalRepresentative
+     */
+    public function setDocumentNumber(string $documentNumber): LegalRepresentative
+    {
+        $this->documentNumber = $documentNumber;
+        return $this;
+    }
+
+    /**
      * @param string $name
      * @return LegalRepresentative
      */
@@ -181,6 +191,14 @@ class LegalRepresentative
     /**
      * @return string
      */
+    public function getDocumentNumber(): string
+    {
+        return $this->documentNumber;
+    }
+
+    /**
+     * @return string
+     */
     public function getRegisterName(): string
     {
         return $this->registerName;
@@ -254,7 +272,6 @@ class LegalRepresentative
     {
         return $this->idCardBackToken;
     }
-
 
     /**
      * @return string
