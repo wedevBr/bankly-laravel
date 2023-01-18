@@ -10,7 +10,7 @@ use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
  * PHP version 7.4|8.0
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
- * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
+ * @author    Gabriel Oliveira <gabriel.oliveira@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
@@ -148,7 +148,7 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $declaredIncome
+     * @param string $selfieToken
      * @return Customer
      */
     public function setSelfieToken(string $selfieToken): Customer
@@ -158,7 +158,7 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $declaredIncome
+     * @param string $idCardFrontToken
      * @return Customer
      */
     public function setIdCardFrontToken(string $idCardFrontToken): Customer
@@ -168,7 +168,7 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $declaredIncome
+     * @param string $idCardBackToken
      * @return Customer
      */
     public function setIdCardBackToken(string $idCardBackToken): Customer
