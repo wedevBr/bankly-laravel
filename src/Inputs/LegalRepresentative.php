@@ -264,7 +264,6 @@ class LegalRepresentative
         return $this->ocupation;
     }
 
-
     /**
      * @return array
      */
