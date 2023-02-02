@@ -295,6 +295,7 @@ class LegalRepresentative
             'motherName' => $this->motherName,
             'email' => $this->email,
             'declaredIncome' => $this->declaredIncome,
+            'documentNumber' => $this->documentNumber,
             'pep' => [
                 'level' => $this->pepLevel
             ],
