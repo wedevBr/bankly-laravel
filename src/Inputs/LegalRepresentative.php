@@ -54,7 +54,7 @@ class LegalRepresentative
     protected $idCardBackToken;
 
     /** @var string */
-    protected $ocupation;
+    protected $occupation;
 
     /**
      * @param string $documentNumber
@@ -179,12 +179,12 @@ class LegalRepresentative
     }
 
     /**
-     * @param string $ocupation
+     * @param string $occupation
      * @return LegalRepresentative
      */
-    public function setOcupation(string $ocupation): LegalRepresentative
+    public function setOccupation(string $occupation): LegalRepresentative
     {
-        $this->ocupation = $ocupation;
+        $this->occupation = $occupation;
         return $this;
     }
 
@@ -276,9 +276,9 @@ class LegalRepresentative
     /**
      * @return string
      */
-    public function getOcupation(): string
+    public function getOccupation(): string
     {
-        return $this->ocupation;
+        return $this->occupation;
     }
 
     /**
@@ -296,6 +296,7 @@ class LegalRepresentative
             'email' => $this->email,
             'declaredIncome' => $this->declaredIncome,
             'documentNumber' => $this->documentNumber,
+            'occupation' => $this->occupation,
             'pep' => [
                 'level' => $this->pepLevel
             ],

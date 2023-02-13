@@ -41,7 +41,7 @@ class Customer implements CustomerInterface
     protected $pepLevel;
 
     /** @var string */
-    protected $ocupation;
+    protected $occupation;
 
     /** @var string */
     protected $declaredIncome;
@@ -128,12 +128,12 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $ocupation
+     * @param string $occupation
      * @return Customer
      */
-    public function setOcupation(string $ocupation): Customer
+    public function setOccupation(string $occupation): Customer
     {
-        $this->ocupation = $ocupation;
+        $this->occupation = $occupation;
         return $this;
     }
 
@@ -249,9 +249,9 @@ class Customer implements CustomerInterface
     /**
      * @return string
      */
-    public function getOcupation(): string
+    public function getOccupation(): string
     {
-        return $this->ocupation;
+        return $this->occupation;
     }
 
     /**
@@ -292,7 +292,7 @@ class Customer implements CustomerInterface
             'motherName' => $this->motherName,
             'email' => $this->email,
             'declaredIncome' => $this->declaredIncome,
-            'ocupation' => $this->ocupation,
+            'occupation' => $this->occupation,
             'pep' => [
                 'level' => $this->pepLevel
             ],
