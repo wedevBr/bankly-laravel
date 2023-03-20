@@ -52,4 +52,14 @@ interface DocumentInterface
      * @return string
      */
     public function getFieldName(): string;
+
+    /**
+     * @return string
+     */
+    public function getProvider(): string;
+
+    /**
+     * @return array
+     */
+    public function getProviderMetadata(): array;
 }
