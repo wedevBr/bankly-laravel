@@ -28,6 +28,12 @@ class DocumentAnalysis implements DocumentInterface
     /** @var string */
     protected $fieldName;
 
+    /** @var string */
+    protected $encrypted;
+
+    /** @var string */
+    protected $provider;
+
     /**
      * @param string $documentSide
      * @return DocumentAnalysis
@@ -69,6 +75,26 @@ class DocumentAnalysis implements DocumentInterface
     }
 
     /**
+     * @param string $provider
+     * @return DocumentAnalysis
+     */
+    public function setProvider(string $provider): DocumentAnalysis
+    {
+        $this->provider = $provider;
+        return $this;
+    }
+
+    /**
+     * @param string $encrypted
+     * @return DocumentAnalysis
+     */
+    public function setEncrypted(string $encrypted): DocumentAnalysis
+    {
+        $this->encrypted = $encrypted;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getDocumentSide(): string
@@ -106,5 +132,33 @@ class DocumentAnalysis implements DocumentInterface
     public function getFieldName(): string
     {
         return $this->fieldName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProvider(): string
+    {
+        return $this->provider;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getEncrypted(): string
+    {
+        return $this->encrypted;
+    }
+
+    /**
+     * @return array
+     */
+    public function getProviderMetadata(): array
+    {
+        return [
+            'isLastDocument' => true,
+            'encrypted' => $this->encrypted,
+        ];
     }
 }

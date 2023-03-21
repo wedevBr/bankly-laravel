@@ -39,6 +39,18 @@ interface DocumentInterface
     public function setFieldName(string $name): DocumentAnalysis;
 
     /**
+     * @param string $provider
+     * @return DocumentAnalysis
+     */
+    public function setProvider(string $provider): DocumentAnalysis;
+
+    /**
+     * @param string $encrypted
+     * @return DocumentAnalysis
+     */
+    public function setEncrypted(string $encrypted): DocumentAnalysis;
+
+    /**
      * @return string
      */
     public function getDocumentSide(): string;
@@ -52,4 +64,14 @@ interface DocumentInterface
      * @return string
      */
     public function getFieldName(): string;
+
+    /**
+     * @return string
+     */
+    public function getProvider(): string;
+
+    /**
+     * @return array
+     */
+    public function getProviderMetadata(): array;
 }
