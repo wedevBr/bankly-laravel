@@ -351,11 +351,13 @@ class Bankly
             throw new TypeError('The document must be an instance of DocumentInterface');
         }
 
-        return $this->put(
-            "/document-analysis/{$documentNumber}",
+        return $this->postDocument(
+            "/document-analysis/{$documentNumber}/deepface",
             [
                 'documentType' => $document->getDocumentType(),
                 'documentSide' => $document->getDocumentSide(),
+                'provider' => $document->getProvider(),
+                'providerMetadata' => json_encode($document->getProviderMetadata())
             ],
             $correlationId,
             true,
@@ -904,7 +906,49 @@ class Bankly
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
         }
 
-        return $request->put($this->getFinalUrl($endpoint), $body)
+        return $request->post($this->getFinalUrl($endpoint), $body)
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * @param string $endpoint
+     * @param array|null $body
+     * @param string|null $correlation_id
+     * @param bool $asJson
+     * @param bool $attachment
+     * @param DocumentAnalysis $document
+     * @param string $fieldName
+     * @return array|mixed
+     * @throws RequestException
+     */
+    private function postDocument(
+        string $endpoint,
+        array $body = [],
+        string $correlation_id = null,
+        bool $asJson = false,
+        bool $attachment = false,
+        DocumentAnalysis $document = null
+    ) {
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+            $correlation_id = Uuid::uuid4()->toString();
+        }
+
+        $body_format = $asJson ? 'json' : 'form_params';
+        $token = $this->getToken() ?? Auth::login()->getToken();
+        $request = Http::withToken($token)
+            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
+            ->bodyFormat($body_format);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        if ($attachment) {
+            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
+        }
+
+        return $request->post($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
@@ -1035,5 +1079,4 @@ class Bankly
     {
         return $this->api_url . $endpoint;
     }
-
 }
