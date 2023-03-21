@@ -357,7 +357,7 @@ class Bankly
                 'documentType' => $document->getDocumentType(),
                 'documentSide' => $document->getDocumentSide(),
                 'provider' => $document->getProvider(),
-                'providerMetadata' => $document->getProviderMetadata()
+                'providerMetadata' => json_encode($document->getProviderMetadata())
             ],
             $correlationId,
             true,

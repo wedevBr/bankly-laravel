@@ -85,10 +85,10 @@ class DocumentAnalysis implements DocumentInterface
     }
 
     /**
-     * @param bool $encrypted
+     * @param string $encrypted
      * @return DocumentAnalysis
      */
-    public function setEncrypted(bool $encrypted): DocumentAnalysis
+    public function setEncrypted(string $encrypted): DocumentAnalysis
     {
         $this->encrypted = $encrypted;
         return $this;
@@ -140,6 +140,15 @@ class DocumentAnalysis implements DocumentInterface
     public function getProvider(): string
     {
         return $this->provider;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getEncrypted(): string
+    {
+        return $this->encrypted;
     }
 
     /**
