@@ -124,6 +124,28 @@ final class Auth
     }
 
     /**
+     * Set the cert.crt file path
+     * @param string $path
+     * @return self
+     */
+    public function setCertPath(string $path)
+    {
+        $this->mtlsCert = $path;
+        return $this;
+    }
+
+    /**
+     * Set the cert.pem file path
+     * @param string $path
+     * @return self
+     */
+    public function setKeyPath(string $path)
+    {
+        $this->mtlsKey = $path;
+        return $this;
+    }
+
+    /**
      * @param string|array $scope
      * @return self
      */
