@@ -63,8 +63,6 @@ final class Auth
         }
 
         self::$login->loginUrl = config('bankly')['login_url'];
-        self::$login->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        self::$login->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
 
         return self::$login;
     }
