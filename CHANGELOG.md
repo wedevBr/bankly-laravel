@@ -2,6 +2,9 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.24.1 - 2023-03-23
+- Removed options to set certificates path at login method at Auth class
+
 ## 1.24.0 - 2023-03-23
 - Added methods for set certificates path for .crt and .pem files
 
