@@ -41,7 +41,9 @@ class SendDocumentAnalysisTest extends TestCase
         $document->setDocumentSide('FRONT')
             ->setDocumentType('RG')
             ->setFilePath('/tmp/10000.jpg')
-            ->setFieldName('image');
+            ->setFieldName('image')
+            ->setProvider('BANKLY')
+            ->setEncrypted('jwtstring');
 
         Http::fake([
             config('bankly')['api_url'] . '/*' => Http::response([
@@ -50,6 +52,7 @@ class SendDocumentAnalysisTest extends TestCase
         ]);
 
         $client = $this->getBanklyClient();
+
         $sendDocument = $client->documentAnalysis('00000000000', $document);
 
         Http::assertSent(function ($request) {
@@ -57,9 +60,13 @@ class SendDocumentAnalysisTest extends TestCase
 
             $documentType = $body->where('name', 'documentType')->first();
             $documentSide = $body->where('name', 'documentSide')->first();
+            $documentProvider = $body->where('name', 'provider')->first();
+            $documentProviderMetadata = $body->where('name', 'providerMetadata')->first();
 
             return $documentType['contents'] === 'RG'
                 && $documentSide['contents'] === 'FRONT'
+                && $documentProvider['contents'] === 'BANKLY'
+                && $documentProviderMetadata['contents'] === '{"isLastDocument":true,"encrypted":"jwtstring"}'
                 && $request->hasFile('image', 'DOCRPS', '10000.jpg');
         });
 

@@ -63,8 +63,6 @@ final class Auth
         }
 
         self::$login->loginUrl = config('bankly')['login_url'];
-        self::$login->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        self::$login->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
 
         return self::$login;
     }
@@ -120,6 +118,28 @@ final class Auth
     public function setGrantType(string $grantType)
     {
         $this->grantType = $grantType;
+        return $this;
+    }
+
+    /**
+     * Set the cert.crt file path
+     * @param string $path
+     * @return self
+     */
+    public function setCertPath(string $path)
+    {
+        $this->mtlsCert = $path;
+        return $this;
+    }
+
+    /**
+     * Set the cert.pem file path
+     * @param string $path
+     * @return self
+     */
+    public function setKeyPath(string $path)
+    {
+        $this->mtlsKey = $path;
         return $this;
     }
 

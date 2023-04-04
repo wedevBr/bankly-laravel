@@ -2,6 +2,15 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.24.2 - 2023-03-24
+- Fixed class Bankly to use mtlsSettings from setters
+
+## 1.24.1 - 2023-03-23
+- Removed options to set certificates path at login method at Auth class
+
+## 1.24.0 - 2023-03-23
+- Added methods for set certificates path for .crt and .pem files
+
 ## 1.22.2 - 2022-11-04
  - Added Dynamic QrCode Pix
 
