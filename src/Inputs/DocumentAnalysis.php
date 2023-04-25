@@ -88,7 +88,7 @@ class DocumentAnalysis implements DocumentInterface
      * @param string $encrypted
      * @return DocumentAnalysis
      */
-    public function setEncrypted(string $encrypted): DocumentAnalysis
+    public function setEncrypted(string $encrypted = null): DocumentAnalysis
     {
         $this->encrypted = $encrypted;
         return $this;
