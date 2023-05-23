@@ -60,8 +60,6 @@ class Bankly
         $this->headers = ['api-version' => $this->api_version];
 
         $this->api_url = config('bankly')['api_url'];
-        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
         $this->mtlsPassphrase = $mtlsPassphrase;
     }
 
@@ -95,6 +93,29 @@ class Bankly
         $this->mtlsPassphrase = $passPhrase;
         return $this;
     }
+
+    /**
+     * Set the cert.crt file path
+     * @param string $path
+     * @return self
+     */
+    public function setCertPath(string $path)
+    {
+        $this->mtlsCert = $path;
+        return $this;
+    }
+
+    /**
+     * Set the cert.pem file path
+     * @param string $path
+     * @return self
+     */
+    public function setKeyPath(string $path)
+    {
+        $this->mtlsKey = $path;
+        return $this;
+    }
+
 
     /**
      * @return array|mixed
