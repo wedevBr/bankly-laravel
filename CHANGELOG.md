@@ -2,6 +2,15 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.25.0 - 2023-06-06
+- Fixed internal Put Http Method on Bankly class
+
+## 1.24.4 - 2023-05-24
+- Fixed method setEncrypt to allow null
+
+## 1.24.3 - 2023-04-04
+- Fixed BanklyCard class
+
 ## 1.24.2 - 2023-03-24
 - Fixed class Bankly to use mtlsSettings from setters
 

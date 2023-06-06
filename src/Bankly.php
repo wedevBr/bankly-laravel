@@ -927,7 +927,7 @@ class Bankly
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
         }
 
-        return $request->post($this->getFinalUrl($endpoint), $body)
+        return $request->put($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
