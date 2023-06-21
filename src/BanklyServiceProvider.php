@@ -30,10 +30,5 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly', function () {
             return new Bankly;
         });
-
-        // Register the card management class to use with the facade
-        $this->app->singleton('bankly_card', function () {
-            return new BanklyCard();
-        });
     }
 }
