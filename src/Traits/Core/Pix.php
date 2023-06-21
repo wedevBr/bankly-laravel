@@ -40,13 +40,13 @@ trait Pix
      * Gets details of the account linked to an addressing key.
      *
      * @param string $documentNumber
-     * @param string $addressinKeyValue
+     * @param string $addressingKeyValue
      * @return array|mixed
      */
-    public function getPixAddressingKeyValue(string $documentNumber, string $addressinKeyValue)
+    public function getPixAddressingKeyValue(string $documentNumber, string $addressingKeyValue)
     {
-        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
-        return $this->get("/pix/entries/$addressinKeyValue");
+        $this->getHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        return $this->get("/pix/entries/$addressingKeyValue");
     }
 
     /**
@@ -86,7 +86,7 @@ trait Pix
      */
     public function qrCode(string $documentNumber, PixStaticQrCode $data)
     {
-        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        $this->getHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->post('/pix/qrcodes/static/transfer', $data->toArray(), null, true);
     }
 
@@ -97,7 +97,7 @@ trait Pix
      */
     public function dynamicQrCode(string $documentNumber, PixDynamicQrCode $data)
     {
-        $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        $this->getHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->post('/pix/qrcodes/dynamic/payment', $data->toArray(), null, true);
     }
 
@@ -109,7 +109,7 @@ trait Pix
     {
         $qrCode = $data->toArray();
 
-        $this->setHeaders([
+        $this->getHeaders([
             'x-bkly-pix-user-id' => $qrCode['documentNumber'],
         ]);
 
