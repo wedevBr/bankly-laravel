@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\Types\Card\Password;
 
 /**
@@ -65,7 +65,7 @@ class ChangePasswordTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/12345678/password", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $card->changePassword('12345678', $this->validPassword());
 
         Http::assertSent(function ($request) {

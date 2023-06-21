@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * CardTransactionsTest class
@@ -86,7 +86,7 @@ class CardTransactionsTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/1234567890/*", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->transactions(
             '1234567890',
             1,
@@ -118,7 +118,7 @@ class CardTransactionsTest extends TestCase
 
         $this->expectException(RequestException::class);
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $card->transactions(
             '1234567890',
             1,

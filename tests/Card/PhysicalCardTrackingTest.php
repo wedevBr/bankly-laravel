@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * PhysicalCardTrackingTest class
@@ -107,7 +107,7 @@ class PhysicalCardTrackingTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/12345678/tracking", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->cardTracking('12345678');
 
         Http::assertSent(function ($request) {

@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * AllowContactlessTest class
@@ -54,7 +54,7 @@ class AllowContactlessTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/12345678/contactless?allowContactless=false", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $card->allowContactless('12345678', false);
 
         Http::assertSent(function ($request) {

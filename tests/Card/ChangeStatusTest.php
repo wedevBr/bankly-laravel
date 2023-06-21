@@ -8,7 +8,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * ChangeStatusTest class
@@ -67,7 +67,7 @@ class ChangeStatusTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/12345678/status", []));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $card->changeStatus('12345678', $this->validStatus());
 
         Http::assertSent(function ($request) {

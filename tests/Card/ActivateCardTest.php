@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Activate;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * ActivateCardTest class
@@ -65,7 +65,7 @@ class ActivateCardTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards/2370021007715002820/activate", [], 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->activate('2370021007715002820', $this->validActivateCard());
 
         Http::assertSent(function ($request) {

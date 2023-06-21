@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\Types\Card\Wallet;
 
 /**
@@ -74,7 +74,7 @@ class DigitalWalletTest extends TestCase
     {
         Http::fake($this->getFakerHttp("/cards-pci/12345678/wallet/GooglePay/brand/Mastercard", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $card->digitalWallet($this->validWallet());
 
         Http::assertSent(function ($request) {

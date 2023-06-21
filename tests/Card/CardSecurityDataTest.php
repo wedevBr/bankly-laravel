@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\Types\Card\Password;
 
 /**
@@ -83,7 +83,7 @@ class CardSecurityDataTest extends TestCase
 
         Http::fake($this->getFakerHttp("/cards/2370021007715002820/pci", 200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->pciData("2370021007715002820", $this->validPassword());
 
         Http::assertSent(function ($request) {

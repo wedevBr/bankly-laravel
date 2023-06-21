@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Duplicate;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * DuplicateCardTest class
@@ -91,7 +91,7 @@ class DuplicateCardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard'));
 
         Http::assertSent(function ($request) {
@@ -125,7 +125,7 @@ class DuplicateCardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard', false));
 
         Http::assertSent(function ($request) {

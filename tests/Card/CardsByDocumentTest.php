@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\Bankly;
 
 /**
  * CardsByDocumentTest class
@@ -83,7 +83,7 @@ class CardsByDocumentTest extends TestCase
     {
         Http::fake($this->getFakerHttp(200));
 
-        $card = new BanklyCard();
+        $card = new Bankly();
         $response = $card->getByDocument('1234567890');
 
         Http::assertSent(function ($request) {
