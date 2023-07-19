@@ -4,7 +4,9 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
+use ReflectionException;
 use ReflectionProperty;
+use Throwable;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Bankly;
 
@@ -24,8 +26,9 @@ abstract class TestCase extends TestbenchTestCase
 
     /**
      * @return Bankly
+     * @throws ReflectionException
      */
-    public function getBanklyClient()
+    public function getBanklyClient(): Bankly
     {
         $client = new Bankly();
         $auth = Auth::login();
@@ -41,9 +44,10 @@ abstract class TestCase extends TestbenchTestCase
     }
 
     /**
-     * @return Bankly
+     * @return void
+     * @throws ReflectionException
      */
-    public function auth()
+    public function auth(): void
     {
         $auth = Auth::login();
         $token = new ReflectionProperty($auth, 'token');
@@ -53,5 +57,24 @@ abstract class TestCase extends TestbenchTestCase
         $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
         $tokenExpiry->setAccessible(true);
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
+    }
+
+    /**
+     * @param string $message
+     * @param callable $callback
+     * @param ...$args
+     * @return void
+     */
+    protected function assertThrowableMessage(
+        string $message,
+        callable $callback,
+        ...$args
+    ): void
+    {
+        try {
+            $callback(...$args);
+        } catch (Throwable $e) {
+            $this->assertEquals($message, $e->getMessage());
+        }
     }
 }

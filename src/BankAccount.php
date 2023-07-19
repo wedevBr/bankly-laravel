@@ -18,7 +18,7 @@ class BankAccount extends \stdClass
     public mixed $account;
     public mixed $document;
     public mixed $name;
-    public string $accountType = 'CHECKING';
+    public ?string $accountType = 'CHECKING';
 
     /**
      * This validate and return an array

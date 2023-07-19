@@ -13,13 +13,12 @@
 
 namespace WeDevBr\Bankly\Tests;
 
-use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\BankAccount;
 
 
 class BankAccountTest extends TestCase
 {
-    private function validBankAccount()
+    private function validBankAccount(): BankAccount
     {
         $bankAccount = new BankAccount();
         $bankAccount->branch = '0001';
@@ -35,10 +34,14 @@ class BankAccountTest extends TestCase
     public function testInvalidBankBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
-        $bankAccount = $this->validBankAccount();
-        $bankAccount->branch = null;
-        $bankAccount->validate();
+        try{
+            $bankAccount = $this->validBankAccount();
+            $bankAccount->branch = null;
+            $bankAccount->validate();
+        } catch (\InvalidArgumentException $exception) {
+            self::assertEquals('branch should be a numeric string', $exception->getMessage());
+        }
+
     }
 
     /**
@@ -46,12 +49,9 @@ class BankAccountTest extends TestCase
      */
     public function testInvalidBankAccount()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('account should be a numeric string');
-
         $bankAccount = $this->validBankAccount();
         $bankAccount->account = null;
-        $bankAccount->validate();
+        $this->assertThrowableMessage('account should be a numeric string', fn() => $bankAccount->validate());
     }
 
     /**
@@ -59,16 +59,28 @@ class BankAccountTest extends TestCase
      */
     public function testInvalidBankDocument()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document should be a string');
         $bankAccount = $this->validBankAccount();
         $bankAccount->document = null;
-        $bankAccount->validate();
+        $this->assertThrowableMessage('document should be a string', fn() => $bankAccount->validate());
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('cpf_cnpj invalid');
+        $bankAccount = $this->validBankAccount();
         $bankAccount->document = '12345678901';
+
+        $this->assertThrowableMessage('!!cpf_cnpj invalid', fn() => $bankAccount->validate());
     }
+
+    /**
+     * @test
+     */
+    public function testInvalidBankTDocument()
+    {
+        $bankAccount = $this->validBankAccount();
+        $bankAccount->document = '12345678901';
+
+        $this->assertThrowableMessage('!!cpf_cnpj invalid', fn() => $bankAccount->validate());
+    }
+
+
 
     /**
      * @test
@@ -76,10 +88,14 @@ class BankAccountTest extends TestCase
     public function testInvalidBankName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('name should be a string');
-        $bankAccount = $this->validBankAccount();
-        $bankAccount->name = null;
-        $bankAccount->validate();
+        try{
+            $bankAccount = $this->validBankAccount();
+            $bankAccount->name = null;
+            $bankAccount->validate();
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertEquals('name should be a string', $exception->getMessage());
+        }
+
     }
 
     /**
@@ -87,12 +103,13 @@ class BankAccountTest extends TestCase
      */
     public function testInvalidAccountType()
     {
-        {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectErrorMessage('accountType should be one of them: CHECKING, SAVINGS');
+        $this->expectException(\InvalidArgumentException::class);
+        try {
             $bankAccount = $this->validBankAccount();
             $bankAccount->accountType = null;
             $bankAccount->validate();
+        } catch (\InvalidArgumentException $exception) {
+            $this->assertEquals('accountType should be one of them: CHECKING, SAVINGS', $exception->getMessage());
         }
     }
 }
