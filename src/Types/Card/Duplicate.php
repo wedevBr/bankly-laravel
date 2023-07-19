@@ -8,16 +8,16 @@ use WeDevBr\Bankly\Validators\Card\DuplicateCardValidator;
 class Duplicate extends \stdClass implements Arrayable
 {
     /** @var string */
-    public $status;
+    public string $status;
 
     /** @var string */
-    public $documentNumber;
+    public string $documentNumber;
 
     /** @var string */
-    public $description;
+    public string $description;
 
     /** @var string */
-    public $password;
+    public string $password;
 
     /** @var \WeDevBr\Bankly\Types\Card\Address */
     public $address;
@@ -42,7 +42,7 @@ class Duplicate extends \stdClass implements Arrayable
      *
      * @return self
      */
-    public function validate()
+    public function validate(): static
     {
         $validator = new DuplicateCardValidator($this);
         $validator->validate();

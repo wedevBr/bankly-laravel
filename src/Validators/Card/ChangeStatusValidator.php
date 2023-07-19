@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
 
@@ -27,7 +28,7 @@ class ChangeStatusValidator
      *
      * @var array
      */
-    protected $statuses = [
+    protected array $statuses = [
         'Building', //Cartão encontra-se em construção, não está pronto para uso;
         'Active', //Cartão encontra-se ativo para utilizar em transações;
         'ReturnedLocked', //Devolvido, ocorre quando o cartão não foi entregue no destino;
@@ -57,7 +58,7 @@ class ChangeStatusValidator
     /**
      * @var ChangeStatus
      */
-    private $changeStatus;
+    private ChangeStatus $changeStatus;
 
     /**
      * ChangeStatusValidator constructor.
@@ -81,7 +82,7 @@ class ChangeStatusValidator
     /**
      * @return void
      */
-    public function password()
+    public function password(): void
     {
         $password = new Password();
         $password->password = $this->changeStatus->password;
@@ -90,29 +91,29 @@ class ChangeStatusValidator
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function status()
+    public function status(): void
     {
         $status = $this->changeStatus->status;
         if (empty($status) || !is_string($status)) {
-            throw new \InvalidArgumentException('status should be a string');
+            throw new InvalidArgumentException('status should be a string');
         }
 
         if (!in_array($status, $this->statuses)) {
-            throw new \InvalidArgumentException('this status is not valid');
+            throw new InvalidArgumentException('this status is not valid');
         }
     }
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function updateCardBinded()
+    public function updateCardBinded(): void
     {
         $updateCardBinded = $this->changeStatus->updateCardBinded;
         if (!is_bool($updateCardBinded)) {
-            throw new \InvalidArgumentException('update card binded should be a boolean');
+            throw new InvalidArgumentException('update card binded should be a boolean');
         }
     }
 }

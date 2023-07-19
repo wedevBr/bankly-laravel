@@ -8,13 +8,13 @@ use WeDevBr\Bankly\Validators\Card\WalletValidator;
 class Wallet extends \stdClass implements Arrayable
 {
     /** @var string */
-    public $proxy;
+    public string $proxy;
 
     /** @var string */
-    public $wallet;
+    public string $wallet;
 
     /** @var string */
-    public $brand;
+    public string $brand;
 
     /**
      * This validate and return an array
@@ -30,7 +30,7 @@ class Wallet extends \stdClass implements Arrayable
     /**
      * This function validate a digital wallet
      */
-    public function validate()
+    public function validate(): self
     {
         $validator = new WalletValidator($this);
         $validator->validate();

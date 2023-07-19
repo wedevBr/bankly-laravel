@@ -17,43 +17,43 @@ use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 class Customer implements CustomerInterface
 {
     /** @var string */
-    protected $registerName;
+    protected string $registerName;
 
     /** @var string */
-    protected $socialName;
+    protected string $socialName;
 
     /** @var CustomerPhone */
-    protected $phone;
+    protected CustomerPhone $phone;
 
     /** @var CustomerAddress */
-    protected $address;
+    protected CustomerAddress $address;
 
     /** @var string */
-    protected $birthDate;
+    protected string $birthDate;
 
     /** @var string */
-    protected $motherName;
+    protected string $motherName;
 
     /** @var string */
-    protected $email;
+    protected string $email;
 
     /** @var string */
-    protected $pepLevel;
+    protected string $pepLevel;
 
     /** @var string */
-    protected $occupation;
+    protected string $occupation;
 
     /** @var string */
-    protected $declaredIncome;
+    protected string $declaredIncome;
 
     /** @var string */
-    protected $selfieToken;
+    protected string $selfieToken;
 
     /** @var string */
-    protected $idCardFrontToken;
+    protected string $idCardFrontToken;
 
     /** @var string */
-    protected $idCardBackToken;
+    protected string $idCardBackToken;
 
     /**
      * @param string $name

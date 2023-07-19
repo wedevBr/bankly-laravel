@@ -7,16 +7,16 @@ use WeDevBr\Bankly\Validators\Billet\AddressValidator;
 class Address
 {
     /** @var string */
-    public $addressLine;
+    public string $addressLine;
 
     /** @var string */
-    public $city;
+    public string $city;
 
     /** @var string */
-    public $state;
+    public string $state;
 
     /** @var string */
-    public $zipCode;
+    public string $zipCode;
 
     /**
      * This validate and return an array
@@ -31,7 +31,7 @@ class Address
     /**
      * This function validate a Addressing Account
      */
-    public function validate()
+    public function validate(): void
     {
         $addressValidator = new AddressValidator($this);
         $addressValidator->validate();

@@ -17,10 +17,10 @@ use WeDevBr\Bankly\Support\Contracts\CustomerPhoneInterface;
 class CustomerPhone implements CustomerPhoneInterface
 {
     /** @var string */
-    protected $countryCode;
+    protected string $countryCode;
 
     /** @var string */
-    protected $number;
+    protected string $number;
 
     /**
      * @return string
@@ -39,7 +39,8 @@ class CustomerPhone implements CustomerPhoneInterface
     }
 
     /**
-     * @return string
+     * @param string $countryCode
+     * @return CustomerPhone
      */
     public function setCountryCode(string $countryCode): CustomerPhone
     {
@@ -48,7 +49,8 @@ class CustomerPhone implements CustomerPhoneInterface
     }
 
     /**
-     * @return string
+     * @param string $number
+     * @return CustomerPhone
      */
     public function setNumber(string $number): CustomerPhone
     {

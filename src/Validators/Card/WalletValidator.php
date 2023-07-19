@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\Wallet;
 
@@ -55,45 +56,45 @@ class WalletValidator
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function proxy()
+    public function proxy(): void
     {
         $proxy = $this->wallet->proxy;
         if (empty($proxy) || !is_string($proxy)) {
-            throw new \InvalidArgumentException('proxy should be a string');
+            throw new InvalidArgumentException('proxy should be a string');
         }
     }
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function wallet()
+    public function wallet(): void
     {
         $wallet = $this->wallet->wallet;
         if (empty($wallet) || !is_string($wallet)) {
-            throw new \InvalidArgumentException('wallet should be a string');
+            throw new InvalidArgumentException('wallet should be a string');
         }
 
         if (!in_array($wallet, $this->wallets)) {
-            throw new \InvalidArgumentException('this wallet is not valid');
+            throw new InvalidArgumentException('this wallet is not valid');
         }
     }
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function brand()
+    public function brand(): void
     {
         $brand = $this->wallet->brand;
         if (empty($brand) || !is_string($brand)) {
-            throw new \InvalidArgumentException('brand should be a string');
+            throw new InvalidArgumentException('brand should be a string');
         }
 
         if (!in_array($brand, $this->brands)) {
-            throw new \InvalidArgumentException('this brand is not valid');
+            throw new InvalidArgumentException('this brand is not valid');
         }
     }
 }

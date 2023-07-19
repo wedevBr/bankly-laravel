@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\Discounts;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Billet\Discounts;
 class DiscountsValidator
 {
     /** @var Discounts */
-    private $discounts;
+    private Discounts $discounts;
 
     /**
      * @param Discounts $discounts
@@ -43,18 +44,18 @@ class DiscountsValidator
      * This validates the limit date
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateLimitDate()
+    private function validateLimitDate(): void
     {
         $limitDate = $this->discounts->limitDate;
         try {
             $date = now()->createFromFormat('Y-m-d', $limitDate);
             if (!$date->gt(now())) {
-                throw new \InvalidArgumentException('limit date must be greater than the current date');
+                throw new InvalidArgumentException('limit date must be greater than the current date');
             }
         } catch (\Throwable $th) {
-            throw new \InvalidArgumentException('limit date should be a valid date');
+            throw new InvalidArgumentException('limit date should be a valid date');
         }
     }
 
@@ -62,13 +63,13 @@ class DiscountsValidator
      * This validates the value
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateValue()
+    private function validateValue(): void
     {
         $value = $this->discounts->value;
         if (empty($value) || !is_string($value) || !is_numeric($value) || $value <= 0) {
-            throw new \InvalidArgumentException('value should be a numeric string and greater than zero');
+            throw new InvalidArgumentException('value should be a numeric string and greater than zero');
         }
     }
 
@@ -76,13 +77,13 @@ class DiscountsValidator
      * This validates a type
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateType()
+    private function validateType(): void
     {
         $type = $this->discounts->type;
         if (empty($type) || !is_string($type)) {
-            throw new \InvalidArgumentException('type should be a string');
+            throw new InvalidArgumentException('type should be a string');
         }
 
         $types = [
@@ -91,7 +92,7 @@ class DiscountsValidator
             'Free'
         ];
         if (!in_array($type, $types)) {
-            throw new \InvalidArgumentException('this type is not valid');
+            throw new InvalidArgumentException('this type is not valid');
         }
     }
 }

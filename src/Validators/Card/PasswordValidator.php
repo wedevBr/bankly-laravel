@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Card\Password;
 
 /**
@@ -42,13 +43,13 @@ class PasswordValidator
      * This validate a card password
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validatePassword()
+    private function validatePassword(): void
     {
         $password = $this->password->password;
         if (empty($password) || !is_string($password) || !is_numeric($password) || strlen($password) != 4) {
-            throw new \InvalidArgumentException('password should be a numeric string');
+            throw new InvalidArgumentException('password should be a numeric string');
         }
     }
 }

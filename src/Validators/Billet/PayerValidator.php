@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\Address;
 use WeDevBr\Bankly\Types\Billet\Payer;
 
@@ -18,7 +19,7 @@ use WeDevBr\Bankly\Types\Billet\Payer;
 class PayerValidator
 {
     /** @var Payer */
-    private $payer;
+    private Payer $payer;
 
     /**
      * @param Payer $payer
@@ -45,13 +46,13 @@ class PayerValidator
      * This validates the document
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDocument()
+    private function validateDocument(): void
     {
         $document = $this->payer->document;
         if (empty($document) || !is_string($document) || !is_numeric($document)) {
-            throw new \InvalidArgumentException('payer document should be a numeric string');
+            throw new InvalidArgumentException('payer document should be a numeric string');
         }
     }
 
@@ -59,13 +60,13 @@ class PayerValidator
      * This validates the payer name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateName()
+    private function validateName(): void
     {
         $name = $this->payer->name;
         if (empty($name) || !is_string($name)) {
-            throw new \InvalidArgumentException('payer name should be a string');
+            throw new InvalidArgumentException('payer name should be a string');
         }
     }
 
@@ -73,13 +74,13 @@ class PayerValidator
      * This validates the payer trade name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateTradeName()
+    private function validateTradeName(): void
     {
         $tradeName = $this->payer->tradeName;
         if (empty($tradeName) || !is_string($tradeName)) {
-            throw new \InvalidArgumentException('payer trade name should be a string');
+            throw new InvalidArgumentException('payer trade name should be a string');
         }
     }
 
@@ -87,12 +88,12 @@ class PayerValidator
      * This validates a payer address
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAddress()
+    private function validateAddress(): void
     {
         if (!$this->payer->address instanceof Address) {
-            throw new \InvalidArgumentException('payer address should be a Address type');
+            throw new InvalidArgumentException('payer address should be a Address type');
         }
 
         $this->payer

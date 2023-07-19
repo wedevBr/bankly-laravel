@@ -15,28 +15,28 @@ namespace WeDevBr\Bankly\Inputs;
 class BusinessCustomer
 {
     /** @var string */
-    protected $businessName;
+    protected string $businessName;
 
     /** @var string */
-    protected $tradingName;
+    protected string $tradingName;
 
     /** @var string */
-    protected $businessEmail;
+    protected string $businessEmail;
 
     /** @var string */
-    protected $businessType;
+    protected string $businessType;
 
     /** @var string */
-    protected $businessSize;
+    protected string $businessSize;
 
     /** @var string */
-    protected $declaredAnnualBilling;
+    protected string $declaredAnnualBilling;
 
     /** @var CustomerAddress */
-    protected $businessAddress;
+    protected CustomerAddress $businessAddress;
 
     /** @var LegalRepresentative */
-    protected $legalRepresentative;
+    protected LegalRepresentative $legalRepresentative;
 
     /**
      * @param string $businessName

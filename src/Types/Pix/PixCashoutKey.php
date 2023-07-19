@@ -8,22 +8,22 @@ use WeDevBr\Bankly\Validators\Pix\PixCashoutKeyValidator;
 class PixCashoutKey implements PixCashoutInterface
 {
     /** @var string */
-    public $amount;
+    public string $amount;
 
     /** @var string */
-    public $description;
+    public string $description;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\BankAccount */
-    public $sender;
+    /** @var BankAccount */
+    public BankAccount $sender;
 
     /**
      * [Manual, Key, StaticQrCode, DynamicQrCode]
      * @var string
      */
-    public $initializationType = 'Key';
+    public string $initializationType = 'Key';
 
     /** @var string */
-    public $endToEndId;
+    public string $endToEndId;
 
     /**
      * This validate and return an array

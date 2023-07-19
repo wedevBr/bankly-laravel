@@ -7,13 +7,13 @@ use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 class AddressingKey
 {
     /** @var string */
-    public $type;
+    public string $type;
 
     /** @var string */
-    public $value;
+    public string $value;
 
     /** @var bool */
-    public $registering = true;
+    public bool $registering = true;
 
     /**
      * This validate and return an array

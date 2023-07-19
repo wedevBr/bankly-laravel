@@ -8,13 +8,13 @@ use WeDevBr\Bankly\Validators\Pix\BankValidator;
 class Bank implements Arrayable
 {
     /** @var string */
-    public $ispb;
+    public string $ispb;
 
     /** @var string */
-    public $compe;
+    public string $compe;
 
     /** @var string */
-    public $name;
+    public string $name;
 
     /**
      * This validate and return an array

@@ -7,10 +7,10 @@ use WeDevBr\Bankly\Validators\Billet\BankAccountValidator;
 class BankAccount
 {
     /** @var string */
-    public $branch;
+    public string $branch;
 
     /** @var string */
-    public $number;
+    public string $number;
 
     /**
      * This validate and return an array
@@ -25,7 +25,7 @@ class BankAccount
     /**
      * This function validate a bank account for deposit billet
      */
-    public function validate()
+    public function validate(): void
     {
         $bankAccountValidator = new BankAccountValidator($this);
         $bankAccountValidator->validate();

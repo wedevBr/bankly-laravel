@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\Bank;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Pix\Bank;
 class BankValidator
 {
     /** @var Bank */
-    private $bank;
+    private Bank $bank;
 
     /**
      * @param Bank $bank
@@ -43,13 +44,13 @@ class BankValidator
      * This validates a bank ispb
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateIspb()
+    private function validateIspb(): void
     {
         $ispb = $this->bank->ispb;
         if (empty($ispb) || !is_string($ispb) || !is_numeric($ispb)) {
-            throw new \InvalidArgumentException('bank ispb should be a numeric string');
+            throw new InvalidArgumentException('bank ispb should be a numeric string');
         }
     }
 
@@ -57,13 +58,13 @@ class BankValidator
      * This validates a bank compe
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateCompe()
+    private function validateCompe(): void
     {
         $compe = $this->bank->compe;
         if (empty($compe) || !is_string($compe) || !is_numeric($compe)) {
-            throw new \InvalidArgumentException('bank compe account should be a numeric string');
+            throw new InvalidArgumentException('bank compe account should be a numeric string');
         }
     }
 
@@ -71,13 +72,13 @@ class BankValidator
      * This validates a bank name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateName()
+    private function validateName(): void
     {
         $name = $this->bank->name;
         if (empty($name) || !is_string($name)) {
-            throw new \InvalidArgumentException('bank name should be a string');
+            throw new InvalidArgumentException('bank name should be a string');
         }
     }
 }

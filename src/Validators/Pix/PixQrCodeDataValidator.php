@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 
@@ -18,7 +19,7 @@ use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 class PixQrCodeDataValidator
 {
     /** @var PixQrCodeData */
-    private $pixQrCodeData;
+    private PixQrCodeData $pixQrCodeData;
 
     /**
      * @param PixQrCodeData $pixQrCodeData
@@ -43,13 +44,13 @@ class PixQrCodeDataValidator
      * This validates the encoded string
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateEncodedValue()
+    private function validateEncodedValue(): void
     {
         $encodedValue = $this->pixQrCodeData->encodedValue;
         if (empty($encodedValue) || !is_string($encodedValue)) {
-            throw new \InvalidArgumentException('encoded value should be a string');
+            throw new InvalidArgumentException('encoded value should be a string');
         }
     }
 
@@ -57,13 +58,13 @@ class PixQrCodeDataValidator
      * This validates document number
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDocumentNumber()
+    private function validateDocumentNumber(): void
     {
         $documentNumber = $this->pixQrCodeData->documentNumber;
         if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
-            throw new \InvalidArgumentException('document number should be a numeric string');
+            throw new InvalidArgumentException('document number should be a numeric string');
         }
 
         $documentValidator = new CpfCnpjValidator($documentNumber);

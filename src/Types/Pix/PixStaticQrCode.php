@@ -6,26 +6,26 @@ use WeDevBr\Bankly\Validators\Pix\PixStaticQrCodeValidator;
 
 class PixStaticQrCode
 {
-    /** @var \WeDevBr\Bankly\Types\Pix\AddressingKey */
-    public $addressingKey;
+    /** @var AddressingKey */
+    public AddressingKey $addressingKey;
 
     /** @var string */
-    public $amount;
+    public string $amount;
 
     /** @var string */
-    public $recipientName;
+    public string $recipientName;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\Location */
-    public $location;
-
-    /** @var string */
-    public $categoryCode;
+    /** @var Location */
+    public Location $location;
 
     /** @var string */
-    public $additionalData;
+    public string $categoryCode;
 
     /** @var string */
-    public $conciliationId;
+    public string $additionalData;
+
+    /** @var string */
+    public string $conciliationId;
 
     /**
      * This validate and return an array

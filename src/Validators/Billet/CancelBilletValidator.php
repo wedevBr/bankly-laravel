@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 use WeDevBr\Bankly\Types\Billet\CancelBillet;
 
@@ -18,7 +19,7 @@ use WeDevBr\Bankly\Types\Billet\CancelBillet;
 class CancelBilletValidator
 {
     /** @var CancelBillet */
-    private $cancelBillet;
+    private CancelBillet $cancelBillet;
 
     /**
      * @param CancelBillet $cancelBillet
@@ -43,12 +44,12 @@ class CancelBilletValidator
      * This validates a bank account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateBankAccount()
+    private function validateBankAccount(): void
     {
         if (!$this->cancelBillet->account instanceof BankAccount) {
-            throw new \InvalidArgumentException('account should be a BankAccount type');
+            throw new InvalidArgumentException('account should be a BankAccount type');
         }
 
         $this->cancelBillet
@@ -60,13 +61,13 @@ class CancelBilletValidator
      * This validates authentication code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAuthenticationCode()
+    private function validateAuthenticationCode(): void
     {
         $authenticationCode = $this->cancelBillet->authenticationCode;
         if (empty($authenticationCode) || !is_string($authenticationCode)) {
-            throw new \InvalidArgumentException('authentication code should be a string');
+            throw new InvalidArgumentException('authentication code should be a string');
         }
     }
 }

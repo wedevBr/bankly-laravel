@@ -7,10 +7,10 @@ use WeDevBr\Bankly\Validators\Pix\PixQrCodeDataValidator;
 class PixQrCodeData
 {
     /** @var string */
-    public $encodedValue;
+    public string $encodedValue;
 
     /** @var string */
-    public $documentNumber;
+    public string $documentNumber;
 
     /**
      * This validate and return an array

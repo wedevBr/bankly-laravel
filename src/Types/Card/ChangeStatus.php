@@ -8,13 +8,13 @@ use WeDevBr\Bankly\Validators\Card\ChangeStatusValidator;
 class ChangeStatus extends \stdClass implements Arrayable
 {
     /** @var string */
-    public $password;
+    public string $password;
 
     /** @var string */
-    public $status;
+    public string $status;
 
     /** @var bool */
-    public $updateCardBinded = false;
+    public bool $updateCardBinded = false;
 
     /**
      * This validate and return an array
@@ -30,7 +30,7 @@ class ChangeStatus extends \stdClass implements Arrayable
     /**
      * This function validate a change status
      */
-    public function validate()
+    public function validate(): self
     {
         $validator = new ChangeStatusValidator($this);
         $validator->validate();
