@@ -172,7 +172,6 @@ class PixCashoutRefundValidatorTest extends TestCase
      */
     public function testValidateRefundReason()
     {
-        $this->markTestIncomplete('refund reason validation is not correct');
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('refund reason should be a string');
         $pixCashout = $this->validPixCashoutRefund();
@@ -185,7 +184,6 @@ class PixCashoutRefundValidatorTest extends TestCase
      */
     public function testValidateDescription()
     {
-        $this->markTestIncomplete('refund reason validation is not correct');
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('refund description should be a string');
         $pixCashout = $this->validPixCashoutRefund();
