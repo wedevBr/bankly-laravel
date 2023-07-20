@@ -6,20 +6,20 @@ use WeDevBr\Bankly\Validators\Billet\DepositBilletValidator;
 
 class DepositBillet
 {
-    /** @var BankAccount */
-    public BankAccount $account;
+    /** @var mixed */
+    public mixed $account;
 
-    /** @var Payer */
-    public Payer $payer;
+    /** @var mixed */
+    public mixed $payer;
 
-    /** @var string */
-    public string $alias;
+    /** @var string|null */
+    public ?string $alias;
 
-    /** @var string */
-    public string $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
-    /** @var string */
-    public string $amount;
+    /** @var string|null */
+    public ?string $amount;
 
     /** @var string */
     public string $dueDate;
@@ -30,8 +30,8 @@ class DepositBillet
      * */
     public string $type;
 
-    /** @var string */
-    public string $closePayment;
+    /** @var string|null */
+    public ?string $closePayment = null;
 
     /** @var Interest */
     public Interest $interest;
@@ -49,7 +49,7 @@ class DepositBillet
     public function toArray(): array
     {
         $this->validate();
-        return json_decode(json_encode($this), true);;
+        return json_decode(json_encode($this), true);
     }
 
     /**

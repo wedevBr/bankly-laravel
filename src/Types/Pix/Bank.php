@@ -7,14 +7,14 @@ use WeDevBr\Bankly\Validators\Pix\BankValidator;
 
 class Bank implements Arrayable
 {
-    /** @var string */
-    public string $ispb;
+    /** @var string|null */
+    public ?string $ispb;
 
-    /** @var string */
-    public string $compe;
+    /** @var string|null */
+    public ?string $compe;
 
-    /** @var string */
-    public string $name;
+    /** @var string|null */
+    public ?string $name;
 
     /**
      * This validate and return an array

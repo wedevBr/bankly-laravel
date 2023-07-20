@@ -13,17 +13,17 @@ class PixCashoutManual implements PixCashoutInterface
     /** @var string */
     public string $description;
 
-    /** @var BankAccount */
-    public BankAccount $sender;
+    /** @var mixed */
+    public mixed $sender;
 
-    /** @var BankAccount */
-    public BankAccount $recipient;
+    /** @var mixed */
+    public mixed $recipient;
 
     /**
      * [Manual, Key, StaticQrCode, DynamicQrCode]
-     * @var string
+     * @var string|null
      */
-    public string $initializationType = 'Manual';
+    public ?string $initializationType = 'Manual';
 
     /**
      * This validate and return an array

@@ -6,17 +6,17 @@ use WeDevBr\Bankly\Validators\Billet\PayerValidator;
 
 class Payer
 {
-    /** @var Address */
-    public Address $address;
+    /** @var mixed */
+    public mixed $address;
 
-    /** @var string */
-    public string $document;
+    /** @var string|null */
+    public ?string $document;
 
-    /** @var string */
-    public string $name;
+    /** @var string|null */
+    public ?string $name;
 
-    /** @var string */
-    public string $tradeName;
+    /** @var string|null */
+    public ?string $tradeName;
 
     /**
      * This validate and return an array

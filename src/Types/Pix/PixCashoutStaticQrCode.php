@@ -13,17 +13,17 @@ class PixCashoutStaticQrCode implements PixCashoutInterface
     /** @var string */
     public string $description;
 
-    /** @var BankAccount */
-    public BankAccount $sender;
+    /** @var mixed */
+    public mixed $sender;
 
     /**
      * [Manual, Key, StaticQrCode, DynamicQrCode]
-     * @var string
+     * @var string|null
      */
-    public string $initializationType = 'StaticQrCode';
+    public ?string $initializationType = 'StaticQrCode';
 
-    /** @var string */
-    public string $endToEndId;
+    /** @var string|null */
+    public ?string $endToEndId;
 
     /**
      * This validate and return an array

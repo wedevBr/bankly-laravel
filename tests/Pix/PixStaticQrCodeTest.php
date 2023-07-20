@@ -116,7 +116,7 @@ class PixStaticQrCodeTest extends TestCase
     public function testValidateIfAddressingKeyTypeIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this key type is not valid');
+        $this->expectExceptionMessage('this key type is not valid');
         $qrCodeData = $this->validStaticQrCodeData();
         $qrCodeData->addressingKey->type = 'RG';
         $qrCodeData->validate();
@@ -128,7 +128,7 @@ class PixStaticQrCodeTest extends TestCase
     public function testValidateIfAddressingKeyTypeIsString()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('type should be a string');
+        $this->expectExceptionMessage('type should be a string');
         $qrCodeData = $this->validStaticQrCodeData();
         $qrCodeData->addressingKey->type = null;
         $qrCodeData->validate();
@@ -140,7 +140,7 @@ class PixStaticQrCodeTest extends TestCase
     public function testValidateIfRecipientNameIsInvalid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('recipient name should be a string');
+        $this->expectExceptionMessage('recipient name should be a string');
         $qrCodeData = $this->validStaticQrCodeData();
         $qrCodeData->recipientName = null;
         $qrCodeData->validate();
@@ -152,7 +152,7 @@ class PixStaticQrCodeTest extends TestCase
     public function testValidateIfAdditionalDataIsToLarge()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('additional data too large');
+        $this->expectExceptionMessage('additional data too large');
         $qrCodeData = $this->validStaticQrCodeData();
 
         $qrCodeData->additionalData = '123123123123123123123131231123123123123123';

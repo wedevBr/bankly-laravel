@@ -7,8 +7,8 @@ use WeDevBr\Bankly\Validators\Card\PasswordValidator;
 
 class Password extends \stdClass implements Arrayable
 {
-    /** @var string */
-    public string $password;
+    /** @var string|null */
+    public ?string $password;
 
     /**
      * This validate and return an array

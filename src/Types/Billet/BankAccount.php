@@ -6,11 +6,11 @@ use WeDevBr\Bankly\Validators\Billet\BankAccountValidator;
 
 class BankAccount
 {
-    /** @var string */
-    public string $branch;
+    /** @var string|null */
+    public ?string $branch;
 
-    /** @var string */
-    public string $number;
+    /** @var string|null */
+    public ?string $number;
 
     /**
      * This validate and return an array

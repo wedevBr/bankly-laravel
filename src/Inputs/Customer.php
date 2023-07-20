@@ -37,23 +37,23 @@ class Customer implements CustomerInterface
     /** @var string */
     protected string $email;
 
-    /** @var string */
-    protected string $pepLevel;
+    /** @var string|null */
+    protected ?string $pepLevel = null;
 
-    /** @var string */
-    protected string $occupation;
+    /** @var string|null */
+    protected ?string $occupation = null;
 
-    /** @var string */
-    protected string $declaredIncome;
+    /** @var string|null */
+    protected ?string $declaredIncome = null;
 
-    /** @var string */
-    protected string $selfieToken;
+    /** @var string|null */
+    protected ?string $selfieToken = null;
 
-    /** @var string */
-    protected string $idCardFrontToken;
+    /** @var string|null */
+    protected ?string $idCardFrontToken = null;
 
-    /** @var string */
-    protected string $idCardBackToken;
+    /** @var string|null */
+    protected ?string $idCardBackToken = null;
 
     /**
      * @param string $name

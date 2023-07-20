@@ -12,8 +12,8 @@ class PixStaticQrCode
     /** @var string */
     public string $amount;
 
-    /** @var string */
-    public string $recipientName;
+    /** @var string|null */
+    public ?string $recipientName;
 
     /** @var Location */
     public Location $location;
@@ -21,11 +21,11 @@ class PixStaticQrCode
     /** @var string */
     public string $categoryCode;
 
-    /** @var string */
-    public string $additionalData;
+    /** @var mixed */
+    public mixed $additionalData = null;
 
-    /** @var string */
-    public string $conciliationId;
+    /** @var string|null */
+    public ?string $conciliationId = null;
 
     /**
      * This validate and return an array

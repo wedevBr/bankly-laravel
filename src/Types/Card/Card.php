@@ -7,11 +7,11 @@ use WeDevBr\Bankly\Validators\Card\CardValidator;
 
 class Card extends \stdClass implements Arrayable
 {
-    /** @var string */
-    public string $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
-    /** @var string */
-    public string $cardName;
+    /** @var string|null */
+    public ?string $cardName;
 
     /** @var string */
     public string $alias;
@@ -22,8 +22,8 @@ class Card extends \stdClass implements Arrayable
     /** @var string */
     public string $bankAccount;
 
-    /** @var string */
-    public string $programId;
+    /** @var string|null */
+    public ?string $programId = null;
 
     /** @var string */
     public string $password;

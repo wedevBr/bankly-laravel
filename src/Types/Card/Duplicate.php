@@ -10,8 +10,8 @@ class Duplicate extends \stdClass implements Arrayable
     /** @var string */
     public string $status;
 
-    /** @var string */
-    public string $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
     /** @var string */
     public string $description;

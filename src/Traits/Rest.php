@@ -19,20 +19,20 @@ trait Rest
     /** @var array */
     protected array $headers = [];
 
-    /** @var string */
-    protected string $apiUrl;
+    /** @var mixed */
+    protected mixed $apiUrl = null;
 
     /** @var string */
     protected string $apiVersion = '1';
 
-    /** @var string */
-    protected string $mtlsCert;
+    /** @var string|null */
+    protected ?string $mtlsCert;
 
-    /** @var string */
-    protected string $mtlsKey;
+    /** @var mixed */
+    protected mixed $mtlsKey;
 
-    /** @var string */
-    protected string $mtlsPassphrase;
+    /** @var string|null */
+    protected ?string $mtlsPassphrase;
 
     /** @var string|null */
     private ?string $token = null;

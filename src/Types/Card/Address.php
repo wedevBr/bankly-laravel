@@ -6,26 +6,26 @@ use WeDevBr\Bankly\Validators\Card\AddressValidator;
 
 class Address extends \stdClass
 {
-    /** @var string */
-    public string $neighborhood;
+    /** @var string|null */
+    public ?string $neighborhood;
 
-    /** @var string */
-    public string $zipCode;
+    /** @var string|null */
+    public ?string $zipCode;
 
-    /** @var string */
-    public string $address;
+    /** @var string|null */
+    public ?string $address;
 
-    /** @var string */
-    public string $number;
+    /** @var string|null */
+    public ?string $number;
 
     /** @var string */
     public string $complement;
 
-    /** @var string */
-    public string $city;
+    /** @var string|null */
+    public ?string $city;
 
-    /** @var string */
-    public string $state;
+    /** @var string|null */
+    public ?string $state;
 
     /** @var string */
     public string $country;

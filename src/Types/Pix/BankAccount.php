@@ -13,11 +13,11 @@ class BankAccount implements Arrayable
     /** @var Bank */
     public $bank;
 
-    /** @var string */
-    public string $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
-    /** @var string */
-    public string $name;
+    /** @var string|null */
+    public ?string $name;
 
     /**
      * This validate and return an array

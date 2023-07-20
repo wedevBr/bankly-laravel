@@ -38,7 +38,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return Card
      */
-    private function validVirtualCard()
+    private function validVirtualCard(): Card
     {
         $virtualCard = new Card();
         $virtualCard->documentNumber = '01234567890';
@@ -57,14 +57,12 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateDocumentNumber()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be a numeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->documentNumber = null;
         $virtualCard->validate();
 
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('cpf_cnpj invalid');
+        $this->expectExceptionMessage('cpf_cnpj invalid');
         $virtualCard->document = '12345678901';
     }
 
@@ -73,8 +71,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateCardName()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('card name should be a string');
+        $this->expectExceptionMessage('card name should be a string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->cardName = null;
         $virtualCard->validate();
@@ -85,8 +82,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateAlias()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('alias should be a string');
+        $this->expectExceptionMessage('alias should be a string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->alias = '';
         $virtualCard->validate();
@@ -97,8 +93,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateBankAgency()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank agency should be a numeric string');
+        $this->expectExceptionMessage('bank agency should be a numeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->bankAgency = '12345';
         $virtualCard->validate();
@@ -109,8 +104,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateBankAccount()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank account should be a numeric string');
+        $this->expectExceptionMessage('bank account should be a numeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->bankAccount = 'accountnumber';
         $virtualCard->validate();
@@ -121,8 +115,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidatePassword()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('password should be a numeric string');
+        $this->expectExceptionMessage('password should be a numeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->password = 'A123';
         $virtualCard->validate();
@@ -133,8 +126,7 @@ class CardValidatorTest extends TestCase
      */
     public function testValidateAddress()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('zip code should be a numeric string');
+        $this->expectExceptionMessage('zip code should be a numeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->address->zipCode = '';
         $virtualCard->validate();

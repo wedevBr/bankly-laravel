@@ -7,14 +7,14 @@ use WeDevBr\Bankly\Validators\Card\ChangeStatusValidator;
 
 class ChangeStatus extends \stdClass implements Arrayable
 {
-    /** @var string */
-    public string $password;
+    /** @var string|null */
+    public ?string $password;
 
-    /** @var string */
-    public string $status;
+    /** @var string|null */
+    public ?string $status;
 
     /** @var bool */
-    public bool $updateCardBinded = false;
+    public ?bool $updateCardBinded = false;
 
     /**
      * This validate and return an array

@@ -58,23 +58,4 @@ abstract class TestCase extends TestbenchTestCase
         $tokenExpiry->setAccessible(true);
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
     }
-
-    /**
-     * @param string $message
-     * @param callable $callback
-     * @param ...$args
-     * @return void
-     */
-    protected function assertThrowableMessage(
-        string $message,
-        callable $callback,
-        ...$args
-    ): void
-    {
-        try {
-            $callback(...$args);
-        } catch (Throwable $e) {
-            $this->assertEquals($message, $e->getMessage());
-        }
-    }
 }

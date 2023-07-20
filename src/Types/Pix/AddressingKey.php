@@ -6,11 +6,11 @@ use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
 class AddressingKey
 {
-    /** @var string */
-    public string $type;
+    /** @var string|null */
+    public ?string $type;
 
-    /** @var string */
-    public string $value;
+    /** @var string|null */
+    public ?string $value;
 
     /** @var bool */
     public bool $registering = true;
