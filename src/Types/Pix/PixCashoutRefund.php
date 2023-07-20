@@ -20,10 +20,10 @@ class PixCashoutRefund implements PixCashoutInterface
     public ?string $refundCode;
 
     /** @var string|null */
-    public ?string $refundReason = null;
+    public mixed $refundReason = null;
 
     /** @var string */
-    public string $description;
+    public mixed $description;
 
     /**
      * This validate and return an array

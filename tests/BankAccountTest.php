@@ -57,8 +57,6 @@ class BankAccountTest extends TestCase
      */
     public function testInvalidBankDocument()
     {
-
-        $this->markTestIncomplete('Validate cnpj invalid not called on test!');
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('document should be a string');
         $bankAccount = $this->validBankAccount();
