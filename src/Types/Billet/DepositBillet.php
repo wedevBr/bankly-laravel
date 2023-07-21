@@ -6,41 +6,41 @@ use WeDevBr\Bankly\Validators\Billet\DepositBilletValidator;
 
 class DepositBillet
 {
-    /** @var BankAccount */
-    public $account;
+    /** @var mixed */
+    public mixed $account;
 
-    /** @var Payer */
-    public $payer;
+    /** @var mixed */
+    public mixed $payer;
+
+    /** @var string|null */
+    public ?string $alias;
+
+    /** @var string|null */
+    public ?string $documentNumber;
+
+    /** @var string|null */
+    public ?string $amount;
 
     /** @var string */
-    public $alias;
-
-    /** @var string */
-    public $documentNumber;
-
-    /** @var string */
-    public $amount;
-
-    /** @var string */
-    public $dueDate;
+    public string $dueDate;
 
     /**
      * [Deposit, Levy]
      * @var string
      * */
-    public $type;
+    public string $type;
 
-    /** @var string */
-    public $closePayment;
+    /** @var string|null */
+    public ?string $closePayment = null;
 
     /** @var Interest */
-    public $interest;
+    public Interest $interest;
 
     /** @var Fine */
-    public $fine;
+    public Fine $fine;
 
     /** @var Discounts */
-    public $discounts;
+    public Discounts $discounts;
 
     /**
      * This validate and return an array
@@ -49,13 +49,13 @@ class DepositBillet
     public function toArray(): array
     {
         $this->validate();
-        return json_decode(json_encode($this), true);;
+        return json_decode(json_encode($this), true);
     }
 
     /**
      * This function validate a virtual card address
      */
-    public function validate()
+    public function validate(): void
     {
         $depositBilletValidator = new DepositBilletValidator($this);
         $depositBilletValidator->validate();

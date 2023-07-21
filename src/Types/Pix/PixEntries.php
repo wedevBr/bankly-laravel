@@ -9,10 +9,10 @@ use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 class PixEntries
 {
     /** @var AddressingKey */
-    public $addressingKey;
+    public AddressingKey $addressingKey;
 
     /** @var AddressingAccount */
-    public $account;
+    public AddressingAccount $account;
 
     /**
      * This validate and return an array
@@ -27,7 +27,7 @@ class PixEntries
     /**
      * This function validate a Addressing Key
      */
-    public function validate()
+    public function validate(): void
     {
         $addressingKeyValidator = new AddressingKeyValidator($this->addressingKey);
         $addressingKeyValidator->validate();

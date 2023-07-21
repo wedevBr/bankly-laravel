@@ -7,23 +7,23 @@ use WeDevBr\Bankly\Validators\Pix\PixCashoutRefundValidator;
 
 class PixCashoutRefund implements PixCashoutInterface
 {
-    /** @var \WeDevBr\Bankly\Types\Pix\AddressingAccount */
-    public $account;
+    /** @var mixed */
+    public mixed $account;
+
+    /** @var string|null */
+    public ?string $authenticationCode;
 
     /** @var string */
-    public $authenticationCode;
+    public string $amount;
+
+    /** @var string|null */
+    public ?string $refundCode;
+
+    /** @var string|null */
+    public mixed $refundReason = null;
 
     /** @var string */
-    public $amount;
-
-    /** @var string */
-    public $refundCode;
-
-    /** @var string */
-    public $refundReason;
-
-    /** @var string */
-    public $description;
+    public mixed $description;
 
     /**
      * This validate and return an array

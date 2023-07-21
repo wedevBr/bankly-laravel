@@ -7,32 +7,32 @@ use WeDevBr\Bankly\Validators\Card\CardValidator;
 
 class Card extends \stdClass implements Arrayable
 {
-    /** @var string */
-    public $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
+
+    /** @var string|null */
+    public ?string $cardName;
 
     /** @var string */
-    public $cardName;
+    public string $alias;
 
     /** @var string */
-    public $alias;
+    public string $bankAgency;
 
     /** @var string */
-    public $bankAgency;
+    public string $bankAccount;
+
+    /** @var string|null */
+    public ?string $programId = null;
 
     /** @var string */
-    public $bankAccount;
+    public string $password;
+
+    /** @var Address|array */
+    public Address|array $address;
 
     /** @var string */
-    public $programId;
-
-    /** @var string */
-    public $password;
-
-    /** @var \WeDevBr\Bankly\Types\Card\Address */
-    public $address;
-
-    /** @var string */
-    public $type;
+    public string $type;
 
     /**
      * This validate and return an array
@@ -49,7 +49,7 @@ class Card extends \stdClass implements Arrayable
     /**
      * This function validate a card address
      */
-    public function validate()
+    public function validate(): self
     {
         $validator = new CardValidator($this);
         $validator->validate();

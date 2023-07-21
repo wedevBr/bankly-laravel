@@ -6,29 +6,29 @@ use WeDevBr\Bankly\Validators\Card\AddressValidator;
 
 class Address extends \stdClass
 {
-    /** @var string */
-    public $neighborhood;
+    /** @var string|null */
+    public ?string $neighborhood;
+
+    /** @var string|null */
+    public ?string $zipCode;
+
+    /** @var string|null */
+    public ?string $address;
+
+    /** @var string|null */
+    public ?string $number;
 
     /** @var string */
-    public $zipCode;
+    public string $complement;
+
+    /** @var string|null */
+    public ?string $city;
+
+    /** @var string|null */
+    public ?string $state;
 
     /** @var string */
-    public $address;
-
-    /** @var string */
-    public $number;
-
-    /** @var string */
-    public $complement;
-
-    /** @var string */
-    public $city;
-
-    /** @var string */
-    public $state;
-
-    /** @var string */
-    public $country;
+    public string $country;
 
     /**
      * This validate and return an array
@@ -43,7 +43,7 @@ class Address extends \stdClass
     /**
      * This function validate a virtual card address
      */
-    public function validate()
+    public function validate(): void
     {
         $validator = new AddressValidator($this);
         $validator->validate();

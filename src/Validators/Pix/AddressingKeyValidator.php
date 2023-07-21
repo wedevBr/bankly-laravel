@@ -2,15 +2,16 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
 
 class AddressingKeyValidator
 {
     /** @var AddressingKey */
-    private $addressingKey;
+    private AddressingKey $addressingKey;
 
     /** @var bool */
-    private $registering;
+    private bool $registering;
 
     /**
      * @param AddressingKey $addressingKey
@@ -38,13 +39,13 @@ class AddressingKeyValidator
      * This validates a type of pix key
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateType()
+    private function validateType(): void
     {
         $type = $this->addressingKey->type;
         if (empty($type) || !is_string($type)) {
-            throw new \InvalidArgumentException('type should be a string');
+            throw new InvalidArgumentException('type should be a string');
         }
 
         $typeList = [
@@ -55,7 +56,7 @@ class AddressingKeyValidator
             'EVP',
         ];
         if (!in_array($this->addressingKey->type, $typeList)) {
-            throw new \InvalidArgumentException('this key type is not valid');
+            throw new InvalidArgumentException('this key type is not valid');
         }
     }
 
@@ -63,9 +64,9 @@ class AddressingKeyValidator
      * This validates a key value
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateValue()
+    private function validateValue(): void
     {
         $value = $this->addressingKey->value;
         if (
@@ -75,7 +76,7 @@ class AddressingKeyValidator
             )
             && (empty($value) || !is_string($value))
         ) {
-            throw new \InvalidArgumentException('value should be a string');
+            throw new InvalidArgumentException('value should be a string');
         }
     }
 
@@ -83,9 +84,9 @@ class AddressingKeyValidator
      * This validates a key value
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateEvpType()
+    private function validateEvpType(): void
     {
         $value = $this->addressingKey->value;
         if (
@@ -94,7 +95,7 @@ class AddressingKeyValidator
             && !empty($value)
         )
         {
-            throw new \InvalidArgumentException('value must be empty for EVP type');
+            throw new InvalidArgumentException('value must be empty for EVP type');
         }
     }
 }

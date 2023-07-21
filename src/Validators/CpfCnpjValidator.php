@@ -2,6 +2,8 @@
 
 namespace WeDevBr\Bankly\Validators;
 
+use InvalidArgumentException;
+
 /**
  * ValidaCPFCNPJ valida e formata CPF e CNPJ
  *
@@ -43,9 +45,9 @@ class CpfCnpjValidator
      *
      * @access protected
      * @return string
-     * @throws \InvalidArgumentException;
+     * @throws InvalidArgumentException;
      */
-    protected function verifyCpfCnpj()
+    protected function verifyCpfCnpj(): string
     {
         // Verifica CPF
         if (strlen($this->document) === 11) {
@@ -53,19 +55,19 @@ class CpfCnpjValidator
         } elseif (strlen($this->document) === 14) { // Verifica CNPJ
             return 'CNPJ';
         }
-        throw new \InvalidArgumentException('cpf_cnpj invalid');
+        throw new InvalidArgumentException('cpf_cnpj invalid');
     }
 
     /**
      * Multiplica dígitos vezes posições
      *
      * @access protected
-     * @param  string    $digitos      Os digitos desejados
-     * @param  int       $posicoes     A posição que vai iniciar a regressão
+     * @param string $digitos      Os digitos desejados
+     * @param int $posicoes     A posição que vai iniciar a regressão
      * @param  int       $soma_digitos A soma das multiplicações entre posições e dígitos
      * @return int                     Os dígitos enviados concatenados com o último dígito
      */
-    protected function calcPositionDigits($digitos, $posicoes = 10, $soma_digitos = 0)
+    protected function calcPositionDigits(string $digitos, int $posicoes = 10, int $soma_digitos = 0): int
     {
         // Faz a soma dos dígitos com a posição
         // Ex. para 10 posições:
@@ -115,7 +117,7 @@ class CpfCnpjValidator
      * @access protected
      * @return bool           True para CPF correto - False para CPF incorreto
      */
-    protected function validateCpf()
+    protected function validateCpf(): bool
     {
         // Captura os 9 primeiros dígitos do CPF
         // Ex.: 02546288423 = 025462884
@@ -138,7 +140,7 @@ class CpfCnpjValidator
      * @access protected
      * @return bool             true para CNPJ correto
      */
-    protected function validateCnpj()
+    protected function validateCnpj(): bool
     {
         // O valor original
         $original_cnpj = $this->document;
@@ -167,7 +169,7 @@ class CpfCnpjValidator
      * @access public
      * @return bool      True para válido, false para inválido
      */
-    public function validate()
+    public function validate(): bool
     {
         // Valida CPF
         $validation = $this->verifyCpfCnpj();
@@ -188,7 +190,7 @@ class CpfCnpjValidator
      * @access public
      * @return string  CPF ou CNPJ formatado
      */
-    public function format()
+    public function format(): string
     {
         // O valor formatado
         $formatado = false;
@@ -222,10 +224,10 @@ class CpfCnpjValidator
 
     /**
      * Método para verifica sequencia de números
-     * @param  integer $multiplos Quantos números devem ser verificados
+     * @param integer $multiplos Quantos números devem ser verificados
      * @return boolean
      */
-    public function verifySort($multiplos)
+    public function verifySort(int $multiplos): bool
     {
         // cpf
         for ($i = 0; $i < 10; $i++) {

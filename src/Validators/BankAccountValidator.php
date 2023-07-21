@@ -13,11 +13,12 @@
 
 namespace WeDevBr\Bankly\Validators;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\BankAccount;
 
 class BankAccountValidator
 {
-    private $bank_account;
+    private BankAccount $bank_account;
 
     /**
      * BankAccountValidator constructor.
@@ -42,34 +43,43 @@ class BankAccountValidator
 
     /**
      * This validate a bank branch
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateBranch()
+    private function validateBranch(): void
     {
         $branch = $this->bank_account->branch;
         if (is_null($branch) || !is_string($branch) || !is_numeric($branch)) {
-            throw new \InvalidArgumentException('branch should be a numeric string');
+            throw new InvalidArgumentException('branch should be a numeric string');
         }
     }
 
     /**
      * This validate a bank account
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateAccount()
+    private function validateAccount(): void
     {
         $account = $this->bank_account->account;
         if (is_null($account) || !is_string($account)  || !is_numeric($account)) {
-            throw new \InvalidArgumentException('account should be a numeric string');
+            throw new InvalidArgumentException('account should be a numeric string');
         }
     }
 
     /**
      * This validates a cpf_cnpj
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateDocument()
+    private function validateDocument(): void
     {
         $document = $this->bank_account->document;
         if (is_null($document) || !is_string($document)) {
-            throw new \InvalidArgumentException('document should be a string');
+            throw new InvalidArgumentException('document should be a string');
         }
         $documentValidator = new CpfCnpjValidator($document);
         $documentValidator->validate();
@@ -77,24 +87,30 @@ class BankAccountValidator
 
     /**
      * This validates a given name
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateName()
+    private function validateName(): void
     {
         $name = $this->bank_account->name;
         if (is_null($name) || !is_string($name)) {
-            throw new \InvalidArgumentException('name should be a string');
+            throw new InvalidArgumentException('name should be a string');
         }
     }
 
     /**
      * This validates bank account type
+     *
+     * @return void
+     * @throws InvalidArgumentException
      */
-    private function validateAccountType()
+    private function validateAccountType(): void
     {
         $allowed = ['CHECKING', 'SAVINGS'];
         $accountType = $this->bank_account->accountType;
         if (!in_array($accountType, $allowed) || is_null($accountType)) {
-            throw new \InvalidArgumentException('accountType should be one of them: ' . implode(', ', $allowed));
+            throw new InvalidArgumentException('accountType should be one of them: ' . implode(', ', $allowed));
         }
     }
 }

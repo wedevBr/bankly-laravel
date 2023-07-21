@@ -53,7 +53,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAccountObject()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('account should be a AddressingAccount');
+        $this->expectExceptionMessage('account should be a AddressingAccount');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->account = new stdClass;
         $pixCashout->validate();
@@ -65,7 +65,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAccountBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
+        $this->expectExceptionMessage('branch should be a numeric string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->account->branch = null;
         $pixCashout->validate();
@@ -77,7 +77,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAccountNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('number account should be a numeric string');
+        $this->expectExceptionMessage('number account should be a numeric string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->account->number = null;
         $pixCashout->validate();
@@ -89,7 +89,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAccountTypeIsNull()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('type account should be a string');
+        $this->expectExceptionMessage('type account should be a string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->account->type = null;
         $pixCashout->validate();
@@ -101,7 +101,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAccountTypeIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this account type is not valid');
+        $this->expectExceptionMessage('this account type is not valid');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->account->type = 'CORRENTE';
         $pixCashout->validate();
@@ -113,7 +113,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAuthenticationCode()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('authentication code should be a string');
+        $this->expectExceptionMessage('authentication code should be a string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->authenticationCode = null;
         $pixCashout->validate();
@@ -125,7 +125,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAmountIsNumeric()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->amount = '2a.50';
         $pixCashout->validate();
@@ -137,7 +137,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateAmountIsGreaterZero()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->amount = 0;
         $pixCashout->validate();
@@ -149,7 +149,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateRefundCodeIsString()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('refund code should be a string');
+        $this->expectExceptionMessage('refund code should be a string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->refundCode = null;
         $pixCashout->validate();
@@ -161,7 +161,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateRefundCodeIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this refund code is not valid');
+        $this->expectExceptionMessage('this refund code is not valid');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->refundCode = '123';
         $pixCashout->validate();
@@ -173,7 +173,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateRefundReason()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('refund reason should be a string');
+        $this->expectExceptionMessage('refund reason should be a string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->refundReason = 123;
         $pixCashout->validate();
@@ -185,7 +185,7 @@ class PixCashoutRefundValidatorTest extends TestCase
     public function testValidateDescription()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('refund description should be a string');
+        $this->expectExceptionMessage('refund description should be a string');
         $pixCashout = $this->validPixCashoutRefund();
         $pixCashout->description = 123;
         $pixCashout->validate();

@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly;
 
+use Illuminate\Http\Client\RequestException;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Types\Card\Password;
@@ -46,7 +47,7 @@ class BanklyCard
      * @param string $path
      * @return self
      */
-    public function setCertPath(string $path)
+    public function setCertPath(string $path): self
     {
         $this->mtlsCert = $path;
         return $this;
@@ -57,7 +58,7 @@ class BanklyCard
      * @param string $path
      * @return self
      */
-    public function setKeyPath(string $path)
+    public function setKeyPath(string $path): self
     {
         $this->mtlsKey = $path;
         return $this;
@@ -70,7 +71,7 @@ class BanklyCard
      * @return array|mixed
      * @throws RequestException
      */
-    public function virtualCard(Card $virtualCard)
+    public function virtualCard(Card $virtualCard): mixed
     {
         return $this->post('/cards/virtual', $virtualCard->toArray(), null, true);
     }
@@ -82,7 +83,7 @@ class BanklyCard
      * @return array|mixed
      * @throws RequestException
      */
-    public function physicalCard(Card $physicalCard)
+    public function physicalCard(Card $physicalCard): mixed
     {
         return $this->post('/cards/physical', $physicalCard->toArray(), null, true);
     }
@@ -94,8 +95,9 @@ class BanklyCard
      * @param string $startDate
      * @param string $endDate
      * @return array
+     * @throws RequestException
      */
-    public function transactions(string $proxy, string $page, int $pageSize, string $startDate, string $endDate)
+    public function transactions(string $proxy, string $page, int $pageSize, string $startDate, string $endDate): array
     {
         $query = [
             'page' => $page,
@@ -111,8 +113,9 @@ class BanklyCard
      * @param string $proxy
      * @param Duplicate $duplicate
      * @return array
+     * @throws RequestException
      */
-    public function duplicate(string $proxy, Duplicate $duplicate)
+    public function duplicate(string $proxy, Duplicate $duplicate): array
     {
         return $this->post("/cards/{$proxy}/duplicate", $duplicate->toArray(), null, true);
     }
@@ -121,8 +124,9 @@ class BanklyCard
      * @param string $proxy
      * @param Password $password
      * @return array
+     * @throws RequestException
      */
-    public function pciData(string $proxy, Password $password)
+    public function pciData(string $proxy, Password $password): array
     {
         return $this->post("/cards/{$proxy}/pci", $password->toArray(), null, true);
     }
@@ -130,8 +134,9 @@ class BanklyCard
     /**
      * @param string $proxy
      * @return array
+     * @throws RequestException
      */
-    public function getByProxy(string $proxy)
+    public function getByProxy(string $proxy): array
     {
         return $this->get("/cards/{$proxy}");
     }
@@ -140,8 +145,9 @@ class BanklyCard
      * @param string $proxy
      * @param ChangeStatus $changeStatus
      * @return array
+     * @throws RequestException
      */
-    public function changeStatus(string $proxy, ChangeStatus $changeStatus)
+    public function changeStatus(string $proxy, ChangeStatus $changeStatus): array
     {
         return $this->patch("/cards/{$proxy}/status", $changeStatus->toArray(), null, true);
     }
@@ -150,8 +156,9 @@ class BanklyCard
      * @param string $proxy
      * @param bool $allow
      * @return array
+     * @throws RequestException
      */
-    public function allowContactless(string $proxy, bool $allow)
+    public function allowContactless(string $proxy, bool $allow): array
     {
         $allowContactless = $allow ? 'true' : 'false';
         return $this->patch("/cards/{$proxy}/contactless?allowContactless={$allowContactless}", [], null, true);
@@ -160,8 +167,9 @@ class BanklyCard
     /**
      * @param string $proxy
      * @return array
+     * @throws RequestException
      */
-    public function nextStatus(string $proxy)
+    public function nextStatus(string $proxy): array
     {
         return $this->get("/cards/{$proxy}/nextStatus");
     }
@@ -169,8 +177,9 @@ class BanklyCard
     /**
      * @param string $proxy
      * @return array
+     * @throws RequestException
      */
-    public function cardTracking(string $proxy)
+    public function cardTracking(string $proxy): array
     {
         return $this->get("/cards/{$proxy}/tracking");
     }
@@ -179,8 +188,9 @@ class BanklyCard
      * @param string $proxy
      * @param Password $password
      * @return array
+     * @throws RequestException
      */
-    public function changePassword(string $proxy, Password $password)
+    public function changePassword(string $proxy, Password $password): array
     {
         return $this->patch("/cards/{$proxy}/password", $password->toArray(), null, true);
     }
@@ -188,8 +198,9 @@ class BanklyCard
     /**
      * @param string $documentNumber
      * @return array
+     * @throws RequestException
      */
-    public function getByDocument(string $documentNumber)
+    public function getByDocument(string $documentNumber): array
     {
         return $this->get("/cards/document/{$documentNumber}");
     }
@@ -197,8 +208,9 @@ class BanklyCard
     /**
      * @param string $activateCode
      * @return array
+     * @throws RequestException
      */
-    public function getByActivateCode(string $activateCode)
+    public function getByActivateCode(string $activateCode): array
     {
         return $this->get("/cards/activateCode/{$activateCode}");
     }
@@ -206,8 +218,9 @@ class BanklyCard
     /**
      * @param string $account
      * @return array
+     * @throws RequestException
      */
-    public function getByAccount(string $account)
+    public function getByAccount(string $account): array
     {
         return $this->get("/cards/account/{$account}");
     }
@@ -215,8 +228,9 @@ class BanklyCard
     /**
      * @param Wallet $wallet
      * @return array
+     * @throws RequestException
      */
-    public function digitalWallet(Wallet $wallet)
+    public function digitalWallet(Wallet $wallet): array
     {
         $pathData = $wallet->toArray();
         $endpoint = '/cards-pci/' . $pathData['proxy']
@@ -230,8 +244,9 @@ class BanklyCard
      * @param string $proxy
      * @param Activate $activate
      * @return array
+     * @throws RequestException
      */
-    public function activate(string $proxy, Activate $activate)
+    public function activate(string $proxy, Activate $activate): array
     {
         return $this->patch("/cards/{$proxy}/activate", $activate->toArray(), null, true);
     }

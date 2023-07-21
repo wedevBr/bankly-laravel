@@ -36,7 +36,7 @@ class BillPayment extends \stdClass implements Arrayable
     /**
      * This function validate a bill payment
      */
-    public function validate()
+    public function validate(): void
     {
         $validator = new BillPaymentValidator($this);
         $validator->validate();

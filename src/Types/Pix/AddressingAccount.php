@@ -6,14 +6,14 @@ use WeDevBr\Bankly\Validators\Pix\AddressingAccountValidator;
 
 class AddressingAccount
 {
-    /** @var string */
-    public $branch;
+    /** @var string|null */
+    public ?string $branch;
 
-    /** @var string */
-    public $number;
+    /** @var string|null */
+    public ?string $number;
 
-    /** @var string */
-    public $type;
+    /** @var string|null */
+    public ?string $type;
 
     /**
      * This validate and return an array
@@ -28,7 +28,7 @@ class AddressingAccount
     /**
      * This function validate a Addressing Account
      */
-    public function validate()
+    public function validate(): void
     {
         $validator = new AddressingAccountValidator($this);
         $validator->validate();

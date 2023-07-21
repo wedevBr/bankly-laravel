@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Billet\Discounts;
@@ -23,7 +24,7 @@ use WeDevBr\Bankly\Types\Billet\Payer;
 class DepositBilletValidator
 {
     /** @var DepositBillet */
-    private $depositBillet;
+    private DepositBillet $depositBillet;
 
     /**
      * @param DepositBillet $depositBillet
@@ -57,13 +58,13 @@ class DepositBilletValidator
      * This validates the alias
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAlias()
+    private function validateAlias(): void
     {
         $alias = $this->depositBillet->alias;
         if (empty($alias) || !is_string($alias)) {
-            throw new \InvalidArgumentException('alias should be a string');
+            throw new InvalidArgumentException('alias should be a string');
         }
     }
 
@@ -71,13 +72,13 @@ class DepositBilletValidator
      * This validates the document number
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDocumentNumber()
+    private function validateDocumentNumber(): void
     {
         $documentNumber = $this->depositBillet->documentNumber;
         if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
-            throw new \InvalidArgumentException('document number should be a numeric string');
+            throw new InvalidArgumentException('document number should be a numeric string');
         }
     }
 
@@ -85,13 +86,13 @@ class DepositBilletValidator
      * This validates the amount
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAmount()
+    private function validateAmount(): void
     {
         $amount = $this->depositBillet->amount;
         if (empty($amount) || !is_string($amount) || !is_numeric($amount) || $amount <= 0) {
-            throw new \InvalidArgumentException('amount should be a numeric string and greater than zero');
+            throw new InvalidArgumentException('amount should be a numeric string and greater than zero');
         }
     }
 
@@ -99,19 +100,19 @@ class DepositBilletValidator
      * This validates the due date
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDueDate()
+    private function validateDueDate(): void
     {
         $dueDate = $this->depositBillet->dueDate;
 
         try {
             $date = now()->createFromFormat('Y-m-d', $dueDate);
             if (!$date->gt(now())) {
-                throw new \InvalidArgumentException('due date must be greater than the current date');
+                throw new InvalidArgumentException('due date must be greater than the current date');
             }
         } catch (\Throwable $th) {
-            throw new \InvalidArgumentException('due date should be a valid date');
+            throw new InvalidArgumentException('due date should be a valid date');
         }
     }
 
@@ -119,18 +120,18 @@ class DepositBilletValidator
      * This validates a type
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateType()
+    private function validateType(): void
     {
         $type = $this->depositBillet->type;
         if (empty($type) || !is_string($type)) {
-            throw new \InvalidArgumentException('type should be a string');
+            throw new InvalidArgumentException('type should be a string');
         }
 
         $types = ['Deposit', 'Levy'];
         if (!in_array($this->depositBillet->type, $types)) {
-            throw new \InvalidArgumentException('this type is not valid');
+            throw new InvalidArgumentException('this type is not valid');
         }
     }
 
@@ -138,12 +139,12 @@ class DepositBilletValidator
      * This validates a bank account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateBankAccount()
+    private function validateBankAccount(): void
     {
         if (!$this->depositBillet->account instanceof BankAccount) {
-            throw new \InvalidArgumentException('account should be a BankAccount type');
+            throw new InvalidArgumentException('account should be a BankAccount type');
         }
 
         $this->depositBillet
@@ -155,12 +156,12 @@ class DepositBilletValidator
      * This validates the payer
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validatePayer()
+    private function validatePayer(): void
     {
         if (!$this->depositBillet->payer instanceof Payer) {
-            throw new \InvalidArgumentException('payer should be a Payer type');
+            throw new InvalidArgumentException('payer should be a Payer type');
         }
 
         $this->depositBillet
@@ -172,19 +173,19 @@ class DepositBilletValidator
      * This validates the close payment date
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateClosePayment()
+    private function validateClosePayment(): void
     {
         $closePayment = $this->depositBillet->closePayment;
         if (!empty($closePayment)) {
             try {
                 $date = now()->createFromFormat('Y-m-d', $closePayment);
                 if (!$date->gt(now())) {
-                    throw new \InvalidArgumentException('close payment date must be greater than the current date');
+                    throw new InvalidArgumentException('close payment date must be greater than the current date');
                 }
             } catch (\Throwable $th) {
-                throw new \InvalidArgumentException('close payment date should be a valid date');
+                throw new InvalidArgumentException('close payment date should be a valid date');
             }
         }
     }
@@ -193,13 +194,13 @@ class DepositBilletValidator
      * This validates the interest
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateInterest()
+    private function validateInterest(): void
     {
         if (!empty($this->depositBillet->interest)) {
             if (!$this->depositBillet->interest instanceof Interest) {
-                throw new \InvalidArgumentException('interest should be a Interest type');
+                throw new InvalidArgumentException('interest should be a Interest type');
             }
             $this->depositBillet->interest->validate();
         }
@@ -209,13 +210,13 @@ class DepositBilletValidator
      * This validates the fine
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateFine()
+    private function validateFine(): void
     {
         if (!empty($this->depositBillet->fine)) {
             if (!$this->depositBillet->fine instanceof Fine) {
-                throw new \InvalidArgumentException('fine should be a Fine type');
+                throw new InvalidArgumentException('fine should be a Fine type');
             }
             $this->depositBillet->fine->validate();
         }
@@ -225,13 +226,13 @@ class DepositBilletValidator
      * This validates the discounts
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDiscounts()
+    private function validateDiscounts(): void
     {
         if (!empty($this->depositBillet->discounts)) {
             if (!$this->depositBillet->discounts instanceof Discounts) {
-                throw new \InvalidArgumentException('discounts should be a Discounts type');
+                throw new InvalidArgumentException('discounts should be a Discounts type');
             }
             $this->depositBillet->discounts->validate();
         }

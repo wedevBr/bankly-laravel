@@ -90,7 +90,7 @@ class DigitalWalletTest extends TestCase
     public function testValidateProxy()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('proxy should be a string');
+        $this->expectExceptionMessage('proxy should be a string');
         $wallet = $this->validWallet();
         $wallet->proxy = null;
         $wallet->validate();
@@ -102,7 +102,7 @@ class DigitalWalletTest extends TestCase
     public function testValidateEmptyWallet()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('wallet should be a string');
+        $this->expectExceptionMessage('wallet should be a string');
         $wallet = $this->validWallet();
         $wallet->wallet = null;
         $wallet->validate();
@@ -114,7 +114,7 @@ class DigitalWalletTest extends TestCase
     public function testValidateInvalidWallet()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this wallet is not valid');
+        $this->expectExceptionMessage('this wallet is not valid');
         $wallet = $this->validWallet();
         $wallet->wallet = 'WhatsappPay';
         $wallet->validate();
@@ -126,7 +126,7 @@ class DigitalWalletTest extends TestCase
     public function testValidateEmptyBrand()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('brand should be a string');
+        $this->expectExceptionMessage('brand should be a string');
         $wallet = $this->validWallet();
         $wallet->brand = null;
         $wallet->validate();
@@ -138,7 +138,7 @@ class DigitalWalletTest extends TestCase
     public function testValidateInvalidBrand()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this brand is not valid');
+        $this->expectExceptionMessage('this brand is not valid');
         $wallet = $this->validWallet();
         $wallet->brand = 'Diners';
         $wallet->validate();

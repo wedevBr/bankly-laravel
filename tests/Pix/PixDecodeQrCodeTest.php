@@ -131,7 +131,7 @@ class PixDecodeQrCodeTest extends TestCase
     public function testValidateIfEncodedValueIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('encoded value should be a string');
+        $this->expectExceptionMessage('encoded value should be a string');
 
         $qrCodeData = $this->validCodedQrCodeData();
         $qrCodeData->encodedValue = null;
@@ -144,7 +144,7 @@ class PixDecodeQrCodeTest extends TestCase
     public function testValidateIfDocumentNumberIsInvalid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be a numeric string');
 
         $qrCodeData = $this->validCodedQrCodeData();
         $qrCodeData->documentNumber = null;

@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Billet\BankAccount;
 class BankAccountValidator
 {
     /** @var BankAccount */
-    private $bankAccount;
+    private BankAccount $bankAccount;
 
     /**
      * @param BankAccount $bankAccount
@@ -42,13 +43,13 @@ class BankAccountValidator
      * This validates the branch
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateBranch()
+    private function validateBranch(): void
     {
         $branch = $this->bankAccount->branch;
         if (empty($branch) || !is_string($branch) || !is_numeric($branch)) {
-            throw new \InvalidArgumentException('branch should be a numeric string');
+            throw new InvalidArgumentException('branch should be a numeric string');
         }
     }
 
@@ -56,13 +57,13 @@ class BankAccountValidator
      * This validates the bank account number
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateNumber()
+    private function validateNumber(): void
     {
         $number = $this->bankAccount->number;
         if (empty($number) || !is_string($number) || !is_numeric($number)) {
-            throw new \InvalidArgumentException('bank account number should be a numeric string');
+            throw new InvalidArgumentException('bank account number should be a numeric string');
         }
     }
 }

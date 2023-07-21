@@ -17,31 +17,31 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 trait Rest
 {
     /** @var array */
-    protected $headers = [];
+    protected array $headers = [];
+
+    /** @var mixed */
+    protected mixed $apiUrl = null;
 
     /** @var string */
-    protected $apiUrl;
+    protected string $apiVersion = '1';
 
-    /** @var string */
-    protected $apiVersion = '1';
+    /** @var string|null */
+    protected ?string $mtlsCert;
 
-    /** @var string */
-    protected $mtlsCert;
+    /** @var mixed */
+    protected mixed $mtlsKey;
 
-    /** @var string */
-    protected $mtlsKey;
+    /** @var string|null */
+    protected ?string $mtlsPassphrase;
 
-    /** @var string */
-    protected $mtlsPassphrase;
-
-    /** @var string */
-    private $token = null;
+    /** @var string|null */
+    private ?string $token = null;
 
     /**
      * @param string $apiUrl
      * @return self
      */
-    public function setApiUrl(string $apiUrl)
+    public function setApiUrl(string $apiUrl): self
     {
         $this->apiUrl = $apiUrl;
         return $this;
@@ -51,7 +51,7 @@ trait Rest
      * @param string $apiVersion
      * @return self
      */
-    public function setApiVersion(string $apiVersion)
+    public function setApiVersion(string $apiVersion): self
     {
         $this->apiVersion = $apiVersion;
         return $this;
@@ -61,7 +61,7 @@ trait Rest
      * @param array $header
      * @return void
      */
-    public function setHeaders($header)
+    public function setHeaders($header): void
     {
         $this->headers = array_merge($this->headers, $header);
     }
@@ -70,7 +70,7 @@ trait Rest
      * @param string $endpoint
      * @return bool
      */
-    private function requireCorrelationId(string $endpoint)
+    private function requireCorrelationId(string $endpoint): bool
     {
         $not_required_endpoints = [
             '/banklist',
@@ -96,7 +96,7 @@ trait Rest
      *
      * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -108,7 +108,7 @@ trait Rest
      * @return array|mixed
      * @throws RequestException
      */
-    public function get(string $endpoint, $query = null, $correlationId = null)
+    public function get(string $endpoint, $query = null, $correlationId = null): mixed
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -140,7 +140,7 @@ trait Rest
      * @return array|mixed
      * @throws RequestException
      */
-    private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false)
+    private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -170,10 +170,10 @@ trait Rest
     /**
      * @param string $endpoint
      * @param array $body
-     * @param string|null $correlationId
+     * @param null $correlationId
      * @param bool $asJson
      * @param bool $attachment
-     * @param DocumentAnalysis $document
+     * @param DocumentAnalysis|null $document
      * @return array|mixed
      * @throws RequestException
      */
@@ -224,9 +224,9 @@ trait Rest
      */
     private function patch(
         string $endpoint,
-        array $body = [],
-        $correlationId = null,
-        bool $asJson = false
+        array  $body = [],
+        string $correlationId = null,
+        bool   $asJson = false
     ) {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -260,7 +260,7 @@ trait Rest
      * @return array|mixed
      * @throws RequestException
      */
-    private function delete(string $endpoint)
+    private function delete(string $endpoint): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -293,7 +293,7 @@ trait Rest
      * @param string $endpoint
      * @return string
      */
-    private function getFinalUrl(string $endpoint)
+    private function getFinalUrl(string $endpoint): string
     {
         if (is_null($this->apiUrl)) {
             $this->apiUrl = config('bankly')['api_url'];

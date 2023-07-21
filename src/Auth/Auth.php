@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Auth;
 
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\Events\BanklyAuthenticatedEvent;
 
@@ -13,38 +14,37 @@ use WeDevBr\Bankly\Events\BanklyAuthenticatedEvent;
  */
 final class Auth
 {
-    /** @var self */
     private static $login;
 
     /** @var string */
-    protected $loginUrl;
+    protected string $loginUrl;
 
     /** @var string */
-    private $clientId;
+    private string $clientId;
 
     /** @var string */
-    private $clientSecret;
+    private string $clientSecret;
 
     /** @var string */
-    protected $grantType = 'client_credentials';
+    protected string $grantType = 'client_credentials';
 
     /** @var string */
-    protected $scope;
+    protected string $scope;
 
     /** @var string */
-    private $token;
+    private string $token;
 
     /** @var string */
-    private $tokenExpiry;
+    private string $tokenExpiry;
 
     /** @var string */
-    private $mtlsCert;
+    private string $mtlsCert;
 
     /** @var string */
-    private $mtlsKey;
+    private string $mtlsKey;
 
     /** @var string */
-    private $mtlsPassphrase;
+    private string $mtlsPassphrase;
 
     private function __construct()
     {
@@ -56,7 +56,7 @@ final class Auth
      *
      * @return self
      */
-    public static function login()
+    public static function login(): self
     {
         if (is_null(self::$login)) {
             self::$login = new Auth();
@@ -70,7 +70,7 @@ final class Auth
     /**
      * @return self
      */
-    public function setClientCredentials()
+    public function setClientCredentials(): self
     {
         $this->clientId = $this->clientId ?? config('bankly')['client_id'];
         $this->clientSecret = $this->clientSecret ?? config('bankly')['client_secret'];
@@ -85,7 +85,7 @@ final class Auth
      * @param null|string $clientId
      * @return self
      */
-    public function setClientId($clientId)
+    public function setClientId(?string $clientId): self
     {
         $this->clientId = $clientId;
         return $this;
@@ -95,7 +95,7 @@ final class Auth
      * @param null|string $clientSecret
      * @return self
      */
-    public function setClientSecret($clientSecret)
+    public function setClientSecret(?string $clientSecret): self
     {
         $this->clientSecret = $clientSecret;
         return $this;
@@ -115,7 +115,7 @@ final class Auth
      * @param string $grantType
      * @return self
      */
-    public function setGrantType(string $grantType)
+    public function setGrantType(string $grantType): self
     {
         $this->grantType = $grantType;
         return $this;
@@ -126,7 +126,7 @@ final class Auth
      * @param string $path
      * @return self
      */
-    public function setCertPath(string $path)
+    public function setCertPath(string $path): self
     {
         $this->mtlsCert = $path;
         return $this;
@@ -137,17 +137,17 @@ final class Auth
      * @param string $path
      * @return self
      */
-    public function setKeyPath(string $path)
+    public function setKeyPath(string $path): self
     {
         $this->mtlsKey = $path;
         return $this;
     }
 
     /**
-     * @param string|array $scope
+     * @param string|array|null $scope
      * @return self
      */
-    public function setScope($scope = null)
+    public function setScope(string|array $scope = null): self
     {
         $this->scope = config('bankly')['scope'] ?? [];
         if (!empty($scope)) {
@@ -163,7 +163,7 @@ final class Auth
      * @param string $token
      * @return self
      */
-    public function setToken(string $token)
+    public function setToken(string $token): self
     {
         $this->token = $token;
         return $this;
@@ -182,8 +182,9 @@ final class Auth
 
     /**
      * @return string
+     * @throws RequestException
      */
-    public function getToken()
+    public function getToken(): string
     {
         if (now()->unix() > $this->tokenExpiry || !$this->token) {
             $this->auth();
@@ -196,7 +197,7 @@ final class Auth
      * @param string $tokenExpiry
      * @return self
      */
-    public function setTokenExpiry(string $tokenExpiry)
+    public function setTokenExpiry(string $tokenExpiry): self
     {
         $this->tokenExpiry = $tokenExpiry;
         return $this;
@@ -205,13 +206,14 @@ final class Auth
     /**
      * @return string
      */
-    public function getTokenExpiry()
+    public function getTokenExpiry(): string
     {
         return $this->tokenExpiry;
     }
 
     /**
      * @return void
+     * @throws RequestException
      */
     private function auth(): void
     {
@@ -248,8 +250,9 @@ final class Auth
      *
      * @param string $subjectDn
      * @return array
+     * @throws RequestException
      */
-    public function registerClient(string $subjectDn):array
+    public function registerClient(string $subjectDn): array
     {
         $this->setClientCredentials();
         $body = [

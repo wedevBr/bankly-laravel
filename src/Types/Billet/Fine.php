@@ -7,13 +7,13 @@ use WeDevBr\Bankly\Validators\Billet\FineValidator;
 class Fine
 {
     /** @var string */
-    public $startDate;
+    public string $startDate;
 
     /** @var string */
-    public $value;
+    public string $value;
 
     /** @var string */
-    public $type;
+    public string $type;
 
     /**
      * This validate and return an array
@@ -28,7 +28,7 @@ class Fine
     /**
      * This function validate a fine
      */
-    public function validate()
+    public function validate(): void
     {
         $fineValidator = new FineValidator($this);
         $fineValidator->validate();

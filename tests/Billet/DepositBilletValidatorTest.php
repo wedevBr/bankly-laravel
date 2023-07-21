@@ -63,7 +63,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAccountIsValidObject()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('account should be a BankAccount type');
+        $this->expectExceptionMessage('account should be a BankAccount type');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->account = new stdClass();
         $depositBillet->validate();
@@ -75,7 +75,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAccountBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
+        $this->expectExceptionMessage('branch should be a numeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->account->branch = null;
         $depositBillet->validate();
@@ -87,7 +87,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAccountNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank account number should be a numeric string');
+        $this->expectExceptionMessage('bank account number should be a numeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->account->number = null;
         $depositBillet->validate();
@@ -99,7 +99,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerIsValidObject()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('payer should be a Payer type');
+        $this->expectExceptionMessage('payer should be a Payer type');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer = new stdClass();
         $depositBillet->validate();
@@ -111,7 +111,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerDocument()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('payer document should be a numeric string');
+        $this->expectExceptionMessage('payer document should be a numeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->document = null;
         $depositBillet->validate();
@@ -123,7 +123,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('payer name should be a string');
+        $this->expectExceptionMessage('payer name should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->name = null;
         $depositBillet->validate();
@@ -135,7 +135,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerTradeName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('payer trade name should be a string');
+        $this->expectExceptionMessage('payer trade name should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->tradeName = null;
         $depositBillet->validate();
@@ -147,7 +147,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerAddressIsValidObject()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('payer address should be a Address type');
+        $this->expectExceptionMessage('payer address should be a Address type');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->address = new stdClass();
         $depositBillet->validate();
@@ -159,7 +159,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerAddressLine()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('address line should be a string');
+        $this->expectExceptionMessage('address line should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->address->addressLine = null;
         $depositBillet->validate();
@@ -171,7 +171,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerCityAddress()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('city address should be a string');
+        $this->expectExceptionMessage('city address should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->address->city = null;
         $depositBillet->validate();
@@ -183,7 +183,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerStateAddress()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('state address should be a string');
+        $this->expectExceptionMessage('state address should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->address->state = null;
         $depositBillet->validate();
@@ -195,7 +195,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidatePayerZipCodeAddress()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('zip code should be a string');
+        $this->expectExceptionMessage('zip code should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->address->zipCode = null;
         $depositBillet->validate();
@@ -207,7 +207,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAlias()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('alias should be a string');
+        $this->expectExceptionMessage('alias should be a string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->alias = null;
         $depositBillet->validate();
@@ -219,7 +219,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateDocumentNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be a numeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->documentNumber = null;
         $depositBillet->validate();
@@ -231,7 +231,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAmount()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->amount = null;
         $depositBillet->validate();
@@ -243,7 +243,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateAmountIsGreaterThanZero()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->amount = 0;
         $depositBillet->validate();
@@ -255,7 +255,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateDueDateIsValidDate()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('due date should be a valid date');
+        $this->expectExceptionMessage('due date should be a valid date');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->dueDate = now()->format('Y-m-d');
         $depositBillet->validate();
@@ -267,7 +267,7 @@ class DepositBilletValidatorTest extends TestCase
     public function testValidateType()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this type is not valid');
+        $this->expectExceptionMessage('this type is not valid');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->type = 'Withdraw';
         $depositBillet->validate();
