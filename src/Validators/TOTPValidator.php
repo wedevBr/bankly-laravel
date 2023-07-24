@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 use WeDevBr\Bankly\Types\TOTP\TOTP;
 use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
@@ -25,7 +26,6 @@ class TOTPValidator
     public function validate(): void
     {
         $this->validateContext();
-        $this->validateDocumentNumber();
         $this->validateOperation();
     }
 
@@ -60,14 +60,12 @@ class TOTPValidator
             throw new InvalidArgumentException('Invalid addressing key type');
         }
 
+        if ($addressingKey->type === 'PHONE' && !preg_match('/^\+55\d{2}\d{9}$/', $addressingKey->value)) {
+            throw new InvalidArgumentException('Invalid value format');
+        }
+
         $addressingKeyValidator = new AddressingKeyValidator($addressingKey);
         $addressingKeyValidator->validate();
-    }
-
-    private function validateDocumentNumber(): void
-    {
-        $documentValidator = new CpfCnpjValidator($this->totp->documentNumber);
-        $documentValidator->validate();
     }
 
     private function validateClaimId(): void

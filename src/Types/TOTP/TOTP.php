@@ -8,11 +8,7 @@ class TOTP
 {
     const REGISTER_ENTRY = 'RegisterEntry';
     const PORTABILITY = 'Portability';
-    const OWNERSHIP = 'Portability';
-    /**
-     * @var string
-     */
-    public string $documentNumber;
+    const OWNERSHIP = 'Ownership';
 
     /**
      * @var string
