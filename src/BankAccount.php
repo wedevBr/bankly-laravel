@@ -13,12 +13,12 @@ use WeDevBr\Bankly\Validators\BankAccountValidator;
 
 class BankAccount extends \stdClass
 {
-    public $bankCode = '332';
-    public $branch;
-    public $account;
-    public $document;
-    public $name;
-    public $accountType = 'CHECKING';
+    public string $bankCode = '332';
+    public mixed $branch;
+    public mixed $account;
+    public mixed $document;
+    public mixed $name;
+    public ?string $accountType = 'CHECKING';
 
     /**
      * This validate and return an array
@@ -34,7 +34,7 @@ class BankAccount extends \stdClass
     /**
      * This function validate a bank account
      */
-    public function validate()
+    public function validate(): void
     {
         $validator = new BankAccountValidator($this);
         $validator->validate();

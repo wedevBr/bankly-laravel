@@ -7,10 +7,10 @@ use WeDevBr\Bankly\Validators\Pix\LocationValidator;
 class Location
 {
     /** @var string */
-    public $city;
+    public string $city;
 
     /** @var string */
-    public $zipCode;
+    public string $zipCode;
 
     /**
      * This validate and return an array

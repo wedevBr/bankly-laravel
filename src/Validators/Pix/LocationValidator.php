@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\Location;
 
 /**
@@ -42,13 +43,13 @@ class LocationValidator
      * This validates the zip code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateZipCode()
+    private function validateZipCode(): void
     {
         $zipCode = $this->location->zipCode;
         if (empty($zipCode) || !is_string($zipCode)) {
-            throw new \InvalidArgumentException('zip code should be a string');
+            throw new InvalidArgumentException('zip code should be a string');
         }
     }
 
@@ -56,13 +57,13 @@ class LocationValidator
      * This validates the city
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateCity()
+    private function validateCity(): void
     {
         $city = $this->location->city;
         if (empty($city) || !is_string($city)) {
-            throw new \InvalidArgumentException('city should be a string');
+            throw new InvalidArgumentException('city should be a string');
         }
     }
 }

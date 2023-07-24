@@ -7,34 +7,34 @@ use WeDevBr\Bankly\Validators\Pix\PixDynamicQrCodeValidator;
 class PixDynamicQrCode
 {
     /** @var string */
-    public $recipientName;
+    public string $recipientName;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\AddressingKey */
-    public $addressingKey;
+    /** @var AddressingKey */
+    public AddressingKey $addressingKey;
 
     /** @var string */
-    public $conciliationId;
+    public string $conciliationId;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\Payer */
-    public $payer;
+    /** @var Payer */
+    public Payer $payer;
 
     /** @var bool */
-    public $singlePayment;
+    public bool $singlePayment;
 
     /** @var string */
-    public $changeAmountType;
+    public string $changeAmountType;
 
     /** @var string */
-    public $amount;
+    public string $amount;
 
     /** @var string */
-    public $expiresAt;
+    public string $expiresAt;
 
     /** @var string */
-    public $payerRequestText;
+    public string $payerRequestText;
 
     /** @var array */
-    public $additionalData;
+    public array $additionalData;
 
     /**
      * This validate and return an array

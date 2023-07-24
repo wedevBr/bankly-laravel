@@ -8,7 +8,7 @@ use WeDevBr\Bankly\Validators\Customer\PaymentAccountValidator;
 class PaymentAccount extends \stdClass implements Arrayable
 {
     /** @var string */
-    public $accountType;
+    public string $accountType;
 
     /**
      * This validate and return an array

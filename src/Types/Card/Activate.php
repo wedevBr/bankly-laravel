@@ -8,10 +8,10 @@ use WeDevBr\Bankly\Validators\Card\ActivateValidator;
 class Activate extends \stdClass implements Arrayable
 {
     /** @var string */
-    public $activateCode;
+    public string $activateCode;
 
     /** @var string */
-    public $password;
+    public string $password;
 
     /**
      * This validate and return an array
@@ -27,7 +27,7 @@ class Activate extends \stdClass implements Arrayable
     /**
      * This function validate the activate card data
      */
-    public function validate()
+    public function validate(): void
     {
         $validator = new ActivateValidator($this);
         $validator->validate();

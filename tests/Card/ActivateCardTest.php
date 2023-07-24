@@ -82,7 +82,7 @@ class ActivateCardTest extends TestCase
     public function testValidatePassword()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('password should be a numeric string');
+        $this->expectExceptionMessage('password should be a numeric string');
         $duplicateCard = $this->validActivateCard();
         $duplicateCard->password = 'A123';
         $duplicateCard->validate();
@@ -94,7 +94,7 @@ class ActivateCardTest extends TestCase
     public function testValidateActivateCode()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('Invalid Activation code');
+        $this->expectExceptionMessage('Invalid Activation code');
         $activate = $this->validActivateCard('1234', '123asd912');
         $activate->activateCode = '';
         $activate->validate();

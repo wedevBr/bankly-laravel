@@ -7,10 +7,10 @@ use WeDevBr\Bankly\Validators\Billet\CancelBilletValidator;
 class CancelBillet
 {
     /** @var string */
-    public $authenticationCode;
+    public string $authenticationCode;
 
     /** @var BankAccount */
-    public $account;
+    public BankAccount $account;
 
     /**
      * This validate and return an array
@@ -25,7 +25,7 @@ class CancelBillet
     /**
      * This function validate the billet cancellation
      */
-    public function validate()
+    public function validate(): void
     {
         $cancelBilletValidator = new CancelBilletValidator($this);
         $cancelBilletValidator->validate();

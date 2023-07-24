@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Pix\BankAccount;
 class BankAccountValidator
 {
     /** @var BankAccount */
-    private $bankAccount;
+    private BankAccount $bankAccount;
 
     /**
      * @param BankAccount $bankAccount
@@ -44,9 +45,9 @@ class BankAccountValidator
      * This validates a account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAccount()
+    private function validateAccount(): void
     {
         $this->bankAccount->account->validate();
     }
@@ -55,9 +56,9 @@ class BankAccountValidator
      * This validates a bank
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateBank()
+    private function validateBank(): void
     {
         $this->bankAccount->bank->validate();
     }
@@ -66,13 +67,13 @@ class BankAccountValidator
      * This validates a document number
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDocumentNumber()
+    private function validateDocumentNumber(): void
     {
         $documentNumber = $this->bankAccount->documentNumber;
         if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
-            throw new \InvalidArgumentException('document number should be a numeric string');
+            throw new InvalidArgumentException('document number should be a numeric string');
         }
     }
 
@@ -80,13 +81,13 @@ class BankAccountValidator
      * This validates a name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateName()
+    private function validateName(): void
     {
         $name = $this->bankAccount->name;
         if (empty($name) || !is_string($name)) {
-            throw new \InvalidArgumentException('name should be a string');
+            throw new InvalidArgumentException('name should be a string');
         }
     }
 }

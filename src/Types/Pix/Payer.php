@@ -7,16 +7,16 @@ use WeDevBr\Bankly\Validators\Pix\PayerValidator;
 class Payer
 {
     /** @var string */
-    public $name;
+    public string $name;
 
     /** @var string */
-    public $documentNumber;
+    public string $documentNumber;
 
     /** @var string */
-    public $type;
+    public string $type;
 
     /** @var Location */
-    public $address;
+    public Location $address;
 
     /**
      * This validate and return an array
@@ -31,7 +31,7 @@ class Payer
     /**
      * This function validate a payer
      */
-    public function validate()
+    public function validate(): void
     {
         $payerValidator = new PayerValidator($this);
         $payerValidator->validate();

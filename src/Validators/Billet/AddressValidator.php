@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Billet;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\Address;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Billet\Address;
 class AddressValidator
 {
     /** @var Address */
-    private $address;
+    private Address $address;
 
     /**
      * @param Address $address
@@ -44,13 +45,13 @@ class AddressValidator
      * This validates the address line
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAddressLine()
+    private function validateAddressLine(): void
     {
         $addressLine = $this->address->addressLine;
         if (empty($addressLine) || !is_string($addressLine)) {
-            throw new \InvalidArgumentException('address line should be a string');
+            throw new InvalidArgumentException('address line should be a string');
         }
     }
 
@@ -58,13 +59,13 @@ class AddressValidator
      * This validates the city address
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateCity()
+    private function validateCity(): void
     {
         $city = $this->address->city;
         if (empty($city) || !is_string($city)) {
-            throw new \InvalidArgumentException('city address should be a string');
+            throw new InvalidArgumentException('city address should be a string');
         }
     }
 
@@ -72,13 +73,13 @@ class AddressValidator
      * This validates the state address
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateState()
+    private function validateState(): void
     {
         $state = $this->address->state;
         if (empty($state) || !is_string($state)) {
-            throw new \InvalidArgumentException('state address should be a string');
+            throw new InvalidArgumentException('state address should be a string');
         }
     }
 
@@ -86,13 +87,13 @@ class AddressValidator
      * This validates a zip code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateZipCode()
+    private function validateZipCode(): void
     {
         $zipCode = $this->address->zipCode;
         if (empty($zipCode) || !is_string($zipCode)) {
-            throw new \InvalidArgumentException('zip code should be a string');
+            throw new InvalidArgumentException('zip code should be a string');
         }
     }
 }

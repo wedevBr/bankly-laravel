@@ -102,8 +102,7 @@ class CardSecurityDataTest extends TestCase
      */
     public function testValidatePassword()
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('password should be a numeric string');
+        $this->expectExceptionMessage('password should be a numeric string');
         $password = $this->invalidPassword();
         $password->validate();
     }

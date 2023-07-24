@@ -149,7 +149,7 @@ class DuplicateCardTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         $message = 'invalid status, needs to be one of these';
         $message .= ' LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase';
-        $this->expectErrorMessage($message);
+        $this->expectExceptionMessage($message);
         $virtualCard = $this->validDuplicateCard('asd');
         $virtualCard->validate();
     }
@@ -160,13 +160,13 @@ class DuplicateCardTest extends TestCase
     public function testValidateDocumentNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be a numeric string');
         $duplicateCard = $this->validDuplicateCard();
         $duplicateCard->documentNumber = null;
         $duplicateCard->validate();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('cpf_cnpj invalid');
+        $this->expectExceptionMessage('cpf_cnpj invalid');
         $duplicateCard->document = '12345678901';
     }
 
@@ -176,7 +176,7 @@ class DuplicateCardTest extends TestCase
     public function testValidatePassword()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('password should be a numeric string');
+        $this->expectExceptionMessage('password should be a numeric string');
         $duplicateCard = $this->validDuplicateCard();
         $duplicateCard->password = 'A123';
         $duplicateCard->validate();
@@ -188,7 +188,7 @@ class DuplicateCardTest extends TestCase
     public function testValidateAddress()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('zip code should be a numeric string');
+        $this->expectExceptionMessage('zip code should be a numeric string');
         $duplicateCard = $this->validDuplicateCard();
         $duplicateCard->address->zipCode = '';
         $duplicateCard->validate();

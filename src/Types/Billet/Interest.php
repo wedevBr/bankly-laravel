@@ -7,13 +7,13 @@ use WeDevBr\Bankly\Validators\Billet\InterestValidator;
 class Interest
 {
     /** @var string */
-    public $startDate;
+    public string $startDate;
 
     /** @var string */
-    public $value;
+    public string $value;
 
     /** @var string */
-    public $type;
+    public string $type;
 
     /**
      * This validate and return an array
@@ -28,7 +28,7 @@ class Interest
     /**
      * This function validate a interest
      */
-    public function validate()
+    public function validate(): void
     {
         $interestValidator = new InterestValidator($this);
         $interestValidator->validate();
