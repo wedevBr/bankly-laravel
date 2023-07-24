@@ -20,7 +20,7 @@ class BanklyTOTP
     {
         $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
         $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
-        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_key_path'];
+        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
     }
 
     public function setDocumentNumber(string $documentNumber): void
