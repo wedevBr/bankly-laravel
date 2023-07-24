@@ -37,7 +37,8 @@ class BanklyTOTP
 
 
     /**
-     * @param TOTP $totp
+     * @param string $hash
+     * @param string $code
      * @return mixed
      * @throws RequestException
      */
