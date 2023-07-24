@@ -13,6 +13,16 @@ class BanklyTOTP
 
     private string $documentNumber;
 
+    /**
+     * @param string|null $mtlsPassphrase
+     */
+    public function __construct(string $mtlsPassphrase = null)
+    {
+        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
+        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
+        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_key_path'];
+    }
+
     public function setDocumentNumber(string $documentNumber): void
     {
         (new CpfCnpjValidator($documentNumber))->validate();

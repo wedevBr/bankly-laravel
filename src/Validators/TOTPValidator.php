@@ -2,7 +2,6 @@
 
 namespace WeDevBr\Bankly\Validators;
 
-use Illuminate\Support\Str;
 use InvalidArgumentException;
 use WeDevBr\Bankly\Types\TOTP\TOTP;
 use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
@@ -56,7 +55,7 @@ class TOTPValidator
 
         $addressingKey = $this->totp->data['addressingKey'];
 
-        if (!in_array($addressingKey->type, $this->permittedTypes)) {
+        if (!in_array($addressingKey->type ?? '', $this->permittedTypes)) {
             throw new InvalidArgumentException('Invalid addressing key type');
         }
 
