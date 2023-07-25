@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 class AddressingAccountValidator
 {
     /** @var AddressingAccount */
-    private $addressingAccount;
+    private AddressingAccount $addressingAccount;
 
     /**
      * @param AddressingAccount $addressingAccount
@@ -43,13 +44,13 @@ class AddressingAccountValidator
      * This validates a branch account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateBranch()
+    private function validateBranch(): void
     {
         $branch = $this->addressingAccount->branch;
         if (empty($branch) || !is_string($branch) || !is_numeric($branch)) {
-            throw new \InvalidArgumentException('branch should be a numeric string');
+            throw new InvalidArgumentException('branch should be a numeric string');
         }
     }
 
@@ -57,13 +58,13 @@ class AddressingAccountValidator
      * This validates a number account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateNumber()
+    private function validateNumber(): void
     {
         $number = $this->addressingAccount->number;
         if (empty($number) || !is_string($number) || !is_numeric($number)) {
-            throw new \InvalidArgumentException('number account should be a numeric string');
+            throw new InvalidArgumentException('number account should be a numeric string');
         }
     }
 
@@ -71,13 +72,13 @@ class AddressingAccountValidator
      * This validates a type account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateType()
+    private function validateType(): void
     {
         $type = $this->addressingAccount->type;
         if (empty($type) || !is_string($type)) {
-            throw new \InvalidArgumentException('type account should be a string');
+            throw new InvalidArgumentException('type account should be a string');
         }
 
         $typeList = [
@@ -87,7 +88,7 @@ class AddressingAccountValidator
             'PAYMENT',
         ];
         if (!in_array($this->addressingAccount->type, $typeList)) {
-            throw new \InvalidArgumentException('this account type is not valid');
+            throw new InvalidArgumentException('this account type is not valid');
         }
     }
 }

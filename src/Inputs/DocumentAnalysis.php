@@ -17,22 +17,22 @@ use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 class DocumentAnalysis implements DocumentInterface
 {
     /** @var string */
-    protected $documentSide;
+    protected string $documentSide;
 
     /** @var string */
-    protected $documentType;
+    protected string $documentType;
 
     /** @var string */
-    protected $filePath;
+    protected string $filePath;
 
     /** @var string */
-    protected $fieldName;
+    protected string $fieldName;
 
     /** @var string */
-    protected $encrypted;
+    protected string $encrypted;
 
     /** @var string */
-    protected $provider;
+    protected string $provider;
 
     /**
      * @param string $documentSide
@@ -85,7 +85,7 @@ class DocumentAnalysis implements DocumentInterface
     }
 
     /**
-     * @param string $encrypted
+     * @param string|null $encrypted
      * @return DocumentAnalysis
      */
     public function setEncrypted(string $encrypted = null): DocumentAnalysis
@@ -119,9 +119,9 @@ class DocumentAnalysis implements DocumentInterface
     }
 
     /**
-     * @return mixed
+     * @return string|bool
      */
-    public function getFileContents()
+    public function getFileContents(): string|bool
     {
         return file_get_contents($this->filePath);
     }

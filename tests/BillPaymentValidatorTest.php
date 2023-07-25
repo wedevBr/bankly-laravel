@@ -36,7 +36,7 @@ class BillPaymentValidatorTest extends TestCase
     public function testInvalidBillPaymentBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
+        $this->expectExceptionMessage('branch should be a numeric string');
         $billPayment = $this->validBillPayment();
         $billPayment->bankBranch = null;
         $billPayment->validate();
@@ -48,7 +48,7 @@ class BillPaymentValidatorTest extends TestCase
     public function testInvalidBillPaymentAccount()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('account should be a numeric string');
+        $this->expectExceptionMessage('account should be a numeric string');
 
         $billPayment = $this->validBillPayment();
         $billPayment->bankAccount = null;
@@ -61,7 +61,7 @@ class BillPaymentValidatorTest extends TestCase
     public function testInvalidBillPaymentAmount()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric');
+        $this->expectExceptionMessage('amount should be a numeric');
         $billPayment = $this->validBillPayment();
         $billPayment->amount = null;
         $billPayment->validate();
@@ -73,7 +73,7 @@ class BillPaymentValidatorTest extends TestCase
     public function testInvalidBillPaymentId()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('ID should be a string');
+        $this->expectExceptionMessage('ID should be a string');
         $billPayment = $this->validBillPayment();
         $billPayment->id = null;
         $billPayment->validate();

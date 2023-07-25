@@ -6,11 +6,11 @@ use WeDevBr\Bankly\Validators\Pix\PixQrCodeDataValidator;
 
 class PixQrCodeData
 {
-    /** @var string */
-    public $encodedValue;
+    /** @var string|null */
+    public ?string $encodedValue;
 
-    /** @var string */
-    public $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
     /**
      * This validate and return an array

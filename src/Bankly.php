@@ -79,7 +79,7 @@ class Bankly
      *
      * @return string|null
      */
-    public function getToken()
+    public function getToken(): ?string
     {
         return $this->token;
     }
@@ -99,7 +99,7 @@ class Bankly
      * @param string $path
      * @return self
      */
-    public function setCertPath(string $path)
+    public function setCertPath(string $path): static
     {
         $this->mtlsCert = $path;
         return $this;
@@ -110,7 +110,7 @@ class Bankly
      * @param string $path
      * @return self
      */
-    public function setKeyPath(string $path)
+    public function setKeyPath(string $path): static
     {
         $this->mtlsKey = $path;
         return $this;
@@ -121,7 +121,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getBankList($product = 'None')
+    public function getBankList($product = 'None'): mixed
     {
         return $this->get('/banklist', [
             'product' => $product
@@ -136,7 +136,7 @@ class Bankly
      * @throws RequestException
      * @note If you have a RequestException on this endpoint in staging environment, please use getAccount() method instead.
      */
-    public function getBalance(string $branch, string $account)
+    public function getBalance(string $branch, string $account): mixed
 
     {
         return $this->get('/account/balance', [
@@ -152,7 +152,7 @@ class Bankly
      * @throws RequestException
      * @note This method on this date (2020-10-21) works only on staging environment. Contact Bankly/Acesso for more details
      */
-    public function getAccount(string $account, string $includeBalance = 'true')
+    public function getAccount(string $account, string $includeBalance = 'true'): mixed
     {
         return $this->get('/accounts/' . $account, [
             'includeBalance' => $includeBalance,
@@ -167,7 +167,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getIncomeReport(string $account, string $year = null)
+    public function getIncomeReport(string $account, string $year = null): mixed
     {
         return $this->get('/accounts/' . $account . '/income-report', [
             'calendar' => $year
@@ -182,7 +182,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getIncomeReportPrint(string $account, string $year = null)
+    public function getIncomeReportPrint(string $account, string $year = null): mixed
     {
         return $this->get('/accounts/' . $account . '/income-report/print', [
             'calendar' => $year
@@ -206,7 +206,8 @@ class Bankly
         $limit = 20,
         string $details = 'true',
         string $detailsLevelBasic = 'true'
-    ) {
+    ): mixed
+    {
         return $this->get('/account/statement', array(
             'branch' => $branch,
             'account' => $account,
@@ -242,7 +243,8 @@ class Bankly
         array $cardProxy = [],
         string $begin_date = null,
         string $end_date = null
-    ) {
+    ): mixed
+    {
         $query = [
             'branch' => $branch,
             'account' => $account,
@@ -284,7 +286,8 @@ class Bankly
         array $sender,
         array $recipient,
         string $correlation_id = null
-    ) {
+    ): mixed
+    {
         if ($sender['bankCode']) {
             unset($sender['bankCode']);
         }
@@ -311,7 +314,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getTransferFunds(string $branch, string $account, int $pageSize = 10, string $nextPage = null)
+    public function getTransferFunds(string $branch, string $account, int $pageSize = 10, string $nextPage = null): mixed
     {
         $queryParams = [
             'branch' => $branch,
@@ -332,7 +335,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function findTransferFundByAuthCode(string $branch, string $account, string $authenticationCode)
+    public function findTransferFundByAuthCode(string $branch, string $account, string $authenticationCode): mixed
     {
         $queryParams = [
             'branch' => $branch,
@@ -348,7 +351,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function getTransferStatus(string $branch, string $account, string $authentication_id)
+    public function getTransferStatus(string $branch, string $account, string $authentication_id): mixed
     {
         return $this->get('/fund-transfers/' . $authentication_id . '/status', [
             'branch' => $branch,
@@ -367,7 +370,8 @@ class Bankly
         string $documentNumber,
         $document,
         string $correlationId = null
-    ) {
+    ): mixed
+    {
         if (!$document instanceof DocumentInterface) {
             throw new TypeError('The document must be an instance of DocumentInterface');
         }
@@ -393,13 +397,16 @@ class Bankly
      * @param string $resultLevel
      * @param string $correlationId
      * @return array|mixed
+     * @throws RequestException
+     * @throws RequestException
      */
     public function getDocumentAnalysis(
         string $documentNumber,
         array $tokens = [],
         string $resultLevel = 'ONLY_STATUS',
         string $correlationId = null
-    ) {
+    ): mixed
+    {
         $query = collect($tokens)
             ->map(function ($token) {
                 return "token={$token}";
@@ -427,7 +434,8 @@ class Bankly
         string $documentNumber,
         $customer,
         string $correlationId = null
-    ) {
+    ): mixed
+    {
         if (!$customer instanceof CustomerInterface) {
             throw new TypeError('The customer must be an instance of CustomerInterface');
         }
@@ -448,7 +456,8 @@ class Bankly
         string $documentNumber,
         BusinessCustomer $customer,
         string $correlationId = null
-    ) {
+    ): mixed
+    {
         return $this->put("/business/{$documentNumber}", $customer->toArray(), $correlationId, true);
     }
 
@@ -461,7 +470,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function closeAccount(string $account, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    public function closeAccount(string $account, string $reason = 'HOLDER_REQUEST', string $correlationId = null): mixed
     {
         return $this->patch('/accounts/' . $account . '/closure', [
             'reason' => $reason
@@ -477,7 +486,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function cancelCustomer(string $documentNumber, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    public function cancelCustomer(string $documentNumber, string $reason = 'HOLDER_REQUEST', string $correlationId = null): mixed
     {
         return $this->patch('/customers/' . $documentNumber . '/cancel', [
             'reason' => $reason
@@ -489,11 +498,15 @@ class Bankly
      *
      * @param string $documentNumber
      * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
-     * @param string $correlationId
+     * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
      */
-    public function cancelBusiness(string $documentNumber, string $reason = 'HOLDER_REQUEST', string $correlationId = null)
+    public function cancelBusiness(
+        string $documentNumber,
+        ?string $reason = 'HOLDER_REQUEST',
+        string $correlationId = null
+    ): mixed
     {
         return $this->patch('/business/' . $documentNumber . '/cancel', [
             'reason' => $reason
@@ -506,8 +519,9 @@ class Bankly
      * @param string $documentNumber
      * @param string $resultLevel
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
+    public function getCustomer(string $documentNumber, string $resultLevel = 'DETAILED'): mixed
     {
         return $this->get("/customers/{$documentNumber}?resultLevel={$resultLevel}");
     }
@@ -518,8 +532,9 @@ class Bankly
      * @param string $documentNumber
      * @param string $resultLevel
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getBusinessCustomer(string $documentNumber, string $resultLevel = 'DETAILED')
+    public function getBusinessCustomer(string $documentNumber, string $resultLevel = 'DETAILED'): mixed
     {
         return $this->get("/business/{$documentNumber}?resultLevel={$resultLevel}");
     }
@@ -527,8 +542,9 @@ class Bankly
     /**
      * @param string $documentNumber
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getCustomerAccounts(string $documentNumber)
+    public function getCustomerAccounts(string $documentNumber): mixed
     {
         return $this->get("/customers/{$documentNumber}/accounts");
     }
@@ -536,8 +552,9 @@ class Bankly
     /**
      * @param string $documentNumber
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getBusinessCustomerAccounts(string $documentNumber)
+    public function getBusinessCustomerAccounts(string $documentNumber): mixed
     {
         return $this->get("/business/{$documentNumber}/accounts");
     }
@@ -546,8 +563,9 @@ class Bankly
      * @param string $documentNumber
      * @param PaymentAccount $paymentAccount
      * @return array|mixed
+     * @throws RequestException
      */
-    public function createCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount)
+    public function createCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount): mixed
     {
         return $this->post(
             "/customers/{$documentNumber}/accounts",
@@ -561,8 +579,9 @@ class Bankly
      * @param string $documentNumber
      * @param PaymentAccount $paymentAccount
      * @return array|mixed
+     * @throws RequestException
      */
-    public function createBusinessCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount)
+    public function createBusinessCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount): mixed
     {
         return $this->post(
             "/business/{$documentNumber}/accounts",
@@ -580,7 +599,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    public function paymentValidate(string $code, string $correlationId)
+    public function paymentValidate(string $code, string $correlationId): mixed
     {
         return $this->post('/bill-payment/validate', ['code' => $code], $correlationId, true);
     }
@@ -591,19 +610,22 @@ class Bankly
      * @param BillPayment $billPayment
      * @param string $correlationId
      * @return array|mixed
+     * @throws RequestException
      */
     public function paymentConfirm(
         BillPayment $billPayment,
         string $correlationId
-    ) {
+    ): mixed
+    {
         return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
     }
 
     /**
      * @param DepositBillet $depositBillet
      * @return array|mixed
+     * @throws RequestException
      */
-    public function depositBillet(DepositBillet $depositBillet)
+    public function depositBillet(DepositBillet $depositBillet): mixed
     {
         return $this->post('/bankslip', $depositBillet->toArray(), null, true);
     }
@@ -611,8 +633,9 @@ class Bankly
     /**
      * @param string $authenticationCode
      * @return mixed
+     * @throws RequestException
      */
-    public function printBillet(string $authenticationCode)
+    public function printBillet(string $authenticationCode): mixed
     {
         return $this->get("/bankslip/{$authenticationCode}/pdf", null, null, false);
     }
@@ -622,8 +645,9 @@ class Bankly
      * @param string $accountNumber
      * @param string $authenticationCode
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getBillet(string $branch, string $accountNumber, string $authenticationCode)
+    public function getBillet(string $branch, string $accountNumber, string $authenticationCode): mixed
     {
         return $this->get("/bankslip/branch/{$branch}/number/{$accountNumber}/{$authenticationCode}");
     }
@@ -631,8 +655,9 @@ class Bankly
     /**
      * @param string $datetime
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getBilletByDate(string $datetime)
+    public function getBilletByDate(string $datetime): mixed
     {
         return $this->get("/bankslip/searchstatus/{$datetime}");
     }
@@ -640,8 +665,9 @@ class Bankly
     /**
      * @param string $barcode
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getBilletByBarcode(string $barcode)
+    public function getBilletByBarcode(string $barcode): mixed
     {
         return $this->get("/bankslip/{$barcode}");
     }
@@ -649,8 +675,9 @@ class Bankly
     /**
      * @param CancelBillet $cancelBillet
      * @return array|mixed
+     * @throws RequestException
      */
-    public function cancelBillet(CancelBillet $cancelBillet)
+    public function cancelBillet(CancelBillet $cancelBillet): mixed
     {
         return $this->delete('/bankslip/cancel', $cancelBillet->toArray());
     }
@@ -660,8 +687,9 @@ class Bankly
      *
      * @param PixEntries $pixEntries
      * @return array|mixed
+     * @throws RequestException
      */
-    public function registerPixKey(PixEntries $pixEntries)
+    public function registerPixKey(PixEntries $pixEntries): mixed
     {
         return $this->post('/pix/entries', [
             'addressingKey' => $pixEntries->addressingKey->toArray(),
@@ -674,8 +702,9 @@ class Bankly
      *
      * @param string $accountNumber
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getPixAddressingKeys(string $accountNumber)
+    public function getPixAddressingKeys(string $accountNumber): mixed
     {
         return $this->get("/accounts/$accountNumber/addressing-keys");
     }
@@ -686,8 +715,9 @@ class Bankly
      * @param string $documentNumber
      * @param string $addressinKeyValue
      * @return array|mixed
+     * @throws RequestException
      */
-    public function getPixAddressingKeyValue(string $documentNumber, string $addressinKeyValue)
+    public function getPixAddressingKeyValue(string $documentNumber, string $addressinKeyValue): mixed
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->get("/pix/entries/$addressinKeyValue");
@@ -698,8 +728,10 @@ class Bankly
      *
      * @param string $addressingKeyValue
      * @return array|mixed
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function deletePixAddressingKeyValue(string $addressingKeyValue)
+    public function deletePixAddressingKeyValue(string $addressingKeyValue): mixed
     {
         return $this->delete("/pix/entries/$addressingKeyValue");
     }
@@ -708,17 +740,20 @@ class Bankly
      * @param PixCashoutInterface $pixCashout
      * @param string $correlationId
      * @return array|mixed
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId)
+    public function pixCashout(PixCashoutInterface $pixCashout, string $correlationId): mixed
     {
         return $this->post('/pix/cash-out', $pixCashout->toArray(), $correlationId, true);
     }
 
     /**
-     * @param PixCashoutInterface $pixCashout
+     * @param PixCashoutInterface $pixRefund
      * @return array|mixed
+     * @throws RequestException
      */
-    public function pixRefund(PixCashoutInterface $pixRefund)
+    public function pixRefund(PixCashoutInterface $pixRefund): mixed
     {
         return $this->post('/pix/cash-out:refund', $pixRefund->toArray(), null, true);
     }
@@ -727,8 +762,10 @@ class Bankly
      * @param string $documentNumber
      * @param PixStaticQrCode $data
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function qrCode(string $documentNumber, PixStaticQrCode $data)
+    public function qrCode(string $documentNumber, PixStaticQrCode $data): array
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->post('/pix/qrcodes/static/transfer', $data->toArray(), null, true);
@@ -738,8 +775,10 @@ class Bankly
      * @param string $documentNumber
      * @param PixDynamicQrCode $data
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function dynamicQrCode(string $documentNumber, PixDynamicQrCode $data)
+    public function dynamicQrCode(string $documentNumber, PixDynamicQrCode $data): array
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
         return $this->post('/pix/qrcodes/dynamic/payment', $data->toArray(), null, true);
@@ -748,8 +787,10 @@ class Bankly
     /**
      * @param PixQrCodeData $data
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function qrCodeDecode(PixQrCodeData $data)
+    public function qrCodeDecode(PixQrCodeData $data): array
     {
         $qrCode = $data->toArray();
 
@@ -771,6 +812,8 @@ class Bankly
      * @param integer $page
      * @param integer $pagesize
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
     public function getWebhookMessages(
         string $startDate,
@@ -780,7 +823,8 @@ class Bankly
         string $context = null,
         int $page = 1,
         int $pagesize = 100
-    ) {
+    ): array
+    {
         $query = [
             'startDate' => $startDate,
             'endDate' => $endDate,
@@ -801,9 +845,10 @@ class Bankly
      * Reprocess webhook message
      *
      * @param string $idempotencyKey
-     * @return null
+     * @return array|null
+     * @throws RequestException
      */
-    public function reprocessWebhookMessage(string $idempotencyKey)
+    public function reprocessWebhookMessage(string $idempotencyKey): ?array
     {
         return $this->post('/webhooks/processed-messages/' . $idempotencyKey, [], null, true);
     }
@@ -815,8 +860,10 @@ class Bankly
      * @param string $limitType
      * @param string $featureName
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function getFeatureLimits(string $documentNumber, string $limitType, string $featureName)
+    public function getFeatureLimits(string $documentNumber, string $limitType, string $featureName): array
     {
         return $this->get('/holders/' . $documentNumber . '/limits/' . $limitType . '/features/' . $featureName);
     }
@@ -827,8 +874,10 @@ class Bankly
      * @param string $documentNumber
      * @param array|mixed $data
      * @return array
+     * @throws RequestException
+     * @throws RequestException
      */
-    public function updateCustomerLimits(string $documentNumber, array $data)
+    public function updateCustomerLimits(string $documentNumber, array $data): array
     {
         return $this->put('/holders/' . $documentNumber . '/max-limits', $data);
     }
@@ -836,12 +885,17 @@ class Bankly
     /**
      * @param string $endpoint
      * @param array|string|null $query
-     * @param null $correlation_id
+     * @param mixed|null $correlation_id
      * @param bool $responseJson
      * @return array|mixed
      * @throws RequestException
      */
-    private function get(string $endpoint, $query = null, $correlation_id = null, $responseJson = true)
+    private function get(
+        string $endpoint,
+        array|string $query = null,
+        mixed $correlation_id = null,
+        bool $responseJson = true
+    ): mixed
     {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
@@ -869,7 +923,12 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    private function post(string $endpoint, array $body = null, string $correlation_id = null, bool $asJson = false)
+    private function post(
+        string $endpoint,
+        array $body = null,
+        string $correlation_id = null,
+        bool $asJson = false
+    ): mixed
     {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
@@ -908,7 +967,8 @@ class Bankly
         bool $asJson = false,
         bool $attachment = false,
         DocumentAnalysis $document = null
-    ) {
+    ): mixed
+    {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
@@ -950,7 +1010,8 @@ class Bankly
         bool $asJson = false,
         bool $attachment = false,
         DocumentAnalysis $document = null
-    ) {
+    ): mixed
+    {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
@@ -987,7 +1048,8 @@ class Bankly
         array $body = [],
         string $correlation_id = null,
         bool $asJson = false
-    ) {
+    ): mixed
+    {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
         }
@@ -1015,7 +1077,7 @@ class Bankly
      * @return array|mixed
      * @throws RequestException
      */
-    private function delete(string $endpoint, array $body = [])
+    private function delete(string $endpoint, array $body = []): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -1034,7 +1096,7 @@ class Bankly
      * @param string $version API version
      * @return $this
      */
-    private function setApiVersion($version = '1.0')
+    private function setApiVersion($version = '1.0'): static
     {
         $this->api_version = $version;
         return $this;
@@ -1058,7 +1120,7 @@ class Bankly
      * @param array $headers
      * @return array|string[]
      */
-    private function getHeaders($headers = [])
+    private function getHeaders($headers = []): array
     {
         $default_headers = $this->headers;
 
@@ -1073,7 +1135,7 @@ class Bankly
      * @param array $header
      * @return void
      */
-    private function setHeaders($header)
+    private function setHeaders($header): void
     {
         $this->headers = array_merge($this->headers, $header);
     }
@@ -1082,7 +1144,7 @@ class Bankly
      * @param string $endpoint
      * @return bool
      */
-    private function requireCorrelationId(string $endpoint)
+    private function requireCorrelationId(string $endpoint): bool
     {
         $not_required_endpoints = [
             '/banklist',
@@ -1096,7 +1158,7 @@ class Bankly
      * @param string $endpoint
      * @return string
      */
-    private function getFinalUrl(string $endpoint)
+    private function getFinalUrl(string $endpoint): string
     {
         return $this->api_url . $endpoint;
     }

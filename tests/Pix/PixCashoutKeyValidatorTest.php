@@ -66,7 +66,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateAmountIsNumeric()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $pixCashout = $this->validPixCashout();
         $pixCashout->amount = '2a.50';
         $pixCashout->validate();
@@ -78,7 +78,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateAmountIsGreaterZero()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('amount should be a numeric string and greater than zero');
+        $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
         $pixCashout = $this->validPixCashout();
         $pixCashout->amount = 0;
         $pixCashout->validate();
@@ -90,7 +90,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateDescription()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('cashout description should be a string');
+        $this->expectExceptionMessage('cashout description should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->description = 0;
         $pixCashout->validate();
@@ -102,7 +102,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderObject()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('sender should be a BankAccount');
+        $this->expectExceptionMessage('sender should be a BankAccount');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender = new stdClass;
         $pixCashout->validate();
@@ -114,7 +114,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderAccountBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
+        $this->expectExceptionMessage('branch should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->account->branch = null;
         $pixCashout->validate();
@@ -126,7 +126,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderAccountNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('number account should be a numeric string');
+        $this->expectExceptionMessage('number account should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->account->number = null;
         $pixCashout->validate();
@@ -138,7 +138,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderAccountTypeIsNull()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('type account should be a string');
+        $this->expectExceptionMessage('type account should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->account->type = null;
         $pixCashout->validate();
@@ -150,7 +150,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderAccountTypeIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this account type is not valid');
+        $this->expectExceptionMessage('this account type is not valid');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->account->type = 'CORRENTE';
         $pixCashout->validate();
@@ -162,7 +162,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderBankIspb()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank ispb should be a numeric string');
+        $this->expectExceptionMessage('bank ispb should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->bank->ispb = null;
         $pixCashout->validate();
@@ -174,7 +174,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderBankCompe()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank compe account should be a numeric string');
+        $this->expectExceptionMessage('bank compe account should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->bank->compe = null;
         $pixCashout->validate();
@@ -186,7 +186,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderBankName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('bank name should be a string');
+        $this->expectExceptionMessage('bank name should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->bank->name = null;
         $pixCashout->validate();
@@ -198,7 +198,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderDocumentNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->documentNumber = null;
         $pixCashout->validate();
@@ -210,7 +210,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateSenderName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('name should be a string');
+        $this->expectExceptionMessage('name should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->name = null;
         $pixCashout->validate();
@@ -222,7 +222,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateInitializationTypeIsString()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('initialization type should be a string');
+        $this->expectExceptionMessage('initialization type should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->initializationType = null;
         $pixCashout->validate();
@@ -234,7 +234,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateInitializationTypeIsValid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this initialization type is not valid');
+        $this->expectExceptionMessage('this initialization type is not valid');
         $pixCashout = $this->validPixCashout();
         $pixCashout->initializationType = 'PIX';
         $pixCashout->validate();
@@ -246,7 +246,7 @@ class PixCashoutKeyValidatorTest extends TestCase
     public function testValidateEndToEndId()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('end to end id should be a string');
+        $this->expectExceptionMessage('end to end id should be a string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->endToEndId = null;
         $pixCashout->validate();

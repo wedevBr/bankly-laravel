@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 
 /**
@@ -17,7 +18,7 @@ use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 class PixStaticQrCodeValidator
 {
     /** @var PixStaticQrCode */
-    private $pixStaticQrCode;
+    private PixStaticQrCode $pixStaticQrCode;
 
     /**
      * @param PixStaticQrCode $pixStaticQrCode
@@ -45,13 +46,13 @@ class PixStaticQrCodeValidator
      * This validates the recipient name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateRecipientName()
+    private function validateRecipientName(): void
     {
         $recipientName = $this->pixStaticQrCode->recipientName;
         if (empty($recipientName) || !is_string($recipientName)) {
-            throw new \InvalidArgumentException('recipient name should be a string');
+            throw new InvalidArgumentException('recipient name should be a string');
         }
     }
 
@@ -59,9 +60,9 @@ class PixStaticQrCodeValidator
      * This validates the recipient name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAddressingKey()
+    private function validateAddressingKey(): void
     {
         $this->pixStaticQrCode->addressingKey->validate();
     }
@@ -70,16 +71,16 @@ class PixStaticQrCodeValidator
      * This validates the recipient name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAdditionalData()
+    private function validateAdditionalData(): void
     {
         $additionalData = $this->pixStaticQrCode->additionalData;
         $pixKeyValue = $this->pixStaticQrCode->addressingKey->value;
         if (!empty($additionalData)) {
             $stringToValidate = $additionalData . $pixKeyValue;
             if (strlen($stringToValidate) >= 73) {
-                throw new \InvalidArgumentException('additional data too large');
+                throw new InvalidArgumentException('additional data too large');
             }
         }
     }
@@ -88,12 +89,12 @@ class PixStaticQrCodeValidator
      * This validates the recipient name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateLocation()
+    private function validateLocation(): void
     {
         if (empty($this->pixStaticQrCode->location)) {
-            throw new \InvalidArgumentException('location array is required');
+            throw new InvalidArgumentException('location array is required');
         }
         $this->pixStaticQrCode->location->validate();
     }
@@ -102,13 +103,13 @@ class PixStaticQrCodeValidator
      * This validates the recipient name
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateConciliationId()
+    private function validateConciliationId(): void
     {
         $conciliationId = $this->pixStaticQrCode->conciliationId;
         if (!empty($conciliationId) && strlen($conciliationId) > 25) {
-            throw new \InvalidArgumentException('conciliation id should be until 25 characters');
+            throw new InvalidArgumentException('conciliation id should be until 25 characters');
         }
     }
 }

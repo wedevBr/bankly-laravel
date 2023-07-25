@@ -13,13 +13,12 @@
 
 namespace WeDevBr\Bankly\Tests;
 
-use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\BankAccount;
 
 
 class BankAccountTest extends TestCase
 {
-    private function validBankAccount()
+    private function validBankAccount(): BankAccount
     {
         $bankAccount = new BankAccount();
         $bankAccount->branch = '0001';
@@ -35,7 +34,7 @@ class BankAccountTest extends TestCase
     public function testInvalidBankBranch()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('branch should be a numeric string');
+        $this->expectExceptionMessage('branch should be a numeric string');
         $bankAccount = $this->validBankAccount();
         $bankAccount->branch = null;
         $bankAccount->validate();
@@ -47,8 +46,7 @@ class BankAccountTest extends TestCase
     public function testInvalidBankAccount()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('account should be a numeric string');
-
+        $this->expectExceptionMessage('account should be a numeric string');
         $bankAccount = $this->validBankAccount();
         $bankAccount->account = null;
         $bankAccount->validate();
@@ -60,14 +58,16 @@ class BankAccountTest extends TestCase
     public function testInvalidBankDocument()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('document should be a string');
+        $this->expectExceptionMessage('document should be a string');
         $bankAccount = $this->validBankAccount();
         $bankAccount->document = null;
         $bankAccount->validate();
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('cpf_cnpj invalid');
+        $this->expectExceptionMessage('cpf_cnpj invalid');
+        $bankAccount = $this->validBankAccount();
         $bankAccount->document = '12345678901';
+
     }
 
     /**
@@ -76,7 +76,7 @@ class BankAccountTest extends TestCase
     public function testInvalidBankName()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('name should be a string');
+        $this->expectExceptionMessage('name should be a string');
         $bankAccount = $this->validBankAccount();
         $bankAccount->name = null;
         $bankAccount->validate();
@@ -87,12 +87,10 @@ class BankAccountTest extends TestCase
      */
     public function testInvalidAccountType()
     {
-        {
-            $this->expectException(\InvalidArgumentException::class);
-            $this->expectErrorMessage('accountType should be one of them: CHECKING, SAVINGS');
-            $bankAccount = $this->validBankAccount();
-            $bankAccount->accountType = null;
-            $bankAccount->validate();
-        }
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('accountType should be one of them: CHECKING, SAVINGS');
+        $bankAccount = $this->validBankAccount();
+        $bankAccount->accountType = null;
+        $bankAccount->validate();
     }
 }

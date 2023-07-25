@@ -7,17 +7,17 @@ use WeDevBr\Bankly\Validators\Pix\BankAccountValidator;
 
 class BankAccount implements Arrayable
 {
-    /** @var \WeDevBr\Bankly\Types\Pix\AddressingAccount */
+    /** @var AddressingAccount */
     public $account;
 
-    /** @var \WeDevBr\Bankly\Types\Pix\Bank */
+    /** @var Bank */
     public $bank;
 
-    /** @var string */
-    public $documentNumber;
+    /** @var string|null */
+    public ?string $documentNumber;
 
-    /** @var string */
-    public $name;
+    /** @var string|null */
+    public ?string $name;
 
     /**
      * This validate and return an array
@@ -34,7 +34,7 @@ class BankAccount implements Arrayable
      *
      * @return void
      */
-    public function validate()
+    public function validate(): void
     {
         $bankAccount = new BankAccountValidator($this);
         $bankAccount->validate();

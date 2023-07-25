@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
 use WeDevBr\Bankly\Types\Pix\PixCashoutRefund;
@@ -19,7 +20,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutRefund;
 class PixCashoutRefundValidator
 {
     /** @var PixCashoutRefund */
-    private $pixCashoutRefund;
+    private PixCashoutRefund $pixCashoutRefund;
 
     /**
      * @param PixCashoutRefund $pixCashoutRefund
@@ -48,12 +49,12 @@ class PixCashoutRefundValidator
      * This validates a sender bank account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAccount()
+    private function validateAccount(): void
     {
         if (!$this->pixCashoutRefund->account instanceof AddressingAccount) {
-            throw new \InvalidArgumentException('account should be a AddressingAccount');
+            throw new InvalidArgumentException('account should be a AddressingAccount');
         }
 
         $this->pixCashoutRefund
@@ -65,13 +66,13 @@ class PixCashoutRefundValidator
      * This validates authentication code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAuthenticationCode()
+    private function validateAuthenticationCode(): void
     {
         $authenticationCode = $this->pixCashoutRefund->authenticationCode;
         if (empty($authenticationCode) || !is_string($authenticationCode)) {
-            throw new \InvalidArgumentException('authentication code should be a string');
+            throw new InvalidArgumentException('authentication code should be a string');
         }
     }
 
@@ -79,13 +80,13 @@ class PixCashoutRefundValidator
      * This validates the amount
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAmount()
+    private function validateAmount(): void
     {
         $amount = $this->pixCashoutRefund->amount;
         if (empty($amount) || !is_string($amount) || !is_numeric($amount) || $amount <= 0) {
-            throw new \InvalidArgumentException('amount should be a numeric string and greater than zero');
+            throw new InvalidArgumentException('amount should be a numeric string and greater than zero');
         }
     }
 
@@ -93,13 +94,13 @@ class PixCashoutRefundValidator
      * This validates the refund code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateRefundCode()
+    private function validateRefundCode(): void
     {
         $refundCode = $this->pixCashoutRefund->refundCode;
         if (empty($refundCode) || !is_string($refundCode)) {
-            throw new \InvalidArgumentException('refund code should be a string');
+            throw new InvalidArgumentException('refund code should be a string');
         }
 
         $typeList = [
@@ -109,7 +110,7 @@ class PixCashoutRefundValidator
             'SL02'
         ];
         if (!in_array($this->pixCashoutRefund->refundCode, $typeList)) {
-            throw new \InvalidArgumentException('this refund code is not valid');
+            throw new InvalidArgumentException('this refund code is not valid');
         }
     }
 
@@ -117,13 +118,13 @@ class PixCashoutRefundValidator
      * This validates the refund reason
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateRefundReason()
+    private function validateRefundReason(): void
     {
         $refundReason = $this->pixCashoutRefund->refundReason;
         if (!empty($refundReason) && !is_string($refundReason)) {
-            throw new \InvalidArgumentException('refund reason should be a string');
+            throw new InvalidArgumentException('refund reason should be a string');
         }
     }
 
@@ -131,13 +132,13 @@ class PixCashoutRefundValidator
      * This validates a description
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDescription()
+    private function validateDescription(): void
     {
         $description = $this->pixCashoutRefund->description;
         if (!empty($description) && !is_string($description)) {
-            throw new \InvalidArgumentException('refund description should be a string');
+            throw new InvalidArgumentException('refund description should be a string');
         }
     }
 }

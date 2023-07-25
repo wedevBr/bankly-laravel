@@ -15,46 +15,46 @@ namespace WeDevBr\Bankly\Inputs;
 class LegalRepresentative
 {
     /** @var string */
-    protected $documentNumber;
+    protected string $documentNumber;
 
     /** @var string */
-    protected $registerName;
+    protected string $registerName;
 
     /** @var string */
-    protected $socialName;
+    protected string $socialName;
 
     /** @var CustomerPhone */
-    protected $phone;
+    protected CustomerPhone $phone;
 
     /** @var CustomerAddress */
-    protected $address;
+    protected CustomerAddress $address;
 
     /** @var string */
-    protected $birthDate;
+    protected string $birthDate;
 
     /** @var string */
-    protected $motherName;
+    protected string $motherName;
 
     /** @var string */
-    protected $email;
+    protected string $email;
 
     /** @var string */
-    protected $pepLevel;
+    protected string $pepLevel;
 
     /** @var string */
-    protected $declaredIncome;
+    protected string $declaredIncome;
 
     /** @var string */
-    protected $selfieToken;
+    protected string $selfieToken;
 
     /** @var string */
-    protected $idCardFrontToken;
+    protected string $idCardFrontToken;
 
     /** @var string */
-    protected $idCardBackToken;
+    protected string $idCardBackToken;
 
     /** @var string */
-    protected $occupation;
+    protected string $occupation;
 
     /**
      * @param string $documentNumber

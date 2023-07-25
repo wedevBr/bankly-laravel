@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\BankAccount;
 use WeDevBr\Bankly\Types\Pix\PixCashoutKey;
 
@@ -46,13 +47,13 @@ class PixCashoutKeyValidator
      * This validates the amount
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAmount()
+    private function validateAmount(): void
     {
         $amount = $this->pixCashoutKey->amount;
         if (empty($amount) || !is_string($amount) || !is_numeric($amount) || $amount <= 0) {
-            throw new \InvalidArgumentException('amount should be a numeric string and greater than zero');
+            throw new InvalidArgumentException('amount should be a numeric string and greater than zero');
         }
     }
 
@@ -60,13 +61,13 @@ class PixCashoutKeyValidator
      * This validates a description
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDescription()
+    private function validateDescription(): void
     {
         $description = $this->pixCashoutKey->description;
         if (empty($description) || !is_string($description)) {
-            throw new \InvalidArgumentException('cashout description should be a string');
+            throw new InvalidArgumentException('cashout description should be a string');
         }
     }
 
@@ -74,12 +75,12 @@ class PixCashoutKeyValidator
      * This validates a sender bank account
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateSender()
+    private function validateSender(): void
     {
         if (!$this->pixCashoutKey->sender instanceof BankAccount) {
-            throw new \InvalidArgumentException('sender should be a BankAccount');
+            throw new InvalidArgumentException('sender should be a BankAccount');
         }
 
         $this->pixCashoutKey
@@ -91,17 +92,17 @@ class PixCashoutKeyValidator
      * This validates a initialization type
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateInitializationType()
+    private function validateInitializationType(): void
     {
         $initializationType = $this->pixCashoutKey->initializationType;
         if (empty($initializationType) || !is_string($initializationType)) {
-            throw new \InvalidArgumentException('initialization type should be a string');
+            throw new InvalidArgumentException('initialization type should be a string');
         }
 
         if ($this->pixCashoutKey->initializationType != 'Key') {
-            throw new \InvalidArgumentException('this initialization type is not valid');
+            throw new InvalidArgumentException('this initialization type is not valid');
         }
     }
 
@@ -109,13 +110,13 @@ class PixCashoutKeyValidator
      * This validates the end to end id
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateEndToEndId()
+    private function validateEndToEndId(): void
     {
         $endToEndId = $this->pixCashoutKey->endToEndId;
         if (empty($endToEndId) || !is_string($endToEndId)) {
-            throw new \InvalidArgumentException('end to end id should be a string');
+            throw new InvalidArgumentException('end to end id should be a string');
         }
     }
 }

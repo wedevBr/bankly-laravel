@@ -30,6 +30,7 @@ class AddressValidatorTest extends TestCase
         $address->city = 'Vila Velha';
         $address->state = 'ES';
         $address->country = 'BR';
+        $address->complement = 'teste';
 
         return $address;
     }
@@ -40,7 +41,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateZipCode()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('zip code should be a numeric string');
+        $this->expectExceptionMessage('zip code should be a numeric string');
         $address = $this->validAddress();
         $address->zipCode = null;
         $address->validate();
@@ -52,7 +53,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateAddress()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('address should be a string');
+        $this->expectExceptionMessage('address should be a string');
         $address = $this->validAddress();
         $address->address = null;
         $address->validate();
@@ -64,7 +65,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('number should be a numeric or string');
+        $this->expectExceptionMessage('number should be a numeric or string');
         $address = $this->validAddress();
         $address->number = null;
         $address->validate();
@@ -76,7 +77,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateNeighborhood()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('neighborhood should be a string');
+        $this->expectExceptionMessage('neighborhood should be a string');
         $address = $this->validAddress();
         $address->neighborhood = null;
         $address->validate();
@@ -88,7 +89,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateCity()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('city should be a string');
+        $this->expectExceptionMessage('city should be a string');
         $address = $this->validAddress();
         $address->city = null;
         $address->validate();
@@ -100,7 +101,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateState()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('state should be a string');
+        $this->expectExceptionMessage('state should be a string');
         $address = $this->validAddress();
         $address->state = null;
         $address->validate();
@@ -112,7 +113,7 @@ class AddressValidatorTest extends TestCase
     public function testValidateCountry()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('country should be a string');
+        $this->expectExceptionMessage('country should be a string');
         $address = $this->validAddress();
         $address->country = '';
         $address->validate();

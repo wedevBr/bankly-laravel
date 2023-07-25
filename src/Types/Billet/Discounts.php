@@ -7,13 +7,13 @@ use WeDevBr\Bankly\Validators\Billet\DiscountsValidator;
 class Discounts
 {
     /** @var string */
-    public $limitDate;
+    public string $limitDate;
 
     /** @var string */
-    public $value;
+    public string $value;
 
     /** @var string */
-    public $type;
+    public string $type;
 
     /**
      * This validate and return an array
@@ -28,7 +28,7 @@ class Discounts
     /**
      * This function validate a discounts
      */
-    public function validate()
+    public function validate(): void
     {
         $discountsValidator = new DiscountsValidator($this);
         $discountsValidator->validate();

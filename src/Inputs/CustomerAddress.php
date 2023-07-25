@@ -17,28 +17,28 @@ use WeDevBr\Bankly\Support\Contracts\CustomerAddressInterface;
 class CustomerAddress implements CustomerAddressInterface
 {
     /** @var string */
-    protected $zipCode;
+    protected string $zipCode;
 
     /** @var string */
-    protected $addressLine;
+    protected string $addressLine;
 
     /** @var string */
-    protected $buildingNumber;
+    protected string $buildingNumber;
 
     /** @var string */
-    protected $complement;
+    protected string $complement;
 
     /** @var string */
-    protected $neighborhood;
+    protected string $neighborhood;
 
     /** @var string */
-    protected $city;
+    protected string $city;
 
     /** @var string */
-    protected $state;
+    protected string $state;
 
     /** @var string */
-    protected $country;
+    protected string $country;
 
     /**
      * @param string $zipCode
@@ -51,7 +51,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $addressLine
      * @return CustomerAddress
      */
     public function setAddressLine(string $addressLine): CustomerAddress
@@ -61,7 +61,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $buildingNumber
      * @return CustomerAddress
      */
     public function setBuildingNumber(string $buildingNumber): CustomerAddress
@@ -71,7 +71,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $complement
      * @return CustomerAddress
      */
     public function setComplement(string $complement): CustomerAddress
@@ -81,7 +81,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $neighborhood
      * @return CustomerAddress
      */
     public function setNeighborhood(string $neighborhood): CustomerAddress
@@ -91,7 +91,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $city
      * @return CustomerAddress
      */
     public function setCity(string $city): CustomerAddress
@@ -101,7 +101,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $state
      * @return CustomerAddress
      */
     public function setState(string $state): CustomerAddress
@@ -111,7 +111,7 @@ class CustomerAddress implements CustomerAddressInterface
     }
 
     /**
-     * @param string $zipCode
+     * @param string $country
      * @return CustomerAddress
      */
     public function setCountry(string $country): CustomerAddress

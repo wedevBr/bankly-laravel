@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Duplicate;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
@@ -61,15 +62,15 @@ class DuplicateCardValidator
      * This validate duplicate card status
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function validateStatus()
+    public function validateStatus(): void
     {
         $status = $this->duplicateCard->status;
         if (!in_array($status, $this->status)) {
             $message = 'invalid status, needs to be one of these';
             $message .= ' LostMyCard, CardWasStolen, CardWasDamaged, CardNotDelivered, UnrecognizedOnlinePurchase';
-            throw new \InvalidArgumentException($message);
+            throw new InvalidArgumentException($message);
         }
     }
 
@@ -77,13 +78,13 @@ class DuplicateCardValidator
      * This validate a duplicate card document
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateDocumentNumber()
+    private function validateDocumentNumber(): void
     {
         $documentNumber = $this->duplicateCard->documentNumber;
         if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
-            throw new \InvalidArgumentException('document number should be a numeric string');
+            throw new InvalidArgumentException('document number should be a numeric string');
         }
 
         $documentValidator = new CpfCnpjValidator($documentNumber);
@@ -94,13 +95,13 @@ class DuplicateCardValidator
      * This validate a duplicate card password
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validatePassword()
+    private function validatePassword(): void
     {
         $password = $this->duplicateCard->password;
         if (empty($password) || !is_string($password) || !is_numeric($password) || strlen($password) != 4) {
-            throw new \InvalidArgumentException('password should be a numeric string');
+            throw new InvalidArgumentException('password should be a numeric string');
         }
     }
 
@@ -109,7 +110,7 @@ class DuplicateCardValidator
      *
      * @return void
      */
-    private function validateAddress()
+    private function validateAddress(): void
     {
         if ($this->duplicateCard->address instanceof Address) {
             $address = $this->duplicateCard->address;

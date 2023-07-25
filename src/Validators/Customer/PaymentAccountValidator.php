@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Customer;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 
 /**
@@ -19,7 +20,7 @@ class PaymentAccountValidator
     /**
      * @var PaymentAccount
      */
-    private $paymentAccount;
+    private PaymentAccount $paymentAccount;
 
     /**
      * PaymentAccountValidator constructor.
@@ -41,27 +42,27 @@ class PaymentAccountValidator
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAccountType()
+    private function validateAccountType(): void
     {
         $paymentAccount = $this->paymentAccount->accountType;
         if (empty($paymentAccount) || !is_string($paymentAccount)) {
-            throw new \InvalidArgumentException('Invalid account type');
+            throw new InvalidArgumentException('Invalid account type');
         }
     }
 
     /**
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateAccountTypeValue()
+    private function validateAccountTypeValue(): void
     {
         $types = [
             'PAYMENT_ACCOUNT',
         ];
         if (!in_array($this->paymentAccount->accountType, $types)) {
-            throw new \InvalidArgumentException('this account type is not valid');
+            throw new InvalidArgumentException('this account type is not valid');
         }
     }
 }

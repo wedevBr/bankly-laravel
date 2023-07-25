@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Validators\Card;
 
+use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Card\Activate;
 
 /**
@@ -19,7 +20,7 @@ class ActivateValidator
     /**
      * @var Activate
      */
-    private $activate;
+    private Activate $activate;
 
     /**
      * ActivateValidator constructor.
@@ -43,13 +44,13 @@ class ActivateValidator
      * This validate a 12 digits card activation code
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validateActivateCode()
+    private function validateActivateCode(): void
     {
         $activateCode = $this->activate->activateCode;
         if (empty($activateCode) || !is_string($activateCode) || strlen($activateCode) != 12) {
-            throw new \InvalidArgumentException('Invalid Activation code');
+            throw new InvalidArgumentException('Invalid Activation code');
         }
     }
 
@@ -57,13 +58,13 @@ class ActivateValidator
      * This validate a 4 digits password
      *
      * @return void
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    private function validatePassword()
+    private function validatePassword(): void
     {
         $password = $this->activate->password;
         if (empty($password) || !is_string($password) || !is_numeric($password) || strlen($password) != 4) {
-            throw new \InvalidArgumentException('password should be a numeric string');
+            throw new InvalidArgumentException('password should be a numeric string');
         }
     }
 }

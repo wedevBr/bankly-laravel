@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
@@ -62,6 +63,7 @@ class ChangeStatusTest extends TestCase
 
     /**
      * @return void
+     * @throws RequestException
      */
     public function testSuccessChangedCardStatus()
     {
@@ -85,7 +87,7 @@ class ChangeStatusTest extends TestCase
     public function testValidatePassword()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('password should be a numeric string');
+        $this->expectExceptionMessage('password should be a numeric string');
         $validStatus = $this->validStatus();
         $validStatus->password = null;
         $validStatus->validate();
@@ -97,7 +99,7 @@ class ChangeStatusTest extends TestCase
     public function testValidateEmptyStatus()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('status should be a string');
+        $this->expectExceptionMessage('status should be a string');
         $validStatus = $this->validStatus();
         $validStatus->status = null;
         $validStatus->validate();
@@ -109,7 +111,7 @@ class ChangeStatusTest extends TestCase
     public function testReturnInvalidTypeStatus()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('this status is not valid');
+        $this->expectExceptionMessage('this status is not valid');
         $validStatus = $this->validStatus();
         $validStatus->status = 'Undefined';
         $validStatus->validate();
@@ -121,7 +123,7 @@ class ChangeStatusTest extends TestCase
     public function testReturnInvalidUpdateCardBinded()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('update card binded should be a boolean');
+        $this->expectExceptionMessage('update card binded should be a boolean');
         $validStatus = $this->validStatus();
         $validStatus->updateCardBinded = null;
         $validStatus->validate();
