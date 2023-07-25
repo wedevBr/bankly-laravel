@@ -242,7 +242,7 @@ class BanklyTOTPTest extends TestCase
     {
         $addressingKey = new AddressingKey();
         $addressingKey->type = 'PHONE';
-        $addressingKey->value = '+5522992075623';
+        $addressingKey->value = $this->faker->numerify('+55###########');
 
         $totpType = new TOTP();
         $totpType->context = 'PIX';

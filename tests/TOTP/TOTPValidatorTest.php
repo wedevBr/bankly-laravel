@@ -87,7 +87,7 @@ class TOTPValidatorTest extends TestCase
     {
         $addressingKey = new AddressingKey();
         $addressingKey->type = "PHONE";
-        $addressingKey->value = "+5511987654321";
+        $addressingKey->value = $this->faker->numerify('+55###########');
 
         $totp = new TOTP();
         $totp->context = 'PIX';
