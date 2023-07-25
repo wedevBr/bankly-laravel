@@ -23,6 +23,29 @@ class BanklyTOTP
         $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
     }
 
+    /**
+     * Set the cert.crt file path
+     * @param string $path
+     * @return self
+     */
+    public function setCertPath(string $path): self
+    {
+        $this->mtlsCert = $path;
+        return $this;
+    }
+
+    /**
+     * Set the cert.pem file path
+     * @param string $path
+     * @return self
+     */
+    public function setKeyPath(string $path): self
+    {
+        $this->mtlsKey = $path;
+        return $this;
+    }
+
+
     public function setDocumentNumber(string $documentNumber): void
     {
         (new CpfCnpjValidator($documentNumber))->validate();
