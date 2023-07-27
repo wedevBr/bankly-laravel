@@ -20,8 +20,8 @@ class LegalRepresentative
     /** @var string */
     protected string $registerName;
 
-    /** @var string */
-    protected string $socialName;
+    /** @var ?string */
+    protected ?string $socialName = null;
 
     /** @var CustomerPhone */
     protected CustomerPhone $phone;

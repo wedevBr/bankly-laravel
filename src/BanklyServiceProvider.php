@@ -35,5 +35,10 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly_card', function () {
             return new BanklyCard();
         });
+
+        // Register the TOTP class to use with facade
+        $this->app->singleton('bankly_topt', function () {
+            return new BanklyTOTP();
+        });
     }
 }

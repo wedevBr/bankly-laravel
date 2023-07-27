@@ -2,6 +2,27 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.27.0 - 2023-07-27
+- Added missing facades class
+- Fixed some properties that can be nullable at Bankly/Auth/Auth class
+- Added missing changelog
+
+## 1.26.2 - 2023-07-27
+- Fixed minor bugs at scope properties
+
+## 1.26.1 - 2023-07-27
+- Fixed scopes properties at Bankly/Auth/Auth and Bankly class
+- Fixed minor bugs on type hinted methods
+
+## 1.26.0 - 2023-07-26
+- Added support for PHP 8.1 and PHP 8.2 versions
+- Added support for Laravel 9/10
+- Dropped support for PHP 8.0
+- Dropped support for Laravel 8.x
+- Added Bankly OTP endpoints
+- Tests has been upgraded
+- Added some types to properties and methods return
+
 ## 1.25.0 - 2023-06-06
 - Fixed internal Put Http Method on Bankly class
 
