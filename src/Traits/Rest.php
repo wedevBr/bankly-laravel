@@ -26,13 +26,13 @@ trait Rest
     protected string $apiVersion = '1';
 
     /** @var string|null */
-    protected ?string $mtlsCert;
+    protected ?string $mtlsCert = null;
 
     /** @var mixed */
-    protected mixed $mtlsKey;
+    protected mixed $mtlsKey = null;
 
     /** @var string|null */
-    protected ?string $mtlsPassphrase;
+    protected ?string $mtlsPassphrase = null;
 
     /** @var string|null */
     private ?string $token = null;

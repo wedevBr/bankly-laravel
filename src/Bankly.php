@@ -33,16 +33,16 @@ class Bankly
     public $api_url;
 
     /** @var ?string */
-    private ?string $mtlsCert;
+    private ?string $mtlsCert = null;
 
     /** @var ?string */
-    private ?string $mtlsKey;
+    private ?string $mtlsKey = null;
 
     /** @var ?string */
     private ?string $mtlsPassphrase;
 
     /** @var ?string */
-    private ?string $token;
+    private ?string $token = null;
 
     /** @var string */
     private $api_version = '1';
