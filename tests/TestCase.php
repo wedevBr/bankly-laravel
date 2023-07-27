@@ -33,11 +33,9 @@ abstract class TestCase extends TestbenchTestCase
         $client = new Bankly();
         $auth = Auth::login();
         $token = new ReflectionProperty($auth, 'token');
-        $token->setAccessible(true);
         $token->setValue($auth, $this->faker->uuid);
 
         $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
-        $tokenExpiry->setAccessible(true);
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
 
         return $client;
@@ -51,11 +49,9 @@ abstract class TestCase extends TestbenchTestCase
     {
         $auth = Auth::login();
         $token = new ReflectionProperty($auth, 'token');
-        $token->setAccessible(true);
         $token->setValue($auth, $this->faker->uuid);
 
         $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
-        $tokenExpiry->setAccessible(true);
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
     }
 }
