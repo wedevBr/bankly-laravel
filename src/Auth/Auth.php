@@ -16,14 +16,14 @@ final class Auth
 {
     private static $login;
 
-    /** @var string */
-    protected string $loginUrl;
+    /** @var ?string */
+    protected ?string $loginUrl = null;
 
     /** @var ?string */
-    private ?string $clientId;
+    private ?string $clientId = null;
 
     /** @var ?string */
-    private ?string $clientSecret;
+    private ?string $clientSecret = null;
 
     /** @var ?string */
     protected ?string $grantType = 'client_credentials';
@@ -32,19 +32,19 @@ final class Auth
     protected mixed $scope = null;
 
     /** @var ?string */
-    private ?string $token;
+    private ?string $token = null;
 
     /** @var ?string */
     private ?string $tokenExpiry;
 
     /** @var ?string */
-    private ?string $mtlsCert;
+    private ?string $mtlsCert = null;
 
     /** @var ?string */
-    private ?string $mtlsKey;
+    private ?string $mtlsKey = null;
 
     /** @var ?string */
-    private ?string $mtlsPassphrase;
+    private ?string $mtlsPassphrase = null;
     /**
      * Returns the instance of this class
      *
