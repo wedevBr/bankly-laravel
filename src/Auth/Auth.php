@@ -19,38 +19,32 @@ final class Auth
     /** @var string */
     protected string $loginUrl;
 
-    /** @var string */
-    private string $clientId;
+    /** @var ?string */
+    private ?string $clientId;
 
-    /** @var string */
-    private string $clientSecret;
+    /** @var ?string */
+    private ?string $clientSecret;
 
-    /** @var string */
-    protected string $grantType = 'client_credentials';
+    /** @var ?string */
+    protected ?string $grantType = 'client_credentials';
 
-    /** @var string */
-    protected string $scope;
+    /** @var ?string */
+    protected ?string $scope;
 
-    /** @var string */
-    private string $token;
+    /** @var ?string */
+    private ?string $token;
 
-    /** @var string */
-    private string $tokenExpiry;
+    /** @var ?string */
+    private ?string $tokenExpiry;
 
-    /** @var string */
-    private string $mtlsCert;
+    /** @var ?string */
+    private ?string $mtlsCert;
 
-    /** @var string */
-    private string $mtlsKey;
+    /** @var ?string */
+    private ?string $mtlsKey;
 
-    /** @var string */
-    private string $mtlsPassphrase;
-
-    private function __construct()
-    {
-        //
-    }
-
+    /** @var ?string */
+    private ?string $mtlsPassphrase;
     /**
      * Returns the instance of this class
      *
