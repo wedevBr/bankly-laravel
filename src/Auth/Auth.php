@@ -35,7 +35,7 @@ final class Auth
     private ?string $token = null;
 
     /** @var ?string */
-    private ?string $tokenExpiry;
+    private ?string $tokenExpiry = null;
 
     /** @var ?string */
     private ?string $mtlsCert = null;
