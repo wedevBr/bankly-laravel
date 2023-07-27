@@ -25,8 +25,8 @@ class CustomerAddress implements CustomerAddressInterface
     /** @var string */
     protected string $buildingNumber;
 
-    /** @var string */
-    protected string $complement;
+    /** @var ?string */
+    protected ?string $complement = null;
 
     /** @var string */
     protected string $neighborhood;

@@ -55,7 +55,9 @@
                 "WeDevBr\\Bankly\\BanklyServiceProvider"
             ],
             "aliases": {
-                "Bankly": "WeDevBr\\Bankly\\BanklyFacade"
+                "Bankly": "WeDevBr\\Bankly\\BanklyFacade",
+                "BanklyCard": "WeDevBr\\Bankly\\Facades\\BanklyCardFacade",
+                "BanklyTOTP": "WeDevBr\\Bankly\\Facades\\BanklyTOTPFacade"
             }
         }
     }
