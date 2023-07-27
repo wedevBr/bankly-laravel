@@ -28,8 +28,8 @@ final class Auth
     /** @var ?string */
     protected ?string $grantType = 'client_credentials';
 
-    /** @var ?string */
-    protected ?string $scope;
+    /** @var mixed */
+    protected mixed $scope = null;
 
     /** @var ?string */
     private ?string $token;
@@ -144,7 +144,7 @@ final class Auth
     public function setScope(string|array $scope = null): self
     {
         $this->scope = config('bankly')['scope'] ?? [];
-        if (!empty($scope)) {
+        if (!empty($scope) && is_string($scope)) {
             $this->scope = $scope;
         }
         if (is_array($this->scope)) {
