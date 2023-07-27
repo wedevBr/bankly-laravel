@@ -32,23 +32,23 @@ class Bankly
     /** @var string */
     public $api_url;
 
-    /** @var string */
-    private $mtlsCert;
+    /** @var ?string */
+    private ?string $mtlsCert = null;
 
-    /** @var string */
-    private $mtlsKey;
+    /** @var ?string */
+    private ?string $mtlsKey = null;
 
-    /** @var string */
-    private $mtlsPassphrase;
+    /** @var ?string */
+    private ?string $mtlsPassphrase;
 
-    /** @var string */
-    private $token = null;
+    /** @var ?string */
+    private ?string $token = null;
 
     /** @var string */
     private $api_version = '1';
 
     /** @var array */
-    private $headers;
+    private array $headers;
 
     /**
      * Bankly constructor.
