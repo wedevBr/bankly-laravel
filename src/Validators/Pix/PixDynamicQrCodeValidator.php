@@ -54,7 +54,7 @@ class PixDynamicQrCodeValidator
     private function validateRecipientName(): void
     {
         $recipientName = $this->pixDynamicQrCode->recipientName;
-        if (empty($recipientName) || !is_string($recipientName)) {
+        if (empty($recipientName) || !is_string($recipientName) || strlen($recipientName) > 25) {
             throw new InvalidArgumentException('recipient name should be a string');
         }
     }
@@ -78,9 +78,10 @@ class PixDynamicQrCodeValidator
      */
     private function validateConciliationId(): void
     {
-        $conciliationId = $this->pixDynamicQrCode->conciliationId;
-        if (empty($conciliationId) || strlen($conciliationId) < 26 || strlen($conciliationId) > 35) {
-            throw new InvalidArgumentException('conciliation id is required and should be between 26 and 35 characters');
+        $conciliationId = $this->pixDynamicQrCode?->conciliationId;
+
+        if (!empty($conciliationId) && (strlen($conciliationId) < 26 || strlen($conciliationId) > 35)) {
+            throw new InvalidArgumentException('conciliation id should be between 26 and 35 characters');
         }
     }
 
