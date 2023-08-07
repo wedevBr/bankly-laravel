@@ -2,6 +2,11 @@
 
 All notable changes to `bankly-laravel` will be documented in this file
 
+## 1.27.1 - 2023-08-7
+- Fixed wrongly types on the following files: `src/Types/Pix/Payer.php`, `src/Types/Pix/PixDynamicQrCode.php`
+- Fixed validator with new rules from Bankly
+- `src/Validators/Pix/PixDynamicQrCodeValidator.php`
+
 ## 1.27.0 - 2023-07-27
 - Added missing facades class
 - Fixed some properties that can be nullable at Bankly/Auth/Auth class
