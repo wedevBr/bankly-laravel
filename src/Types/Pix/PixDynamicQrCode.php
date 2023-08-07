@@ -12,8 +12,8 @@ class PixDynamicQrCode
     /** @var AddressingKey */
     public AddressingKey $addressingKey;
 
-    /** @var string */
-    public string $conciliationId;
+    /** @var ?string */
+    public ?string $conciliationId;
 
     /** @var Payer */
     public Payer $payer;
@@ -24,20 +24,20 @@ class PixDynamicQrCode
     /** @var string */
     public string $changeAmountType;
 
-    /** @var string */
-    public string $amount;
+    /** @var ?string */
+    public ?string $amount;
 
-    /** @var string */
-    public string $expiresAt;
+    /** @var ?string */
+    public ?string $expiresAt;
 
-    /** @var string */
-    public string $payerRequestText;
+    /** @var ?string */
+    public ?string $payerRequestText;
 
-    /** @var array */
-    public array $additionalData;
+    /** @var ?array */
+    public ?array $additionalData;
 
     /**
-     * This validate and return an array
+     * This validates and return an array
      * @return array
      */
     public function toArray(): array

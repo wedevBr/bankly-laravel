@@ -6,11 +6,11 @@ use WeDevBr\Bankly\Validators\Pix\PayerValidator;
 
 class Payer
 {
-    /** @var string */
-    public string $name;
+    /** @var ?string */
+    public ?string $name;
 
-    /** @var string */
-    public string $documentNumber;
+    /** @var ?string */
+    public ?string $documentNumber;
 
     /** @var string */
     public string $type;
@@ -19,7 +19,7 @@ class Payer
     public Location $address;
 
     /**
-     * This validate and return an array
+     * This validates and return an array
      * @return array
      */
     public function toArray(): array
