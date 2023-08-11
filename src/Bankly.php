@@ -686,11 +686,15 @@ class Bankly
      * Create a new PIX key link with account.
      *
      * @param PixEntries $pixEntries
+     * @param ?string $hash
      * @return array|mixed
      * @throws RequestException
      */
-    public function registerPixKey(PixEntries $pixEntries): mixed
+    public function registerPixKey(PixEntries $pixEntries, string $hash = null): mixed
     {
+        if ($hash) {
+            $this->setHeaders(['x-bkly-transactional-hash' => $hash]);
+        }
         return $this->post('/pix/entries', [
             'addressingKey' => $pixEntries->addressingKey->toArray(),
             'account' => $pixEntries->account->toArray(),
