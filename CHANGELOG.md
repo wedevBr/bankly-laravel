@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.27.3 - 2023-08-11
+- Added missing setPassphrase method to BanklyTOTP
+
 ## 1.27.2 - 2023-08-11
 - Added new argument to registerPixKey method, accepting hash to send when key_type is EMAIL or PHONE
 
