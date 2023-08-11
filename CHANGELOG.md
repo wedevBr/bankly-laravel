@@ -1,8 +1,10 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.27.2 - 2023-08-11
+- Added new argument to registerPixKey method, accepting hash to send when key_type is EMAIL or PHONE
 
-## 1.27.1 - 2023-08-7
+## 1.27.1 - 2023-08-07
 - Fixed wrongly types on the following files: `src/Types/Pix/Payer.php`, `src/Types/Pix/PixDynamicQrCode.php`
 - Fixed validator with new rules from Bankly
 - `src/Validators/Pix/PixDynamicQrCodeValidator.php`
