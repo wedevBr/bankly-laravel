@@ -45,6 +45,16 @@ class BanklyTOTP
         return $this;
     }
 
+    /**
+     * @param string $passphrase
+     * @return $this
+     */
+    public function setPassphrase(string $passphrase)
+    {
+        $this->mtlsPassphrase = $passphrase;
+        return $this;
+    }
+
 
     public function setDocumentNumber(string $documentNumber): void
     {
