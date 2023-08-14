@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.27.4 - 2023-08-14
+- Modified TOTP endpoints to send body as JSON
+
 ## 1.27.3 - 2023-08-11
 - Added missing setPassphrase method to BanklyTOTP
 

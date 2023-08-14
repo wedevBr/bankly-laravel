@@ -75,7 +75,7 @@ class BanklyTOTP
     public function createTOTP(TOTP $totp): mixed
     {
         $this->setHeaders(['x-bkly-user-id' => $this->getDocumentNumber()]);
-        return $this->post('/totp', $totp->toArray());
+        return $this->post('/totp', $totp->toArray(), asJson: true);
     }
 
 
@@ -91,6 +91,6 @@ class BanklyTOTP
         return $this->patch('/totp', [
             'hash' => $hash,
             'code' => $code
-        ]);
+        ], asJson: true);
     }
 }
