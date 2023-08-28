@@ -9,8 +9,8 @@ class PixStaticQrCode
     /** @var AddressingKey */
     public AddressingKey $addressingKey;
 
-    /** @var string */
-    public string $amount;
+    /** @var ?string */
+    public ?string $amount;
 
     /** @var string|null */
     public ?string $recipientName;
@@ -18,8 +18,8 @@ class PixStaticQrCode
     /** @var Location */
     public Location $location;
 
-    /** @var string */
-    public string $categoryCode;
+    /** @var ?string */
+    public ?string $categoryCode;
 
     /** @var mixed */
     public mixed $additionalData = null;
