@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\PixQrCodeDataValidator;
 
-class PixQrCodeData
+class PixQrCodeData implements Arrayable
 {
     /** @var string|null */
     public ?string $encodedValue;

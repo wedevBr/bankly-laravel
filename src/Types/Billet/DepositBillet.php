@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\DepositBilletValidator;
 
-class DepositBillet
+class DepositBillet implements Arrayable
 {
     /** @var mixed */
     public mixed $account;

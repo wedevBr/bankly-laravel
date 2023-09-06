@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Support\Contracts;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Inputs\CustomerAddress;
 use WeDevBr\Bankly\Inputs\CustomerPhone;
 
@@ -15,7 +16,7 @@ use WeDevBr\Bankly\Inputs\CustomerPhone;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-interface CustomerInterface
+interface CustomerInterface extends Arrayable
 {
     /**
      * @return string
@@ -51,9 +52,4 @@ interface CustomerInterface
      * @return string
      */
     public function getEmail(): string;
-
-    /**
-     * @return array
-     */
-    public function toArray(): array;
 }

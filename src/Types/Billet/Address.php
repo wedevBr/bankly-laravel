@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\AddressValidator;
 
-class Address
+class Address implements Arrayable
 {
     /** @var string|null */
     public ?string $addressLine;

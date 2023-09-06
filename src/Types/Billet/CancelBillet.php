@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\CancelBilletValidator;
 
-class CancelBillet
+class CancelBillet implements Arrayable
 {
     /** @var string */
     public string $authenticationCode;
@@ -19,7 +20,7 @@ class CancelBillet
     public function toArray(): array
     {
         $this->validate();
-        return json_decode(json_encode($this), true);;
+        return json_decode(json_encode($this), true);
     }
 
     /**

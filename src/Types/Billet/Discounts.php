@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\DiscountsValidator;
 
-class Discounts
+class Discounts implements Arrayable
 {
     /** @var string */
     public string $limitDate;

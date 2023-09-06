@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Card;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Card\AddressValidator;
 
-class Address extends \stdClass
+class Address extends \stdClass implements Arrayable
 {
     /** @var string|null */
     public ?string $neighborhood;

@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\PixStaticQrCodeValidator;
 
-class PixStaticQrCode
+class PixStaticQrCode implements Arrayable
 {
     /** @var AddressingKey */
     public AddressingKey $addressingKey;

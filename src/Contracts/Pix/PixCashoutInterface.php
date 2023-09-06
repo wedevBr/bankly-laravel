@@ -2,15 +2,10 @@
 
 namespace WeDevBr\Bankly\Contracts\Pix;
 
-interface PixCashoutInterface
-{
-    /**
-     * This validate and return an array
-     *
-     * @return array
-     */
-    public function toArray(): array;
+use Illuminate\Contracts\Support\Arrayable;
 
+interface PixCashoutInterface extends Arrayable
+{
     /**
      * This function validate the PixCashout type
      *

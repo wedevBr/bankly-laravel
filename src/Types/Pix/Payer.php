@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\PayerValidator;
 
-class Payer
+class Payer implements Arrayable
 {
     /** @var ?string */
     public ?string $name;
