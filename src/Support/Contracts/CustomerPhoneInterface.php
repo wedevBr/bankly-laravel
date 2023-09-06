@@ -2,6 +2,8 @@
 
 namespace WeDevBr\Bankly\Support\Contracts;
 
+use Illuminate\Contracts\Support\Arrayable;
+
 /**
  * CustomePhoneInterface interface
  *
@@ -12,7 +14,7 @@ namespace WeDevBr\Bankly\Support\Contracts;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-interface CustomerPhoneInterface
+interface CustomerPhoneInterface extends Arrayable
 {
     /**
      * @return string
@@ -23,9 +25,4 @@ interface CustomerPhoneInterface
      * @return string
      */
     public function getNumber(): string;
-
-    /**
-     * @return array
-     */
-    public function toArray(): array;
 }

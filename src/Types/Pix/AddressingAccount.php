@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\AddressingAccountValidator;
 
-class AddressingAccount
+class AddressingAccount implements Arrayable
 {
     /** @var string|null */
     public ?string $branch;

@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\TOTP;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\TOTPValidator;
 
-class TOTP
+class TOTP implements Arrayable
 {
     const REGISTER_ENTRY = 'RegisterEntry';
     const PORTABILITY = 'Portability';

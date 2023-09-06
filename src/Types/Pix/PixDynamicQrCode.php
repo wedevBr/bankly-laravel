@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\PixDynamicQrCodeValidator;
 
-class PixDynamicQrCode
+class PixDynamicQrCode implements Arrayable
 {
     /** @var string */
     public string $recipientName;

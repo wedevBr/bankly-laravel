@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\InterestValidator;
 
-class Interest
+class Interest implements Arrayable
 {
     /** @var string */
     public string $startDate;

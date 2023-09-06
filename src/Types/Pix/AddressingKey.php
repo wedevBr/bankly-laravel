@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
-class AddressingKey
+class AddressingKey implements Arrayable
 {
     /** @var string|null */
     public ?string $type;

@@ -161,4 +161,9 @@ class DocumentAnalysis implements DocumentInterface
             'encrypted' => $this->encrypted,
         ];
     }
+
+    public function toArray(): array
+    {
+        return $this->getProviderMetadata();
+    }
 }
