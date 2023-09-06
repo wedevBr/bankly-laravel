@@ -2,6 +2,8 @@
 
 namespace WeDevBr\Bankly\Inputs;
 
+use Illuminate\Contracts\Support\Arrayable;
+
 /**
  * Business LegalRepresentative class
  *
@@ -12,7 +14,7 @@ namespace WeDevBr\Bankly\Inputs;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-class LegalRepresentative
+class LegalRepresentative implements Arrayable
 {
     /** @var string */
     protected string $documentNumber;

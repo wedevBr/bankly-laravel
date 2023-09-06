@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Pix;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Pix\LocationValidator;
 
-class Location
+class Location implements Arrayable
 {
     /** @var string */
     public string $city;

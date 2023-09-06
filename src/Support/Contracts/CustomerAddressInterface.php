@@ -2,6 +2,8 @@
 
 namespace WeDevBr\Bankly\Support\Contracts;
 
+use Illuminate\Contracts\Support\Arrayable;
+
 /**
  * CustomerAddressInterface interface
  *
@@ -12,7 +14,7 @@ namespace WeDevBr\Bankly\Support\Contracts;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-interface CustomerAddressInterface
+interface CustomerAddressInterface extends Arrayable
 {
     /**
      * @return string
@@ -53,9 +55,4 @@ interface CustomerAddressInterface
      * @return string
      */
     public function getCountry(): string;
-
-    /**
-     * @return array
-     */
-    public function toArray(): array;
 }

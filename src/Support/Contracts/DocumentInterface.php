@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Support\Contracts;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 
 /**
@@ -14,7 +15,7 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
  * @copyright 2020 We Dev Tecnologia Ltda
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-interface DocumentInterface
+interface DocumentInterface extends Arrayable
 {
     /**
      * @param string $path

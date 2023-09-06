@@ -2,9 +2,10 @@
 
 namespace WeDevBr\Bankly\Types\Billet;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\Billet\PayerValidator;
 
-class Payer
+class Payer implements Arrayable
 {
     /** @var mixed */
     public mixed $address;
