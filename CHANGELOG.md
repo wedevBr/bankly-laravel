@@ -1,6 +1,8 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.28.0 - 2023-09-06
+- Added missing Arrayable contract to some classes and interfaces
 ## 1.27.4 - 2023-08-14
 - Modified TOTP endpoints to send body as JSON
 
