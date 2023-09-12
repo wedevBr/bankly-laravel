@@ -34,14 +34,14 @@ class DepositBillet implements Arrayable
     /** @var string|null */
     public ?string $closePayment = null;
 
-    /** @var Interest */
-    public Interest $interest;
+    /** @var ?Interest */
+    public ?Interest $interest;
 
-    /** @var Fine */
-    public Fine $fine;
+    /** @var ?Fine */
+    public ?Fine $fine;
 
-    /** @var Discounts */
-    public Discounts $discounts;
+    /** @var ?Discounts */
+    public ?Discounts $discounts;
 
     /**
      * This validate and return an array
