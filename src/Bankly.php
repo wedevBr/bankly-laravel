@@ -29,8 +29,8 @@ use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
  */
 class Bankly
 {
-    /** @var string */
-    public $api_url;
+    /** @var ?string */
+    public ?string $api_url;
 
     /** @var ?string */
     private ?string $mtlsCert = null;
@@ -45,7 +45,7 @@ class Bankly
     private ?string $token = null;
 
     /** @var string */
-    private $api_version = '1';
+    private string $api_version = '1';
 
     /** @var array */
     private array $headers;
@@ -884,6 +884,25 @@ class Bankly
     public function updateCustomerLimits(string $documentNumber, array $data): array
     {
         return $this->put('/holders/' . $documentNumber . '/max-limits', $data);
+    }
+
+    /**
+     * Simulate a bill settlement. Works only in sandbox
+     *
+     * @param BankAccount $bankAccount
+     * @param string $txid
+     * @return array
+     * @throws RequestException
+     */
+    public function billSettlementSimulate(BankAccount $bankAccount, string $txid): array
+    {
+        return $this->post( '/bankslip/settlementpayment', [
+            'authenticationCode' => $txid,
+            'account' => [
+                'number' => $bankAccount->account,
+                'branch' => $bankAccount->branch,
+            ]
+        ]);
     }
 
     /**
