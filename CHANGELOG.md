@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.29.0 - 2023-09-12
+- Added missing arrayable contract in BankAccount class
+- Added new feature: Payment Simulation
+
 ## 1.28.0 - 2023-09-06
 - Added missing Arrayable contract to some classes and interfaces
 ## 1.27.4 - 2023-08-14
