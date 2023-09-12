@@ -9,9 +9,10 @@
 
 namespace WeDevBr\Bankly;
 
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Validators\BankAccountValidator;
 
-class BankAccount extends \stdClass
+class BankAccount extends \stdClass implements Arrayable
 {
     public string $bankCode = '332';
     public mixed $branch;
@@ -21,7 +22,7 @@ class BankAccount extends \stdClass
     public ?string $accountType = 'CHECKING';
 
     /**
-     * This validate and return an array
+     * This validates and return an array
      * @return array
      */
     public function toArray(): array
