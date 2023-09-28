@@ -55,7 +55,7 @@ class SendDocumentAnalysisTest extends TestCase
 
         $sendDocument = $client->documentAnalysis('00000000000', $document);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             $documentType = $body->where('name', 'documentType')->first();
@@ -66,7 +66,7 @@ class SendDocumentAnalysisTest extends TestCase
             return $documentType['contents'] === 'RG'
                 && $documentSide['contents'] === 'FRONT'
                 && $documentProvider['contents'] === 'BANKLY'
-                && $documentProviderMetadata['contents'] === '{"isLastDocument":true,"encrypted":"jwtstring"}'
+                && empty($documentProviderMetadata['contents'])
                 && $request->hasFile('image', 'DOCRPS', '10000.jpg');
         });
 

@@ -156,14 +156,29 @@ class DocumentAnalysis implements DocumentInterface
      */
     public function getProviderMetadata(): array
     {
-        return [
-            'isLastDocument' => true,
-            'encrypted' => $this->encrypted,
-        ];
+        if ($this->documentType === 'SELFIE') {
+            return [
+                'isLastDocument' => true,
+                'encrypted' => $this->getEncrypted(),
+            ];
+        }
+        return [];
     }
 
     public function toArray(): array
     {
-        return $this->getProviderMetadata();
+        $array = [
+            'documentType' => $this->getDocumentType(),
+            'documentSide' => $this->getDocumentSide(),
+            'provider' => $this->getProvider(),
+        ];
+
+        $providerMetadata = $this->getProviderMetadata();
+
+        if (!empty($providerMetadata)) {
+            $array['providerMetadata'] = json_encode($providerMetadata);
+        }
+
+        return $array;
     }
 }

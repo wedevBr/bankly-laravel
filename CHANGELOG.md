@@ -1,6 +1,11 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.30.0 - 2023-09-28
+- Refactoring DocumentAnalysis class to return metadata only if document is SELFIE
+- Typed Request object on tests when asserting HTTP facade
+## 1.29.1 - 2023-09-12
+- Allowing null properties to billets
 ## 1.29.0 - 2023-09-12
 - Added missing arrayable contract in BankAccount class
 - Added new feature: Payment Simulation

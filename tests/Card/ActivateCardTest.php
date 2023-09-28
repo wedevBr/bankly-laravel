@@ -68,7 +68,7 @@ class ActivateCardTest extends TestCase
         $card = new BanklyCard();
         $response = $card->activate('2370021007715002820', $this->validActivateCard());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['activateCode'] === 'A0DDDC0951D1'

@@ -57,7 +57,7 @@ class AllowContactlessTest extends TestCase
         $card = new BanklyCard();
         $card->allowContactless('12345678', false);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains(
                 $request->url(),
                 '12345678/contactless?allowContactless=false'

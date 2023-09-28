@@ -51,7 +51,7 @@ class PaymentTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->paymentValidate($code, $correlationId);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['code'] === '34191790010104351004791020150008785680026000'
@@ -81,7 +81,7 @@ class PaymentTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->paymentConfirm($billPayment, $correlationId);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['amount'] === 789.49

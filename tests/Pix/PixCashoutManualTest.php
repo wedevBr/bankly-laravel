@@ -150,7 +150,7 @@ class PixCashoutManualTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->pixCashout($this->validPixCashout(), $this->faker->uuid);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             $sender = $body['sender'];

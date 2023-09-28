@@ -99,7 +99,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->depositBillet($this->validDepositBillet());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = $request->data();
             $account = $body['account'];
             $payer = $body['payer'];
@@ -151,7 +151,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getBillet('0001', '1234', '123456789123456789');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), '/branch/0001/number/1234/123456789123456789');
         });
 
@@ -192,7 +192,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getBilletByBarcode('123456789123456789123456789123456789');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), '/123456789123456789123456789123456789');
         });
 
@@ -234,7 +234,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getBilletByDate($datetime);
 
-        Http::assertSent(function ($request) use ($datetime) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($datetime) {
             return Str::contains(urldecode($request->url()), "/searchstatus/{$datetime}");
         });
 
@@ -259,7 +259,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->printBillet('123456789123456789');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), '/123456789123456789/pdf');
         });
     }
