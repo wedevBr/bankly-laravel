@@ -110,7 +110,7 @@ class PhysicalCardTrackingTest extends TestCase
         $card = new BanklyCard();
         $response = $card->cardTracking('12345678');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains(
                 $request->url(),
                 '12345678/tracking'

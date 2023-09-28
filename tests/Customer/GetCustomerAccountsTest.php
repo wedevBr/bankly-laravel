@@ -58,7 +58,7 @@ class GetCustomerAccountsTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getCustomerAccounts('12345678909');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), 'customers/12345678909');
         });
 

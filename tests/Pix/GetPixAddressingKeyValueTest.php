@@ -53,7 +53,7 @@ class GetPixAddressingKeyValueTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getPixAddressingKeyValue('11111111111', '12345678909');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), 'pix/entries/12345678909')
                 && $request->header('x-bkly-pix-user-id')[0] === '11111111111';
         });

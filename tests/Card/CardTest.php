@@ -89,7 +89,7 @@ class CardTest extends TestCase
 
         $response = $client->virtualCard($this->validCard('virtual'));
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 
@@ -128,7 +128,7 @@ class CardTest extends TestCase
 
         $response = $client->physicalCard($this->validCard('physical'));
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 

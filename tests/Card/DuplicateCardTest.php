@@ -94,7 +94,7 @@ class DuplicateCardTest extends TestCase
         $card = new BanklyCard();
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard'));
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 
@@ -128,7 +128,7 @@ class DuplicateCardTest extends TestCase
         $card = new BanklyCard();
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard', false));
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 

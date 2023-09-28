@@ -75,7 +75,7 @@ class RegisterCustomerTest extends TestCase
         $client = $this->getBanklyClient();
         $client->customer($nifNumber, $customer);
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             $phone = $body['phone'];

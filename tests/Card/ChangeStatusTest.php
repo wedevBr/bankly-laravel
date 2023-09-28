@@ -72,7 +72,7 @@ class ChangeStatusTest extends TestCase
         $card = new BanklyCard();
         $card->changeStatus('12345678', $this->validStatus());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['status'] === 'TemporarilyUserLocked'

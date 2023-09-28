@@ -47,7 +47,7 @@ class DeletePixAddressingKeyValueTest extends TestCase
         $client = $this->getBanklyClient();
         $client->deletePixAddressingKeyValue('12345678909');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), 'pix/entries/12345678909');
         });
     }
