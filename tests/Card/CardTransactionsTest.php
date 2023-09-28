@@ -95,7 +95,7 @@ class CardTransactionsTest extends TestCase
             '2021-06-07'
         );
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains(
                 $request->url(),
                 '1234567890/transactions?page=1&pageSize=20&startDate=2021-06-06&endDate=2021-06-07'

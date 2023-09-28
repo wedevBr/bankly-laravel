@@ -68,7 +68,7 @@ class ChangePasswordTest extends TestCase
         $card = new BanklyCard();
         $card->changePassword('12345678', $this->validPassword());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['password'] === '1234'

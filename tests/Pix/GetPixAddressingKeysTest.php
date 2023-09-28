@@ -51,7 +51,7 @@ class GetPixAddressingKeysTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getPixAddressingKeys('1234');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), 'accounts/1234/addressing-keys');
         });
 

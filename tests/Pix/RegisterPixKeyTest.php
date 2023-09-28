@@ -75,7 +75,7 @@ class RegisterPixKeyTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->registerPixKey($this->validPixEntries());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             $addressingKey = $body['addressingKey'];

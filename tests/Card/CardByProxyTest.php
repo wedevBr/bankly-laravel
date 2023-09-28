@@ -84,7 +84,7 @@ class CardByProxyTest extends TestCase
         $card = new BanklyCard();
         $response = $card->getByProxy('1234567890');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains(
                 $request->url(),
                 'cards/1234567890'

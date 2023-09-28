@@ -362,28 +362,20 @@ class Bankly
     /**
      * @param string $documentNumber
      * @param DocumentAnalysis $document
-     * @param string $correlationId
+     * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
      */
     public function documentAnalysis(
         string $documentNumber,
-        $document,
+        DocumentInterface $document,
         string $correlationId = null
     ): mixed
     {
-        if (!$document instanceof DocumentInterface) {
-            throw new TypeError('The document must be an instance of DocumentInterface');
-        }
-
+        $body = $document->toArray();
         return $this->postDocument(
             "/document-analysis/{$documentNumber}/deepface",
-            [
-                'documentType' => $document->getDocumentType(),
-                'documentSide' => $document->getDocumentSide(),
-                'provider' => $document->getProvider(),
-                'providerMetadata' => json_encode($document->getProviderMetadata())
-            ],
+            $body,
             $correlationId,
             true,
             true,

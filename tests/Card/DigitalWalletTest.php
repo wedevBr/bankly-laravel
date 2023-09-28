@@ -77,7 +77,7 @@ class DigitalWalletTest extends TestCase
         $card = new BanklyCard();
         $card->digitalWallet($this->validWallet());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return Str::contains($request->url(), '12345678/wallet/GooglePay/brand/Mastercard');

@@ -110,7 +110,7 @@ class PixDecodeQrCodeTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->qrCodeDecode($this->validCodedQrCodeData());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             return $body['encodedValue'] === $this->encodedValue;

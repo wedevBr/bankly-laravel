@@ -86,7 +86,7 @@ class CardsByAccountTest extends TestCase
         $card = new BanklyCard();
         $response = $card->getByAccount('1234567890');
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains(
                 $request->url(),
                 'cards/account/1234567890'

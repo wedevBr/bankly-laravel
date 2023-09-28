@@ -120,7 +120,7 @@ class PixCashoutRefundTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->pixRefund($this->validPixCashoutRefund());
 
-        Http::assertSent(function ($request) {
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());
 
             $account = $body['account'];
