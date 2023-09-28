@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
 use WeDevBr\Bankly\Auth\Auth;
-use WeDevBr\Bankly\Inputs\DocumentAnalysis;
+use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 
 /**
  * Trait Rest
@@ -108,7 +108,7 @@ trait Rest
      * @return array|mixed
      * @throws RequestException
      */
-    public function get(string $endpoint, $query = null, $correlationId = null): mixed
+    public function get(string $endpoint, array|string $query = null, string $correlationId = null): mixed
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -140,7 +140,7 @@ trait Rest
      * @return array|mixed
      * @throws RequestException
      */
-    private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
+    private function post(string $endpoint, array $body = [], string $correlationId = null, bool $asJson = false): mixed
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -173,7 +173,7 @@ trait Rest
      * @param null $correlationId
      * @param bool $asJson
      * @param bool $attachment
-     * @param DocumentAnalysis|null $document
+     * @param ?DocumentInterface $document
      * @return array|mixed
      * @throws RequestException
      */
@@ -183,8 +183,9 @@ trait Rest
         $correlationId = null,
         bool $asJson = false,
         bool $attachment = false,
-        DocumentAnalysis $document = null
-    ) {
+        DocumentInterface $document = null
+    ): mixed
+    {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }
@@ -227,7 +228,7 @@ trait Rest
         array  $body = [],
         string $correlationId = null,
         bool   $asJson = false
-    ) {
+    ): mixed {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }

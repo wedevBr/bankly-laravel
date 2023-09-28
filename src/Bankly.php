@@ -361,7 +361,7 @@ class Bankly
 
     /**
      * @param string $documentNumber
-     * @param DocumentAnalysis $document
+     * @param DocumentInterface $document
      * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
@@ -966,12 +966,9 @@ class Bankly
 
     /**
      * @param string $endpoint
-     * @param array|null $body
+     * @param array $body
      * @param string|null $correlation_id
      * @param bool $asJson
-     * @param bool $attachment
-     * @param DocumentAnalysis $document
-     * @param string $fieldName
      * @return array|mixed
      * @throws RequestException
      */
@@ -979,9 +976,7 @@ class Bankly
         string $endpoint,
         array $body = [],
         string $correlation_id = null,
-        bool $asJson = false,
-        bool $attachment = false,
-        DocumentAnalysis $document = null
+        bool $asJson = false
     ): mixed
     {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
@@ -998,10 +993,6 @@ class Bankly
             $request = $this->setRequestMtls($request);
         }
 
-        if ($attachment) {
-            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
-        }
-
         return $request->put($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
@@ -1009,12 +1000,11 @@ class Bankly
 
     /**
      * @param string $endpoint
-     * @param array|null $body
+     * @param array $body
      * @param string|null $correlation_id
      * @param bool $asJson
      * @param bool $attachment
-     * @param DocumentAnalysis $document
-     * @param string $fieldName
+     * @param ?DocumentInterface $document
      * @return array|mixed
      * @throws RequestException
      */
@@ -1024,7 +1014,7 @@ class Bankly
         string $correlation_id = null,
         bool $asJson = false,
         bool $attachment = false,
-        DocumentAnalysis $document = null
+        DocumentInterface $document = null
     ): mixed
     {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
@@ -1052,7 +1042,7 @@ class Bankly
 
     /**
      * @param string $endpoint
-     * @param array|null $body
+     * @param array $body
      * @param string|null $correlation_id
      * @param bool $asJson
      * @return array|mixed
@@ -1088,7 +1078,7 @@ class Bankly
      * Http delete method.
      *
      * @param string $endpoint
-     * @param array|null $body
+     * @param array $body
      * @return array|mixed
      * @throws RequestException
      */
@@ -1111,7 +1101,7 @@ class Bankly
      * @param string $version API version
      * @return $this
      */
-    private function setApiVersion($version = '1.0'): static
+    private function setApiVersion(string $version = '1.0'): static
     {
         $this->api_version = $version;
         return $this;
@@ -1135,7 +1125,7 @@ class Bankly
      * @param array $headers
      * @return array|string[]
      */
-    private function getHeaders($headers = []): array
+    private function getHeaders(array $headers = []): array
     {
         $default_headers = $this->headers;
 
@@ -1150,7 +1140,7 @@ class Bankly
      * @param array $header
      * @return void
      */
-    private function setHeaders($header): void
+    private function setHeaders(array $header): void
     {
         $this->headers = array_merge($this->headers, $header);
     }

@@ -3,7 +3,6 @@
 namespace WeDevBr\Bankly\Support\Contracts;
 
 use Illuminate\Contracts\Support\Arrayable;
-use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 
 /**
  * DocumentInterface interface
@@ -19,9 +18,9 @@ interface DocumentInterface extends Arrayable
 {
     /**
      * @param string $path
-     * @return DocumentAnalysis
+     * @return DocumentInterface
      */
-    public function setFilePath(string $path): DocumentAnalysis;
+    public function setFilePath(string $path): DocumentInterface;
 
     /**
      * @return string
@@ -29,27 +28,27 @@ interface DocumentInterface extends Arrayable
     public function getFileName(): string;
 
     /**
-     * @return void
+     * @return string|bool
      */
-    public function getFileContents();
+    public function getFileContents(): string|bool;
 
     /**
      * @param string $name
-     * @return DocumentAnalysis
+     * @return DocumentInterface
      */
-    public function setFieldName(string $name): DocumentAnalysis;
+    public function setFieldName(string $name): DocumentInterface;
 
     /**
      * @param string $provider
-     * @return DocumentAnalysis
+     * @return DocumentInterface
      */
-    public function setProvider(string $provider): DocumentAnalysis;
+    public function setProvider(string $provider): DocumentInterface;
 
     /**
-     * @param string $encrypted
-     * @return DocumentAnalysis
+     * @param string|null $encrypted
+     * @return DocumentInterface
      */
-    public function setEncrypted(string $encrypted = null): DocumentAnalysis;
+    public function setEncrypted(string $encrypted = null): DocumentInterface;
 
     /**
      * @return string
