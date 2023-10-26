@@ -191,11 +191,14 @@ class LegalRepresentative implements Arrayable
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getDocumentNumber(): string
+    public function getDocumentNumber(): array
     {
-        return $this->documentNumber;
+        return [
+            'value' => $this->documentNumber,
+            'type' => 'CPF', //Accepts only cpf
+        ];
     }
 
     /**
@@ -298,6 +301,7 @@ class LegalRepresentative implements Arrayable
             'email' => $this->email,
             'declaredIncome' => $this->declaredIncome,
             'documentNumber' => $this->documentNumber,
+            'document' => $this->getDocumentNumber(),
             'occupation' => $this->occupation,
             'pep' => [
                 'level' => $this->pepLevel
@@ -306,7 +310,7 @@ class LegalRepresentative implements Arrayable
                 'selfie' => $this->selfieToken,
                 'idCardFront' => $this->idCardFrontToken,
                 'idCardBack' => $this->idCardBackToken,
-            ]
+            ],
         ];
     }
 }
