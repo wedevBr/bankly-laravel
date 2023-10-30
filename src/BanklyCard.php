@@ -68,7 +68,7 @@ class BanklyCard
      * Create a new virtual card
      *
      * @param Card $virtualCard
-     * @return array|mixed
+     * @return mixed|mixed
      * @throws RequestException
      */
     public function virtualCard(Card $virtualCard): mixed
@@ -80,7 +80,7 @@ class BanklyCard
      * Create a new physical card
      *
      * @param Card $physicalCard
-     * @return array|mixed
+     * @return mixed|mixed
      * @throws RequestException
      */
     public function physicalCard(Card $physicalCard): mixed
@@ -94,10 +94,10 @@ class BanklyCard
      * @param integer $pageSize
      * @param string $startDate
      * @param string $endDate
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function transactions(string $proxy, string $page, int $pageSize, string $startDate, string $endDate): array
+    public function transactions(string $proxy, string $page, int $pageSize, string $startDate, string $endDate): mixed
     {
         $query = [
             'page' => $page,
@@ -112,10 +112,10 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param Duplicate $duplicate
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function duplicate(string $proxy, Duplicate $duplicate): array
+    public function duplicate(string $proxy, Duplicate $duplicate): mixed
     {
         return $this->post("/cards/{$proxy}/duplicate", $duplicate->toArray(), null, true);
     }
@@ -123,20 +123,20 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param Password $password
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function pciData(string $proxy, Password $password): array
+    public function pciData(string $proxy, Password $password): mixed
     {
         return $this->post("/cards/{$proxy}/pci", $password->toArray(), null, true);
     }
 
     /**
      * @param string $proxy
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function getByProxy(string $proxy): array
+    public function getByProxy(string $proxy): mixed
     {
         return $this->get("/cards/{$proxy}");
     }
@@ -144,10 +144,10 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param ChangeStatus $changeStatus
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function changeStatus(string $proxy, ChangeStatus $changeStatus): array
+    public function changeStatus(string $proxy, ChangeStatus $changeStatus): mixed
     {
         return $this->patch("/cards/{$proxy}/status", $changeStatus->toArray(), null, true);
     }
@@ -155,10 +155,10 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param bool $allow
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function allowContactless(string $proxy, bool $allow): array
+    public function allowContactless(string $proxy, bool $allow): mixed
     {
         $allowContactless = $allow ? 'true' : 'false';
         return $this->patch("/cards/{$proxy}/contactless?allowContactless={$allowContactless}", [], null, true);
@@ -166,20 +166,20 @@ class BanklyCard
 
     /**
      * @param string $proxy
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function nextStatus(string $proxy): array
+    public function nextStatus(string $proxy): mixed
     {
         return $this->get("/cards/{$proxy}/nextStatus");
     }
 
     /**
      * @param string $proxy
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function cardTracking(string $proxy): array
+    public function cardTracking(string $proxy): mixed
     {
         return $this->get("/cards/{$proxy}/tracking");
     }
@@ -187,50 +187,50 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param Password $password
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function changePassword(string $proxy, Password $password): array
+    public function changePassword(string $proxy, Password $password): mixed
     {
         return $this->patch("/cards/{$proxy}/password", $password->toArray(), null, true);
     }
 
     /**
      * @param string $documentNumber
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function getByDocument(string $documentNumber): array
+    public function getByDocument(string $documentNumber): mixed
     {
         return $this->get("/cards/document/{$documentNumber}");
     }
 
     /**
      * @param string $activateCode
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function getByActivateCode(string $activateCode): array
+    public function getByActivateCode(string $activateCode): mixed
     {
         return $this->get("/cards/activateCode/{$activateCode}");
     }
 
     /**
      * @param string $account
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function getByAccount(string $account): array
+    public function getByAccount(string $account): mixed
     {
         return $this->get("/cards/account/{$account}");
     }
 
     /**
      * @param Wallet $wallet
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function digitalWallet(Wallet $wallet): array
+    public function digitalWallet(Wallet $wallet): mixed
     {
         $pathData = $wallet->toArray();
         $endpoint = '/cards-pci/' . $pathData['proxy']
@@ -243,10 +243,10 @@ class BanklyCard
     /**
      * @param string $proxy
      * @param Activate $activate
-     * @return array
+     * @return mixed
      * @throws RequestException
      */
-    public function activate(string $proxy, Activate $activate): array
+    public function activate(string $proxy, Activate $activate): mixed
     {
         return $this->patch("/cards/{$proxy}/activate", $activate->toArray(), null, true);
     }
