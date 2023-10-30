@@ -1,6 +1,10 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.32.0 - 2023-10-30
+- Refactoring BanklyCard class to return mixed instead of array due to change in Bankly API
+## 1.31.0 - 2023-10-26
+- Refactoring LegalRepresentative object to be updated with new API params
 ## 1.30.0 - 2023-09-28
 - Refactoring DocumentAnalysis class to return metadata only if document is SELFIE
 - Typed Request object on tests when asserting HTTP facade
