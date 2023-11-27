@@ -140,13 +140,24 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $declaredIncome
+     * @param float $assertedIncome
      * @return Customer
      */
-    public function setDeclaredIncome(string $declaredIncome): Customer
+    public function setAssertedIncome(float $assertedIncome): Customer
     {
-        $this->declaredIncome = $declaredIncome;
+        $this->assertedIncome = $assertedIncome;
         return $this;
+    }
+
+    public function setCurrencyIncome(string $currency = 'BRL'): Customer
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    public function getCurrencyIncome(): string
+    {
+        return $this->currency;
     }
 
     /**
@@ -243,9 +254,9 @@ class Customer implements CustomerInterface
     /**
      * @return string
      */
-    public function getDeclaredIncome(): string
+    public function getAssertedIncome(): string
     {
-        return $this->declaredIncome;
+        return $this->assertedIncome;
     }
 
     /**
