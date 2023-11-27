@@ -502,7 +502,7 @@ class Bankly
             ]
         )->toArray();
 
-        return $this->patch('/customers' . $documentNumber,
+        return $this->patch('/customers/' . $documentNumber,
             ['data' => array_filter($customer)],
             $correlationId,
             true
