@@ -1,6 +1,9 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 1.33.0 - 2023-11-27
+- Refactoring Bankly onboarding rules
+- Added Update Customer endpoint
 ## 1.32.0 - 2023-10-30
 - Refactoring BanklyCard class to return mixed instead of array due to change in Bankly API
 ## 1.31.0 - 2023-10-26

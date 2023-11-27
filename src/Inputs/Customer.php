@@ -43,8 +43,8 @@ class Customer implements CustomerInterface
     /** @var string|null */
     protected ?string $occupation = null;
 
-    /** @var string|null */
-    protected ?string $declaredIncome = null;
+    /** @var float|null */
+    protected ?float $assertedIncome = null;
 
     /** @var string|null */
     protected ?string $selfieToken = null;
@@ -54,6 +54,8 @@ class Customer implements CustomerInterface
 
     /** @var string|null */
     protected ?string $idCardBackToken = null;
+
+    protected ?string $currency = 'BRL';
 
     /**
      * @param string $name
@@ -291,7 +293,10 @@ class Customer implements CustomerInterface
             'birthDate' => $this->birthDate,
             'motherName' => $this->motherName,
             'email' => $this->email,
-            'declaredIncome' => $this->declaredIncome,
+            'assertedIncome' => [
+                'value' => (string)$this->assertedIncome,
+                'currency' => $this->currency
+            ],
             'occupation' => $this->occupation,
             'pep' => [
                 'level' => $this->pepLevel
