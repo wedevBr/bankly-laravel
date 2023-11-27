@@ -417,14 +417,14 @@ class Bankly
      * Customer register
      *
      * @param string $documentNumber
-     * @param Customer $customer
+     * @param CustomerInterface $customer
      * @param string $correlationId
      * @return array|mixed
      * @throws TypeError|RequestException
      */
     public function customer(
         string $documentNumber,
-        $customer,
+        CustomerInterface $customer,
         string $correlationId = null
     ): mixed
     {
@@ -457,8 +457,8 @@ class Bankly
      * Close account
      *
      * @param string $account
-     * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
-     * @param string $correlationId
+     * @param string $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
      */
@@ -473,8 +473,8 @@ class Bankly
      * Customer offboarding
      *
      * @param string $documentNumber
-     * @param string|null $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
-     * @param string $correlationId
+     * @param string $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param string|null $correlationId
      * @return array|mixed
      * @throws RequestException
      */
@@ -483,6 +483,30 @@ class Bankly
         return $this->patch('/customers/' . $documentNumber . '/cancel', [
             'reason' => $reason
         ], $correlationId, true);
+    }
+
+    /**
+     * @throws RequestException
+     */
+    public function updateCustomer(string $documentNumber, CustomerInterface $customer, string $correlationId = null)
+    {
+        $customer = collect($customer->toArray())->only(
+            [
+                'email',
+                'socialName',
+                'phone',
+                'address',
+                'assertedIncome',
+                'pep',
+                'occupation'
+            ]
+        )->toArray();
+
+        return $this->patch('/customers' . $documentNumber,
+            ['data' => array_filter($customer)],
+            $correlationId,
+            true
+        );
     }
 
     /**
