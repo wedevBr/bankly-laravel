@@ -63,7 +63,11 @@ class BankValidator
     private function validateCompe(): void
     {
         $compe = $this->bank->compe;
-        if (empty($compe) || !is_string($compe) || !is_numeric($compe)) {
+        if(empty($compe)) {
+            return true;
+        }
+
+        if (!is_string($compe) || !is_numeric($compe)) {
             throw new InvalidArgumentException('bank compe account should be a numeric string');
         }
     }
