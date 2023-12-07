@@ -64,7 +64,7 @@ class BankValidator
     {
         $compe = $this->bank->compe;
         if(empty($compe)) {
-            return true;
+            return;
         }
 
         if (!is_string($compe) || !is_numeric($compe)) {

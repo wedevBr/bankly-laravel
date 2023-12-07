@@ -17,12 +17,20 @@ class PixClaim implements Arrayable
     public AddressingKey $addressingKey;
 
 
+    public function __construct(AddressingKey $addressingKey, Claimer $claimer, ClaimTypeEnum $type) {
+
+        $this->addressingKey = $addressingKey;
+        $this->claimer = $claimer;
+        $this->type = $type;
+    }
+
     /**
      * This validate and return an array
      * @return array
      */
     public function toArray(): array
     {
+
         $this->validate();
         return [
             'type' => $this->type->value,

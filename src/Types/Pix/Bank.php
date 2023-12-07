@@ -11,7 +11,7 @@ class Bank implements Arrayable
     public ?string $ispb;
 
     /** @var string|null */
-    public ?string $compe;
+    public ?string $compe = null;
 
     /** @var string|null */
     public ?string $name;
@@ -22,8 +22,10 @@ class Bank implements Arrayable
      */
     public function toArray(): array
     {
+
         $this->validate();
-        return (array) $this;
+        $array = (array) $this;
+        return array_filter($array);
     }
 
     /**

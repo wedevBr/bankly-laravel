@@ -6,13 +6,12 @@ use Illuminate\Http\Client\RequestException;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 use WeDevBr\Bankly\Types\Pix\PixClaim;
+use WeDevBr\Bankly\Enums\Pix\CancelReasonEnum;
 
 
 class BanklyPixClaim
 {
     use Rest;
-
-    private string $documentNumber;
 
     /**
      * @param string|null $mtlsPassphrase
@@ -56,36 +55,16 @@ class BanklyPixClaim
         return $this;
     }
 
-    public function setDocumentNumber(string $documentNumber): void
-    {
-        (new CpfCnpjValidator($documentNumber))->validate();
-        $this->documentNumber = $documentNumber;
-    }
-
-    public function getDocumentNumber(): string
-    {
-        return $this->documentNumber;
-    }
-
     /**
      * @param PixClaim $claimer
      * @return array|mixed
      */
     public function claim(PixClaim $claimer, string $nifNumber): mixed
     {
-        $this->setHeaders(['x-bkly-user-id' => $nifNumber]);
-        return $this->post('/pix/claims', $claimer->toArray());
+        $this->setHeaders(['x-bkly-pix-user-id' => $nifNumber]);
+        return $this->post('/pix/claims', $claimer->toArray(), asJson: true);
     }
 
-     /**
-     * @param PixClaim $claimer
-     * @return array|mixed
-     */
-    public function acknowledge(PixClaim $claimer, string $nifNumber): mixed
-    {
-        $this->setHeaders(['x-bkly-user-id' => $nifNumber]);
-        return $this->post('/pix/stub/claim/acknowledge', $claimer->toArray());
-    }
 
     /**
      * @param string $claimer
@@ -101,9 +80,20 @@ class BanklyPixClaim
 
 
         $query = ['documentNumber' => $nifNumber, 'claimsFrom' => $claimer, 'status' => $status];
-
         return $this->get('/pix/claims', array_filter($query));
     }
+
+
+    /**
+    * @param PixClaim $claimer
+    * @return array|mixed
+    */
+   public function acknowledge(array $body, string $nifNumber): mixed
+   {
+
+       $this->setHeaders(['x-bkly-pix-user-id' => $nifNumber]);
+       return $this->post('/pix/stub/claim/acknowledge', $body, asJson: true);
+   }
 
     /**
      * @param array $claimer
@@ -114,11 +104,11 @@ class BanklyPixClaim
     {
         $this->setHeaders(
             [
-                'x-bkly-user-id' => $nifNumber
+                'x-bkly-pix-user-id' => $nifNumber
             ]);
 
-
-        return $this->patch('/pix/claims/' + $claimId + '/confirm');
+            $arr['reason'] = 'DONOR_REQUEST';
+        return $this->patch('/pix/claims/' . $claimId . '/confirm', $arr, asJson: true);
     }
 
     /**
@@ -130,11 +120,12 @@ class BanklyPixClaim
     {
         $this->setHeaders(
             [
-                'x-bkly-user-id' => $nifNumber
+                'x-bkly-pix-user-id' => $nifNumber
             ]);
+        $arr['reason'] = 'DONOR_REQUEST';
 
 
-        return $this->patch('/pix/claims/' + $claimId + '/complete');
+        return $this->patch('/pix/claims/' . $claimId . '/complete', $arr, asJson: true);
     }
 
      /**
@@ -142,14 +133,14 @@ class BanklyPixClaim
      * @param string $status
      * @return array|mixed
      */
-    public function cancel(string $nifNumber, string $claimId): mixed
+    public function cancel(string $nifNumber, string $claimId, CancelReasonEnum $reason): mixed
     {
         $this->setHeaders(
             [
-                'x-bkly-user-id' => $nifNumber
+                'x-bkly-pix-user-id' => $nifNumber
             ]);
 
 
-        return $this->patch('/pix/claims/' + $claimId + '/cancel', ["reason" => "DONOR_REQUEST"]);
+        return $this->patch('/pix/claims/' . $claimId . '/cancel', ["reason" => $reason->value], asJson: true);
     }
 }
