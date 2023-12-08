@@ -43,8 +43,8 @@ class Customer implements CustomerInterface
     /** @var string|null */
     protected ?string $occupation = null;
 
-    /** @var string|null */
-    protected ?string $declaredIncome = null;
+    /** @var float|null */
+    protected ?float $assertedIncome = null;
 
     /** @var string|null */
     protected ?string $selfieToken = null;
@@ -54,6 +54,8 @@ class Customer implements CustomerInterface
 
     /** @var string|null */
     protected ?string $idCardBackToken = null;
+
+    protected ?string $currency = 'BRL';
 
     /**
      * @param string $name
@@ -138,13 +140,24 @@ class Customer implements CustomerInterface
     }
 
     /**
-     * @param string $declaredIncome
+     * @param float $assertedIncome
      * @return Customer
      */
-    public function setDeclaredIncome(string $declaredIncome): Customer
+    public function setAssertedIncome(float $assertedIncome): Customer
     {
-        $this->declaredIncome = $declaredIncome;
+        $this->assertedIncome = $assertedIncome;
         return $this;
+    }
+
+    public function setCurrencyIncome(string $currency = 'BRL'): Customer
+    {
+        $this->currency = $currency;
+        return $this;
+    }
+
+    public function getCurrencyIncome(): string
+    {
+        return $this->currency;
     }
 
     /**
@@ -241,9 +254,9 @@ class Customer implements CustomerInterface
     /**
      * @return string
      */
-    public function getDeclaredIncome(): string
+    public function getAssertedIncome(): string
     {
-        return $this->declaredIncome;
+        return $this->assertedIncome;
     }
 
     /**
@@ -291,7 +304,10 @@ class Customer implements CustomerInterface
             'birthDate' => $this->birthDate,
             'motherName' => $this->motherName,
             'email' => $this->email,
-            'declaredIncome' => $this->declaredIncome,
+            'assertedIncome' => [
+                'value' => (string)$this->assertedIncome,
+                'currency' => $this->currency
+            ],
             'occupation' => $this->occupation,
             'pep' => [
                 'level' => $this->pepLevel
