@@ -4,14 +4,8 @@ namespace WeDevBr\Bankly\Events;
 
 class BanklyAuthenticatedEvent
 {
-    /**
-     * @var string
-     */
     public string $token;
 
-    /**
-     * @var string
-     */
     public string $tokenExpiry;
 
     /**

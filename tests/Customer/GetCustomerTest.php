@@ -16,6 +16,7 @@ use WeDevBr\Bankly\Tests\TestCase;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class GetCustomerTest extends TestCase
@@ -33,7 +34,7 @@ class GetCustomerTest extends TestCase
     public function getFakerHttp(array $response, int $statusCode)
     {
         return [
-            config('bankly')['api_url'] . '/customers/*' => Http::response($response, $statusCode)
+            config('bankly')['api_url'].'/customers/*' => Http::response($response, $statusCode),
         ];
     }
 
@@ -70,7 +71,7 @@ class GetCustomerTest extends TestCase
             'status' => 'PENDING_APPROVAL',
             'profile' => 'COMPLETE',
             'createdAt' => '2021-05-16T15:01:58.992Z',
-            'updatedAt' => '2021-05-16T15:01:58.992Z'
+            'updatedAt' => '2021-05-16T15:01:58.992Z',
         ], 200));
 
         $client = $this->getBanklyClient();

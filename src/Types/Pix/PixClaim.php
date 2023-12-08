@@ -3,9 +3,8 @@
 namespace WeDevBr\Bankly\Types\Pix;
 
 use Illuminate\Contracts\Support\Arrayable;
-use WeDevBr\Bankly\Validators\Pix\AddressingAccountValidator;
-use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 use WeDevBr\Bankly\Enums\Pix\ClaimTypeEnum;
+use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
 class PixClaim implements Arrayable
 {
@@ -13,11 +12,10 @@ class PixClaim implements Arrayable
 
     public ClaimTypeEnum $type;
 
-    /** @var AddressingKey */
     public AddressingKey $addressingKey;
 
-
-    public function __construct(AddressingKey $addressingKey, Claimer $claimer, ClaimTypeEnum $type) {
+    public function __construct(AddressingKey $addressingKey, Claimer $claimer, ClaimTypeEnum $type)
+    {
 
         $this->addressingKey = $addressingKey;
         $this->claimer = $claimer;
@@ -26,16 +24,16 @@ class PixClaim implements Arrayable
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
 
         $this->validate();
+
         return [
             'type' => $this->type->value,
             'claimer' => $this->claimer->toArray(),
-            'addressingKey' => $this->addressingKey->toArray()
+            'addressingKey' => $this->addressingKey->toArray(),
 
         ];
     }

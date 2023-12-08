@@ -16,6 +16,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutRefund;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class PixCashoutRefundTest extends TestCase
@@ -60,7 +61,7 @@ class PixCashoutRefundTest extends TestCase
      */
     public function getFakerHttp(array $response, int $statusCode)
     {
-        return;
+
     }
 
     public function successResponse()
@@ -98,15 +99,15 @@ class PixCashoutRefundTest extends TestCase
                 ],
                 'documentType' => 'string',
                 'documentNumber' => 'string',
-                'name' => 'string'
+                'name' => 'string',
             ],
             'status' => 'CREATED',
             'createdAt' => '2021-10-26T13:40:51.2434384Z',
-            'updatedAt' => '2021-10-26T13:40:51.4185601Z'
+            'updatedAt' => '2021-10-26T13:40:51.4185601Z',
         ];
 
         Http::fake([
-            config('bankly')['api_url'] . '/pix/cash-out:refund' => Http::response($response, 202)
+            config('bankly')['api_url'].'/pix/cash-out:refund' => Http::response($response, 202),
         ]);
     }
 

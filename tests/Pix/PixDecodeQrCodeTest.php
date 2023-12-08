@@ -15,6 +15,7 @@ use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class PixDecodeQrCodeTest extends TestCase
@@ -26,9 +27,6 @@ class PixDecodeQrCodeTest extends TestCase
      */
     private $encodedValue;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -62,7 +60,7 @@ class PixDecodeQrCodeTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -71,40 +69,40 @@ class PixDecodeQrCodeTest extends TestCase
      */
     public function testSuccessDecodeStaticQrCode()
     {
-        Http::fake($this->getFakerHttp("/pix/qrcodes/decode", [
-            "endToEndId" => "E13140088202105201500345922912340",
-            "conciliationId" => "testePagamento",
-            "addressingKey" => [
-                "type" => "CPF",
-                "value" => "12345678934"
+        Http::fake($this->getFakerHttp('/pix/qrcodes/decode', [
+            'endToEndId' => 'E13140088202105201500345922912340',
+            'conciliationId' => 'testePagamento',
+            'addressingKey' => [
+                'type' => 'CPF',
+                'value' => '12345678934',
             ],
-            "qrCodeType" => "STATIC",
-            "account" => [
-                "branch" => "0001",
-                "number" => "1234",
-                "type" => "CHECKING",
-                "holder" => [
-                    "type" => "BUSINESS",
-                    "documentNumber" => "98590538000106",
-                    "name" => "SDB2_TESTE LTDA"
+            'qrCodeType' => 'STATIC',
+            'account' => [
+                'branch' => '0001',
+                'number' => '1234',
+                'type' => 'CHECKING',
+                'holder' => [
+                    'type' => 'BUSINESS',
+                    'documentNumber' => '98590538000106',
+                    'name' => 'SDB2_TESTE LTDA',
                 ],
-                "bank" => [
-                    "ispb" => "13140088",
-                    "compe" => "332",
-                    "name" => "Acesso Soluções De Pagamento S.A."
-                ]
+                'bank' => [
+                    'ispb' => '13140088',
+                    'compe' => '332',
+                    'name' => 'Acesso Soluções De Pagamento S.A.',
+                ],
             ],
-            "payment" => [
-                "baseValue" => 0.0,
-                "interestValue" => 0.0,
-                "penaltyValue" => 0.0,
-                "discountValue" => 0.0,
-                "totalValue" => 1.00
+            'payment' => [
+                'baseValue' => 0.0,
+                'interestValue' => 0.0,
+                'penaltyValue' => 0.0,
+                'discountValue' => 0.0,
+                'totalValue' => 1.00,
             ],
-            "location" => [
-                "city" => "Sao Paulo",
-                "zipCode" => "02035000"
-            ]
+            'location' => [
+                'city' => 'Sao Paulo',
+                'zipCode' => '02035000',
+            ],
         ], 200));
 
         $client = $this->getBanklyClient();

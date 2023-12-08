@@ -17,6 +17,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutKey;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixCashoutKeyValidatorTest extends TestCase

@@ -12,10 +12,6 @@ class TOTPValidator
 
     private array $permittedTypes = ['PHONE', 'EMAIL'];
 
-
-    /**
-     * @param TOTP $totp
-     */
     public function __construct(TOTP $totp)
     {
         $this->totp = $totp;
@@ -30,7 +26,7 @@ class TOTPValidator
 
     private function validateContext(): void
     {
-        if (!$this->totp->context) {
+        if (! $this->totp->context) {
             throw new InvalidArgumentException('TOTP operation needs context');
         }
     }
@@ -49,17 +45,17 @@ class TOTPValidator
 
     private function validateAddressingKey(): void
     {
-        if (!collect($this->totp->data)->has('addressingKey')) {
+        if (! collect($this->totp->data)->has('addressingKey')) {
             throw new InvalidArgumentException('Data not has a addressing key to portability or ownership operation');
         }
 
         $addressingKey = $this->totp->data['addressingKey'];
 
-        if (!in_array($addressingKey->type ?? '', $this->permittedTypes)) {
+        if (! in_array($addressingKey->type ?? '', $this->permittedTypes)) {
             throw new InvalidArgumentException('Invalid addressing key type');
         }
 
-        if ($addressingKey->type === 'PHONE' && !preg_match('/^\+55\d{2}\d{9}$/', $addressingKey->value)) {
+        if ($addressingKey->type === 'PHONE' && ! preg_match('/^\+55\d{2}\d{9}$/', $addressingKey->value)) {
             throw new InvalidArgumentException('Invalid value format');
         }
 
@@ -69,9 +65,8 @@ class TOTPValidator
 
     private function validateClaimId(): void
     {
-        if (!collect($this->totp->data)->has('claim_id')) {
+        if (! collect($this->totp->data)->has('claim_id')) {
             throw new InvalidArgumentException('Data not has a claim id to registry entry operation');
         }
     }
-
 }

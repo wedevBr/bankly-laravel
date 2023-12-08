@@ -15,6 +15,7 @@ use WeDevBr\Bankly\BillPayment;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class PaymentTest extends TestCase
@@ -32,7 +33,7 @@ class PaymentTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -41,8 +42,8 @@ class PaymentTest extends TestCase
      */
     public function testSuccessValidatePayment()
     {
-        Http::fake($this->getFakerHttp("/bill-payment/validate", [
-            'id' => '94c45428-65f1-4e96-a16c-748119e26a96'
+        Http::fake($this->getFakerHttp('/bill-payment/validate', [
+            'id' => '94c45428-65f1-4e96-a16c-748119e26a96',
         ]));
 
         $code = '34191790010104351004791020150008785680026000';
@@ -66,8 +67,8 @@ class PaymentTest extends TestCase
      */
     public function testSuccessConfirmPayment()
     {
-        Http::fake($this->getFakerHttp("/bill-payment/confirm", [
-            'authenticationCode' => '94c45428-65f1-4e96-a16c-748119e26a96'
+        Http::fake($this->getFakerHttp('/bill-payment/confirm', [
+            'authenticationCode' => '94c45428-65f1-4e96-a16c-748119e26a96',
         ]));
 
         $billPayment = new BillPayment();

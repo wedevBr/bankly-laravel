@@ -8,6 +8,7 @@
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Adeildo Amorim <adeildo@capitaldigitalaberto.com.br>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/cda-admin-backend-laravel/
  */
 
@@ -15,7 +16,6 @@ namespace WeDevBr\Bankly\Tests;
 
 use Orchestra\Testbench\TestCase;
 use WeDevBr\Bankly\Bankly;
-
 
 class BanklyTest extends TestCase
 {

@@ -8,6 +8,7 @@
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Adeildo Amorim <adeildo@capitaldigitalaberto.com.br>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/cda-admin-backend-laravel/
  */
 
@@ -22,7 +23,6 @@ class BankAccountValidator
 
     /**
      * BankAccountValidator constructor.
-     * @param BankAccount $bankAccount
      */
     public function __construct(BankAccount $bankAccount)
     {
@@ -44,13 +44,12 @@ class BankAccountValidator
     /**
      * This validate a bank branch
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateBranch(): void
     {
         $branch = $this->bank_account->branch;
-        if (is_null($branch) || !is_string($branch) || !is_numeric($branch)) {
+        if (is_null($branch) || ! is_string($branch) || ! is_numeric($branch)) {
             throw new InvalidArgumentException('branch should be a numeric string');
         }
     }
@@ -58,13 +57,12 @@ class BankAccountValidator
     /**
      * This validate a bank account
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateAccount(): void
     {
         $account = $this->bank_account->account;
-        if (is_null($account) || !is_string($account)  || !is_numeric($account)) {
+        if (is_null($account) || ! is_string($account) || ! is_numeric($account)) {
             throw new InvalidArgumentException('account should be a numeric string');
         }
     }
@@ -72,13 +70,12 @@ class BankAccountValidator
     /**
      * This validates a cpf_cnpj
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateDocument(): void
     {
         $document = $this->bank_account->document;
-        if (is_null($document) || !is_string($document)) {
+        if (is_null($document) || ! is_string($document)) {
             throw new InvalidArgumentException('document should be a string');
         }
         $documentValidator = new CpfCnpjValidator($document);
@@ -88,13 +85,12 @@ class BankAccountValidator
     /**
      * This validates a given name
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateName(): void
     {
         $name = $this->bank_account->name;
-        if (is_null($name) || !is_string($name)) {
+        if (is_null($name) || ! is_string($name)) {
             throw new InvalidArgumentException('name should be a string');
         }
     }
@@ -102,15 +98,14 @@ class BankAccountValidator
     /**
      * This validates bank account type
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateAccountType(): void
     {
         $allowed = ['CHECKING', 'SAVINGS'];
         $accountType = $this->bank_account->accountType;
-        if (!in_array($accountType, $allowed) || is_null($accountType)) {
-            throw new InvalidArgumentException('accountType should be one of them: ' . implode(', ', $allowed));
+        if (! in_array($accountType, $allowed) || is_null($accountType)) {
+            throw new InvalidArgumentException('accountType should be one of them: '.implode(', ', $allowed));
         }
     }
 }

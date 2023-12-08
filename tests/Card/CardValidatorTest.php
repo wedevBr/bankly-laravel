@@ -14,6 +14,7 @@ use WeDevBr\Bankly\Types\Card\Card;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class CardValidatorTest extends TestCase
@@ -35,9 +36,6 @@ class CardValidatorTest extends TestCase
         return $address;
     }
 
-    /**
-     * @return Card
-     */
     private function validVirtualCard(): Card
     {
         $virtualCard = new Card();

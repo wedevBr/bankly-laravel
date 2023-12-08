@@ -13,23 +13,28 @@ use WeDevBr\Bankly\Validators\BillPaymentValidator;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class BillPayment extends \stdClass implements Arrayable
 {
     public $amount;
+
     public $bankBranch;
+
     public $bankAccount;
+
     public $description;
+
     public $id;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

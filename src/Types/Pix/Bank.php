@@ -7,18 +7,17 @@ use WeDevBr\Bankly\Validators\Pix\BankValidator;
 
 class Bank implements Arrayable
 {
-    /** @var string|null */
     public ?string $ispb;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
 
         $this->validate();
         $array = (array) $this;
+
         return array_filter($array);
     }
 

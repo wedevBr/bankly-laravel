@@ -9,9 +9,9 @@ use WeDevBr\Bankly\Types\TOTP\TOTP;
 
 class TOTPValidatorTest extends TestCase
 {
-
     /**
      * @return void
+     *
      * @test
      */
     public function testInvalidContext()
@@ -25,6 +25,7 @@ class TOTPValidatorTest extends TestCase
 
     /**
      * @return void
+     *
      * @test
      */
     public function testInvalidOperation()
@@ -38,6 +39,7 @@ class TOTPValidatorTest extends TestCase
 
     /**
      * @return void
+     *
      * @test
      */
     public function testInvalidRegistryEntryType()
@@ -52,6 +54,7 @@ class TOTPValidatorTest extends TestCase
 
     /**
      * @return void
+     *
      * @test
      */
     public function testInvalidRegistryEntryPhone()
@@ -68,9 +71,9 @@ class TOTPValidatorTest extends TestCase
         $totp->validate();
     }
 
-
     /**
      * @return void
+     *
      * @test
      */
     public function testConvertToArray()
@@ -86,7 +89,7 @@ class TOTPValidatorTest extends TestCase
     public function mockedTOTP(): TOTP
     {
         $addressingKey = new AddressingKey();
-        $addressingKey->type = "PHONE";
+        $addressingKey->type = 'PHONE';
         $addressingKey->value = $this->faker->numerify('+55###########');
 
         $totp = new TOTP();

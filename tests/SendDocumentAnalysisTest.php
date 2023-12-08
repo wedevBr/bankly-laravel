@@ -17,6 +17,7 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class SendDocumentAnalysisTest extends TestCase
@@ -46,9 +47,9 @@ class SendDocumentAnalysisTest extends TestCase
             ->setEncrypted('jwtstring');
 
         Http::fake([
-            config('bankly')['api_url'] . '/*' => Http::response([
-                'token' => $this->faker->uuid
-            ], 202)
+            config('bankly')['api_url'].'/*' => Http::response([
+                'token' => $this->faker->uuid,
+            ], 202),
         ]);
 
         $client = $this->getBanklyClient();

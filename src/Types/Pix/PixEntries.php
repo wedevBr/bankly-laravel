@@ -8,19 +8,17 @@ use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
 class PixEntries implements Arrayable
 {
-    /** @var AddressingKey */
     public AddressingKey $addressingKey;
 
-    /** @var AddressingAccount */
     public AddressingAccount $account;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

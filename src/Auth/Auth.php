@@ -10,7 +10,6 @@ use WeDevBr\Bankly\Events\BanklyAuthenticatedEvent;
  * Class Auth
  *
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
- * @package WeDevBr\Bankly
  */
 final class Auth
 {
@@ -28,7 +27,6 @@ final class Auth
     /** @var ?string */
     protected ?string $grantType = 'client_credentials';
 
-    /** @var mixed */
     protected mixed $scope = null;
 
     /** @var ?string */
@@ -45,10 +43,9 @@ final class Auth
 
     /** @var ?string */
     private ?string $mtlsPassphrase = null;
+
     /**
      * Returns the instance of this class
-     *
-     * @return self
      */
     public static function login(): self
     {
@@ -61,9 +58,6 @@ final class Auth
         return self::$login;
     }
 
-    /**
-     * @return self
-     */
     public function setClientCredentials(): self
     {
         $this->clientId = $this->clientId ?? config('bankly')['client_id'];
@@ -72,141 +66,113 @@ final class Auth
         if (empty($this->scope)) {
             $this->setScope();
         }
+
         return $this;
     }
 
-    /**
-     * @param null|string $clientId
-     * @return self
-     */
     public function setClientId(?string $clientId): self
     {
         $this->clientId = $clientId;
+
         return $this;
     }
 
-    /**
-     * @param null|string $clientSecret
-     * @return self
-     */
     public function setClientSecret(?string $clientSecret): self
     {
         $this->clientSecret = $clientSecret;
+
         return $this;
     }
 
-    /**
-     * @param string $passPhrase
-     * @return self
-     */
     public function setPassphrase(string $passPhrase): self
     {
         $this->mtlsPassphrase = $passPhrase;
+
         return $this;
     }
 
-    /**
-     * @param string $grantType
-     * @return self
-     */
     public function setGrantType(string $grantType): self
     {
         $this->grantType = $grantType;
+
         return $this;
     }
 
     /**
      * Set the cert.crt file path
-     * @param string $path
-     * @return self
      */
     public function setCertPath(string $path): self
     {
         $this->mtlsCert = $path;
+
         return $this;
     }
 
     /**
      * Set the cert.pem file path
-     * @param string $path
-     * @return self
      */
     public function setKeyPath(string $path): self
     {
         $this->mtlsKey = $path;
+
         return $this;
     }
 
-    /**
-     * @param string|array|null $scope
-     * @return self
-     */
-    public function setScope(string|array $scope = null): self
+    public function setScope(string|array|null $scope = null): self
     {
         $this->scope = config('bankly')['scope'] ?? [];
-        if (!empty($scope) && is_string($scope)) {
+        if (! empty($scope) && is_string($scope)) {
             $this->scope = $scope;
         }
         if (is_array($this->scope)) {
-            $this->scope = join(' ', $this->scope);
+            $this->scope = implode(' ', $this->scope);
         }
+
         return $this;
     }
 
-    /**
-     * @param string $token
-     * @return self
-     */
     public function setToken(string $token): self
     {
         $this->token = $token;
+
         return $this;
     }
 
     /**
      * Reset token for new request
-     *
-     * @return self
      */
     public function resetToken(): self
     {
         $this->token = null;
+
         return $this;
     }
 
     /**
-     * @return string
      * @throws RequestException
      */
     public function getToken(): string
     {
-        if (now()->unix() > $this->tokenExpiry || !$this->token) {
+        if (now()->unix() > $this->tokenExpiry || ! $this->token) {
             $this->auth();
         }
 
         return $this->token;
     }
 
-    /**
-     * @param string $tokenExpiry
-     * @return self
-     */
     public function setTokenExpiry(string $tokenExpiry): self
     {
         $this->tokenExpiry = $tokenExpiry;
+
         return $this;
     }
 
-    /**
-     * @return string
-     */
     public function getTokenExpiry(): string
     {
         return $this->tokenExpiry;
     }
 
     /**
-     * @return void
      * @throws RequestException
      */
     private function auth(): void
@@ -217,7 +183,7 @@ final class Auth
         $body = [
             'grant_type' => $this->grantType,
             'client_secret' => $this->clientSecret,
-            'client_id' => $this->clientId
+            'client_id' => $this->clientId,
         ];
 
         if ($this->scope) {
@@ -228,7 +194,7 @@ final class Auth
         if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
             $request = $request->withOptions([
                 'cert' => $this->mtlsCert,
-                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase],
             ]);
         }
         $response = $request->post($this->loginUrl, $body)->throw()->json();
@@ -242,8 +208,6 @@ final class Auth
     /**
      * Register new mTLS client
      *
-     * @param string $subjectDn
-     * @return array
      * @throws RequestException
      */
     public function registerClient(string $subjectDn): array
@@ -255,15 +219,14 @@ final class Auth
             'token_endpoint_auth_method' => 'tls_client_auth',
             'response_types' => ['access_token'],
             'company_key' => config('bankly')['company_key'],
-            'scope' => $this->scope
+            'scope' => $this->scope,
         ];
 
         return Http::asForm()
             ->withOptions([
                 'cert' => $this->mtlsCert,
-                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+                'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase],
             ])
             ->post(str_replace('token', 'register', $this->loginUrl), $body)->throw()->json();
     }
-
 }

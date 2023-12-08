@@ -5,11 +5,9 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\Types\Card\Address;
-use WeDevBr\Bankly\Types\Card\Card;
-use WeDevBr\Bankly\Types\Card\ChangeStatus;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
+use WeDevBr\Bankly\Types\Card\ChangeStatus;
 
 /**
  * ChangeStatusTest class
@@ -19,15 +17,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class ChangeStatusTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -57,17 +53,18 @@ class ChangeStatusTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
     /**
      * @return void
+     *
      * @throws RequestException
      */
     public function testSuccessChangedCardStatus()
     {
-        Http::fake($this->getFakerHttp("/cards/12345678/status", []));
+        Http::fake($this->getFakerHttp('/cards/12345678/status', []));
 
         $card = new BanklyCard();
         $card->changeStatus('12345678', $this->validStatus());

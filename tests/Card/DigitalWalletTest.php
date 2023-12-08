@@ -5,8 +5,8 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Wallet;
 
 /**
@@ -17,15 +17,13 @@ use WeDevBr\Bankly\Types\Card\Wallet;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class DigitalWalletTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,14 +41,14 @@ class DigitalWalletTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([
+            config('bankly')['api_url']."{$path}" => Http::response([
                 [
                     'data' => 'mkzjfhcnnhat84y583hguim49801mkzjfhcnnhat84y583hguim49801mkzjfhcnnhat84y583hguim49801mkzjfhcnnhat84y5',
                     'lastFourDigits' => '1534',
                     'phoneNumber' => '11999999999',
-                    'address' => []
-                ]
-            ], $statusCode)
+                    'address' => [],
+                ],
+            ], $statusCode),
         ];
     }
 
@@ -72,7 +70,7 @@ class DigitalWalletTest extends TestCase
      */
     public function testSuccessGenerateDigitalWallet()
     {
-        Http::fake($this->getFakerHttp("/cards-pci/12345678/wallet/GooglePay/brand/Mastercard", 200));
+        Http::fake($this->getFakerHttp('/cards-pci/12345678/wallet/GooglePay/brand/Mastercard', 200));
 
         $card = new BanklyCard();
         $card->digitalWallet($this->validWallet());

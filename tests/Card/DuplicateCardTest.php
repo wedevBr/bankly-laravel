@@ -4,10 +4,10 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
+use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Address;
 use WeDevBr\Bankly\Types\Card\Duplicate;
-use WeDevBr\Bankly\BanklyCard;
 
 /**
  * DuplicateCardTest class
@@ -17,15 +17,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class DuplicateCardTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -77,7 +75,7 @@ class DuplicateCardTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -86,7 +84,7 @@ class DuplicateCardTest extends TestCase
      */
     public function testSuccessDuplicateCard()
     {
-        Http::fake($this->getFakerHttp("/cards/2370021007715002820/duplicate", [
+        Http::fake($this->getFakerHttp('/cards/2370021007715002820/duplicate', [
             'proxy' => '2370021007715002820',
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
@@ -120,7 +118,7 @@ class DuplicateCardTest extends TestCase
      */
     public function testSuccessDuplicateCardWhitoutAddress()
     {
-        Http::fake($this->getFakerHttp("/cards/2370021007715002820/duplicate", [
+        Http::fake($this->getFakerHttp('/cards/2370021007715002820/duplicate', [
             'proxy' => '2370021007715002820',
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
@@ -154,7 +152,7 @@ class DuplicateCardTest extends TestCase
         $virtualCard->validate();
     }
 
-     /**
+    /**
      * @return void
      */
     public function testValidateDocumentNumber()

@@ -13,16 +13,13 @@ use WeDevBr\Bankly\Types\Pix\Payer;
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @copyright 2022 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PayerValidator
 {
-    /** @var Payer */
     private Payer $payer;
 
-    /**
-     * @param Payer $payer
-     */
     public function __construct(Payer $payer)
     {
         $this->payer = $payer;
@@ -30,8 +27,6 @@ class PayerValidator
 
     /**
      * Validate the attributes of the payer class
-     *
-     * @return void
      */
     public function validate(): void
     {
@@ -44,13 +39,12 @@ class PayerValidator
     /**
      * This validates the payer name
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateName(): void
     {
         $name = $this->payer->name;
-        if (empty($name) || !is_string($name)) {
+        if (empty($name) || ! is_string($name)) {
             throw new InvalidArgumentException('payer name should be a string');
         }
     }
@@ -58,13 +52,12 @@ class PayerValidator
     /**
      * This validates the document number
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateDocumentNumber(): void
     {
         $document = $this->payer->documentNumber;
-        if (empty($document) || !is_string($document) || !is_numeric($document)) {
+        if (empty($document) || ! is_string($document) || ! is_numeric($document)) {
             throw new InvalidArgumentException('payer document number should be a numeric string');
         }
     }
@@ -72,7 +65,6 @@ class PayerValidator
     /**
      * This validates the payer type
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateType(): void
@@ -80,9 +72,9 @@ class PayerValidator
         $type = $this->payer->type;
         $types = [
             'CUSTOMER',
-            'BUSINESS'
+            'BUSINESS',
         ];
-        if (empty($type) || !in_array($type, $types)) {
+        if (empty($type) || ! in_array($type, $types)) {
             throw new InvalidArgumentException('payer type is not valid');
         }
     }
@@ -90,12 +82,11 @@ class PayerValidator
     /**
      * This validates a payer address
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateAddress(): void
     {
-        if (!$this->payer->address instanceof Location) {
+        if (! $this->payer->address instanceof Location) {
             throw new InvalidArgumentException('payer address should be a Localtion type');
         }
 

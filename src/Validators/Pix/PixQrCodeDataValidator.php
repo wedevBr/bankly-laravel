@@ -14,16 +14,13 @@ use WeDevBr\Bankly\Validators\CpfCnpjValidator;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan Gonçalves <yanw100@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixQrCodeDataValidator
 {
-    /** @var PixQrCodeData */
     private PixQrCodeData $pixQrCodeData;
 
-    /**
-     * @param PixQrCodeData $pixQrCodeData
-     */
     public function __construct(PixQrCodeData $pixQrCodeData)
     {
         $this->pixQrCodeData = $pixQrCodeData;
@@ -31,8 +28,6 @@ class PixQrCodeDataValidator
 
     /**
      * Validate the attributes of Pix qr Code Data
-     *
-     * @return void
      */
     public function validate(): void
     {
@@ -43,13 +38,12 @@ class PixQrCodeDataValidator
     /**
      * This validates the encoded string
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateEncodedValue(): void
     {
         $encodedValue = $this->pixQrCodeData->encodedValue;
-        if (empty($encodedValue) || !is_string($encodedValue)) {
+        if (empty($encodedValue) || ! is_string($encodedValue)) {
             throw new InvalidArgumentException('encoded value should be a string');
         }
     }
@@ -57,13 +51,12 @@ class PixQrCodeDataValidator
     /**
      * This validates document number
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateDocumentNumber(): void
     {
         $documentNumber = $this->pixQrCodeData->documentNumber;
-        if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
+        if (empty($documentNumber) || ! is_string($documentNumber) || ! is_numeric($documentNumber)) {
             throw new InvalidArgumentException('document number should be a numeric string');
         }
 

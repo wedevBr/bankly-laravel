@@ -18,6 +18,7 @@ use WeDevBr\Bankly\Types\Billet\Payer;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class DepositBilletValidatorTest extends TestCase
