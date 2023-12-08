@@ -9,7 +9,7 @@ use WeDevBr\Bankly\Types\Card\Wallet;
 /**
  * WalletValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP 8.1|8.2|8.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
