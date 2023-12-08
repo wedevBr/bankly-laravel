@@ -46,7 +46,7 @@ class AddressingAccountValidator
      * @return void
      * @throws InvalidArgumentException
      */
-    private function validateBranch(): void
+    protected function validateBranch(): void
     {
         $branch = $this->addressingAccount->branch;
         if (empty($branch) || !is_string($branch) || !is_numeric($branch)) {
@@ -60,7 +60,7 @@ class AddressingAccountValidator
      * @return void
      * @throws InvalidArgumentException
      */
-    private function validateNumber(): void
+    protected function validateNumber(): void
     {
         $number = $this->addressingAccount->number;
         if (empty($number) || !is_string($number) || !is_numeric($number)) {

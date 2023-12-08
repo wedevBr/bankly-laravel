@@ -16,8 +16,10 @@ class Bank implements Arrayable
      */
     public function toArray(): array
     {
+
         $this->validate();
-        return (array) $this;
+        $array = (array) $this;
+        return array_filter($array);
     }
 
     /**
