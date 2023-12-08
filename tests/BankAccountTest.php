@@ -8,13 +8,13 @@
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Adeildo Amorim <adeildo@capitaldigitalaberto.com.br>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/cda-admin-backend-laravel/
  */
 
 namespace WeDevBr\Bankly\Tests;
 
 use WeDevBr\Bankly\BankAccount;
-
 
 class BankAccountTest extends TestCase
 {
@@ -25,6 +25,7 @@ class BankAccountTest extends TestCase
         $bankAccount->account = '1234552';
         $bankAccount->document = '01234567890';
         $bankAccount->name = 'Full name';
+
         return $bankAccount;
     }
 

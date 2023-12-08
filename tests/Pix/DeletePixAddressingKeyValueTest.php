@@ -16,6 +16,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class DeletePixAddressingKeyValueTest extends TestCase
@@ -33,7 +34,7 @@ class DeletePixAddressingKeyValueTest extends TestCase
     public function getFakerHttp(array $response, int $statusCode)
     {
         return [
-            config('bankly')['api_url'] . '/pix/entries/*' => Http::response($response, $statusCode)
+            config('bankly')['api_url'].'/pix/entries/*' => Http::response($response, $statusCode),
         ];
     }
 

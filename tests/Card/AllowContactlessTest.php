@@ -3,11 +3,10 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
  * AllowContactlessTest class
@@ -17,15 +16,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class AllowContactlessTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,7 +40,7 @@ class AllowContactlessTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([], $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response([], $statusCode),
         ];
     }
 
@@ -52,7 +49,7 @@ class AllowContactlessTest extends TestCase
      */
     public function testSuccessAllowContactless()
     {
-        Http::fake($this->getFakerHttp("/cards/12345678/contactless?allowContactless=false", 200));
+        Http::fake($this->getFakerHttp('/cards/12345678/contactless?allowContactless=false', 200));
 
         $card = new BanklyCard();
         $card->allowContactless('12345678', false);

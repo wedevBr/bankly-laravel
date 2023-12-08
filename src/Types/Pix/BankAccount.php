@@ -13,26 +13,22 @@ class BankAccount implements Arrayable
     /** @var Bank */
     public $bank;
 
-    /** @var string|null */
     public ?string $documentNumber;
 
-    /** @var string|null */
     public ?string $name;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 
     /**
      * This function validate the PixCashout type
-     *
-     * @return void
      */
     public function validate(): void
     {

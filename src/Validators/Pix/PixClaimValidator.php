@@ -2,7 +2,6 @@
 
 namespace WeDevBr\Bankly\Validators\Pix;
 
-use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 
 /**
@@ -13,16 +12,13 @@ use WeDevBr\Bankly\Types\Pix\AddressingAccount;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixClaimValidator extends AddressingAccountValidator
 {
-    /** @var AddressingAccount */
     private AddressingAccount $addressingAccount;
 
-    /**
-     * @param AddressingAccount $addressingAccount
-     */
     public function __construct(AddressingAccount $addressingAccount)
     {
         parent::__construct($addressingAccount);
@@ -30,8 +26,6 @@ class PixClaimValidator extends AddressingAccountValidator
 
     /**
      * Validate the attributes of the Addressing Account class
-     *
-     * @return void
      */
     public function validate(): void
     {

@@ -7,36 +7,26 @@ use WeDevBr\Bankly\Validators\Card\CardValidator;
 
 class Card extends \stdClass implements Arrayable
 {
-    /** @var string|null */
     public ?string $documentNumber;
 
-    /** @var string|null */
     public ?string $cardName;
 
-    /** @var string */
     public string $alias;
 
-    /** @var string */
     public string $bankAgency;
 
-    /** @var string */
     public string $bankAccount;
 
-    /** @var string|null */
     public ?string $programId = null;
 
-    /** @var string */
     public string $password;
 
-    /** @var Address|array */
     public Address|array $address;
 
-    /** @var string */
     public string $type;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {

@@ -7,38 +7,31 @@ use WeDevBr\Bankly\Validators\Pix\PixCashoutKeyValidator;
 
 class PixCashoutKey implements PixCashoutInterface
 {
-    /** @var string */
     public string $amount;
 
-    /** @var string */
     public string $description;
 
-    /** @var mixed */
     public mixed $sender;
 
     /**
      * [Manual, Key, StaticQrCode, DynamicQrCode]
-     * @var string|null
      */
     public ?string $initializationType = 'Key';
 
-    /** @var string|null */
     public ?string $endToEndId;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return json_decode(json_encode($this), true);
     }
 
     /**
      * This function validate the PixCashoutKeyValidator type
-     *
-     * @return void
      */
     public function validate(): void
     {

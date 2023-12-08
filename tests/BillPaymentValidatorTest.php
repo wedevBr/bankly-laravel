@@ -13,6 +13,7 @@ use WeDevBr\Bankly\BillPayment;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class BillPaymentValidatorTest extends TestCase
@@ -27,6 +28,7 @@ class BillPaymentValidatorTest extends TestCase
         $billPayment->bankAccount = '1122334455';
         $billPayment->amount = '466.99';
         $billPayment->id = 'AAA111BBB222CCC333DDD444';
+
         return $billPayment;
     }
 

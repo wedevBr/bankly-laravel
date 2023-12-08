@@ -3,11 +3,9 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Password;
 
 /**
@@ -18,15 +16,13 @@ use WeDevBr\Bankly\Types\Card\Password;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class CardSecurityDataTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -44,11 +40,11 @@ class CardSecurityDataTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([
+            config('bankly')['api_url']."{$path}" => Http::response([
                 'cardNumber' => '000000000000000',
                 'cvv' => '000',
                 'expirationDate' => '05/09',
-            ], $statusCode)
+            ], $statusCode),
         ];
     }
 
@@ -81,10 +77,10 @@ class CardSecurityDataTest extends TestCase
     {
         $client = $this->getBanklyClient();
 
-        Http::fake($this->getFakerHttp("/cards/2370021007715002820/pci", 200));
+        Http::fake($this->getFakerHttp('/cards/2370021007715002820/pci', 200));
 
         $card = new BanklyCard();
-        $response = $card->pciData("2370021007715002820", $this->validPassword());
+        $response = $card->pciData('2370021007715002820', $this->validPassword());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             $body = collect($request->data());

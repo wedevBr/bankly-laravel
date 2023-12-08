@@ -3,11 +3,10 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
  * NextStatusTest class
@@ -17,15 +16,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class NextStatusTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,20 +40,20 @@ class NextStatusTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([
+            config('bankly')['api_url']."{$path}" => Http::response([
                 [
-                    "value" => "Active",
-                    "isDefinitive" => false,
+                    'value' => 'Active',
+                    'isDefinitive' => false,
                 ],
                 [
-                    "value" => "LostOrTheftCanceled",
-                    "isDefinitive" => true,
+                    'value' => 'LostOrTheftCanceled',
+                    'isDefinitive' => true,
                 ],
                 [
-                    "value" => "CanceledByCustomer",
-                    "isDefinitive" => true,
-                ]
-            ], $statusCode)
+                    'value' => 'CanceledByCustomer',
+                    'isDefinitive' => true,
+                ],
+            ], $statusCode),
         ];
     }
 
@@ -65,7 +62,7 @@ class NextStatusTest extends TestCase
      */
     public function testSuccessNextStatus()
     {
-        Http::fake($this->getFakerHttp("/cards/12345678/nextStatus", 200));
+        Http::fake($this->getFakerHttp('/cards/12345678/nextStatus', 200));
 
         $card = new BanklyCard();
         $response = $card->nextStatus('12345678');

@@ -8,17 +8,17 @@ use WeDevBr\Bankly\Validators\Pix\PixClaimValidator;
 
 class Claimer implements Arrayable
 {
-    /** @var AddressingAccount */
     public ?AddressingAccount $addressingAccount;
 
     public Bank $bank;
+
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return [
             'branch' => $this->addressingAccount?->branch,
             'number' => $this->addressingAccount?->number,
@@ -34,7 +34,7 @@ class Claimer implements Arrayable
         $bankValidator = new BankValidator($this->bank);
         $bankValidator->validate();
 
-        if(!empty($this->addressingAccount)) {
+        if (! empty($this->addressingAccount)) {
             $pixClaimValidator = new PixClaimValidator($this->addressingAccount);
             $pixClaimValidator->validate();
         }

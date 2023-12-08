@@ -13,16 +13,13 @@ use WeDevBr\Bankly\Types\Billet\Interest;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class InterestValidator
 {
-    /** @var Interest */
     private Interest $interest;
 
-    /**
-     * @param Interest $interest
-     */
     public function __construct(Interest $interest)
     {
         $this->interest = $interest;
@@ -30,8 +27,6 @@ class InterestValidator
 
     /**
      * Validate the attributes of the interest class
-     *
-     * @return void
      */
     public function validate(): void
     {
@@ -43,7 +38,6 @@ class InterestValidator
     /**
      * This validates the start date
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateStartDate(): void
@@ -51,7 +45,7 @@ class InterestValidator
         $startDate = $this->interest->startDate;
         try {
             $date = now()->createFromFormat('Y-m-d', $startDate);
-            if (!$date->gt(now())) {
+            if (! $date->gt(now())) {
                 throw new InvalidArgumentException('start date must be greater than the current date');
             }
         } catch (\Throwable $th) {
@@ -62,13 +56,12 @@ class InterestValidator
     /**
      * This validates the value
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateValue(): void
     {
         $value = $this->interest->value;
-        if (empty($value) || !is_string($value) || !is_numeric($value) || $value <= 0) {
+        if (empty($value) || ! is_string($value) || ! is_numeric($value) || $value <= 0) {
             throw new InvalidArgumentException('value should be a numeric string and greater than zero');
         }
     }
@@ -76,13 +69,12 @@ class InterestValidator
     /**
      * This validates a type
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateType(): void
     {
         $type = $this->interest->type;
-        if (empty($type) || !is_string($type)) {
+        if (empty($type) || ! is_string($type)) {
             throw new InvalidArgumentException('type should be a string');
         }
 
@@ -93,9 +85,9 @@ class InterestValidator
             'AmountPerBusinessDay',
             'PercentPerBusinessDay',
             'PercentPerMonthBusinessDay',
-            'PercentPerYearBusinessDay'
+            'PercentPerYearBusinessDay',
         ];
-        if (!in_array($type, $types)) {
+        if (! in_array($type, $types)) {
             throw new InvalidArgumentException('this type is not valid');
         }
     }

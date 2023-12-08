@@ -16,6 +16,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class GetDocumentAnalysisTest extends TestCase
@@ -35,9 +36,9 @@ class GetDocumentAnalysisTest extends TestCase
         return [
             config('bankly')['login_url'] => Http::response([
                 'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
+                'expires_in' => 3600,
             ], 200),
-            config('bankly')['api_url'] . '/*' => Http::response([
+            config('bankly')['api_url'].'/*' => Http::response([
                 'token' => $this->faker->uuid,
                 'documentType' => 'RG',
                 'documentSide' => 'FRONT',
@@ -46,8 +47,8 @@ class GetDocumentAnalysisTest extends TestCase
                 'faceDetails' => [],
                 'documentDetails' => [],
                 'liveness' => [],
-                'analyzedAt' => '2021-02-24T17:00:07.614Z'
-            ], 202)
+                'analyzedAt' => '2021-02-24T17:00:07.614Z',
+            ], 202),
         ];
     }
 

@@ -4,9 +4,9 @@ namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
+use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Activate;
-use WeDevBr\Bankly\BanklyCard;
 
 /**
  * ActivateCardTest class
@@ -16,15 +16,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class ActivateCardTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -54,7 +52,7 @@ class ActivateCardTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -63,7 +61,7 @@ class ActivateCardTest extends TestCase
      */
     public function testSuccessActivateCard()
     {
-        Http::fake($this->getFakerHttp("/cards/2370021007715002820/activate", [], 200));
+        Http::fake($this->getFakerHttp('/cards/2370021007715002820/activate', [], 200));
 
         $card = new BanklyCard();
         $response = $card->activate('2370021007715002820', $this->validActivateCard());

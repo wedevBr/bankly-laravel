@@ -14,42 +14,22 @@ use WeDevBr\Bankly\Inputs\CustomerPhone;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 interface CustomerInterface extends Arrayable
 {
-    /**
-     * @return string
-     */
     public function getRegisterName(): string;
 
-    /**
-     * @return string
-     */
     public function getSocialName(): string;
 
-    /**
-     * @return CustomerPhone
-     */
     public function getPhone(): CustomerPhone;
 
-    /**
-     * @return CustomerAddress
-     */
     public function getAddress(): CustomerAddress;
 
-    /**
-     * @return string
-     */
     public function getBirthDate(): string;
 
-    /**
-     * @return string
-     */
     public function getMotherName(): string;
 
-    /**
-     * @return string
-     */
     public function getEmail(): string;
 }

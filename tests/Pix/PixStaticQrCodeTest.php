@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
-use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 use WeDevBr\Bankly\Types\Pix\Location;
+use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
 
 /**
  * PixStaticQrCodeTest class
@@ -17,15 +17,13 @@ use WeDevBr\Bankly\Types\Pix\Location;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Yan de Paula <yanw100@gmail@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class PixStaticQrCodeTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -80,7 +78,7 @@ class PixStaticQrCodeTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -89,9 +87,9 @@ class PixStaticQrCodeTest extends TestCase
      */
     public function testSuccessStaticQrCode()
     {
-        $encoded = "MDAwMjAxMjYzMzAwMTRici5nb3YuYmNiLnBpeDAxMTE1NjUyNzkzODIxNzUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwN";
+        $encoded = 'MDAwMjAxMjYzMzAwMTRici5nb3YuYmNiLnBpeDAxMTE1NjUyNzkzODIxNzUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwN';
 
-        Http::fake($this->getFakerHttp("/pix/qrcodes/static/transfer", [
+        Http::fake($this->getFakerHttp('/pix/qrcodes/static/transfer', [
             'encodedValue' => $encoded,
         ], 200));
 

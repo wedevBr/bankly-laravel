@@ -13,19 +13,17 @@ class Payer implements Arrayable
     /** @var ?string */
     public ?string $documentNumber;
 
-    /** @var string */
     public string $type;
 
-    /** @var Location */
     public Location $address;
 
     /**
      * This validates and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

@@ -7,25 +7,21 @@ use WeDevBr\Bankly\Validators\Billet\AddressValidator;
 
 class Address implements Arrayable
 {
-    /** @var string|null */
     public ?string $addressLine;
 
-    /** @var string|null */
     public ?string $city;
 
-    /** @var string|null */
     public ?string $state;
 
-    /** @var string|null */
     public ?string $zipCode;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

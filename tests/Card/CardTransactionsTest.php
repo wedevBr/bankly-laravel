@@ -6,8 +6,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
  * CardTransactionsTest class
@@ -17,15 +17,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class CardTransactionsTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,7 +41,7 @@ class CardTransactionsTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([
+            config('bankly')['api_url']."{$path}" => Http::response([
                 'companyKey' => 'SDB_WEDEV',
                 'nextPage' => 'mkzjfhcnnhat84y583hguim49801',
                 'hasLastPage' => false,
@@ -75,7 +73,7 @@ class CardTransactionsTest extends TestCase
                         'transactionType' => 'Unknown',
                     ],
                 ],
-            ], $statusCode)
+            ], $statusCode),
         ];
     }
 
@@ -84,7 +82,7 @@ class CardTransactionsTest extends TestCase
      */
     public function testSuccessGetCardTransactions()
     {
-        Http::fake($this->getFakerHttp("/cards/1234567890/*", 200));
+        Http::fake($this->getFakerHttp('/cards/1234567890/*', 200));
 
         $card = new BanklyCard();
         $response = $card->transactions(
@@ -114,7 +112,7 @@ class CardTransactionsTest extends TestCase
      */
     public function testReturnBadRequest()
     {
-        Http::fake($this->getFakerHttp("/cards/1234567890/*", 400));
+        Http::fake($this->getFakerHttp('/cards/1234567890/*', 400));
 
         $this->expectException(RequestException::class);
 

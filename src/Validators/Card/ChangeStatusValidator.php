@@ -3,8 +3,8 @@
 namespace WeDevBr\Bankly\Validators\Card;
 
 use InvalidArgumentException;
-use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
+use WeDevBr\Bankly\Types\Card\Password;
 
 /**
  * ChangeStatusValidator class
@@ -14,6 +14,7 @@ use WeDevBr\Bankly\Types\Card\ChangeStatus;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class ChangeStatusValidator
@@ -25,8 +26,6 @@ class ChangeStatusValidator
      * - CanceledByCustomer
      * - TemporarilyUserLocked
      * - Active
-     *
-     * @var array
      */
     protected array $statuses = [
         'Building', //Cartão encontra-se em construção, não está pronto para uso;
@@ -55,14 +54,10 @@ class ChangeStatusValidator
         'CardCanceledByAccount', //Cancelado após a conta ser cancelada;
     ];
 
-    /**
-     * @var ChangeStatus
-     */
     private ChangeStatus $changeStatus;
 
     /**
      * ChangeStatusValidator constructor.
-     * @param ChangeStatus $changeStatus
      */
     public function __construct(ChangeStatus $changeStatus)
     {
@@ -79,9 +74,6 @@ class ChangeStatusValidator
         $this->updateCardBinded();
     }
 
-    /**
-     * @return void
-     */
     public function password(): void
     {
         $password = new Password();
@@ -90,29 +82,27 @@ class ChangeStatusValidator
     }
 
     /**
-     * @return void
      * @throws InvalidArgumentException
      */
     public function status(): void
     {
         $status = $this->changeStatus->status;
-        if (empty($status) || !is_string($status)) {
+        if (empty($status) || ! is_string($status)) {
             throw new InvalidArgumentException('status should be a string');
         }
 
-        if (!in_array($status, $this->statuses)) {
+        if (! in_array($status, $this->statuses)) {
             throw new InvalidArgumentException('this status is not valid');
         }
     }
 
     /**
-     * @return void
      * @throws InvalidArgumentException
      */
     public function updateCardBinded(): void
     {
         $updateCardBinded = $this->changeStatus->updateCardBinded;
-        if (!is_bool($updateCardBinded)) {
+        if (! is_bool($updateCardBinded)) {
             throw new InvalidArgumentException('update card binded should be a boolean');
         }
     }
