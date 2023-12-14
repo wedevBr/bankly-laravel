@@ -15,6 +15,7 @@ use WeDevBr\Bankly\BanklyServiceProvider;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class GetPixAddressingKeysTest extends TestCase
@@ -32,7 +33,7 @@ class GetPixAddressingKeysTest extends TestCase
     public function getFakerHttp(array $response, int $statusCode)
     {
         return [
-            config('bankly')['api_url'] . '/accounts/*' => Http::response($response, $statusCode)
+            config('bankly')['api_url'].'/accounts/*' => Http::response($response, $statusCode),
         ];
     }
 
@@ -45,7 +46,7 @@ class GetPixAddressingKeysTest extends TestCase
             [
                 'type' => 'CPF',
                 'value' => '12345678909',
-            ]
+            ],
         ], 200));
 
         $client = $this->getBanklyClient();
@@ -58,7 +59,7 @@ class GetPixAddressingKeysTest extends TestCase
         $this->assertEquals([
             [
                 'type' => 'CPF',
-                'value' => '12345678909'
+                'value' => '12345678909',
             ],
         ], $response);
     }

@@ -5,8 +5,8 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Card\Password;
 
 /**
@@ -17,15 +17,13 @@ use WeDevBr\Bankly\Types\Card\Password;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class ChangePasswordTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,7 +41,7 @@ class ChangePasswordTest extends TestCase
     public function getFakerHttp(string $path, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([], $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response([], $statusCode),
         ];
     }
 
@@ -63,7 +61,7 @@ class ChangePasswordTest extends TestCase
      */
     public function testSuccessChangePassword()
     {
-        Http::fake($this->getFakerHttp("/cards/12345678/password", 200));
+        Http::fake($this->getFakerHttp('/cards/12345678/password', 200));
 
         $card = new BanklyCard();
         $card->changePassword('12345678', $this->validPassword());

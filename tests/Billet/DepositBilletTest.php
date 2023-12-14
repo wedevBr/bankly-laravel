@@ -3,9 +3,8 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
-use ReflectionProperty;
+use Illuminate\Support\Str;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Billet\Address;
@@ -21,6 +20,7 @@ use WeDevBr\Bankly\Types\Billet\Payer;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class DepositBilletTest extends TestCase
@@ -28,7 +28,7 @@ class DepositBilletTest extends TestCase
     use WithFaker;
 
     /**
-     * @param object $app
+     * @param  object  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -77,9 +77,9 @@ class DepositBilletTest extends TestCase
         return [
             config('bankly')['login_url'] => Http::response([
                 'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
+                'expires_in' => 3600,
             ], 200),
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -93,7 +93,7 @@ class DepositBilletTest extends TestCase
                 'number' => 'string',
                 'branch' => 'string',
             ],
-            'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+            'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         ], 202));
 
         $client = $this->getBanklyClient();
@@ -227,7 +227,7 @@ class DepositBilletTest extends TestCase
                 'recipientFinal' => [],
                 'recipientOrigin' => [],
                 'payments' => [],
-            ]
+            ],
         ], 202));
 
         $datetime = now()->toDateTimeString();

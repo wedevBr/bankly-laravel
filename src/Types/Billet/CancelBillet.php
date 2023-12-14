@@ -7,19 +7,17 @@ use WeDevBr\Bankly\Validators\Billet\CancelBilletValidator;
 
 class CancelBillet implements Arrayable
 {
-    /** @var string */
     public string $authenticationCode;
 
-    /** @var BankAccount */
     public BankAccount $account;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return json_decode(json_encode($this), true);
     }
 

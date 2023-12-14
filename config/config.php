@@ -9,5 +9,5 @@ return [
     'client_secret' => env('BANKLY_CLIENT_SECRET', null), // Your client secret provided by bankly staff
     'client_id' => env('BANKLY_CLIENT_ID', null), // Your client ID provided by bankly staff
     'company_key' => env('BANKLY_COMPANY_KEY', null), // Your company key provided by bankly staff
-    'scope' =>  env('BANKLY_TOKEN_SCOPE', []) // Array or string of scopes
+    'scope' => env('BANKLY_TOKEN_SCOPE', []), // Array or string of scopes
 ];

@@ -13,6 +13,7 @@ use WeDevBr\Bankly\Types\Card\Address;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class AddressValidatorTest extends TestCase

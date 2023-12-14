@@ -8,21 +8,18 @@ use WeDevBr\Bankly\Types\Pix\BankAccount;
 /**
  * BankAccountValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP 8.1|8.2|8.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class BankAccountValidator
 {
-    /** @var BankAccount */
     private BankAccount $bankAccount;
 
-    /**
-     * @param BankAccount $bankAccount
-     */
     public function __construct(BankAccount $bankAccount)
     {
         $this->bankAccount = $bankAccount;
@@ -30,8 +27,6 @@ class BankAccountValidator
 
     /**
      * Validate the attributes of the bank account class
-     *
-     * @return void
      */
     public function validate(): void
     {
@@ -44,7 +39,6 @@ class BankAccountValidator
     /**
      * This validates a account
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateAccount(): void
@@ -55,7 +49,6 @@ class BankAccountValidator
     /**
      * This validates a bank
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateBank(): void
@@ -66,13 +59,12 @@ class BankAccountValidator
     /**
      * This validates a document number
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateDocumentNumber(): void
     {
         $documentNumber = $this->bankAccount->documentNumber;
-        if (empty($documentNumber) || !is_string($documentNumber) || !is_numeric($documentNumber)) {
+        if (empty($documentNumber) || ! is_string($documentNumber) || ! is_numeric($documentNumber)) {
             throw new InvalidArgumentException('document number should be a numeric string');
         }
     }
@@ -80,13 +72,12 @@ class BankAccountValidator
     /**
      * This validates a name
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateName(): void
     {
         $name = $this->bankAccount->name;
-        if (empty($name) || !is_string($name)) {
+        if (empty($name) || ! is_string($name)) {
             throw new InvalidArgumentException('name should be a string');
         }
     }

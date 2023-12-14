@@ -17,6 +17,7 @@ use WeDevBr\Bankly\Types\Card\Card;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class CardTest extends TestCase
@@ -71,7 +72,7 @@ class CardTest extends TestCase
     public function getFakerHttp(string $path, array $response, int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -82,7 +83,7 @@ class CardTest extends TestCase
     {
         $client = new BanklyCard();
 
-        Http::fake($this->getFakerHttp("/cards/virtual", [
+        Http::fake($this->getFakerHttp('/cards/virtual', [
             'proxy' => '2370021007715002820',
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
@@ -121,7 +122,7 @@ class CardTest extends TestCase
     {
         $client = new BanklyCard();
 
-        Http::fake($this->getFakerHttp("/cards/physical", [
+        Http::fake($this->getFakerHttp('/cards/physical', [
             'proxy' => '2370021007715002820',
             'activateCode' => 'A0DDDC0951D1',
         ], 202));

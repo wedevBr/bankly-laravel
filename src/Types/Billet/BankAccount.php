@@ -7,19 +7,17 @@ use WeDevBr\Bankly\Validators\Billet\BankAccountValidator;
 
 class BankAccount implements Arrayable
 {
-    /** @var string|null */
     public ?string $branch;
 
-    /** @var string|null */
     public ?string $number;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

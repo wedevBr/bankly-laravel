@@ -14,20 +14,21 @@ use InvalidArgumentException;
  *
  * @author Luiz Otávio Miranda <contato@tutsup.com>
  * @author Adeildo Amorim <adeildo@wedev.software>
+ *
  * @version  v1.3
- * @access   public
+ *
  * @see      http://www.tutsup.com/
  */
-
 class CpfCnpjValidator
 {
     private $document;
+
     /**
      * Configura o valor (Construtor)
      *
      * Remove caracteres inválidos do CPF ou CNPJ
      *
-     * @param string $document
+     * @param  string  $document
      */
     public function __construct($document = null)
     {
@@ -43,8 +44,6 @@ class CpfCnpjValidator
      *
      * Se for CPF tem 11 caracteres, CNPJ tem 14
      *
-     * @access protected
-     * @return string
      * @throws InvalidArgumentException;
      */
     protected function verifyCpfCnpj(): string
@@ -61,10 +60,9 @@ class CpfCnpjValidator
     /**
      * Multiplica dígitos vezes posições
      *
-     * @access protected
-     * @param string $digitos      Os digitos desejados
-     * @param int $posicoes     A posição que vai iniciar a regressão
-     * @param  int       $soma_digitos A soma das multiplicações entre posições e dígitos
+     * @param  string  $digitos      Os digitos desejados
+     * @param  int  $posicoes     A posição que vai iniciar a regressão
+     * @param  int  $soma_digitos A soma das multiplicações entre posições e dígitos
      * @return int                     Os dígitos enviados concatenados com o último dígito
      */
     protected function calcPositionDigits(string $digitos, int $posicoes = 10, int $soma_digitos = 0): int
@@ -107,14 +105,14 @@ class CpfCnpjValidator
         // Concatena mais um dígito aos primeiro nove dígitos
         // Ex.: 025462884 + 2 = 0254628842
         // Retorna
-        return $digitos . $soma_digitos;
+        return $digitos.$soma_digitos;
     }
 
     /**
      * Valida CPF
      *
      * @author                Luiz Otávio Miranda <contato@tutsup.com>
-     * @access protected
+     *
      * @return bool           True para CPF correto - False para CPF incorreto
      */
     protected function validateCpf(): bool
@@ -137,7 +135,7 @@ class CpfCnpjValidator
      * Valida CNPJ
      *
      * @author                  Luiz Otávio Miranda <contato@tutsup.com>
-     * @access protected
+     *
      * @return bool             true para CNPJ correto
      */
     protected function validateCnpj(): bool
@@ -166,7 +164,6 @@ class CpfCnpjValidator
      *
      * Valida o CPF ou CNPJ
      *
-     * @access public
      * @return bool      True para válido, false para inválido
      */
     public function validate(): bool
@@ -187,7 +184,6 @@ class CpfCnpjValidator
     /**
      * Formata CPF ou CNPJ
      *
-     * @access public
      * @return string  CPF ou CNPJ formatado
      */
     public function format(): string
@@ -201,20 +197,20 @@ class CpfCnpjValidator
             // Verifica se o CPF é válido
             if ($this->validateCpf()) {
                 // Formata o CPF ###.###.###-##
-                $formatado  = substr($this->document, 0, 3) . '.';
-                $formatado .= substr($this->document, 3, 3) . '.';
-                $formatado .= substr($this->document, 6, 3) . '-';
-                $formatado .= substr($this->document, 9, 2) . '';
+                $formatado = substr($this->document, 0, 3).'.';
+                $formatado .= substr($this->document, 3, 3).'.';
+                $formatado .= substr($this->document, 6, 3).'-';
+                $formatado .= substr($this->document, 9, 2).'';
             }
         } elseif ($validation === 'CNPJ') { // Valida CNPJ
             // Verifica se o CPF é válido
             if ($this->validateCnpj()) {
                 // Formata o CNPJ ##.###.###/####-##
-                $formatado  = substr($this->document, 0, 2) . '.';
-                $formatado .= substr($this->document, 2, 3) . '.';
-                $formatado .= substr($this->document, 5, 3) . '/';
-                $formatado .= substr($this->document, 8, 4) . '-';
-                $formatado .= substr($this->document, 12, 14) . '';
+                $formatado = substr($this->document, 0, 2).'.';
+                $formatado .= substr($this->document, 2, 3).'.';
+                $formatado .= substr($this->document, 5, 3).'/';
+                $formatado .= substr($this->document, 8, 4).'-';
+                $formatado .= substr($this->document, 12, 14).'';
             }
         }
 
@@ -224,8 +220,8 @@ class CpfCnpjValidator
 
     /**
      * Método para verifica sequencia de números
-     * @param integer $multiplos Quantos números devem ser verificados
-     * @return boolean
+     *
+     * @param  int  $multiplos Quantos números devem ser verificados
      */
     public function verifySort(int $multiplos): bool
     {

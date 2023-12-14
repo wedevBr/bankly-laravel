@@ -7,18 +7,14 @@ use WeDevBr\Bankly\Validators\Card\WalletValidator;
 
 class Wallet extends \stdClass implements Arrayable
 {
-    /** @var string|null */
     public ?string $proxy;
 
-    /** @var string|null */
     public ?string $wallet;
 
-    /** @var string|null */
     public ?string $brand;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {

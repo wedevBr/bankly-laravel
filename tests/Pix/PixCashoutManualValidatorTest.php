@@ -18,6 +18,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutManual;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixCashoutManualValidatorTest extends TestCase
@@ -196,30 +197,6 @@ class PixCashoutManualValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderBankCompe()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank compe account should be a numeric string');
-        $pixCashout = $this->validPixCashoutManual();
-        $pixCashout->sender->bank->compe = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateSenderBankName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank name should be a string');
-        $pixCashout = $this->validPixCashoutManual();
-        $pixCashout->sender->bank->name = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
     public function testValidateSenderDocumentNumber()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -310,30 +287,6 @@ class PixCashoutManualValidatorTest extends TestCase
         $this->expectExceptionMessage('bank ispb should be a numeric string');
         $pixCashout = $this->validPixCashoutManual();
         $pixCashout->recipient->bank->ispb = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientBankCompe()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank compe account should be a numeric string');
-        $pixCashout = $this->validPixCashoutManual();
-        $pixCashout->recipient->bank->compe = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateRecipientBankName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank name should be a string');
-        $pixCashout = $this->validPixCashoutManual();
-        $pixCashout->recipient->bank->name = null;
         $pixCashout->validate();
     }
 

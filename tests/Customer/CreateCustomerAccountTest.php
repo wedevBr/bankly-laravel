@@ -4,11 +4,10 @@ namespace WeDevBr\Bankly\Tests\Customer;
 
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
-use TypeError;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
-use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 use WeDevBr\Bankly\Tests\TestCase;
+use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 
 /**
  * CreateCustomerAccountTest class
@@ -18,6 +17,7 @@ use WeDevBr\Bankly\Tests\TestCase;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class CreateCustomerAccountTest extends TestCase
@@ -35,7 +35,7 @@ class CreateCustomerAccountTest extends TestCase
     public function getFakerHttp(string $path)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([
+            config('bankly')['api_url']."{$path}" => Http::response([
                 'balance' => [
                     'inProcess' => [
                         'amount' => 0.0,
@@ -53,7 +53,7 @@ class CreateCustomerAccountTest extends TestCase
                 'status' => 'ACTIVE',
                 'branch' => '0001',
                 'number' => '215139',
-            ], 201)
+            ], 201),
         ];
     }
 
@@ -62,7 +62,7 @@ class CreateCustomerAccountTest extends TestCase
      */
     public function testSuccessCreateCustomerAccount()
     {
-        Http::fake($this->getFakerHttp("/customers/12345678909/accounts"));
+        Http::fake($this->getFakerHttp('/customers/12345678909/accounts'));
 
         $paymentAccount = new PaymentAccount();
         $paymentAccount->accountType = 'PAYMENT_ACCOUNT';

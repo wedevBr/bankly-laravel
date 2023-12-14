@@ -7,22 +7,19 @@ use WeDevBr\Bankly\Validators\Billet\DiscountsValidator;
 
 class Discounts implements Arrayable
 {
-    /** @var string */
     public string $limitDate;
 
-    /** @var string */
     public string $value;
 
-    /** @var string */
     public string $type;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return (array) $this;
     }
 

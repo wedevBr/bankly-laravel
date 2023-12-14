@@ -7,12 +7,10 @@ use WeDevBr\Bankly\Validators\Customer\PaymentAccountValidator;
 
 class PaymentAccount extends \stdClass implements Arrayable
 {
-    /** @var string */
     public string $accountType;
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
