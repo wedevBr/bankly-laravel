@@ -32,11 +32,9 @@ class BanklyCard
         $this->mtlsPassphrase = $mtlsPassphrase;
     }
 
-
     /**
      * Create a new virtual card
      *
-     * @param Card $virtualCard
      * @return mixed|mixed
      *
      * @throws RequestException
@@ -49,8 +47,6 @@ class BanklyCard
     /**
      * Create a new physical card
      *
-     * @param Card $physicalCard
-     * @return mixed
      *
      * @throws RequestException
      */
