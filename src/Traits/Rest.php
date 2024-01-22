@@ -22,12 +22,6 @@ trait Rest
 
     protected string $apiVersion = '1';
 
-    protected ?string $mtlsCert = null;
-
-    protected mixed $mtlsKey = null;
-
-    protected ?string $mtlsPassphrase = null;
-
     private ?string $token = null;
 
     public function setApiUrl(string $apiUrl): self

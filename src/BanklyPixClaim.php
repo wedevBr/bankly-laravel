@@ -3,11 +3,13 @@
 namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Enums\Pix\CancelReasonEnum;
+use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Pix\PixClaim;
 
 class BanklyPixClaim
 {
+    use Mtls;
     use Rest;
 
     public function __construct(?string $mtlsPassphrase = null)
@@ -15,36 +17,6 @@ class BanklyPixClaim
         $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
         $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
         $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
-    }
-
-    /**
-     * Set the cert.crt file path
-     */
-    public function setCertPath(string $path): self
-    {
-        $this->mtlsCert = $path;
-
-        return $this;
-    }
-
-    /**
-     * Set the cert.pem file path
-     */
-    public function setKeyPath(string $path): self
-    {
-        $this->mtlsKey = $path;
-
-        return $this;
-    }
-
-    /**
-     * @return $this
-     */
-    public function setPassphrase(string $passphrase)
-    {
-        $this->mtlsPassphrase = $passphrase;
-
-        return $this;
     }
 
     /**
