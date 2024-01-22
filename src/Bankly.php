@@ -10,12 +10,9 @@ use TypeError;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Inputs\BusinessCustomer;
-use WeDevBr\Bankly\Inputs\Customer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
-use WeDevBr\Bankly\Types\Billet\CancelBillet;
-use WeDevBr\Bankly\Types\Billet\DepositBillet;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
 use WeDevBr\Bankly\Types\Pix\PixDynamicQrCode;
 use WeDevBr\Bankly\Types\Pix\PixEntries;
@@ -767,22 +764,6 @@ class Bankly
     public function updateCustomerLimits(string $documentNumber, array $data): array
     {
         return $this->put('/holders/'.$documentNumber.'/max-limits', $data);
-    }
-
-    /**
-     * Simulate a bill settlement. Works only in sandbox
-     *
-     * @throws RequestException
-     */
-    public function billSettlementSimulate(BankAccount $bankAccount, string $txid): array
-    {
-        return $this->post('/bankslip/settlementpayment', [
-            'authenticationCode' => $txid,
-            'account' => [
-                'number' => $bankAccount->account,
-                'branch' => $bankAccount->branch,
-            ],
-        ]);
     }
 
     /**
