@@ -79,4 +79,20 @@ class BanklyBillet
         return $this->delete('/bankslip/cancel', $cancelBillet->toArray());
     }
 
+    /**
+     * Simulate a bill settlement. Works only in sandbox
+     *
+     * @throws RequestException
+     */
+    public function billSettlementSimulate(BankAccount $bankAccount, string $txid): array
+    {
+        return $this->post('/bankslip/settlementpayment', [
+            'authenticationCode' => $txid,
+            'account' => [
+                'number' => $bankAccount->account,
+                'branch' => $bankAccount->branch,
+            ],
+        ]);
+    }
+
 }

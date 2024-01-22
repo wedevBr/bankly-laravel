@@ -8,6 +8,7 @@ use ReflectionException;
 use ReflectionProperty;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Bankly;
+use WeDevBr\Bankly\BanklyBillet;
 
 /**
  * TestCase class
@@ -51,5 +52,17 @@ abstract class TestCase extends TestbenchTestCase
 
         $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
+    }
+
+    public function getBilletClient(): BanklyBillet
+    {
+        $client = new BanklyBillet();
+        $auth = Auth::login();
+        $token = new \ReflectionProperty($auth, 'token');
+        $token->setValue($auth, $this->faker->uuid);
+
+        $tokenExpiry = new \ReflectionProperty($auth, 'tokenExpiry');
+        $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
+        return $client;
     }
 }

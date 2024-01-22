@@ -2,6 +2,11 @@
 
 namespace WeDevBr\Bankly\Traits;
 
+use WeDevBr\Bankly\BanklyBillet;
+use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyPixClaim;
+use WeDevBr\Bankly\BanklyTOTP;
+
 trait Mtls
 {
     protected ?string $mtlsCert = null;
@@ -22,6 +27,9 @@ trait Mtls
 
     /**
      * Set the cert.pem file path
+     *
+     * @param string $path
+     * @return BanklyBillet|BanklyCard|BanklyPixClaim|BanklyTOTP|Mtls
      */
     public function setKeyPath(string $path): self
     {
@@ -31,7 +39,8 @@ trait Mtls
     }
 
     /**
-     * @return $this
+     * @param string $passphrase
+     * @return BanklyBillet|BanklyCard|BanklyPixClaim|BanklyTOTP|Mtls
      */
     public function setPassphrase(string $passphrase): self
     {
