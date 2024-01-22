@@ -588,64 +588,6 @@ class Bankly
     }
 
     /**
-     * @return array|mixed
-     *
-     * @throws RequestException
-     */
-    public function depositBillet(DepositBillet $depositBillet): mixed
-    {
-        return $this->post('/bankslip', $depositBillet->toArray(), null, true);
-    }
-
-    /**
-     * @throws RequestException
-     */
-    public function printBillet(string $authenticationCode): mixed
-    {
-        return $this->get("/bankslip/{$authenticationCode}/pdf", null, null, false);
-    }
-
-    /**
-     * @return array|mixed
-     *
-     * @throws RequestException
-     */
-    public function getBillet(string $branch, string $accountNumber, string $authenticationCode): mixed
-    {
-        return $this->get("/bankslip/branch/{$branch}/number/{$accountNumber}/{$authenticationCode}");
-    }
-
-    /**
-     * @return array|mixed
-     *
-     * @throws RequestException
-     */
-    public function getBilletByDate(string $datetime): mixed
-    {
-        return $this->get("/bankslip/searchstatus/{$datetime}");
-    }
-
-    /**
-     * @return array|mixed
-     *
-     * @throws RequestException
-     */
-    public function getBilletByBarcode(string $barcode): mixed
-    {
-        return $this->get("/bankslip/{$barcode}");
-    }
-
-    /**
-     * @return array|mixed
-     *
-     * @throws RequestException
-     */
-    public function cancelBillet(CancelBillet $cancelBillet): mixed
-    {
-        return $this->delete('/bankslip/cancel', $cancelBillet->toArray());
-    }
-
-    /**
      * Create a new PIX key link with account.
      *
      * @param  ?string  $hash

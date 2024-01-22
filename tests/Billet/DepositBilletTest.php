@@ -5,7 +5,8 @@ namespace WeDevBr\Bankly\Tests;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\Bankly;
+use WeDevBr\Bankly\Auth\Auth;
+use WeDevBr\Bankly\BanklyBillet;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Billet\Address;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
@@ -36,6 +37,18 @@ class DepositBilletTest extends TestCase
         return [BanklyServiceProvider::class];
     }
 
+    public function getClient(): BanklyBillet
+    {
+        $client = new BanklyBillet();
+        $auth = Auth::login();
+        $token = new \ReflectionProperty($auth, 'token');
+        $token->setValue($auth, $this->faker->uuid);
+
+        $tokenExpiry = new \ReflectionProperty($auth, 'tokenExpiry');
+        $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
+        return $client;
+    }
+
     /**
      * @return DepositBillet
      */
@@ -49,6 +62,7 @@ class DepositBilletTest extends TestCase
         $address->addressLine = 'address';
         $address->city = 'city';
         $address->state = 'state';
+        $address->neighborhood = 'neighborhood';
         $address->zipCode = '36555000';
 
         $payer = new Payer();
@@ -96,7 +110,7 @@ class DepositBilletTest extends TestCase
             'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getClient();
         $response = $client->depositBillet($this->validDepositBillet());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -148,7 +162,7 @@ class DepositBilletTest extends TestCase
             'payments' => [],
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getClient();
         $response = $client->getBillet('0001', '1234', '123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -189,7 +203,7 @@ class DepositBilletTest extends TestCase
             'payments' => [],
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getClient();
         $response = $client->getBilletByBarcode('123456789123456789123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -231,7 +245,7 @@ class DepositBilletTest extends TestCase
         ], 202));
 
         $datetime = now()->toDateTimeString();
-        $client = $this->getBanklyClient();
+        $client = $this->getClient();
         $response = $client->getBilletByDate($datetime);
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($datetime) {
@@ -256,7 +270,7 @@ class DepositBilletTest extends TestCase
         Http::fake($this->getFakerHttp('/bankslip/*', [], 200));
 
         $datetime = now()->toDateTimeString();
-        $client = $this->getBanklyClient();
+        $client = $this->getClient();
         $response = $client->printBillet('123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

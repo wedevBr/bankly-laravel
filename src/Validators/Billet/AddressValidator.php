@@ -34,6 +34,7 @@ class AddressValidator
         $this->validateCity();
         $this->validateState();
         $this->validateZipCode();
+        $this->validateNeighborhood();
     }
 
     /**
@@ -85,6 +86,14 @@ class AddressValidator
         $zipCode = $this->address->zipCode;
         if (empty($zipCode) || ! is_string($zipCode)) {
             throw new InvalidArgumentException('zip code should be a string');
+        }
+    }
+
+    private function validateNeighborhood(): void
+    {
+        $neighborhood = $this->address->neighborhood;
+        if (empty($neighborhood) || ! is_string($neighborhood)) {
+            throw new InvalidArgumentException('neighborhood should be a string');
         }
     }
 }
