@@ -28,7 +28,6 @@ trait Mtls
     /**
      * Set the cert.pem file path
      *
-     * @param string $path
      * @return BanklyBillet|BanklyCard|BanklyPixClaim|BanklyTOTP|Mtls
      */
     public function setKeyPath(string $path): self
@@ -39,7 +38,6 @@ trait Mtls
     }
 
     /**
-     * @param string $passphrase
      * @return BanklyBillet|BanklyCard|BanklyPixClaim|BanklyTOTP|Mtls
      */
     public function setPassphrase(string $passphrase): self

@@ -63,6 +63,7 @@ abstract class TestCase extends TestbenchTestCase
 
         $tokenExpiry = new \ReflectionProperty($auth, 'tokenExpiry');
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
+
         return $client;
     }
 }
