@@ -222,7 +222,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function delete(string $endpoint): mixed
+    private function delete(string $endpoint, array $body = []): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -232,7 +232,7 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->delete($this->getFinalUrl($endpoint))
+        return $request->delete($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
