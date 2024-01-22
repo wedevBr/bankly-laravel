@@ -27,18 +27,16 @@ class BanklyServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'bankly');
 
         // Register the main class to use with the facade
-        $this->app->singleton('bankly', function () {
-            return new Bankly;
-        });
+        $this->app->singleton('bankly', fn () => new Bankly());
 
         // Register the card management class to use with the facade
-        $this->app->singleton('bankly_card', function () {
-            return new BanklyCard();
-        });
+        $this->app->singleton('bankly_card', fn () => new BanklyCard());
 
         // Register the TOTP class to use with facade
-        $this->app->singleton('bankly_topt', function () {
-            return new BanklyTOTP();
-        });
+        $this->app->singleton('bankly_topt', fn () => new BanklyTOTP());
+
+        $this->app->singleton('bankly_pix_claim', fn () => new BanklyPixClaim());
+
+        $this->app->singleton('bankly_billet', fn () => new BanklyBillet());
     }
 }

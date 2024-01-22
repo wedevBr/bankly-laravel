@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
+use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Activate;
 use WeDevBr\Bankly\Types\Card\Card;
@@ -18,6 +19,7 @@ use WeDevBr\Bankly\Types\Card\Wallet;
  */
 class BanklyCard
 {
+    use Mtls;
     use Rest;
 
     /**
@@ -30,36 +32,11 @@ class BanklyCard
         $this->mtlsPassphrase = $mtlsPassphrase;
     }
 
-    public function setPassphrase(string $passPhrase): self
-    {
-        $this->mtlsPassphrase = $passPhrase;
-
-        return $this;
-    }
-
-    /**
-     * Set the cert.crt file path
-     */
-    public function setCertPath(string $path): self
-    {
-        $this->mtlsCert = $path;
-
-        return $this;
-    }
-
-    /**
-     * Set the cert.pem file path
-     */
-    public function setKeyPath(string $path): self
-    {
-        $this->mtlsKey = $path;
-
-        return $this;
-    }
 
     /**
      * Create a new virtual card
      *
+     * @param Card $virtualCard
      * @return mixed|mixed
      *
      * @throws RequestException
@@ -72,7 +49,8 @@ class BanklyCard
     /**
      * Create a new physical card
      *
-     * @return mixed|mixed
+     * @param Card $physicalCard
+     * @return mixed
      *
      * @throws RequestException
      */

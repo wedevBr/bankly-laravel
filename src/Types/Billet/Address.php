@@ -15,6 +15,8 @@ class Address implements Arrayable
 
     public ?string $zipCode;
 
+    public ?string $neighborhood;
+
     /**
      * This validate and return an array
      */

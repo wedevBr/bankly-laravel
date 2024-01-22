@@ -22,12 +22,6 @@ trait Rest
 
     protected string $apiVersion = '1';
 
-    protected ?string $mtlsCert = null;
-
-    protected mixed $mtlsKey = null;
-
-    protected ?string $mtlsPassphrase = null;
-
     private ?string $token = null;
 
     public function setApiUrl(string $apiUrl): self
@@ -228,7 +222,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function delete(string $endpoint): mixed
+    private function delete(string $endpoint, array $body = []): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -238,7 +232,7 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->delete($this->getFinalUrl($endpoint))
+        return $request->delete($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
