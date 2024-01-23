@@ -3,24 +3,15 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
+use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\TOTP\TOTP;
 use WeDevBr\Bankly\Validators\CpfCnpjValidator;
 
-class BanklyTOTP
+class BanklyTOTP extends BaseHttpClient
 {
-    use Mtls;
-    use Rest;
-
     private string $documentNumber;
-
-    public function __construct(?string $mtlsPassphrase = null)
-    {
-        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
-        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
-    }
 
     public function setDocumentNumber(string $documentNumber): void
     {
