@@ -4,8 +4,6 @@ namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Enums\Pix\CancelReasonEnum;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Traits\Mtls;
-use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Pix\PixClaim;
 
 class BanklyPixClaim extends BaseHttpClient

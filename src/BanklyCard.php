@@ -4,8 +4,6 @@ namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Traits\Mtls;
-use WeDevBr\Bankly\Traits\Rest;
 use WeDevBr\Bankly\Types\Card\Activate;
 use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;

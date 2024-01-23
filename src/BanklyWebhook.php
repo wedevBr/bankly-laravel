@@ -66,9 +66,9 @@ class BanklyWebhook extends BaseHttpClient
     public function getAllWebhooks($status, $page = 1, $pageSize = 100): ?array
     {
         $query = [
-          'status' => $status,
-          'page' => $page,
-          'pageSize' => $pageSize,
+            'status' => $status,
+            'page' => $page,
+            'pageSize' => $pageSize,
         ];
 
         return $this->get('/webhooks/configurations', $query);
@@ -79,7 +79,7 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function getWebhookById(string $id): ?array
     {
-        return $this->get('/webhooks/configurations/' . $id);
+        return $this->get('/webhooks/configurations/'.$id);
     }
 
     /**
@@ -88,7 +88,7 @@ class BanklyWebhook extends BaseHttpClient
     public function updateWebhook(CreateWebhook $createWebhook, string $id): ?array
     {
         return $this->patch(
-            '/webhooks/configurations/' . $id,
+            '/webhooks/configurations/'.$id,
             Arr::only($createWebhook->toArray(), ['uri', 'publicKey', 'privateKey'])
         );
     }
@@ -98,7 +98,7 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function deleteWebhookById(string $id): ?array
     {
-        return $this->delete('/webhooks/configurations/' . $id);
+        return $this->delete('/webhooks/configurations/'.$id);
     }
 
     /**
@@ -106,7 +106,7 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function disableWebhookById(string $id): ?array
     {
-        return $this->delete('/webhooks/configurations/' . $id .  '/disable');
+        return $this->delete('/webhooks/configurations/'.$id.'/disable');
     }
 
     /**
@@ -114,6 +114,6 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function enableWebhookById(string $id): ?array
     {
-        return $this->delete('/webhooks/configurations/' . $id . '/enable');
+        return $this->delete('/webhooks/configurations/'.$id.'/enable');
     }
 }
