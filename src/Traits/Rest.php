@@ -73,14 +73,16 @@ trait Rest
     }
 
     /**
-     * @param  array|string|null  $query
-     * @param  string|null  $correlationId
      * @return array|mixed
      *
      * @throws RequestException
      */
-    public function get(string $endpoint, $query = null, $correlationId = null): mixed
-    {
+    public function get(
+        string $endpoint,
+        array|string|null $query = null,
+        ?string $correlationId = null,
+        bool $asJson = true
+    ): mixed {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }
@@ -98,9 +100,11 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->get($this->getFinalUrl($endpoint), $query)
-            ->throw()
-            ->json();
+        $request = $request
+            ->get($this->getFinalUrl($endpoint), $query)
+            ->throw();
+
+        return ($asJson) ? $request->json() : $request;
     }
 
     /**
