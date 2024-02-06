@@ -79,13 +79,8 @@ class InterestValidator
         }
 
         $types = [
-            'AmountPerCalendaryDay',
-            'PercentPerMonth',
-            'Free',
-            'AmountPerBusinessDay',
-            'PercentPerBusinessDay',
-            'PercentPerMonthBusinessDay',
-            'PercentPerYearBusinessDay',
+            'Percent',
+            'FixedAmount',
         ];
         if (! in_array($type, $types)) {
             throw new InvalidArgumentException('this type is not valid');
