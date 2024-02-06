@@ -79,10 +79,10 @@ class DiscountsValidator
         }
 
         $types = [
-            'FixedAmountUntilLimitDate',
-            'FixedPercentUntilLimitDate',
-            'Free',
+            'FixedAmount',
+            'Percent',
         ];
+
         if (! in_array($type, $types)) {
             throw new InvalidArgumentException('this type is not valid');
         }
