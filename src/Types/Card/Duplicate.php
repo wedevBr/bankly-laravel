@@ -7,16 +7,12 @@ use WeDevBr\Bankly\Validators\Card\DuplicateCardValidator;
 
 class Duplicate extends \stdClass implements Arrayable
 {
-    /** @var string */
     public string $status;
 
-    /** @var string|null */
     public ?string $documentNumber;
 
-    /** @var string */
     public string $description;
 
-    /** @var string */
     public string $password;
 
     /** @var \WeDevBr\Bankly\Types\Card\Address */
@@ -24,8 +20,6 @@ class Duplicate extends \stdClass implements Arrayable
 
     /**
      * This validate and return an array
-     *
-     * @return array
      */
     public function toArray(): array
     {

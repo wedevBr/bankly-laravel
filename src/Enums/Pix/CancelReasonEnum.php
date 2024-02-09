@@ -1,4 +1,5 @@
 <?php
+
 namespace WeDevBr\Bankly\Enums\Pix;
 
 enum CancelReasonEnum: string

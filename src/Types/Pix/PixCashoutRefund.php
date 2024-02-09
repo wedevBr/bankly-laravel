@@ -7,16 +7,12 @@ use WeDevBr\Bankly\Validators\Pix\PixCashoutRefundValidator;
 
 class PixCashoutRefund implements PixCashoutInterface
 {
-    /** @var mixed */
     public mixed $account;
 
-    /** @var string|null */
     public ?string $authenticationCode;
 
-    /** @var string */
     public string $amount;
 
-    /** @var string|null */
     public ?string $refundCode;
 
     /** @var string|null */
@@ -27,18 +23,16 @@ class PixCashoutRefund implements PixCashoutInterface
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return json_decode(json_encode($this), true);
     }
 
     /**
      * This function validate the PixCashout type
-     *
-     * @return void
      */
     public function validate(): void
     {

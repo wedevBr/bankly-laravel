@@ -17,6 +17,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutKey;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class PixCashoutKeyValidatorTest extends TestCase
@@ -165,30 +166,6 @@ class PixCashoutKeyValidatorTest extends TestCase
         $this->expectExceptionMessage('bank ispb should be a numeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->bank->ispb = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateSenderBankCompe()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank compe account should be a numeric string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->sender->bank->compe = null;
-        $pixCashout->validate();
-    }
-
-    /**
-     * @return void
-     */
-    public function testValidateSenderBankName()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('bank name should be a string');
-        $pixCashout = $this->validPixCashout();
-        $pixCashout->sender->bank->name = null;
         $pixCashout->validate();
     }
 

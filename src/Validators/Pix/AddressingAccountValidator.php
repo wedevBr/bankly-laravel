@@ -8,21 +8,18 @@ use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 /**
  * AddressingAccountValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP 8.1|8.2|8.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class AddressingAccountValidator
 {
-    /** @var AddressingAccount */
     private AddressingAccount $addressingAccount;
 
-    /**
-     * @param AddressingAccount $addressingAccount
-     */
     public function __construct(AddressingAccount $addressingAccount)
     {
         $this->addressingAccount = $addressingAccount;
@@ -30,8 +27,6 @@ class AddressingAccountValidator
 
     /**
      * Validate the attributes of the Addressing Account class
-     *
-     * @return void
      */
     public function validate(): void
     {
@@ -43,13 +38,12 @@ class AddressingAccountValidator
     /**
      * This validates a branch account
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     protected function validateBranch(): void
     {
         $branch = $this->addressingAccount->branch;
-        if (empty($branch) || !is_string($branch) || !is_numeric($branch)) {
+        if (empty($branch) || ! is_string($branch) || ! is_numeric($branch)) {
             throw new InvalidArgumentException('branch should be a numeric string');
         }
     }
@@ -57,13 +51,12 @@ class AddressingAccountValidator
     /**
      * This validates a number account
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     protected function validateNumber(): void
     {
         $number = $this->addressingAccount->number;
-        if (empty($number) || !is_string($number) || !is_numeric($number)) {
+        if (empty($number) || ! is_string($number) || ! is_numeric($number)) {
             throw new InvalidArgumentException('number account should be a numeric string');
         }
     }
@@ -71,13 +64,12 @@ class AddressingAccountValidator
     /**
      * This validates a type account
      *
-     * @return void
      * @throws InvalidArgumentException
      */
     private function validateType(): void
     {
         $type = $this->addressingAccount->type;
-        if (empty($type) || !is_string($type)) {
+        if (empty($type) || ! is_string($type)) {
             throw new InvalidArgumentException('type account should be a string');
         }
 
@@ -87,7 +79,7 @@ class AddressingAccountValidator
             'SALARY',
             'PAYMENT',
         ];
-        if (!in_array($this->addressingAccount->type, $typeList)) {
+        if (! in_array($this->addressingAccount->type, $typeList)) {
             throw new InvalidArgumentException('this account type is not valid');
         }
     }

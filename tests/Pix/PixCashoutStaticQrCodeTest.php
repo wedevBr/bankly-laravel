@@ -19,6 +19,7 @@ use WeDevBr\Bankly\Types\Pix\PixCashoutStaticQrCode;
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @author    Marco Belmont <marco.santos@wedev.software>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class PixCashoutStaticQrCodeTest extends TestCase
@@ -73,7 +74,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
      */
     public function getFakerHttp(array $response, int $statusCode)
     {
-        return;
+
     }
 
     public function successResponse()
@@ -107,13 +108,13 @@ class PixCashoutStaticQrCodeTest extends TestCase
                     'name' => 'string',
                 ],
                 'documentNumber' => 'string',
-                'name' => 'string'
+                'name' => 'string',
             ],
-            'authenticationCode' => 'string'
+            'authenticationCode' => 'string',
         ];
 
         Http::fake([
-            config('bankly')['api_url'] . '/pix/cash-out' => Http::response($response, 202)
+            config('bankly')['api_url'].'/pix/cash-out' => Http::response($response, 202),
         ]);
     }
 

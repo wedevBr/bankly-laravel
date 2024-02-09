@@ -11,80 +11,53 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 
 /**
  * Trait Rest
+ *
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
- * @package WeDevBr\Bankly
  */
 trait Rest
 {
-    /** @var array */
     protected array $headers = [];
 
-    /** @var mixed */
     protected mixed $apiUrl = null;
 
-    /** @var string */
     protected string $apiVersion = '1';
 
-    /** @var string|null */
-    protected ?string $mtlsCert = null;
-
-    /** @var mixed */
-    protected mixed $mtlsKey = null;
-
-    /** @var string|null */
-    protected ?string $mtlsPassphrase = null;
-
-    /** @var string|null */
     private ?string $token = null;
 
-    /**
-     * @param string $apiUrl
-     * @return self
-     */
     public function setApiUrl(string $apiUrl): self
     {
         $this->apiUrl = $apiUrl;
+
         return $this;
     }
 
-    /**
-     * @param string $apiVersion
-     * @return self
-     */
     public function setApiVersion(string $apiVersion): self
     {
         $this->apiVersion = $apiVersion;
+
         return $this;
     }
 
     /**
-     * @param array $header
-     * @return void
+     * @param  array  $header
      */
     public function setHeaders($header): void
     {
         $this->headers = array_merge($this->headers, $header);
     }
 
-    /**
-     * @param string $endpoint
-     * @return bool
-     */
     private function requireCorrelationId(string $endpoint): bool
     {
         $not_required_endpoints = [
             '/banklist',
-            '/connect/token'
+            '/connect/token',
         ];
 
-        return !in_array($endpoint, $not_required_endpoints);
+        return ! in_array($endpoint, $not_required_endpoints);
     }
 
     /**
      * Set token
-     *
-     * @param string $token
-     * @return void
      */
     public function setToken(string $token): void
     {
@@ -93,8 +66,6 @@ trait Rest
 
     /**
      * Return token
-     *
-     * @return string|null
      */
     public function getToken(): ?string
     {
@@ -102,21 +73,23 @@ trait Rest
     }
 
     /**
-     * @param string $endpoint
-     * @param array|string|null $query
-     * @param string|null $correlationId
      * @return array|mixed
+     *
      * @throws RequestException
      */
-    public function get(string $endpoint, $query = null, $correlationId = null): mixed
-    {
+    public function get(
+        string $endpoint,
+        array|string|null $query = null,
+        ?string $correlationId = null,
+        bool $asJson = true
+    ): mixed {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }
 
         $this->setHeaders([
             'api-version' => $this->apiVersion,
-            'x-correlation-id' => $correlationId
+            'x-correlation-id' => $correlationId,
         ]);
 
         $token = $this->getToken() ?? Auth::login()->getToken();
@@ -127,17 +100,17 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->get($this->getFinalUrl($endpoint), $query)
-            ->throw()
-            ->json();
+        $request = $request
+            ->get($this->getFinalUrl($endpoint), $query)
+            ->throw();
+
+        return ($asJson) ? $request->json() : $request;
     }
 
     /**
-     * @param string $endpoint
-     * @param array $body
-     * @param string|null $correlationId
-     * @param bool $asJson
+     * @param  string|null  $correlationId
      * @return array|mixed
+     *
      * @throws RequestException
      */
     private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
@@ -148,7 +121,7 @@ trait Rest
 
         $this->setHeaders([
             'api-version' => $this->apiVersion,
-            'x-correlation-id' => $correlationId
+            'x-correlation-id' => $correlationId,
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
@@ -168,13 +141,9 @@ trait Rest
     }
 
     /**
-     * @param string $endpoint
-     * @param array $body
-     * @param null $correlationId
-     * @param bool $asJson
-     * @param bool $attachment
-     * @param DocumentAnalysis|null $document
+     * @param  null  $correlationId
      * @return array|mixed
+     *
      * @throws RequestException
      */
     private function put(
@@ -183,7 +152,7 @@ trait Rest
         $correlationId = null,
         bool $asJson = false,
         bool $attachment = false,
-        DocumentAnalysis $document = null
+        ?DocumentAnalysis $document = null
     ) {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -191,7 +160,7 @@ trait Rest
 
         $this->setHeaders([
             'api-version' => $this->apiVersion,
-            'x-correlation-id' => $correlationId
+            'x-correlation-id' => $correlationId,
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
@@ -205,7 +174,7 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        if ($attachment && !is_null($document)) {
+        if ($attachment && ! is_null($document)) {
             $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
         }
 
@@ -215,18 +184,15 @@ trait Rest
     }
 
     /**
-     * @param string $endpoint
-     * @param array $body
-     * @param string|null $correlationId
-     * @param bool $asJson
      * @return array|mixed
+     *
      * @throws RequestException
      */
     private function patch(
         string $endpoint,
-        array  $body = [],
-        string $correlationId = null,
-        bool   $asJson = false
+        array $body = [],
+        ?string $correlationId = null,
+        bool $asJson = false
     ) {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -234,7 +200,7 @@ trait Rest
 
         $this->setHeaders([
             'api-version' => $this->apiVersion,
-            'x-correlation-id' => $correlationId
+            'x-correlation-id' => $correlationId,
         ]);
 
         $bodyFormat = $asJson ? 'json' : 'form_params';
@@ -256,11 +222,11 @@ trait Rest
     /**
      * Http delete method.
      *
-     * @param string $endpoint
      * @return array|mixed
+     *
      * @throws RequestException
      */
-    private function delete(string $endpoint): mixed
+    private function delete(string $endpoint, array $body = []): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
@@ -270,35 +236,28 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->delete($this->getFinalUrl($endpoint))
+        return $request->delete($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
 
     /**
      * Add cert options to request
-     *
-     * @param PendingRequest $request
-     * @return PendingRequest
      */
     private function setRequestMtls(PendingRequest $request): PendingRequest
     {
         return $request->withOptions([
             'cert' => $this->mtlsCert,
-            'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase]
+            'ssl_key' => [$this->mtlsKey, $this->mtlsPassphrase],
         ]);
     }
 
-    /**
-     * @param string $endpoint
-     * @return string
-     */
     private function getFinalUrl(string $endpoint): string
     {
         if (is_null($this->apiUrl)) {
             $this->apiUrl = config('bankly')['api_url'];
         }
 
-        return $this->apiUrl . $endpoint;
+        return $this->apiUrl.$endpoint;
     }
 }

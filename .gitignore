@@ -7,3 +7,4 @@ docker-compose.yml
 coverage
 .idea
 .phpunit.result.cache
+.phpunit.cache

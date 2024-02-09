@@ -12,17 +12,12 @@ use Illuminate\Contracts\Support\Arrayable;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 interface CustomerPhoneInterface extends Arrayable
 {
-    /**
-     * @return string
-     */
     public function getCountryCode(): string;
 
-    /**
-     * @return string
-     */
     public function getNumber(): string;
 }

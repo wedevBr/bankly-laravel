@@ -3,17 +3,17 @@
 namespace WeDevBr\Bankly\Validators\Card;
 
 use InvalidArgumentException;
-use WeDevBr\Bankly\Types\Card\Password;
 use WeDevBr\Bankly\Types\Card\Wallet;
 
 /**
  * WalletValidator class
  *
- * PHP version 7.3|7.4|8.0
+ * PHP 8.1|8.2|8.3
  *
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
 class WalletValidator
@@ -37,7 +37,6 @@ class WalletValidator
 
     /**
      * WalletValidator constructor.
-     * @param Wallet $wallet
      */
     public function __construct(Wallet $wallet)
     {
@@ -55,45 +54,42 @@ class WalletValidator
     }
 
     /**
-     * @return void
      * @throws InvalidArgumentException
      */
     public function proxy(): void
     {
         $proxy = $this->wallet->proxy;
-        if (empty($proxy) || !is_string($proxy)) {
+        if (empty($proxy) || ! is_string($proxy)) {
             throw new InvalidArgumentException('proxy should be a string');
         }
     }
 
     /**
-     * @return void
      * @throws InvalidArgumentException
      */
     public function wallet(): void
     {
         $wallet = $this->wallet->wallet;
-        if (empty($wallet) || !is_string($wallet)) {
+        if (empty($wallet) || ! is_string($wallet)) {
             throw new InvalidArgumentException('wallet should be a string');
         }
 
-        if (!in_array($wallet, $this->wallets)) {
+        if (! in_array($wallet, $this->wallets)) {
             throw new InvalidArgumentException('this wallet is not valid');
         }
     }
 
     /**
-     * @return void
      * @throws InvalidArgumentException
      */
     public function brand(): void
     {
         $brand = $this->wallet->brand;
-        if (empty($brand) || !is_string($brand)) {
+        if (empty($brand) || ! is_string($brand)) {
             throw new InvalidArgumentException('brand should be a string');
         }
 
-        if (!in_array($brand, $this->brands)) {
+        if (! in_array($brand, $this->brands)) {
             throw new InvalidArgumentException('this brand is not valid');
         }
     }

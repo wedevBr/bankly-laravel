@@ -8,8 +8,6 @@ interface PixCashoutInterface extends Arrayable
 {
     /**
      * This function validate the PixCashout type
-     *
-     * @return void
      */
     public function validate(): void;
 }

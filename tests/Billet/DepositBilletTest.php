@@ -3,10 +3,8 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
-use ReflectionProperty;
-use WeDevBr\Bankly\Bankly;
+use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Billet\Address;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
@@ -21,6 +19,7 @@ use WeDevBr\Bankly\Types\Billet\Payer;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class DepositBilletTest extends TestCase
@@ -28,7 +27,7 @@ class DepositBilletTest extends TestCase
     use WithFaker;
 
     /**
-     * @param object $app
+     * @param  object  $app
      * @return array
      */
     protected function getPackageProviders($app)
@@ -49,6 +48,7 @@ class DepositBilletTest extends TestCase
         $address->addressLine = 'address';
         $address->city = 'city';
         $address->state = 'state';
+        $address->neighborhood = 'neighborhood';
         $address->zipCode = '36555000';
 
         $payer = new Payer();
@@ -77,9 +77,9 @@ class DepositBilletTest extends TestCase
         return [
             config('bankly')['login_url'] => Http::response([
                 'access_token' => $this->faker->uuid,
-                'expires_in' => 3600
+                'expires_in' => 3600,
             ], 200),
-            config('bankly')['api_url'] . "{$path}" => Http::response($response, $statusCode)
+            config('bankly')['api_url']."{$path}" => Http::response($response, $statusCode),
         ];
     }
 
@@ -93,10 +93,10 @@ class DepositBilletTest extends TestCase
                 'number' => 'string',
                 'branch' => 'string',
             ],
-            'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6'
+            'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getBilletClient();
         $response = $client->depositBillet($this->validDepositBillet());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -148,7 +148,7 @@ class DepositBilletTest extends TestCase
             'payments' => [],
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getBilletClient();
         $response = $client->getBillet('0001', '1234', '123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -189,7 +189,7 @@ class DepositBilletTest extends TestCase
             'payments' => [],
         ], 202));
 
-        $client = $this->getBanklyClient();
+        $client = $this->getBilletClient();
         $response = $client->getBilletByBarcode('123456789123456789123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -227,11 +227,11 @@ class DepositBilletTest extends TestCase
                 'recipientFinal' => [],
                 'recipientOrigin' => [],
                 'payments' => [],
-            ]
+            ],
         ], 202));
 
         $datetime = now()->toDateTimeString();
-        $client = $this->getBanklyClient();
+        $client = $this->getBilletClient();
         $response = $client->getBilletByDate($datetime);
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($datetime) {
@@ -255,9 +255,8 @@ class DepositBilletTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/bankslip/*', [], 200));
 
-        $datetime = now()->toDateTimeString();
-        $client = $this->getBanklyClient();
-        $response = $client->printBillet('123456789123456789');
+        $client = $this->getBilletClient();
+        $client->printBillet('123456789123456789');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
             return Str::contains($request->url(), '/123456789123456789/pdf');

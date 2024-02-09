@@ -3,11 +3,10 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
-use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyCard;
+use WeDevBr\Bankly\BanklyServiceProvider;
 
 /**
  * CardsByAccountTest class
@@ -17,15 +16,13 @@ use WeDevBr\Bankly\BanklyCard;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2021 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class CardsByAccountTest extends TestCase
 {
     use WithFaker;
 
-    /**
-     * @return void
-     */
     public function setUp(): void
     {
         parent::setUp();
@@ -43,7 +40,7 @@ class CardsByAccountTest extends TestCase
     public function getFakerHttp(int $statusCode = 200)
     {
         return [
-            config('bankly')['api_url'] . '/cards/account/1234567890' => Http::response([
+            config('bankly')['api_url'].'/cards/account/1234567890' => Http::response([
                 [
                     'created' => '2020-07-20T22:53:12',
                     'companyKey' => 'Acesso',
@@ -62,7 +59,7 @@ class CardsByAccountTest extends TestCase
                     'allowContactless' => true,
                     'address' => [],
                     'historyStatus' => [],
-                    'activatedAt' => NULL,
+                    'activatedAt' => null,
                     'lastUpdatedAt' => '2020-07-20T22:55:12',
                     'isActivated' => false,
                     'isLocked' => true,
@@ -71,8 +68,8 @@ class CardsByAccountTest extends TestCase
                     'isFirtual' => true,
                     'isPre' => true,
                     'isPos' => false,
-                ]
-            ], $statusCode)
+                ],
+            ], $statusCode),
         ];
     }
 

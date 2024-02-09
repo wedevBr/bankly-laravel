@@ -19,6 +19,7 @@ use WeDevBr\Bankly\Inputs\CustomerPhone;
  * @author    WeDev Brasil Team <contato@wedev.software>
  * @author    Rafael Teixeira <rafaeldemeirateixeira@gmail.com>
  * @copyright 2020 We Dev Tecnologia Ltda
+ *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
 class RegisterCustomerTest extends TestCase
@@ -36,7 +37,7 @@ class RegisterCustomerTest extends TestCase
     public function getFakerHttp(string $path)
     {
         return [
-            config('bankly')['api_url'] . "{$path}" => Http::response([], 202)
+            config('bankly')['api_url']."{$path}" => Http::response([], 202),
         ];
     }
 

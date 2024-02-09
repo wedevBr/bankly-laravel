@@ -7,31 +7,23 @@ use WeDevBr\Bankly\Validators\Billet\DepositBilletValidator;
 
 class DepositBillet implements Arrayable
 {
-    /** @var mixed */
     public mixed $account;
 
-    /** @var mixed */
     public mixed $payer;
 
-    /** @var string|null */
     public ?string $alias;
 
-    /** @var string|null */
     public ?string $documentNumber;
 
-    /** @var string|null */
     public ?string $amount;
 
-    /** @var string */
     public string $dueDate;
 
     /**
      * [Deposit, Levy]
-     * @var string
      * */
     public string $type;
 
-    /** @var string|null */
     public ?string $closePayment = null;
 
     /** @var ?Interest */
@@ -45,11 +37,11 @@ class DepositBillet implements Arrayable
 
     /**
      * This validate and return an array
-     * @return array
      */
     public function toArray(): array
     {
         $this->validate();
+
         return json_decode(json_encode($this), true);
     }
 

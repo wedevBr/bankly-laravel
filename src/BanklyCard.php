@@ -3,29 +3,29 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
+use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
-use WeDevBr\Bankly\Types\Card\Duplicate;
-use WeDevBr\Bankly\Types\Card\Password;
-use WeDevBr\Bankly\Types\Card\ChangeStatus;
-use WeDevBr\Bankly\Types\Card\Wallet;
 use WeDevBr\Bankly\Types\Card\Activate;
 use WeDevBr\Bankly\Types\Card\Card;
+use WeDevBr\Bankly\Types\Card\ChangeStatus;
+use WeDevBr\Bankly\Types\Card\Duplicate;
+use WeDevBr\Bankly\Types\Card\Password;
+use WeDevBr\Bankly\Types\Card\Wallet;
 
 /**
  * Class BanklyCard
+ *
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
- * @package WeDevBr\Bankly
  */
 class BanklyCard
 {
+    use Mtls;
     use Rest;
 
     /**
      * Bankly constructor.
-     *
-     * @param null|string $mtlsPassphrase
      */
-    public function __construct(string $mtlsPassphrase = null)
+    public function __construct(?string $mtlsPassphrase = null)
     {
         $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
         $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
@@ -33,42 +33,10 @@ class BanklyCard
     }
 
     /**
-     * @param string $passPhrase
-     * @return self
-     */
-    public function setPassphrase(string $passPhrase): self
-    {
-        $this->mtlsPassphrase = $passPhrase;
-        return $this;
-    }
-
-    /**
-     * Set the cert.crt file path
-     * @param string $path
-     * @return self
-     */
-    public function setCertPath(string $path): self
-    {
-        $this->mtlsCert = $path;
-        return $this;
-    }
-
-    /**
-     * Set the cert.pem file path
-     * @param string $path
-     * @return self
-     */
-    public function setKeyPath(string $path): self
-    {
-        $this->mtlsKey = $path;
-        return $this;
-    }
-
-    /**
      * Create a new virtual card
      *
-     * @param Card $virtualCard
      * @return mixed|mixed
+     *
      * @throws RequestException
      */
     public function virtualCard(Card $virtualCard): mixed
@@ -79,8 +47,7 @@ class BanklyCard
     /**
      * Create a new physical card
      *
-     * @param Card $physicalCard
-     * @return mixed|mixed
+     *
      * @throws RequestException
      */
     public function physicalCard(Card $physicalCard): mixed
@@ -89,12 +56,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @param string $page
-     * @param integer $pageSize
-     * @param string $startDate
-     * @param string $endDate
-     * @return mixed
      * @throws RequestException
      */
     public function transactions(string $proxy, string $page, int $pageSize, string $startDate, string $endDate): mixed
@@ -103,16 +64,13 @@ class BanklyCard
             'page' => $page,
             'pageSize' => $pageSize,
             'startDate' => $startDate,
-            'endDate' => $endDate
+            'endDate' => $endDate,
         ];
 
         return $this->get("/cards/{$proxy}/transactions", $query);
     }
 
     /**
-     * @param string $proxy
-     * @param Duplicate $duplicate
-     * @return mixed
      * @throws RequestException
      */
     public function duplicate(string $proxy, Duplicate $duplicate): mixed
@@ -121,9 +79,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @param Password $password
-     * @return mixed
      * @throws RequestException
      */
     public function pciData(string $proxy, Password $password): mixed
@@ -132,8 +87,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @return mixed
      * @throws RequestException
      */
     public function getByProxy(string $proxy): mixed
@@ -142,9 +95,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @param ChangeStatus $changeStatus
-     * @return mixed
      * @throws RequestException
      */
     public function changeStatus(string $proxy, ChangeStatus $changeStatus): mixed
@@ -153,20 +103,16 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @param bool $allow
-     * @return mixed
      * @throws RequestException
      */
     public function allowContactless(string $proxy, bool $allow): mixed
     {
         $allowContactless = $allow ? 'true' : 'false';
+
         return $this->patch("/cards/{$proxy}/contactless?allowContactless={$allowContactless}", [], null, true);
     }
 
     /**
-     * @param string $proxy
-     * @return mixed
      * @throws RequestException
      */
     public function nextStatus(string $proxy): mixed
@@ -175,8 +121,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @return mixed
      * @throws RequestException
      */
     public function cardTracking(string $proxy): mixed
@@ -185,9 +129,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $proxy
-     * @param Password $password
-     * @return mixed
      * @throws RequestException
      */
     public function changePassword(string $proxy, Password $password): mixed
@@ -196,8 +137,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $documentNumber
-     * @return mixed
      * @throws RequestException
      */
     public function getByDocument(string $documentNumber): mixed
@@ -206,8 +145,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $activateCode
-     * @return mixed
      * @throws RequestException
      */
     public function getByActivateCode(string $activateCode): mixed
@@ -216,8 +153,6 @@ class BanklyCard
     }
 
     /**
-     * @param string $account
-     * @return mixed
      * @throws RequestException
      */
     public function getByAccount(string $account): mixed
@@ -226,24 +161,19 @@ class BanklyCard
     }
 
     /**
-     * @param Wallet $wallet
-     * @return mixed
      * @throws RequestException
      */
     public function digitalWallet(Wallet $wallet): mixed
     {
         $pathData = $wallet->toArray();
-        $endpoint = '/cards-pci/' . $pathData['proxy']
-            . '/wallet/' . $pathData['wallet']
-            . '/brand/' . $pathData['brand'];
+        $endpoint = '/cards-pci/'.$pathData['proxy']
+            .'/wallet/'.$pathData['wallet']
+            .'/brand/'.$pathData['brand'];
 
         return $this->post($endpoint, [], null, true);
     }
 
     /**
-     * @param string $proxy
-     * @param Activate $activate
-     * @return mixed
      * @throws RequestException
      */
     public function activate(string $proxy, Activate $activate): mixed
