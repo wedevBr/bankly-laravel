@@ -107,7 +107,7 @@ class BanklyPixClaim
                 'x-bkly-pix-user-id' => $nifNumber
             ]);
 
-            $arr['reason'] = 'DONOR_REQUEST';
+        $arr['reason'] = 'DONOR_REQUEST';
         return $this->patch('/pix/claims/' . $claimId . '/confirm', $arr, asJson: true);
     }
 
