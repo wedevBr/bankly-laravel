@@ -3,7 +3,7 @@
 namespace WeDevBr\Bankly\Validators\Billet;
 
 use InvalidArgumentException;
-use WeDevBr\Bankly\Types\Billet\Discounts;
+use WeDevBr\Bankly\Types\Billet\Discount;
 
 /**
  * DiscountsValidator class
@@ -16,11 +16,11 @@ use WeDevBr\Bankly\Types\Billet\Discounts;
  *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class DiscountsValidator
+class DiscountValidator
 {
-    private Discounts $discounts;
+    private Discount $discounts;
 
-    public function __construct(Discounts $discounts)
+    public function __construct(Discount $discounts)
     {
         $this->discounts = $discounts;
     }

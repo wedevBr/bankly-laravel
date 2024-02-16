@@ -3,9 +3,9 @@
 namespace WeDevBr\Bankly\Types\Billet;
 
 use Illuminate\Contracts\Support\Arrayable;
-use WeDevBr\Bankly\Validators\Billet\DiscountsValidator;
+use WeDevBr\Bankly\Validators\Billet\DiscountValidator;
 
-class Discounts implements Arrayable
+class Discount implements Arrayable
 {
     public string $limitDate;
 
@@ -28,7 +28,7 @@ class Discounts implements Arrayable
      */
     public function validate(): void
     {
-        $discountsValidator = new DiscountsValidator($this);
+        $discountsValidator = new DiscountValidator($this);
         $discountsValidator->validate();
     }
 }

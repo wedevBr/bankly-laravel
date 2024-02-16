@@ -38,5 +38,7 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly_pix_claim', fn () => new BanklyPixClaim());
 
         $this->app->singleton('bankly_billet', fn () => new BanklyBillet());
+
+        $this->app->singleton('bankly_income_report', fn () => new BanklyIncomeReport());
     }
 }
