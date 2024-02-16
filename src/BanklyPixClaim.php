@@ -3,22 +3,11 @@
 namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Enums\Pix\CancelReasonEnum;
-use WeDevBr\Bankly\Traits\Mtls;
-use WeDevBr\Bankly\Traits\Rest;
+use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Types\Pix\PixClaim;
 
-class BanklyPixClaim
+class BanklyPixClaim extends BaseHttpClient
 {
-    use Mtls;
-    use Rest;
-
-    public function __construct(?string $mtlsPassphrase = null)
-    {
-        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
-        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
-    }
-
     /**
      * @return array|mixed
      */

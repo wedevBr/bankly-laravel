@@ -3,8 +3,7 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
-use WeDevBr\Bankly\Traits\Mtls;
-use WeDevBr\Bankly\Traits\Rest;
+use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Types\Card\Activate;
 use WeDevBr\Bankly\Types\Card\Card;
 use WeDevBr\Bankly\Types\Card\ChangeStatus;
@@ -17,21 +16,8 @@ use WeDevBr\Bankly\Types\Card\Wallet;
  *
  * @author Rafael Teixeira <rafael.teixeira@wedev.software>
  */
-class BanklyCard
+class BanklyCard extends BaseHttpClient
 {
-    use Mtls;
-    use Rest;
-
-    /**
-     * Bankly constructor.
-     */
-    public function __construct(?string $mtlsPassphrase = null)
-    {
-        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
-        $this->mtlsPassphrase = $mtlsPassphrase;
-    }
-
     /**
      * Create a new virtual card
      *
