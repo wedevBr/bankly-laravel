@@ -32,8 +32,8 @@ class DepositBillet implements Arrayable
     /** @var ?Fine */
     public ?Fine $fine;
 
-    /** @var ?Discounts */
-    public ?Discounts $discounts;
+    /** @var ?Discount */
+    public ?Discount $discount;
 
     /**
      * This validate and return an array
