@@ -79,8 +79,8 @@ class DiscountValidator
         }
 
         $types = [
-            'FixedAmount',
-            'Percent',
+            'FixedAmountUntilLimitDate',
+            'FixedPercentUntilLimitDate',
         ];
 
         if (! in_array($type, $types)) {
