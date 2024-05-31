@@ -22,7 +22,7 @@ class BanklyIncomeReport
     /**
      * Returns the income report for a given year
      *
-     * @param  string|null  $year If not informed, the previous year will be used
+     * @param  string|null  $year  If not informed, the previous year will be used
      * @return array|mixed
      *
      * @throws RequestException

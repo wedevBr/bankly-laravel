@@ -149,7 +149,7 @@ class Bankly
     /**
      * Returns the income report for a given year
      *
-     * @param  string|null  $year If not informed, the previous year will be used
+     * @param  string|null  $year  If not informed, the previous year will be used
      * @return array|mixed
      *
      * @throws RequestException
@@ -164,7 +164,7 @@ class Bankly
     /**
      * Returns the PDF of the income report for a given year in base64 format
      *
-     * @param  string|null  $year If not informed, the previous year will be used
+     * @param  string|null  $year  If not informed, the previous year will be used
      * @return array|mixed
      *
      * @throws RequestException
@@ -414,7 +414,7 @@ class Bankly
     /**
      * Close account
      *
-     * @param  string  $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param  string  $reason  HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
      * @return array|mixed
      *
      * @throws RequestException
@@ -429,7 +429,7 @@ class Bankly
     /**
      * Customer offboarding
      *
-     * @param  string  $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param  string  $reason  HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
      * @return array|mixed
      *
      * @throws RequestException
@@ -468,7 +468,7 @@ class Bankly
     /**
      * Business offboarding
      *
-     * @param  string|null  $reason HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
+     * @param  string|null  $reason  HOLDER_REQUEST|COMMERCIAL_DISAGREEMENT
      * @return array|mixed
      *
      * @throws RequestException
@@ -560,7 +560,7 @@ class Bankly
     /**
      * Validate of boleto or dealership
      *
-     * @param  string  $code - Digitable line
+     * @param  string  $code  - Digitable line
      * @return array|mixed
      *
      * @throws RequestException
@@ -956,7 +956,7 @@ class Bankly
     }
 
     /**
-     * @param  string  $version API version
+     * @param  string  $version  API version
      * @return $this
      */
     private function setApiVersion($version = '1.0'): static
