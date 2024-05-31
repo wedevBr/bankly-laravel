@@ -76,7 +76,7 @@ class BanklyBillet
      */
     public function cancelBillet(CancelBillet $cancelBillet): mixed
     {
-        return $this->delete('/bankslip/cancel', $cancelBillet->toArray());
+        return $this->delete('/bankslip/cancel', $cancelBillet->toArray(), true);
     }
 
     /**
