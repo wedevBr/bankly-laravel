@@ -60,10 +60,10 @@ class CpfCnpjValidator
     /**
      * Multiplica dígitos vezes posições
      *
-     * @param  string  $digitos      Os digitos desejados
-     * @param  int  $posicoes     A posição que vai iniciar a regressão
-     * @param  int  $soma_digitos A soma das multiplicações entre posições e dígitos
-     * @return int                     Os dígitos enviados concatenados com o último dígito
+     * @param  string  $digitos  Os digitos desejados
+     * @param  int  $posicoes  A posição que vai iniciar a regressão
+     * @param  int  $soma_digitos  A soma das multiplicações entre posições e dígitos
+     * @return int Os dígitos enviados concatenados com o último dígito
      */
     protected function calcPositionDigits(string $digitos, int $posicoes = 10, int $soma_digitos = 0): int
     {
@@ -113,7 +113,7 @@ class CpfCnpjValidator
      *
      * @author                Luiz Otávio Miranda <contato@tutsup.com>
      *
-     * @return bool           True para CPF correto - False para CPF incorreto
+     * @return bool True para CPF correto - False para CPF incorreto
      */
     protected function validateCpf(): bool
     {
@@ -136,7 +136,7 @@ class CpfCnpjValidator
      *
      * @author                  Luiz Otávio Miranda <contato@tutsup.com>
      *
-     * @return bool             true para CNPJ correto
+     * @return bool true para CNPJ correto
      */
     protected function validateCnpj(): bool
     {
@@ -164,7 +164,7 @@ class CpfCnpjValidator
      *
      * Valida o CPF ou CNPJ
      *
-     * @return bool      True para válido, false para inválido
+     * @return bool True para válido, false para inválido
      */
     public function validate(): bool
     {
@@ -184,7 +184,7 @@ class CpfCnpjValidator
     /**
      * Formata CPF ou CNPJ
      *
-     * @return string  CPF ou CNPJ formatado
+     * @return string CPF ou CNPJ formatado
      */
     public function format(): string
     {
@@ -221,7 +221,7 @@ class CpfCnpjValidator
     /**
      * Método para verifica sequencia de números
      *
-     * @param  int  $multiplos Quantos números devem ser verificados
+     * @param  int  $multiplos  Quantos números devem ser verificados
      */
     public function verifySort(int $multiplos): bool
     {

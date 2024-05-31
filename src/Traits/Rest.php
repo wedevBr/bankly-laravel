@@ -226,11 +226,15 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function delete(string $endpoint, array $body = []): mixed
+    private function delete(string $endpoint, array $body = [], bool $asJson = false): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
+
+        if ($asJson) {
+            $request->asJson();
+        }
 
         if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
             $request = $this->setRequestMtls($request);
