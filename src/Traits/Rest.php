@@ -38,12 +38,9 @@ trait Rest
         return $this;
     }
 
-    /**
-     * @param  array  $header
-     */
-    public function setHeaders($header): void
+    public function setHeaders(array $header): void
     {
-        $this->headers = array_merge($this->headers, $header);
+        $this->headers = array_merge($this->headers, array_filter($header));
     }
 
     private function requireCorrelationId(string $endpoint): bool
@@ -229,6 +226,11 @@ trait Rest
     private function delete(string $endpoint, array $body = [], bool $asJson = false): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
+
+        $this->setHeaders([
+            'api-version' => $this->apiVersion,
+        ]);
+
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
 
