@@ -19,11 +19,10 @@ use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Inputs\Acceptance;
 use WeDevBr\Bankly\Inputs\Document;
-use WeDevBr\Bankly\LegalAgreement;
+use WeDevBr\Bankly\BanklyLegalAgreement;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 
-
-class LegalAgreementTest extends TestCase
+class BanklyLegalAgreementTest extends TestCase
 {
     use WithFaker;
 
@@ -47,7 +46,7 @@ class LegalAgreementTest extends TestCase
         ]));
         $this->auth();
 
-        $legalAgreement = new LegalAgreement();
+        $legalAgreement = new BanklyLegalAgreement();
         $response = $legalAgreement->getLegalAgreementDocument();
 
         $this->assertArrayHasKey('type', $response);
@@ -75,7 +74,7 @@ class LegalAgreementTest extends TestCase
         $acceptance->account = $bankAccount;
         $acceptance->document = $document;
 
-        $legalAgreement = new LegalAgreement();
+        $legalAgreement = new BanklyLegalAgreement();
         $response = $legalAgreement->acceptLegalAgreement($acceptance);
 
         $this->assertArrayHasKey('id', $response);

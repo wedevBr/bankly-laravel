@@ -7,7 +7,7 @@ use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 
 /**
- * LegalAgreement class
+ * BanklyLegalAgreement class
  *
  * PHP 8.1|8.2|8.3
  *
@@ -17,7 +17,7 @@ use WeDevBr\Bankly\Traits\Rest;
  *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class LegalAgreement
+class BanklyLegalAgreement
 {
     use Mtls, Rest;
 
