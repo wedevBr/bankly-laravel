@@ -8,6 +8,7 @@ use WeDevBr\Bankly\Types\Billet\BankAccount;
 class Acceptance extends \stdClass implements Arrayable
 {
     public BankAccount $account;
+
     public Document $document;
 
     /**
@@ -15,6 +16,9 @@ class Acceptance extends \stdClass implements Arrayable
      */
     public function toArray(): array
     {
-        return (array) $this;
+        return [
+            'account' => $this->account->toArray(),
+            'document' => $this->document->toArray(),
+        ];
     }
 }
