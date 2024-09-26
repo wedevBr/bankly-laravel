@@ -34,6 +34,7 @@ class BanklyLegalAgreement
         return $this->post('/legal-agreements/accept', [
             'acceptance' => $acceptance->toArray(),
             'type' => $type,
-        ]);
+        ],
+        asJson: true);
     }
 }
