@@ -15,11 +15,13 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use WeDevBr\Bankly\BanklyLegalAgreement;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Inputs\Acceptance;
 use WeDevBr\Bankly\Inputs\Document;
-use WeDevBr\Bankly\BanklyLegalAgreement;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 
 class BanklyLegalAgreementTest extends TestCase
@@ -40,9 +42,9 @@ class BanklyLegalAgreementTest extends TestCase
     public function testGetLegalAgreementDocument()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/file*', [
-            "type" => "TERMS_AND_CONDITIONS_OF_USE",
-            "contentType" => "string",
-            "file" => "string",
+            'type' => 'TERMS_AND_CONDITIONS_OF_USE',
+            'contentType' => 'string',
+            'file' => 'string',
         ]));
         $this->auth();
 
@@ -60,7 +62,7 @@ class BanklyLegalAgreementTest extends TestCase
     public function testAcceptLegalAgreement()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/accept', [
-            "id" => "9999",
+            'id' => 'string',
         ]));
 
         $bankAccount = new BankAccount();
@@ -77,6 +79,13 @@ class BanklyLegalAgreementTest extends TestCase
         $legalAgreement = new BanklyLegalAgreement();
         $response = $legalAgreement->acceptLegalAgreement($acceptance);
 
+        Http::assertSent(function (Request $request) use ($bankAccount, $document) {
+            return Str::contains($request->url(), '/legal-agreements/accept') &&
+                $request->data()['acceptance']['account']['branch'] === $bankAccount->branch &&
+                $request->data()['acceptance']['account']['number'] === $bankAccount->number &&
+                $request->data()['acceptance']['document']['value'] === $document->value &&
+                $request->data()['type'] === 'TERMS_AND_CONDITIONS_OF_USE';
+        });
         $this->assertArrayHasKey('id', $response);
     }
 
