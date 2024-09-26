@@ -23,21 +23,17 @@ class BanklyLegalAgreement
 
     public function getLegalAgreementDocument(
         string $type = 'TERMS_AND_CONDITIONS_OF_USE'
-    )
-    {
+    ) {
         return $this->get('/legal-agreements/file', [
             'type' => $type,
         ]);
     }
 
-    public function acceptLegalAgreement(Acceptance $acceptance)
+    public function acceptLegalAgreement(Acceptance $acceptance, string $type = 'TERMS_AND_CONDITIONS_OF_USE')
     {
         return $this->post('/legal-agreements/accept', [
-            'document' => $acceptance->document->value,
-            'account' => [
-                'number' => $acceptance->account->number,
-                'branch' => $acceptance->account->branch,
-            ],
+            'acceptance' => $acceptance->toArray(),
+            'type' => $type,
         ]);
     }
 }
