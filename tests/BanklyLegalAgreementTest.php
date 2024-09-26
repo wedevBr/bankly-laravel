@@ -84,7 +84,8 @@ class BanklyLegalAgreementTest extends TestCase
                 $request->data()['acceptance']['account']['branch'] === $bankAccount->branch &&
                 $request->data()['acceptance']['account']['number'] === $bankAccount->number &&
                 $request->data()['acceptance']['document']['value'] === $document->value &&
-                $request->data()['type'] === 'TERMS_AND_CONDITIONS_OF_USE';
+                $request->data()['type'] === 'TERMS_AND_CONDITIONS_OF_USE' &&
+                $request->isJson();
         });
         $this->assertArrayHasKey('id', $response);
     }
