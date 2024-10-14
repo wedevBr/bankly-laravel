@@ -38,7 +38,7 @@ class BanklyWebhook extends BaseHttpClient
 
         return $this->get(
             '/webhooks/processed-messages',
-            $query
+            array_filter($query)
         );
     }
 
@@ -106,7 +106,7 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function disableWebhookById(string $id): ?array
     {
-        return $this->delete('/webhooks/configurations/'.$id.'/disable');
+        return $this->patch('/webhooks/configurations/'.$id.'/disable');
     }
 
     /**
@@ -114,6 +114,6 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function enableWebhookById(string $id): ?array
     {
-        return $this->delete('/webhooks/configurations/'.$id.'/enable');
+        return $this->patch('/webhooks/configurations/'.$id.'/enable');
     }
 }
