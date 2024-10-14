@@ -57,7 +57,7 @@ class BanklyWebhook extends BaseHttpClient
      */
     public function registerWebhook(CreateWebhook $createWebhook): ?array
     {
-        return $this->post('/webhooks/configurations', $createWebhook->toArray());
+        return $this->post('/webhooks/configurations', $createWebhook->toArray(), asJson: true);
     }
 
     /**
@@ -89,7 +89,8 @@ class BanklyWebhook extends BaseHttpClient
     {
         return $this->patch(
             '/webhooks/configurations/'.$id,
-            Arr::only($createWebhook->toArray(), ['uri', 'publicKey', 'privateKey'])
+            Arr::only($createWebhook->toArray(), ['uri', 'publicKey', 'privateKey']),
+            asJson: true
         );
     }
 
