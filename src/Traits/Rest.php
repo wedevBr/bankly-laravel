@@ -38,12 +38,9 @@ trait Rest
         return $this;
     }
 
-    /**
-     * @param  array  $header
-     */
-    public function setHeaders($header): void
+    public function setHeaders(array $header): void
     {
-        $this->headers = array_merge($this->headers, $header);
+        $this->headers = array_merge($this->headers, array_filter($header));
     }
 
     protected function requireCorrelationId(string $endpoint): bool
@@ -73,14 +70,16 @@ trait Rest
     }
 
     /**
-     * @param  array|string|null  $query
-     * @param  string|null  $correlationId
      * @return array|mixed
      *
      * @throws RequestException
      */
-    public function get(string $endpoint, $query = null, $correlationId = null): mixed
-    {
+    public function get(
+        string $endpoint,
+        array|string|null $query = null,
+        ?string $correlationId = null,
+        bool $asJson = true
+    ): mixed {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }
@@ -98,9 +97,11 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
-        return $request->get($this->getFinalUrl($endpoint), $query)
-            ->throw()
-            ->json();
+        $request = $request
+            ->get($this->getFinalUrl($endpoint), $query)
+            ->throw();
+
+        return ($asJson) ? $request->json() : $request;
     }
 
     /**
@@ -222,11 +223,20 @@ trait Rest
      *
      * @throws RequestException
      */
-    protected function delete(string $endpoint, array $body = []): mixed
+    protected function delete(string $endpoint, array $body = [], bool $asJson = false): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
+
+        $this->setHeaders([
+            'api-version' => $this->apiVersion,
+        ]);
+
         $request = Http::withToken($token)
             ->withHeaders($this->headers);
+
+        if ($asJson) {
+            $request->asJson();
+        }
 
         if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
             $request = $this->setRequestMtls($request);

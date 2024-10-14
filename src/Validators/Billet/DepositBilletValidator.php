@@ -5,7 +5,7 @@ namespace WeDevBr\Bankly\Validators\Billet;
 use InvalidArgumentException;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
-use WeDevBr\Bankly\Types\Billet\Discounts;
+use WeDevBr\Bankly\Types\Billet\Discount;
 use WeDevBr\Bankly\Types\Billet\Fine;
 use WeDevBr\Bankly\Types\Billet\Interest;
 use WeDevBr\Bankly\Types\Billet\Payer;
@@ -214,11 +214,11 @@ class DepositBilletValidator
      */
     private function validateDiscounts(): void
     {
-        if (! empty($this->depositBillet->discounts)) {
-            if (! $this->depositBillet->discounts instanceof Discounts) {
+        if (! empty($this->depositBillet->discount)) {
+            if (! $this->depositBillet->discount instanceof Discount) {
                 throw new InvalidArgumentException('discounts should be a Discounts type');
             }
-            $this->depositBillet->discounts->validate();
+            $this->depositBillet->discount->validate();
         }
     }
 }
