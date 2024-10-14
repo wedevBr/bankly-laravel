@@ -22,7 +22,7 @@ trait Rest
 
     protected string $apiVersion = '1';
 
-    private ?string $token = null;
+    protected ?string $token = null;
 
     public function setApiUrl(string $apiUrl): self
     {
@@ -43,7 +43,7 @@ trait Rest
         $this->headers = array_merge($this->headers, array_filter($header));
     }
 
-    private function requireCorrelationId(string $endpoint): bool
+    protected function requireCorrelationId(string $endpoint): bool
     {
         $not_required_endpoints = [
             '/banklist',
@@ -110,7 +110,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
+    protected function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
     {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
@@ -143,7 +143,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function put(
+    protected function put(
         string $endpoint,
         array $body = [],
         $correlationId = null,
@@ -185,7 +185,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function patch(
+    protected function patch(
         string $endpoint,
         array $body = [],
         ?string $correlationId = null,
@@ -223,7 +223,7 @@ trait Rest
      *
      * @throws RequestException
      */
-    private function delete(string $endpoint, array $body = [], bool $asJson = false): mixed
+    protected function delete(string $endpoint, array $body = [], bool $asJson = false): mixed
     {
         $token = $this->getToken() ?? Auth::login()->getToken();
 
@@ -250,7 +250,7 @@ trait Rest
     /**
      * Add cert options to request
      */
-    private function setRequestMtls(PendingRequest $request): PendingRequest
+    protected function setRequestMtls(PendingRequest $request): PendingRequest
     {
         return $request->withOptions([
             'cert' => $this->mtlsCert,
@@ -258,7 +258,7 @@ trait Rest
         ]);
     }
 
-    private function getFinalUrl(string $endpoint): string
+    protected function getFinalUrl(string $endpoint): string
     {
         if (is_null($this->apiUrl)) {
             $this->apiUrl = config('bankly')['api_url'];

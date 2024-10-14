@@ -3,21 +3,15 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
-use WeDevBr\Bankly\Traits\Mtls;
-use WeDevBr\Bankly\Traits\Rest;
+use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Types\Billet\CancelBillet;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 
-class BanklyBillet
+class BanklyBillet extends BaseHttpClient
 {
-    use Mtls;
-    use Rest;
-
     public function __construct(?string $mtlsPassphrase = null)
     {
-        $this->mtlsCert = config('bankly')['mtls_cert_path'] ?? null;
-        $this->mtlsKey = config('bankly')['mtls_key_path'] ?? null;
-        $this->mtlsPassphrase = $mtlsPassphrase ?? config('bankly')['mtls_passphrase'];
+        parent::__construct($mtlsPassphrase);
         $this->apiVersion = '2';
     }
 
@@ -36,7 +30,7 @@ class BanklyBillet
      */
     public function printBillet(string $authenticationCode): mixed
     {
-        return $this->get("/bankslip/{$authenticationCode}/pdf", null, null, false);
+        return $this->get("/bankslip/{$authenticationCode}/pdf");
     }
 
     /**
