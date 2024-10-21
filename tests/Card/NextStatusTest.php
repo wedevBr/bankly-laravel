@@ -64,7 +64,7 @@ class NextStatusTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/12345678/nextStatus', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->nextStatus('12345678');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

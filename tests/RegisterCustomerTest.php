@@ -46,11 +46,11 @@ class RegisterCustomerTest extends TestCase
      */
     public function testSuccessRegisterCustomer()
     {
-        $customerPhone = new CustomerPhone();
+        $customerPhone = new CustomerPhone;
         $customerPhone->setCountryCode('55')
             ->setNumber('27999999999');
 
-        $customerAddress = new CustomerAddress();
+        $customerAddress = new CustomerAddress;
         $customerAddress->setZipCode('29000000')
             ->setAddressLine('STREET')
             ->setBuildingNumber('100')
@@ -60,7 +60,7 @@ class RegisterCustomerTest extends TestCase
             ->setState('STATE')
             ->setCountry('BR');
 
-        $customer = new Customer();
+        $customer = new Customer;
         $customer->setPhone($customerPhone)
             ->setAddress($customerAddress)
             ->setRegisterName('JHON RAS')
@@ -105,9 +105,9 @@ class RegisterCustomerTest extends TestCase
      */
     public function testReturnTypeErrorIfIncompatibleCustomerData()
     {
-        $client = new Bankly();
+        $client = new Bankly;
         $nifNumber = '00000000000000';
-        $customer = new \stdClass();
+        $customer = new \stdClass;
 
         $this->expectException(TypeError::class);
         $client->customer($nifNumber, $customer);

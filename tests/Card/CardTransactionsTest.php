@@ -84,7 +84,7 @@ class CardTransactionsTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/1234567890/*', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->transactions(
             '1234567890',
             1,
@@ -116,7 +116,7 @@ class CardTransactionsTest extends TestCase
 
         $this->expectException(RequestException::class);
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->transactions(
             '1234567890',
             1,

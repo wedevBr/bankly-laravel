@@ -39,7 +39,7 @@ class ActivateCardTest extends TestCase
      */
     private function validActivateCard($password = '1234', $activateCode = 'A0DDDC0951D1')
     {
-        $activate = new Activate();
+        $activate = new Activate;
         $activate->activateCode = $activateCode;
         $activate->password = $password;
 
@@ -63,7 +63,7 @@ class ActivateCardTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/2370021007715002820/activate', [], 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->activate('2370021007715002820', $this->validActivateCard());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

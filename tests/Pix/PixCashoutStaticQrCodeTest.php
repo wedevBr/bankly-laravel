@@ -36,17 +36,17 @@ class PixCashoutStaticQrCodeTest extends TestCase
      */
     public function validSender()
     {
-        $addressingAccount = new AddressingAccount();
+        $addressingAccount = new AddressingAccount;
         $addressingAccount->branch = '0001';
         $addressingAccount->number = '1111';
         $addressingAccount->type = 'CHECKING';
 
-        $bank = new Bank();
+        $bank = new Bank;
         $bank->ispb = '11112222';
         $bank->compe = '323';
         $bank->name = 'Banco Test S.A.';
 
-        $sender = new BankAccount();
+        $sender = new BankAccount;
         $sender->documentNumber = '12345678909';
         $sender->name = 'Jhon Smith';
         $sender->account = $addressingAccount;
@@ -60,7 +60,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
      */
     public function validPixCashout()
     {
-        $pixCashout = new PixCashoutStaticQrCode();
+        $pixCashout = new PixCashoutStaticQrCode;
         $pixCashout->amount = '83.23';
         $pixCashout->description = 'Mercado';
         $pixCashout->sender = $this->validSender();
@@ -72,10 +72,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
     /**
      * @return array
      */
-    public function getFakerHttp(array $response, int $statusCode)
-    {
-
-    }
+    public function getFakerHttp(array $response, int $statusCode) {}
 
     public function successResponse()
     {

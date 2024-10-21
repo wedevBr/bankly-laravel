@@ -47,7 +47,7 @@ class PixDecodeQrCodeTest extends TestCase
      */
     private function validCodedQrCodeData()
     {
-        $encodedData = new PixQrCodeData();
+        $encodedData = new PixQrCodeData;
         $encodedData->encodedValue = $this->encodedValue;
         $encodedData->documentNumber = '00000000000';
 

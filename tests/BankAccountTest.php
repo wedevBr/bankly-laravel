@@ -20,7 +20,7 @@ class BankAccountTest extends TestCase
 {
     private function validBankAccount(): BankAccount
     {
-        $bankAccount = new BankAccount();
+        $bankAccount = new BankAccount;
         $bankAccount->branch = '0001';
         $bankAccount->account = '1234552';
         $bankAccount->document = '01234567890';

@@ -9,14 +9,12 @@ class PixStaticQrCode implements Arrayable
 {
     public AddressingKey $addressingKey;
 
-    /** @var ?string */
     public ?string $amount;
 
     public ?string $recipientName;
 
     public Location $location;
 
-    /** @var ?string */
     public ?string $categoryCode;
 
     public mixed $additionalData = null;

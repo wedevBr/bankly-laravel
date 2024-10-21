@@ -40,24 +40,24 @@ class DepositBilletTest extends TestCase
      */
     public function validDepositBillet()
     {
-        $bankAccount = new BankAccount();
+        $bankAccount = new BankAccount;
         $bankAccount->branch = '0001';
         $bankAccount->number = '1234';
 
-        $address = new Address();
+        $address = new Address;
         $address->addressLine = 'address';
         $address->city = 'city';
         $address->state = 'state';
         $address->neighborhood = 'neighborhood';
         $address->zipCode = '36555000';
 
-        $payer = new Payer();
+        $payer = new Payer;
         $payer->document = '12345678909';
         $payer->name = 'Jhon Smith';
         $payer->tradeName = 'Jhon Smith';
         $payer->address = $address;
 
-        $depositBillet = new DepositBillet();
+        $depositBillet = new DepositBillet;
         $depositBillet->account = $bankAccount;
         $depositBillet->payer = $payer;
         $depositBillet->alias = 'Deposit Billet';

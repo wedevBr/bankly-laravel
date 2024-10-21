@@ -34,7 +34,7 @@ class CardTest extends TestCase
      */
     private function validAddress()
     {
-        $address = new Address();
+        $address = new Address;
         $address->zipCode = '29155909';
         $address->address = 'Rua Olegário Maciel';
         $address->number = '333';
@@ -52,7 +52,7 @@ class CardTest extends TestCase
      */
     private function validCard($type = 'virtual')
     {
-        $card = new Card();
+        $card = new Card;
         $card->documentNumber = '01234567890';
         $card->cardName = 'Carla Dias';
         $card->alias = 'Carlinha';
@@ -81,7 +81,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreateVirtualCard()
     {
-        $client = new BanklyCard();
+        $client = new BanklyCard;
 
         Http::fake($this->getFakerHttp('/cards/virtual', [
             'proxy' => '2370021007715002820',
@@ -120,7 +120,7 @@ class CardTest extends TestCase
      */
     public function testSuccessCreatePhysicalCard()
     {
-        $client = new BanklyCard();
+        $client = new BanklyCard;
 
         Http::fake($this->getFakerHttp('/cards/physical', [
             'proxy' => '2370021007715002820',

@@ -15,33 +15,24 @@ final class Auth
 {
     private static $login;
 
-    /** @var ?string */
     protected ?string $loginUrl = null;
 
-    /** @var ?string */
     private ?string $clientId = null;
 
-    /** @var ?string */
     private ?string $clientSecret = null;
 
-    /** @var ?string */
     protected ?string $grantType = 'client_credentials';
 
     protected mixed $scope = null;
 
-    /** @var ?string */
     private ?string $token = null;
 
-    /** @var ?string */
     private ?string $tokenExpiry = null;
 
-    /** @var ?string */
     private ?string $mtlsCert = null;
 
-    /** @var ?string */
     private ?string $mtlsKey = null;
 
-    /** @var ?string */
     private ?string $mtlsPassphrase = null;
 
     /**
@@ -50,7 +41,7 @@ final class Auth
     public static function login(): self
     {
         if (is_null(self::$login)) {
-            self::$login = new Auth();
+            self::$login = new Auth;
         }
 
         self::$login->loginUrl = config('bankly')['login_url'];

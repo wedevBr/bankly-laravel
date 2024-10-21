@@ -80,7 +80,7 @@ class CardsByDocumentTest extends TestCase
     {
         Http::fake($this->getFakerHttp(200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->getByDocument('1234567890');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

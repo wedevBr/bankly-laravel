@@ -79,8 +79,8 @@ class SendDocumentAnalysisTest extends TestCase
      */
     public function testReturnTypeErrorIfIncompatibleDocument()
     {
-        $client = new Bankly();
-        $document = new \stdClass();
+        $client = new Bankly;
+        $document = new \stdClass;
 
         $this->expectException(TypeError::class);
         $client->documentAnalysis('00000000000000', $document);

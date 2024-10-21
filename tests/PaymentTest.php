@@ -71,7 +71,7 @@ class PaymentTest extends TestCase
             'authenticationCode' => '94c45428-65f1-4e96-a16c-748119e26a96',
         ]));
 
-        $billPayment = new BillPayment();
+        $billPayment = new BillPayment;
         $billPayment->amount = 789.49;
         $billPayment->description = 'Mensalidade Escola';
         $billPayment->bankBranch = '0001';

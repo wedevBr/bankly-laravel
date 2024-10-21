@@ -34,16 +34,16 @@ class RegisterPixKeyTest extends TestCase
      */
     public function validPixEntries()
     {
-        $addressingKey = new AddressingKey();
+        $addressingKey = new AddressingKey;
         $addressingKey->type = 'CPF';
         $addressingKey->value = '12345678909';
 
-        $addressingAccount = new AddressingAccount();
+        $addressingAccount = new AddressingAccount;
         $addressingAccount->branch = '0001';
         $addressingAccount->number = '1234';
         $addressingAccount->type = 'CHECKING';
 
-        $pixEntries = new PixEntries();
+        $pixEntries = new PixEntries;
         $pixEntries->addressingKey = $addressingKey;
         $pixEntries->account = $addressingAccount;
 

@@ -57,7 +57,7 @@ class GetDocumentAnalysisTest extends TestCase
      */
     public function testSuccessGetDocumentAnalysis()
     {
-        $client = new Bankly();
+        $client = new Bankly;
 
         Http::fake($this->getFakerHttp());
 
@@ -81,7 +81,7 @@ class GetDocumentAnalysisTest extends TestCase
      */
     public function testSuccessGetDocumentAnalysisWithoutToken()
     {
-        $client = new Bankly();
+        $client = new Bankly;
 
         Http::fake($this->getFakerHttp());
 

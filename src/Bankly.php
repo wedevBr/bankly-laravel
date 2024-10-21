@@ -26,19 +26,14 @@ use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
  */
 class Bankly
 {
-    /** @var ?string */
     public ?string $api_url;
 
-    /** @var ?string */
     private ?string $mtlsCert = null;
 
-    /** @var ?string */
     private ?string $mtlsKey = null;
 
-    /** @var ?string */
     private ?string $mtlsPassphrase;
 
-    /** @var ?string */
     private ?string $token = null;
 
     private string $api_version = '1';
@@ -587,7 +582,6 @@ class Bankly
     /**
      * Create a new PIX key link with account.
      *
-     * @param  ?string  $hash
      * @return array|mixed
      *
      * @throws RequestException

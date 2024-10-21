@@ -33,7 +33,7 @@ class PixCashoutRefundTest extends TestCase
      */
     public function validAccount()
     {
-        $addressingAccount = new AddressingAccount();
+        $addressingAccount = new AddressingAccount;
         $addressingAccount->branch = '0001';
         $addressingAccount->number = '1111';
         $addressingAccount->type = 'CHECKING';
@@ -46,7 +46,7 @@ class PixCashoutRefundTest extends TestCase
      */
     public function validPixCashoutRefund()
     {
-        $pixCashoutRefund = new PixCashoutRefund();
+        $pixCashoutRefund = new PixCashoutRefund;
         $pixCashoutRefund->account = $this->validAccount();
         $pixCashoutRefund->authenticationCode = '79bb6e53-6869-42c6-be15-2dba237f306b';
         $pixCashoutRefund->amount = '83.23';
@@ -59,10 +59,7 @@ class PixCashoutRefundTest extends TestCase
     /**
      * @return array
      */
-    public function getFakerHttp(array $response, int $statusCode)
-    {
-
-    }
+    public function getFakerHttp(array $response, int $statusCode) {}
 
     public function successResponse()
     {
