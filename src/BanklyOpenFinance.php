@@ -21,10 +21,10 @@ class BanklyOpenFinance
 {
     use Mtls, Rest;
 
-    public function generateTicket(Ticket $ticket)
+    public function createTicket(Ticket $ticket): array
     {
         return $this->post('/openfinance/consent-flow/ticket',
-            $openFinanceTicket->toArray(),
-        asJson: true);
+            $ticket->toArray(),
+            asJson: true);
     }
 }

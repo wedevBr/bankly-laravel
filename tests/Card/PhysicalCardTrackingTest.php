@@ -105,7 +105,7 @@ class PhysicalCardTrackingTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/12345678/tracking', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->cardTracking('12345678');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

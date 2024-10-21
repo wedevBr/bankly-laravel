@@ -40,7 +40,7 @@ class DuplicateCardTest extends TestCase
      */
     private function validAddress()
     {
-        $address = new Address();
+        $address = new Address;
         $address->zipCode = '29155909';
         $address->address = 'Rua Olegário Maciel';
         $address->number = '333';
@@ -58,7 +58,7 @@ class DuplicateCardTest extends TestCase
      */
     private function validDuplicateCard($status = 'LostMyCard', $address = true)
     {
-        $duplicateCard = new Duplicate();
+        $duplicateCard = new Duplicate;
         $duplicateCard->status = $status;
         $duplicateCard->documentNumber = '01234567890';
         $duplicateCard->password = '1234';
@@ -89,7 +89,7 @@ class DuplicateCardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard'));
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -123,7 +123,7 @@ class DuplicateCardTest extends TestCase
             'activateCode' => 'A0DDDC0951D1',
         ], 202));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard', false));
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

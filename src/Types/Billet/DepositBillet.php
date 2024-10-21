@@ -26,13 +26,10 @@ class DepositBillet implements Arrayable
 
     public ?string $closePayment = null;
 
-    /** @var ?Interest */
     public ?Interest $interest;
 
-    /** @var ?Fine */
     public ?Fine $fine;
 
-    /** @var ?Discount */
     public ?Discount $discount;
 
     /**

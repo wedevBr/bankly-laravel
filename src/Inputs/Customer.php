@@ -19,7 +19,6 @@ class Customer implements CustomerInterface
 {
     protected string $registerName;
 
-    /** @var ?string */
     protected ?string $socialName = null;
 
     protected CustomerPhone $phone;

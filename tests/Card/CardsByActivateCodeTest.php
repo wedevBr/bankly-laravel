@@ -80,7 +80,7 @@ class CardsByActivateCodeTest extends TestCase
     {
         Http::fake($this->getFakerHttp(200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->getByActivateCode('1234567890');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

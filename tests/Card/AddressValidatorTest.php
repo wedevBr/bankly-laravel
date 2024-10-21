@@ -23,7 +23,7 @@ class AddressValidatorTest extends TestCase
      */
     private function validAddress()
     {
-        $address = new Address();
+        $address = new Address;
         $address->zipCode = '29155909';
         $address->address = 'Rua Olegário Maciel';
         $address->number = '333';

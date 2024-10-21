@@ -79,7 +79,7 @@ class CardByProxyTest extends TestCase
     {
         Http::fake($this->getFakerHttp(200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->getByProxy('1234567890');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
@@ -106,7 +106,7 @@ class CardByProxyTest extends TestCase
 
         $this->expectException(RequestException::class);
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->getByProxy('1234567890');
     }
 }

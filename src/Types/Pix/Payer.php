@@ -7,10 +7,8 @@ use WeDevBr\Bankly\Validators\Pix\PayerValidator;
 
 class Payer implements Arrayable
 {
-    /** @var ?string */
     public ?string $name;
 
-    /** @var ?string */
     public ?string $documentNumber;
 
     public string $type;

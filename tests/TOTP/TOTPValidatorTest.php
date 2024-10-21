@@ -48,7 +48,7 @@ class TOTPValidatorTest extends TestCase
         $this->expectExceptionMessage('Invalid addressing key type');
         $totp = $this->mockedTOTP();
         $totp->operation = TOTP::REGISTER_ENTRY;
-        $totp->data['addressingKey'] = new AddressingKey();
+        $totp->data['addressingKey'] = new AddressingKey;
         $totp->validate();
     }
 
@@ -59,7 +59,7 @@ class TOTPValidatorTest extends TestCase
      */
     public function testInvalidRegistryEntryPhone()
     {
-        $addressingKey = new AddressingKey();
+        $addressingKey = new AddressingKey;
         $addressingKey->type = 'PHONE';
         $addressingKey->value = '+1484415162342';
 
@@ -88,11 +88,11 @@ class TOTPValidatorTest extends TestCase
 
     public function mockedTOTP(): TOTP
     {
-        $addressingKey = new AddressingKey();
+        $addressingKey = new AddressingKey;
         $addressingKey->type = 'PHONE';
         $addressingKey->value = $this->faker->numerify('+55###########');
 
-        $totp = new TOTP();
+        $totp = new TOTP;
         $totp->context = 'PIX';
         $totp->documentNumber = '12345678909';
         $totp->operation = TOTP::REGISTER_ENTRY;

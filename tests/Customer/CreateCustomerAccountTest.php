@@ -64,7 +64,7 @@ class CreateCustomerAccountTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/customers/12345678909/accounts'));
 
-        $paymentAccount = new PaymentAccount();
+        $paymentAccount = new PaymentAccount;
         $paymentAccount->accountType = 'PAYMENT_ACCOUNT';
 
         $client = $this->getBanklyClient();

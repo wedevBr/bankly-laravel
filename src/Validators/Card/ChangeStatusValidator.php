@@ -76,7 +76,7 @@ class ChangeStatusValidator
 
     public function password(): void
     {
-        $password = new Password();
+        $password = new Password;
         $password->password = $this->changeStatus->password;
         $password->validate();
     }

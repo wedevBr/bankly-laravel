@@ -80,7 +80,7 @@ class CardsByAccountTest extends TestCase
     {
         Http::fake($this->getFakerHttp(200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->getByAccount('1234567890');
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

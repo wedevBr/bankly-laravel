@@ -51,7 +51,7 @@ class AllowContactlessTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/12345678/contactless?allowContactless=false', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->allowContactless('12345678', false);
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
