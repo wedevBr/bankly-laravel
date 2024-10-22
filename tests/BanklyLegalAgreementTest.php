@@ -48,7 +48,7 @@ class BanklyLegalAgreementTest extends TestCase
         ]));
         $this->auth();
 
-        $legalAgreement = new BanklyLegalAgreement();
+        $legalAgreement = new BanklyLegalAgreement;
         $response = $legalAgreement->getLegalAgreementDocument();
 
         $this->assertArrayHasKey('type', $response);
@@ -65,18 +65,18 @@ class BanklyLegalAgreementTest extends TestCase
             'id' => 'string',
         ]));
 
-        $bankAccount = new BankAccount();
+        $bankAccount = new BankAccount;
         $bankAccount->number = $this->faker->numerify('######');
         $bankAccount->branch = $this->faker->numerify('#####');
 
-        $document = new Document();
+        $document = new Document;
         $document->value = $this->faker->numerify('###########');
 
-        $acceptance = new Acceptance();
+        $acceptance = new Acceptance;
         $acceptance->account = $bankAccount;
         $acceptance->document = $document;
 
-        $legalAgreement = new BanklyLegalAgreement();
+        $legalAgreement = new BanklyLegalAgreement;
         $response = $legalAgreement->acceptLegalAgreement($acceptance);
 
         Http::assertSent(function (Request $request) use ($bankAccount, $document) {

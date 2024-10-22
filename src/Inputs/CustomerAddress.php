@@ -23,7 +23,6 @@ class CustomerAddress implements CustomerAddressInterface
 
     protected string $buildingNumber;
 
-    /** @var ?string */
     protected ?string $complement = null;
 
     protected string $neighborhood;

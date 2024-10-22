@@ -53,7 +53,7 @@ class CardSecurityDataTest extends TestCase
      */
     private function invalidPassword()
     {
-        $passwordCard = new Password();
+        $passwordCard = new Password;
         $passwordCard->password = '123a';
 
         return $passwordCard;
@@ -64,7 +64,7 @@ class CardSecurityDataTest extends TestCase
      */
     private function validPassword()
     {
-        $passwordCard = new Password();
+        $passwordCard = new Password;
         $passwordCard->password = '1234';
 
         return $passwordCard;
@@ -79,7 +79,7 @@ class CardSecurityDataTest extends TestCase
 
         Http::fake($this->getFakerHttp('/cards/2370021007715002820/pci', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $response = $card->pciData('2370021007715002820', $this->validPassword());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

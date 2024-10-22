@@ -24,7 +24,7 @@ class CardValidatorTest extends TestCase
      */
     private function validAddress()
     {
-        $address = new Address();
+        $address = new Address;
         $address->zipCode = '29155909';
         $address->address = 'Rua Olegário Maciel';
         $address->number = '333';
@@ -38,7 +38,7 @@ class CardValidatorTest extends TestCase
 
     private function validVirtualCard(): Card
     {
-        $virtualCard = new Card();
+        $virtualCard = new Card;
         $virtualCard->documentNumber = '01234567890';
         $virtualCard->cardName = 'Carla Dias';
         $virtualCard->alias = 'Carlinha';

@@ -27,20 +27,14 @@ class BanklyServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'bankly');
 
         // Register the main class to use with the facade
-        $this->app->singleton('bankly', fn () => new Bankly());
-
-        // Register the card management class to use with the facade
-        $this->app->singleton('bankly_card', fn () => new BanklyCard());
-
-        // Register the TOTP class to use with facade
-        $this->app->singleton('bankly_topt', fn () => new BanklyTOTP());
-
-        $this->app->singleton('bankly_pix_claim', fn () => new BanklyPixClaim());
-
-        $this->app->singleton('bankly_billet', fn () => new BanklyBillet());
-
-        $this->app->singleton('bankly_income_report', fn () => new BanklyIncomeReport());
-
-        $this->app->singleton('bankly_legal_agreement', fn () => new BanklyLegalAgreement());
+        $this->app->singleton('bankly', fn () => new Bankly);
+        $this->app->singleton('bankly_card', fn () => new BanklyCard);
+        $this->app->singleton('bankly_topt', fn () => new BanklyTOTP);
+        $this->app->singleton('bankly_pix_claim', fn () => new BanklyPixClaim);
+        $this->app->singleton('bankly_billet', fn () => new BanklyBillet);
+        $this->app->singleton('bankly_webhook', fn () => new BanklyWebhook);
+        $this->app->singleton('bankly_income_report', fn () => new BanklyIncomeReport);
+        $this->app->singleton('bankly_legal_agreement', fn () => new BanklyLegalAgreement);
+        $this->app->singleton('bankly_open_finance', fn () => new BanklyOpenFinance);
     }
 }

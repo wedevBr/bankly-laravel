@@ -17,17 +17,14 @@ use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
  */
 class DocumentAnalysis implements DocumentInterface
 {
-    /** @var ?string */
     protected ?string $documentSide = null;
 
     protected string $documentType;
 
-    /** @var ?string */
     protected ?string $filePath = null;
 
     protected string $fieldName;
 
-    /** @var ?string */
     protected ?string $encrypted = null;
 
     protected string $provider;

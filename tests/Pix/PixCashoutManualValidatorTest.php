@@ -28,17 +28,17 @@ class PixCashoutManualValidatorTest extends TestCase
      */
     public function validSender()
     {
-        $addressingAccount = new AddressingAccount();
+        $addressingAccount = new AddressingAccount;
         $addressingAccount->branch = '0001';
         $addressingAccount->number = '1111';
         $addressingAccount->type = 'CHECKING';
 
-        $bank = new Bank();
+        $bank = new Bank;
         $bank->ispb = '11112222';
         $bank->compe = '323';
         $bank->name = 'Banco Test S.A.';
 
-        $sender = new BankAccount();
+        $sender = new BankAccount;
         $sender->documentNumber = '12345678909';
         $sender->name = 'Jhon Smith';
         $sender->account = $addressingAccount;
@@ -52,17 +52,17 @@ class PixCashoutManualValidatorTest extends TestCase
      */
     public function validRecipient()
     {
-        $addressingAccount = new AddressingAccount();
+        $addressingAccount = new AddressingAccount;
         $addressingAccount->branch = '0002';
         $addressingAccount->number = '2222';
         $addressingAccount->type = 'CHECKING';
 
-        $bank = new Bank();
+        $bank = new Bank;
         $bank->ispb = '00000000';
         $bank->compe = '001';
         $bank->name = 'Banco BB S.A.';
 
-        $recipient = new BankAccount();
+        $recipient = new BankAccount;
         $recipient->documentNumber = '12345678909';
         $recipient->name = 'Sara Smith';
         $recipient->account = $addressingAccount;
@@ -76,7 +76,7 @@ class PixCashoutManualValidatorTest extends TestCase
      */
     public function validPixCashoutManual()
     {
-        $pixCashout = new PixCashoutManual();
+        $pixCashout = new PixCashoutManual;
         $pixCashout->amount = '83.23';
         $pixCashout->description = 'Mercado';
         $pixCashout->sender = $this->validSender();

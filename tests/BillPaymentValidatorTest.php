@@ -23,7 +23,7 @@ class BillPaymentValidatorTest extends TestCase
      */
     private function validBillPayment()
     {
-        $billPayment = new BillPayment();
+        $billPayment = new BillPayment;
         $billPayment->bankBranch = '0001';
         $billPayment->bankAccount = '1122334455';
         $billPayment->amount = '466.99';

@@ -35,7 +35,7 @@ class BanklyTOTPTest extends TestCase
             'code' => '618467',
         ]));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $response = $banklyTOTP->createTOTP($this->validTOTP());
         $this->assertArrayHasKey('hash', $response);
@@ -57,7 +57,7 @@ class BanklyTOTPTest extends TestCase
         $totp->operation = TOTP::PORTABILITY;
         $totp->data = ['claim_id' => Uuid::uuid()];
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $response = $banklyTOTP->createTOTP($totp);
         $this->assertArrayHasKey('hash', $response);
@@ -79,7 +79,7 @@ class BanklyTOTPTest extends TestCase
         $totp->operation = TOTP::OWNERSHIP;
         $totp->data = ['claim_id' => Uuid::uuid()];
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $response = $banklyTOTP->createTOTP($totp);
         $this->assertArrayHasKey('hash', $response);
@@ -103,7 +103,7 @@ class BanklyTOTPTest extends TestCase
         $totp->data = ['claim_id' => Uuid::uuid()];
 
         $this->expectException(RequestException::class);
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $banklyTOTP->createTOTP($totp);
     }
@@ -127,7 +127,7 @@ class BanklyTOTPTest extends TestCase
         $totp->data = ['claim_id' => Uuid::uuid()];
 
         $this->expectException(RequestException::class);
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $banklyTOTP->createTOTP($totp);
     }
@@ -145,7 +145,7 @@ class BanklyTOTPTest extends TestCase
             'expireInSeconds' => '300',
         ]));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
         $response = $banklyTOTP->verifyTOTP(
             'a40296c70ebc780c917aa510aad8aeb3c83c3ce86e0fc3b7149019a75cdb4122',
@@ -167,7 +167,7 @@ class BanklyTOTPTest extends TestCase
             'code' => 'INVALID_PARAMETER',
         ], 400));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('12345678909');
 
         $this->expectException(RequestException::class);
@@ -189,7 +189,7 @@ class BanklyTOTPTest extends TestCase
             'code' => 'INVALID_USER_ID',
         ], 400));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('11122233305');
 
         $this->expectException(RequestException::class);
@@ -213,7 +213,7 @@ class BanklyTOTPTest extends TestCase
             'code' => 'NOT_FOUND',
         ], 404));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('11122233305');
 
         $this->expectException(RequestException::class);
@@ -237,7 +237,7 @@ class BanklyTOTPTest extends TestCase
             'code' => 'ENTRY_TRANSACTIONAL_HASH_INVALID',
         ], 422));
 
-        $banklyTOTP = new BanklyTOTP();
+        $banklyTOTP = new BanklyTOTP;
         $banklyTOTP->setDocumentNumber('11122233305');
 
         $this->expectException(RequestException::class);
@@ -249,11 +249,11 @@ class BanklyTOTPTest extends TestCase
 
     public function validTOTP(): TOTP
     {
-        $addressingKey = new AddressingKey();
+        $addressingKey = new AddressingKey;
         $addressingKey->type = 'PHONE';
         $addressingKey->value = $this->faker->numerify('+55###########');
 
-        $totpType = new TOTP();
+        $totpType = new TOTP;
         $totpType->context = 'PIX';
         $totpType->operation = TOTP::REGISTER_ENTRY;
         $totpType->data = [

@@ -35,6 +35,6 @@ class BanklyLegalAgreement
             'acceptance' => $acceptance->toArray(),
             'type' => $type,
         ],
-        asJson: true);
+            asJson: true);
     }
 }

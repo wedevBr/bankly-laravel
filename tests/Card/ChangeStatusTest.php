@@ -40,7 +40,7 @@ class ChangeStatusTest extends TestCase
      */
     private function validStatus()
     {
-        $changeStatus = new ChangeStatus();
+        $changeStatus = new ChangeStatus;
         $changeStatus->password = '1234';
         $changeStatus->status = 'TemporarilyUserLocked';
 
@@ -66,7 +66,7 @@ class ChangeStatusTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/12345678/status', []));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->changeStatus('12345678', $this->validStatus());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

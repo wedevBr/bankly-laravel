@@ -57,7 +57,7 @@ class DigitalWalletTest extends TestCase
      */
     private function validWallet()
     {
-        $wallet = new Wallet();
+        $wallet = new Wallet;
         $wallet->proxy = '12345678';
         $wallet->wallet = 'GooglePay';
         $wallet->brand = 'Mastercard';
@@ -72,7 +72,7 @@ class DigitalWalletTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards-pci/12345678/wallet/GooglePay/brand/Mastercard', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->digitalWallet($this->validWallet());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {

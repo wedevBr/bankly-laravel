@@ -40,7 +40,7 @@ class PixStaticQrCodeTest extends TestCase
      */
     private function validAddressingKey()
     {
-        $addressingKey = new AddressingKey();
+        $addressingKey = new AddressingKey;
         $addressingKey->type = 'CPF';
         $addressingKey->value = '00000000000';
 
@@ -52,7 +52,7 @@ class PixStaticQrCodeTest extends TestCase
      */
     private function validLocation()
     {
-        $addressingKey = new Location();
+        $addressingKey = new Location;
         $addressingKey->city = 'Vila Velha';
         $addressingKey->zipCode = '29112000';
 
@@ -64,7 +64,7 @@ class PixStaticQrCodeTest extends TestCase
      */
     private function validStaticQrCodeData()
     {
-        $data = new PixStaticQrCode();
+        $data = new PixStaticQrCode;
         $data->recipientName = 'Place Holder';
         $data->addressingKey = $this->validAddressingKey();
         $data->location = $this->validLocation();

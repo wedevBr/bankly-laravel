@@ -21,7 +21,6 @@ class LegalRepresentative implements Arrayable
 
     protected string $registerName;
 
-    /** @var ?string */
     protected ?string $socialName = null;
 
     protected CustomerPhone $phone;

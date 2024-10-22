@@ -30,7 +30,7 @@ abstract class TestCase extends TestbenchTestCase
      */
     public function getBanklyClient(): Bankly
     {
-        $client = new Bankly();
+        $client = new Bankly;
         $auth = Auth::login();
         $token = new ReflectionProperty($auth, 'token');
         $token->setValue($auth, $this->faker->uuid);
@@ -56,7 +56,7 @@ abstract class TestCase extends TestbenchTestCase
 
     public function getBilletClient(): BanklyBillet
     {
-        $client = new BanklyBillet();
+        $client = new BanklyBillet;
         $auth = Auth::login();
         $token = new \ReflectionProperty($auth, 'token');
         $token->setValue($auth, $this->faker->uuid);

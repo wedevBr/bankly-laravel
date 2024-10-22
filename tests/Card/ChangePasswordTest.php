@@ -50,7 +50,7 @@ class ChangePasswordTest extends TestCase
      */
     private function validPassword()
     {
-        $passwordCard = new Password();
+        $passwordCard = new Password;
         $passwordCard->password = '1234';
 
         return $passwordCard;
@@ -63,7 +63,7 @@ class ChangePasswordTest extends TestCase
     {
         Http::fake($this->getFakerHttp('/cards/12345678/password', 200));
 
-        $card = new BanklyCard();
+        $card = new BanklyCard;
         $card->changePassword('12345678', $this->validPassword());
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
