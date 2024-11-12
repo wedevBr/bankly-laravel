@@ -71,7 +71,9 @@ class PixCashoutKeyTest extends TestCase
     /**
      * @return array
      */
-    public function getFakerHttp(array $response, int $statusCode) {}
+    public function getFakerHttp(array $response, int $statusCode)
+    {
+    }
 
     public function successResponse()
     {

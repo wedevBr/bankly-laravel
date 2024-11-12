@@ -22,7 +22,7 @@ class BanklyOpenFinance
 {
     use Mtls, Rest;
 
-    public function createTicket(Ticket $ticket, string $idempotencyKey = null): array
+    public function createTicket(Ticket $ticket, ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
@@ -33,7 +33,7 @@ class BanklyOpenFinance
             asJson: true);
     }
 
-    public function createConsentManagement(string $accountNumber, string $documentNumber, string $idempotencyKey = null): array
+    public function createConsentManagement(string $accountNumber, string $documentNumber, ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
