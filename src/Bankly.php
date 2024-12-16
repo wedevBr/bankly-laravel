@@ -533,13 +533,12 @@ class Bankly
         string $idempotencyKey = null
     ): mixed
     {
-        return $this->addHeaders(array_filter(['idempotency' => $idempotencyKey]))
-            ->post(
-                "/customers/{$documentNumber}/accounts",
-                $paymentAccount->toArray(),
-                null,
-                true
-            );
+        return $this->post(
+            "/customers/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            array_filter(['idempotency' => $idempotencyKey]),
+            true
+        );
     }
 
     /**
@@ -553,13 +552,12 @@ class Bankly
         string $idempotencyKey = null
     ): mixed
     {
-        return $this->addHeaders(array_filter(['idempotency' => $idempotencyKey]))
-            ->post(
-                "/business/{$documentNumber}/accounts",
-                $paymentAccount->toArray(),
-                null,
-                true
-            );
+        return $this->post(
+            "/business/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            array_filter(['idempotency' => $idempotencyKey]),
+            true
+        );
     }
 
     /**
