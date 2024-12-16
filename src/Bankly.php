@@ -527,14 +527,19 @@ class Bankly
      *
      * @throws RequestException
      */
-    public function createCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount): mixed
+    public function createCustomerAccount(
+        string $documentNumber, 
+        PaymentAccount $paymentAccount, 
+        string $idempotencyKey = null
+    ): mixed
     {
-        return $this->post(
-            "/customers/{$documentNumber}/accounts",
-            $paymentAccount->toArray(),
-            null,
-            true
-        );
+        return $this->addHeaders(array_filter(['idempotency' => $idempotencyKey]))
+            ->post(
+                "/customers/{$documentNumber}/accounts",
+                $paymentAccount->toArray(),
+                null,
+                true
+            );
     }
 
     /**
@@ -542,14 +547,19 @@ class Bankly
      *
      * @throws RequestException
      */
-    public function createBusinessCustomerAccount(string $documentNumber, PaymentAccount $paymentAccount): mixed
+    public function createBusinessCustomerAccount(
+        string $documentNumber,
+        PaymentAccount $paymentAccount,
+        string $idempotencyKey = null
+    ): mixed
     {
-        return $this->post(
-            "/business/{$documentNumber}/accounts",
-            $paymentAccount->toArray(),
-            null,
-            true
-        );
+        return $this->addHeaders(array_filter(['idempotency' => $idempotencyKey]))
+            ->post(
+                "/business/{$documentNumber}/accounts",
+                $paymentAccount->toArray(),
+                null,
+                true
+            );
     }
 
     /**
