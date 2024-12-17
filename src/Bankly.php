@@ -530,12 +530,12 @@ class Bankly
     public function createCustomerAccount(
         string $documentNumber, 
         PaymentAccount $paymentAccount, 
-        string $idempotencyKey = null
+        ?string $idempotencyKey = null
     ): mixed
     {
-        if ($idempotencyKey) {
-            $this->setHeaders(['idempotency' => $idempotencyKey]);
-        }
+        $this->setHeaders([
+            'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
+        ]);
 
         return $this->post(
                 "/customers/{$documentNumber}/accounts",
@@ -553,12 +553,12 @@ class Bankly
     public function createBusinessCustomerAccount(
         string $documentNumber,
         PaymentAccount $paymentAccount,
-        string $idempotencyKey = null
+        ?string $idempotencyKey = null
     ): mixed
     {
-        if ($idempotencyKey) {
-            $this->setHeaders(['idempotency' => $idempotencyKey]);
-        }
+        $this->setHeaders([
+            'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
+        ]);
 
         return $this->post(
                 "/business/{$documentNumber}/accounts",
