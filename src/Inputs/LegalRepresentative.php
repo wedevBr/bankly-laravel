@@ -37,11 +37,11 @@ class LegalRepresentative implements Arrayable
 
     protected string $declaredIncome;
 
-    protected string $selfieToken;
+    protected ?string $selfieToken = null;
 
-    protected string $idCardFrontToken;
+    protected ?string $idCardFrontToken = null;
 
-    protected string $idCardBackToken;
+    protected ?string $idCardBackToken = null;
 
     protected string $occupation;
 
