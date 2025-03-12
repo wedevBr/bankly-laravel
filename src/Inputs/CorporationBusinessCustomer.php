@@ -148,14 +148,20 @@ class CorporationBusinessCustomer implements Arrayable
     public function toArray(): array
     {
         return [
-            'businessAddress' => $this->businessAddress->toArray(),
-            'legalRepresentative' => $this->legalRepresentative->toArray(),
-            'tradingName' => $this->tradingName,
             'businessName' => $this->businessName,
+            'tradingName' => $this->tradingName,
             'businessEmail' => $this->businessEmail,
-            'declaredAnnualBilling' => $this->declaredAnnualBilling,
-            'businessSize' => $this->businessSize,
             'businessType' => $this->businessType,
+            'businessSize' => $this->businessSize,
+            'cnaeCode' => $this->cnaeCode,
+            'declaredAnnualBilling' => $this->declaredAnnualBilling,
+            'legalNature' => $this->legalNature,
+            'openingDate' => $this->openingDate,
+            'businessAddress' => $this->businessAddress->toArray(),
+            'phone' => $this->phone->toArray(),
+            'legalRepresentatives' => $this->legalRepresentative->toArray(),
+            'owners' => $this->owners->toArray(),
+            'documentation' => $this->documentation->toArray(),
         ];
     }
 }
