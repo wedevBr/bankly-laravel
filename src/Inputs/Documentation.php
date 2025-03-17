@@ -16,6 +16,34 @@ class Documentation implements Arrayable
 
     public LegalRepresentative $legalRepresentative;
 
+    public function setArticlesOfIncoporation(string $articlesOfIncorporation): Documentation
+    {
+        $this->articlesOfIncorporation = $articlesOfIncorporation;
+
+        return $this;
+    }
+
+    public function setLastContractChange(string $lastContractChange): Documentation
+    {
+        $this->lastContractChange = $lastContractChange;
+
+        return $this;
+    }
+
+    public function setBalanceSheet(string $balanceSheet): Documentation
+    {
+        $this->balanceSheet = $balanceSheet;
+
+        return $this;
+    }
+
+    public function setPowerOfAttorney(string $powerOfAttorney): Documentation
+    {
+        $this->powerOfAttorney = $powerOfAttorney;
+
+        return $this;
+    }
+
     public function setLegalRepresentative(LegalRepresentative $legalRepresentative): Documentation
     {
         $this->legalRepresentative = $legalRepresentative;
