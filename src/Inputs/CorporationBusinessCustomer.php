@@ -80,6 +80,13 @@ class CorporationBusinessCustomer implements Arrayable
         return $this;
     }
 
+    public function setCnaeCode(string $cnaeCode): CorporationBusinessCustomer
+    {
+        $this->cnaeCode = $cnaeCode;
+
+        return $this;
+    }
+
     public function setDeclaredAnnualBilling(string $declaredAnnualBilling): CorporationBusinessCustomer
     {
         $this->declaredAnnualBilling = $declaredAnnualBilling;
@@ -100,6 +107,21 @@ class CorporationBusinessCustomer implements Arrayable
 
         return $this;
     }
+
+    public function setLegalNature(string $legalNature): CorporationBusinessCustomer
+    {
+        $this->legalNature = $legalNature;
+
+        return $this;
+    }
+
+    public function setOpeningDate(string $openingDate): CorporationBusinessCustomer
+    {
+        $this->openingDate = $openingDate;
+
+        return $this;
+    }
+
 
     public function addLegalRepresentative(LegalRepresentative $legalRepresentative): CorporationBusinessCustomer
     {
@@ -143,6 +165,11 @@ class CorporationBusinessCustomer implements Arrayable
     public function getDeclaredAnnualBilling(): string
     {
         return $this->declaredAnnualBilling;
+    }
+
+    public function getLegalRepresentatives(): array
+    {
+        return $this->legalRepresentatives;
     }
 
     public function toArray(): array
