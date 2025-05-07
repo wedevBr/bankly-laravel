@@ -648,8 +648,12 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function deletePixAddressingKeyValue(string $addressingKeyValue): mixed
+    public function deletePixAddressingKeyValue(string $addressingKeyValue, string $documentNumber = null): mixed
     {
+        if ($documentNumber) {
+            $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        }
+
         return $this->delete("/pix/entries/$addressingKeyValue");
     }
 
