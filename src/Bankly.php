@@ -10,6 +10,7 @@ use TypeError;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Inputs\BusinessCustomer;
+use WeDevBr\Bankly\Inputs\CorporationBusinessCustomer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Inputs\DocumentAnalysisCorporationBusiness;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
@@ -416,7 +417,7 @@ class Bankly
     }
 
     /**
-     * Business customer register
+     * Business customer register: MEI, EI, EIRELI or SLU
      *
      * @return array|mixed
      *
@@ -428,6 +429,21 @@ class Bankly
         ?string $correlationId = null
     ): mixed {
         return $this->put("/business/{$documentNumber}", $customer->toArray(), $correlationId, true);
+    }
+
+    /**
+     * Business customer register: LTDA, S.A. and TS
+     *
+     * @return array|mixed
+     *
+     * @throws TypeError|RequestException
+     */
+    public function corporationBusinessCustomer(
+        string $documentNumber,
+        CorporationBusinessCustomer $customer,
+        ?string $correlationId = null
+    ): mixed {
+        return $this->put("/corporation-business/{$documentNumber}", $customer->toArray(), $correlationId, true);
     }
 
     /**
@@ -672,8 +688,12 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function deletePixAddressingKeyValue(string $addressingKeyValue): mixed
+    public function deletePixAddressingKeyValue(string $addressingKeyValue, string $documentNumber = null): mixed
     {
+        if ($documentNumber) {
+            $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
+        }
+
         return $this->delete("/pix/entries/$addressingKeyValue");
     }
 
