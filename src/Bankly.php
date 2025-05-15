@@ -11,6 +11,7 @@ use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
 use WeDevBr\Bankly\Inputs\BusinessCustomer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
+use WeDevBr\Bankly\Inputs\DocumentAnalysisCorporationBusiness;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 use WeDevBr\Bankly\Types\Customer\PaymentAccount;
@@ -338,6 +339,29 @@ class Bankly
 
         return $this->postDocument(
             "/document-analysis/{$documentNumber}/deepface",
+            $body,
+            $correlationId,
+            true,
+            true,
+            $document
+        );
+    }
+
+    /**
+     * @param  DocumentAnalysisCorporationBusiness  $document
+     * @return array|mixed
+     *
+     * @throws RequestException
+     */
+    public function documentAnalysisCorporationBusiness(
+        string $documentNumber,
+        DocumentAnalysisCorporationBusiness $document,
+        ?string $correlationId = null
+    ): mixed {
+        $body = $document->toArray();
+
+        return $this->putDocument(
+            "/document-analysis/{$documentNumber}/corporation-business",
             $body,
             $correlationId,
             true,
@@ -907,6 +931,44 @@ class Bankly
         }
 
         return $request->post($this->getFinalUrl($endpoint), $body)
+            ->throw()
+            ->json();
+    }
+
+    /**
+     * @param  array|null  $body
+     * @param  string  $fieldName
+     * @return array|mixed
+     *
+     * @throws RequestException
+     */
+    private function putDocument(
+        string $endpoint,
+        array $body = [],
+        ?string $correlation_id = null,
+        bool $asJson = false,
+        bool $attachment = false,
+        DocumentAnalysisCorporationBusiness $document = null
+    ): mixed {
+        if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
+            $correlation_id = Uuid::uuid4()->toString();
+        }
+
+        $body_format = $asJson ? 'json' : 'form_params';
+        $token = $this->getToken() ?? Auth::login()->getToken();
+        $request = Http::withToken($token)
+            ->withHeaders($this->getHeaders(['x-correlation-id' => $correlation_id]))
+            ->bodyFormat($body_format);
+
+        if ($this->mtlsCert && $this->mtlsKey && $this->mtlsPassphrase) {
+            $request = $this->setRequestMtls($request);
+        }
+
+        if ($attachment) {
+            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
+        }
+
+        return $request->put($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
     }
