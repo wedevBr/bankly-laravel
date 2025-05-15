@@ -29,42 +29,42 @@ class DocumentAnalysis implements DocumentInterface
 
     protected string $provider;
 
-    public function setDocumentSide(string $documentSide): DocumentAnalysis
+    public function setDocumentSide(string $documentSide): static
     {
         $this->documentSide = $documentSide;
 
         return $this;
     }
 
-    public function setDocumentType(string $documentType): DocumentAnalysis
+    public function setDocumentType(string $documentType): static
     {
         $this->documentType = $documentType;
 
         return $this;
     }
 
-    public function setFilePath(string $path): DocumentAnalysis
+    public function setFilePath(string $path): static
     {
         $this->filePath = $path;
 
         return $this;
     }
 
-    public function setFieldName(string $name): DocumentAnalysis
+    public function setFieldName(string $name): static
     {
         $this->fieldName = $name;
 
         return $this;
     }
 
-    public function setProvider(string $provider): DocumentAnalysis
+    public function setProvider(string $provider): static
     {
         $this->provider = $provider;
 
         return $this;
     }
 
-    public function setEncrypted(?string $encrypted = null): DocumentAnalysis
+    public function setEncrypted(?string $encrypted = null): static
     {
         $this->encrypted = $encrypted;
 

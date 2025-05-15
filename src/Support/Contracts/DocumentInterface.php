@@ -18,7 +18,7 @@ use WeDevBr\Bankly\Inputs\DocumentAnalysis;
  */
 interface DocumentInterface extends Arrayable
 {
-    public function setFilePath(string $path): DocumentAnalysis;
+    public function setFilePath(string $path): static;
 
     public function getFileName(): string;
 
@@ -27,11 +27,11 @@ interface DocumentInterface extends Arrayable
      */
     public function getFileContents();
 
-    public function setFieldName(string $name): DocumentAnalysis;
+    public function setFieldName(string $name): static;
 
-    public function setProvider(string $provider): DocumentAnalysis;
+    public function setProvider(string $provider): static;
 
-    public function setEncrypted(?string $encrypted = null): DocumentAnalysis;
+    public function setEncrypted(?string $encrypted = null): static;
 
     public function getDocumentSide(): string;
 

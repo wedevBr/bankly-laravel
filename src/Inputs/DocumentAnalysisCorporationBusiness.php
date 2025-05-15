@@ -30,42 +30,42 @@ class DocumentAnalysisCorporationBusiness implements DocumentInterface
     protected ?string $provider = null;
 
 
-    public function setDocumentSide(string $documentSide): DocumentAnalysisCorporationBusiness
+    public function setDocumentSide(string $documentSide): static
     {
         $this->documentSide = $documentSide;
 
         return $this;
     }
 
-    public function setDocumentType(string $documentType): DocumentAnalysisCorporationBusiness
+    public function setDocumentType(string $documentType): static
     {
         $this->documentType = $documentType;
 
         return $this;
     }
 
-    public function setFilePath(string $path): DocumentAnalysisCorporationBusiness
+    public function setFilePath(string $path): static
     {
         $this->filePath = $path;
 
         return $this;
     }
 
-    public function setFieldName(string $name): DocumentAnalysisCorporationBusiness
+    public function setFieldName(string $name): static
     {
         $this->fieldName = $name;
 
         return $this;
     }
 
-    public function setProvider(string $provider): DocumentAnalysisCorporationBusiness
+    public function setProvider(string $provider): static
     {
         $this->provider = $provider;
 
         return $this;
     }
 
-    public function setEncrypted(?string $encrypted = null): DocumentAnalysisCorporationBusiness
+    public function setEncrypted(?string $encrypted = null): static
     {
         $this->encrypted = $encrypted;
 
