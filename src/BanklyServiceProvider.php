@@ -33,6 +33,7 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly_pix_claim', fn () => new BanklyPixClaim);
         $this->app->singleton('bankly_billet', fn () => new BanklyBillet);
         $this->app->singleton('bankly_webhook', fn () => new BanklyWebhook);
+        $this->app->singleton('bankly_batch_messages', fn () => new BanklyWebhookBatchMessage());
         $this->app->singleton('bankly_income_report', fn () => new BanklyIncomeReport);
         $this->app->singleton('bankly_legal_agreement', fn () => new BanklyLegalAgreement);
         $this->app->singleton('bankly_open_finance', fn () => new BanklyOpenFinance);
