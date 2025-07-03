@@ -40,7 +40,7 @@ class PaymentTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessValidatePayment()
+    public function test_success_validate_payment()
     {
         Http::fake($this->getFakerHttp('/bill-payment/validate', [
             'id' => '94c45428-65f1-4e96-a16c-748119e26a96',
@@ -65,7 +65,7 @@ class PaymentTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessConfirmPayment()
+    public function test_success_confirm_payment()
     {
         Http::fake($this->getFakerHttp('/bill-payment/confirm', [
             'authenticationCode' => '94c45428-65f1-4e96-a16c-748119e26a96',

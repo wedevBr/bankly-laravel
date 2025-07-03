@@ -32,7 +32,7 @@ class BankAccountTest extends TestCase
     /**
      * @test
      */
-    public function testInvalidBankBranch()
+    public function test_invalid_bank_branch()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('branch should be a numeric string');
@@ -44,7 +44,7 @@ class BankAccountTest extends TestCase
     /**
      * @test
      */
-    public function testInvalidBankAccount()
+    public function test_invalid_bank_account()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('account should be a numeric string');
@@ -56,7 +56,7 @@ class BankAccountTest extends TestCase
     /**
      * @test
      */
-    public function testInvalidBankDocument()
+    public function test_invalid_bank_document()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('document should be a string');
@@ -74,7 +74,7 @@ class BankAccountTest extends TestCase
     /**
      * @test
      */
-    public function testInvalidBankName()
+    public function test_invalid_bank_name()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('name should be a string');
@@ -86,7 +86,7 @@ class BankAccountTest extends TestCase
     /**
      * @test
      */
-    public function testInvalidAccountType()
+    public function test_invalid_account_type()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('accountType should be one of them: CHECKING, SAVINGS');

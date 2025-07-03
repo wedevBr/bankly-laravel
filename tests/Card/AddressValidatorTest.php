@@ -39,7 +39,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateZipCode()
+    public function test_validate_zip_code()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('zip code should be a numeric string');
@@ -51,7 +51,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAddress()
+    public function test_validate_address()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('address should be a string');
@@ -63,7 +63,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateNumber()
+    public function test_validate_number()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('number should be a numeric or string');
@@ -75,7 +75,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateNeighborhood()
+    public function test_validate_neighborhood()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('neighborhood should be a string');
@@ -87,7 +87,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateCity()
+    public function test_validate_city()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('city should be a string');
@@ -99,7 +99,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateState()
+    public function test_validate_state()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('state should be a string');
@@ -111,7 +111,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateCountry()
+    public function test_validate_country()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('country should be a string');
@@ -123,7 +123,7 @@ class AddressValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testConvertCardObjectToArray()
+    public function test_convert_card_object_to_array()
     {
         $address = $this->validAddress();
         $array = $address->toArray();

@@ -44,7 +44,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAccountTypeIfIsString()
+    public function test_validate_account_type_if_is_string()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('type account should be a string');
@@ -56,7 +56,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAccountTypeIsValid()
+    public function test_validate_account_type_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this account type is not valid');
@@ -68,7 +68,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAccountNumber()
+    public function test_validate_account_number()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('number account should be a numeric string');
@@ -80,7 +80,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAccountBranch()
+    public function test_validate_account_branch()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('branch should be a numeric string');
@@ -92,7 +92,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAddressingKeyTypeIsValid()
+    public function test_validate_if_addressing_key_type_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this key type is not valid');
@@ -104,7 +104,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAddressingKeyTypeIsString()
+    public function test_validate_if_addressing_key_type_is_string()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('type should be a string');
@@ -116,7 +116,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAddressingKeyValueIsString()
+    public function test_validate_if_addressing_key_value_is_string()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('value should be a string');
@@ -128,7 +128,7 @@ class PixEntriesValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAccountTypeIfEVPNotEmptyValue()
+    public function test_validate_account_type_if_evp_not_empty_value()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('value must be empty for EVP type');

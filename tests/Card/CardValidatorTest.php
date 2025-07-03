@@ -53,7 +53,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateDocumentNumber()
+    public function test_validate_document_number()
     {
         $this->expectExceptionMessage('document number should be a numeric string');
         $virtualCard = $this->validVirtualCard();
@@ -67,7 +67,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateCardName()
+    public function test_validate_card_name()
     {
         $this->expectExceptionMessage('card name should be a string');
         $virtualCard = $this->validVirtualCard();
@@ -78,7 +78,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAlias()
+    public function test_validate_alias()
     {
         $this->expectExceptionMessage('alias should be a string');
         $virtualCard = $this->validVirtualCard();
@@ -89,7 +89,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateBankAgency()
+    public function test_validate_bank_agency()
     {
         $this->expectExceptionMessage('bank agency should be a numeric string');
         $virtualCard = $this->validVirtualCard();
@@ -100,7 +100,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateBankAccount()
+    public function test_validate_bank_account()
     {
         $this->expectExceptionMessage('bank account should be a numeric string');
         $virtualCard = $this->validVirtualCard();
@@ -111,7 +111,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidatePassword()
+    public function test_validate_password()
     {
         $this->expectExceptionMessage('password should be a numeric string');
         $virtualCard = $this->validVirtualCard();
@@ -122,7 +122,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAddress()
+    public function test_validate_address()
     {
         $this->expectExceptionMessage('zip code should be a numeric string');
         $virtualCard = $this->validVirtualCard();
@@ -133,7 +133,7 @@ class CardValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testConvertVirtualCardObjectToArray()
+    public function test_convert_virtual_card_object_to_array()
     {
         $virtualCard = $this->validVirtualCard();
         $array = $virtualCard->toArray();

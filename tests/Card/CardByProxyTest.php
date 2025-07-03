@@ -24,7 +24,7 @@ class CardByProxyTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -75,7 +75,7 @@ class CardByProxyTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCardByProxy()
+    public function test_success_get_card_by_proxy()
     {
         Http::fake($this->getFakerHttp(200));
 
@@ -100,7 +100,7 @@ class CardByProxyTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnBadRequest()
+    public function test_return_bad_request()
     {
         Http::fake($this->getFakerHttp(400));
 

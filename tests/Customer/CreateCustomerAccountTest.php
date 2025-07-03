@@ -60,7 +60,7 @@ class CreateCustomerAccountTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessCreateCustomerAccount()
+    public function test_success_create_customer_account()
     {
         Http::fake($this->getFakerHttp('/customers/12345678909/accounts'));
 

@@ -24,7 +24,7 @@ class CardTransactionsTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -80,7 +80,7 @@ class CardTransactionsTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCardTransactions()
+    public function test_success_get_card_transactions()
     {
         Http::fake($this->getFakerHttp('/cards/1234567890/*', 200));
 
@@ -110,7 +110,7 @@ class CardTransactionsTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnBadRequest()
+    public function test_return_bad_request()
     {
         Http::fake($this->getFakerHttp('/cards/1234567890/*', 400));
 

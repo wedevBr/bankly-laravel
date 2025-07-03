@@ -72,9 +72,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
     /**
      * @return array
      */
-    public function getFakerHttp(array $response, int $statusCode)
-    {
-    }
+    public function getFakerHttp(array $response, int $statusCode) {}
 
     public function successResponse()
     {
@@ -120,7 +118,7 @@ class PixCashoutStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessPixCashout()
+    public function test_success_pix_cashout()
     {
         $this->successResponse();
 

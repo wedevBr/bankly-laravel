@@ -27,7 +27,7 @@ class PixDecodeQrCodeTest extends TestCase
      */
     private $encodedValue;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -67,7 +67,7 @@ class PixDecodeQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessDecodeStaticQrCode()
+    public function test_success_decode_static_qr_code()
     {
         Http::fake($this->getFakerHttp('/pix/qrcodes/decode', [
             'endToEndId' => 'E13140088202105201500345922912340',
@@ -126,7 +126,7 @@ class PixDecodeQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfEncodedValueIsValid()
+    public function test_validate_if_encoded_value_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('encoded value should be a string');
@@ -139,7 +139,7 @@ class PixDecodeQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfDocumentNumberIsInvalid()
+    public function test_validate_if_document_number_is_invalid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('document number should be a numeric string');

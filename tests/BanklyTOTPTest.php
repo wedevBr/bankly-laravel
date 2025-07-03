@@ -27,7 +27,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testValidTOTPRegisterEntry()
+    public function test_valid_totp_register_entry()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -45,7 +45,7 @@ class BanklyTOTPTest extends TestCase
     /**
      * @throws RequestException
      */
-    public function testValidTOTPPortability()
+    public function test_valid_totp_portability()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -67,7 +67,7 @@ class BanklyTOTPTest extends TestCase
     /**
      * @throws RequestException
      */
-    public function testValidTOTPOwnership()
+    public function test_valid_totp_ownership()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -91,7 +91,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @throws RequestException
      */
-    public function testInvalidUserIdTOTP()
+    public function test_invalid_user_id_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -115,7 +115,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testInvalidParameterTOTP()
+    public function test_invalid_parameter_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -137,7 +137,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testSuccessVerifyTOTP()
+    public function test_success_verify_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -160,7 +160,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testInvalidParameterVerifyTOTP()
+    public function test_invalid_parameter_verify_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -182,7 +182,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testInvalidUserIdVerifyTOTP()
+    public function test_invalid_user_id_verify_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -206,7 +206,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testNotFoundUserVerifyTOTP()
+    public function test_not_found_user_verify_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [
@@ -230,7 +230,7 @@ class BanklyTOTPTest extends TestCase
      *
      * @test
      */
-    public function testInvalidHashVerifyTOTP()
+    public function test_invalid_hash_verify_totp()
     {
         $this->auth();
         Http::fake($this->getFakerHttp('/totp', [

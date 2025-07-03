@@ -24,7 +24,7 @@ class DuplicateCardTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -82,7 +82,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessDuplicateCard()
+    public function test_success_duplicate_card()
     {
         Http::fake($this->getFakerHttp('/cards/2370021007715002820/duplicate', [
             'proxy' => '2370021007715002820',
@@ -116,7 +116,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessDuplicateCardWhitoutAddress()
+    public function test_success_duplicate_card_whitout_address()
     {
         Http::fake($this->getFakerHttp('/cards/2370021007715002820/duplicate', [
             'proxy' => '2370021007715002820',
@@ -142,7 +142,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateStatus()
+    public function test_validate_status()
     {
         $this->expectException(\InvalidArgumentException::class);
         $message = 'invalid status, needs to be one of these';
@@ -155,7 +155,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateDocumentNumber()
+    public function test_validate_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('document number should be a numeric string');
@@ -171,7 +171,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidatePassword()
+    public function test_validate_password()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('password should be a numeric string');
@@ -183,7 +183,7 @@ class DuplicateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAddress()
+    public function test_validate_address()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('zip code should be a numeric string');
