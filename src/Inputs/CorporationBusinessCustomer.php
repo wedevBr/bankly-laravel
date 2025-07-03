@@ -38,7 +38,7 @@ class CorporationBusinessCustomer implements Arrayable
     protected CustomerAddress $businessAddress;
 
     protected CustomerPhone $phone;
-    
+
     protected array $legalRepresentatives;
 
     protected ?array $owners;
@@ -121,7 +121,6 @@ class CorporationBusinessCustomer implements Arrayable
 
         return $this;
     }
-
 
     public function addLegalRepresentative(LegalRepresentative $legalRepresentative): CorporationBusinessCustomer
     {

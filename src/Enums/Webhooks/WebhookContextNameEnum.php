@@ -7,7 +7,7 @@ enum WebhookContextNameEnum: string
     case ACCOUNT = 'Account';
     case AUTHORIZATION = 'Authorization';
     case BUSINESS = 'Business';
-    CASE BOLETO = 'Boleto';
+    case BOLETO = 'Boleto';
     case CARD = 'Card';
     case DICT = 'Dict';
     case CREDIT = 'Credit';

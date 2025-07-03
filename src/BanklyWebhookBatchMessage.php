@@ -4,22 +4,15 @@ namespace WeDevBr\Bankly;
 
 use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use WeDevBr\Bankly\Enums\Webhooks\WebhookContextNameEnum;
 use WeDevBr\Bankly\Enums\Webhooks\WebhookEventNameEnum;
 use WeDevBr\Bankly\Enums\Webhooks\WebhookEventStateEnum;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Types\Webhooks\CreateWebhook;
 
 class BanklyWebhookBatchMessage extends BaseHttpClient
 {
     /**
-     * @param Carbon $startDate
-     * @param Carbon $endDate
-     * @param int $page
-     * @param int $pageSize
-     * @return array
      * @throws RequestException
      * @throws \Throwable
      */
@@ -43,12 +36,8 @@ class BanklyWebhookBatchMessage extends BaseHttpClient
     }
 
     /**
-     * @param Carbon $startDate
-     * @param Carbon $endDate
-     * @param WebhookContextNameEnum|null $context
-     * @param Collection<WebhookEventNameEnum>|null $eventNames
-     * @param WebhookEventStateEnum|null $eventState
-     * @return array|null
+     * @param  Collection<WebhookEventNameEnum>|null  $eventNames
+     *
      * @throws \Throwable
      */
     public function reprocessBatchMessage(
@@ -57,8 +46,7 @@ class BanklyWebhookBatchMessage extends BaseHttpClient
         ?WebhookContextNameEnum $context = null,
         ?Collection $eventNames = null,
         ?WebhookEventStateEnum $eventState = null,
-    ): ?array
-    {
+    ): ?array {
         throw_if($startDate->gt($endDate), \InvalidArgumentException::class, 'Start date must be less than end date');
         throw_if(
             is_null($context) && $endDate->diffInDays($startDate) > 30,
@@ -75,7 +63,7 @@ class BanklyWebhookBatchMessage extends BaseHttpClient
             'startDate' => $startDate->format('Y-m-d'),
             'endDate' => $endDate->format('Y-m-d'),
             'context' => $context?->value,
-            'eventNames' => $eventNames instanceof Collection ? $eventNames->map(fn($item) => $item->value)->toArray() : null,
+            'eventNames' => $eventNames instanceof Collection ? $eventNames->map(fn ($item) => $item->value)->toArray() : null,
             'eventState' => $eventState?->value,
         ];
 

@@ -2,11 +2,8 @@
 
 namespace WeDevBr\Bankly;
 
-use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Arr;
-use WeDevBr\Bankly\Enums\Webhooks\WebhookContextNameEnum;
-use WeDevBr\Bankly\Enums\Webhooks\WebhookEventNameEnum;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Types\Webhooks\CreateWebhook;
 

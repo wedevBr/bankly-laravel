@@ -3,7 +3,6 @@
 namespace WeDevBr\Bankly\Support\Contracts;
 
 use Illuminate\Contracts\Support\Arrayable;
-use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 
 /**
  * DocumentInterface interface

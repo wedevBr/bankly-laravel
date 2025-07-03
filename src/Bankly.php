@@ -349,7 +349,6 @@ class Bankly
     }
 
     /**
-     * @param  DocumentAnalysisCorporationBusiness  $document
      * @return array|mixed
      *
      * @throws RequestException
@@ -568,21 +567,20 @@ class Bankly
      * @throws RequestException
      */
     public function createCustomerAccount(
-        string $documentNumber, 
-        PaymentAccount $paymentAccount, 
+        string $documentNumber,
+        PaymentAccount $paymentAccount,
         ?string $idempotencyKey = null
-    ): mixed
-    {
+    ): mixed {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
         ]);
 
         return $this->post(
-                "/customers/{$documentNumber}/accounts",
-                $paymentAccount->toArray(),
-                null,
-                true
-            );
+            "/customers/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            null,
+            true
+        );
     }
 
     /**
@@ -594,18 +592,17 @@ class Bankly
         string $documentNumber,
         PaymentAccount $paymentAccount,
         ?string $idempotencyKey = null
-    ): mixed
-    {
+    ): mixed {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
         ]);
 
         return $this->post(
-                "/business/{$documentNumber}/accounts",
-                $paymentAccount->toArray(),
-                null,
-                true
-            );
+            "/business/{$documentNumber}/accounts",
+            $paymentAccount->toArray(),
+            null,
+            true
+        );
     }
 
     /**
@@ -688,7 +685,7 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function deletePixAddressingKeyValue(string $addressingKeyValue, string $documentNumber = null): mixed
+    public function deletePixAddressingKeyValue(string $addressingKeyValue, ?string $documentNumber = null): mixed
     {
         if ($documentNumber) {
             $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
@@ -968,7 +965,7 @@ class Bankly
         ?string $correlation_id = null,
         bool $asJson = false,
         bool $attachment = false,
-        DocumentAnalysisCorporationBusiness $document = null
+        ?DocumentAnalysisCorporationBusiness $document = null
     ): mixed {
         if (is_null($correlation_id) && $this->requireCorrelationId($endpoint)) {
             $correlation_id = Uuid::uuid4()->toString();
