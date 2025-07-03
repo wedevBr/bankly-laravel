@@ -63,7 +63,7 @@ class RegisterPixKeyTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessRegisterPixKey()
+    public function test_success_register_pix_key()
     {
         Http::fake($this->getFakerHttp([
             'addressingKey' => [],

@@ -23,7 +23,7 @@ class PhysicalCardTrackingTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -101,7 +101,7 @@ class PhysicalCardTrackingTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessNextStatus()
+    public function test_success_next_status()
     {
         Http::fake($this->getFakerHttp('/cards/12345678/tracking', 200));
 

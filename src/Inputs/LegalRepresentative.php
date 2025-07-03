@@ -147,7 +147,7 @@ class LegalRepresentative implements Arrayable
     {
         return [
             'value' => $this->documentNumber,
-            'type' => 'CPF', //Accepts only cpf
+            'type' => 'CPF', // Accepts only cpf
         ];
     }
 

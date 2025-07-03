@@ -24,7 +24,7 @@ class PixStaticQrCodeTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -85,7 +85,7 @@ class PixStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessStaticQrCode()
+    public function test_success_static_qr_code()
     {
         $encoded = 'MDAwMjAxMjYzMzAwMTRici5nb3YuYmNiLnBpeDAxMTE1NjUyNzkzODIxNzUyMDQwMDAwNTMwMzk4NjU0MDQxLjAwN';
 
@@ -111,7 +111,7 @@ class PixStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAddressingKeyTypeIsValid()
+    public function test_validate_if_addressing_key_type_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this key type is not valid');
@@ -123,7 +123,7 @@ class PixStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAddressingKeyTypeIsString()
+    public function test_validate_if_addressing_key_type_is_string()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('type should be a string');
@@ -135,7 +135,7 @@ class PixStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfRecipientNameIsInvalid()
+    public function test_validate_if_recipient_name_is_invalid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('recipient name should be a string');
@@ -147,7 +147,7 @@ class PixStaticQrCodeTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateIfAdditionalDataIsToLarge()
+    public function test_validate_if_additional_data_is_to_large()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('additional data too large');

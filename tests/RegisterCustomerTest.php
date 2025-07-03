@@ -44,7 +44,7 @@ class RegisterCustomerTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessRegisterCustomer()
+    public function test_success_register_customer()
     {
         $customerPhone = new CustomerPhone;
         $customerPhone->setCountryCode('55')
@@ -103,7 +103,7 @@ class RegisterCustomerTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnTypeErrorIfIncompatibleCustomerData()
+    public function test_return_type_error_if_incompatible_customer_data()
     {
         $client = new Bankly;
         $nifNumber = '00000000000000';

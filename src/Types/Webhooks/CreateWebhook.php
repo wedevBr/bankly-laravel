@@ -14,8 +14,7 @@ class CreateWebhook implements Arrayable
         public ?string $name,
         public ?WebhookEventNameEnum $eventName,
         public ?string $context
-    ) {
-    }
+    ) {}
 
     public function toArray(): array
     {

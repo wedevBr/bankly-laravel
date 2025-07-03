@@ -55,7 +55,7 @@ class GetDocumentAnalysisTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetDocumentAnalysis()
+    public function test_success_get_document_analysis()
     {
         $client = new Bankly;
 
@@ -79,7 +79,7 @@ class GetDocumentAnalysisTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetDocumentAnalysisWithoutToken()
+    public function test_success_get_document_analysis_without_token()
     {
         $client = new Bankly;
 

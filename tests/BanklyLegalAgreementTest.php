@@ -39,7 +39,7 @@ class BanklyLegalAgreementTest extends TestCase
     /**
      * @test
      */
-    public function testGetLegalAgreementDocument()
+    public function test_get_legal_agreement_document()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/file*', [
             'type' => 'TERMS_AND_CONDITIONS_OF_USE',
@@ -59,7 +59,7 @@ class BanklyLegalAgreementTest extends TestCase
     /**
      * @test
      */
-    public function testAcceptLegalAgreement()
+    public function test_accept_legal_agreement()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/accept', [
             'id' => 'string',

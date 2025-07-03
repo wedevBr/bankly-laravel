@@ -41,7 +41,7 @@ class GetCustomerAccountsTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCustomerAccounts()
+    public function test_success_get_customer_accounts()
     {
         Http::fake($this->getFakerHttp([
             [

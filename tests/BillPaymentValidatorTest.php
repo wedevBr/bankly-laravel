@@ -35,7 +35,7 @@ class BillPaymentValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testInvalidBillPaymentBranch()
+    public function test_invalid_bill_payment_branch()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('branch should be a numeric string');
@@ -47,7 +47,7 @@ class BillPaymentValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testInvalidBillPaymentAccount()
+    public function test_invalid_bill_payment_account()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('account should be a numeric string');
@@ -60,7 +60,7 @@ class BillPaymentValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testInvalidBillPaymentAmount()
+    public function test_invalid_bill_payment_amount()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('amount should be a numeric');
@@ -72,7 +72,7 @@ class BillPaymentValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testInvalidBillPaymentId()
+    public function test_invalid_bill_payment_id()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('ID should be a string');
@@ -84,7 +84,7 @@ class BillPaymentValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnConvertBillPaymentObjectToArray()
+    public function test_return_convert_bill_payment_object_to_array()
     {
         $array = $this->validBillPayment()->toArray();
         $this->assertIsArray($array);

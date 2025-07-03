@@ -2,56 +2,13 @@
 
 namespace WeDevBr\Bankly;
 
-use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Arr;
-use WeDevBr\Bankly\Enums\Webhooks\WebhookEventNameEnum;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Types\Webhooks\CreateWebhook;
 
 class BanklyWebhook extends BaseHttpClient
 {
-    /**
-     * Get webhooks processed messages
-     *
-     * @throws RequestException
-     * @throws RequestException
-     */
-    public function getWebhookMessages(
-        Carbon $startDate,
-        Carbon $endDate,
-        ?string $state = null,
-        ?WebhookEventNameEnum $eventName = null,
-        ?string $context = null,
-        int $page = 1,
-        int $pagesize = 100
-    ): array {
-        $query = [
-            'startDate' => $startDate->format('Y-m-d'),
-            'endDate' => $endDate->format('Y-m-d'),
-            'state' => $state,
-            'eventName' => $eventName?->value,
-            'context' => $context,
-            'page' => $page,
-            'pageSize' => $pagesize,
-        ];
-
-        return $this->get(
-            '/webhooks/processed-messages',
-            array_filter($query)
-        );
-    }
-
-    /**
-     * Reprocess webhook message
-     *
-     * @throws RequestException
-     */
-    public function reprocessWebhookMessage(string $idempotencyKey): ?array
-    {
-        return $this->post('/webhooks/processed-messages/'.$idempotencyKey, [], null, true);
-    }
-
     /**
      * @throws RequestException
      */

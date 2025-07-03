@@ -79,7 +79,7 @@ class CardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessCreateVirtualCard()
+    public function test_success_create_virtual_card()
     {
         $client = new BanklyCard;
 
@@ -118,7 +118,7 @@ class CardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessCreatePhysicalCard()
+    public function test_success_create_physical_card()
     {
         $client = new BanklyCard;
 

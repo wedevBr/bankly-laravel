@@ -24,7 +24,7 @@ class ChangeStatusTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -62,7 +62,7 @@ class ChangeStatusTest extends TestCase
      *
      * @throws RequestException
      */
-    public function testSuccessChangedCardStatus()
+    public function test_success_changed_card_status()
     {
         Http::fake($this->getFakerHttp('/cards/12345678/status', []));
 
@@ -81,7 +81,7 @@ class ChangeStatusTest extends TestCase
     /**
      * @return void
      */
-    public function testValidatePassword()
+    public function test_validate_password()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('password should be a numeric string');
@@ -93,7 +93,7 @@ class ChangeStatusTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateEmptyStatus()
+    public function test_validate_empty_status()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('status should be a string');
@@ -105,7 +105,7 @@ class ChangeStatusTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnInvalidTypeStatus()
+    public function test_return_invalid_type_status()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this status is not valid');
@@ -117,7 +117,7 @@ class ChangeStatusTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnInvalidUpdateCardBinded()
+    public function test_return_invalid_update_card_binded()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('update card binded should be a boolean');

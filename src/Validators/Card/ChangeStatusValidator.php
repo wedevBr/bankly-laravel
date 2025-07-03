@@ -28,30 +28,30 @@ class ChangeStatusValidator
      * - Active
      */
     protected array $statuses = [
-        'Building', //Cartão encontra-se em construção, não está pronto para uso;
-        'Active', //Cartão encontra-se ativo para utilizar em transações;
-        'ReturnedLocked', //Devolvido, ocorre quando o cartão não foi entregue no destino;
-        'Sleeping', //Cartão disponível na göndola sem vínculo com a conta do cliente;
-        'InTransitLocked', //Cartão sendo confeccionado ou a caminho do endereço de entrega;
-        'Inactive', //Cartão comprado na gôndola sem vínculo com a conta do cliente;
-        'WithoutMovementLocked', //Bloqueado por falta de uso;
-        'TemporarilyUserLocked', //Bloqueado temporariamente pelo cliente;
-        'WrongPasswordAttemptLocked', //Bloqueado por tentativa de senha excedida;
-        'UseFraudCanceled', //Cancelado por uso em transações com fraude;
-        'CredentialOnFile', //Referentes a transações de uso em serviço de recorrência;
-        'RegisterFraudLocked', //Bloqueado por suspeita de fraude no cadastro;
-        'UpdateRegisterLocked', //Bloqueado por pendência de atualização cadastral;
-        //Non-reversible
-        'UpdateRegisterCanceled', //Cancelado por pendência de atualização cadastral;
-        'RegisterFraudCanceled', //Cancelado por suspeita de fraude no cadastro;
-        'CanceledByCustomer', //Cancelado pelo cliente;
-        'CanceledByEmitter', //Cancelado pelo emissor/parceiro;
-        'ExpiredCanceled', //Cancelado por expiração;
-        'StrayedCanceled', //Cancelado por extravio;
-        'DeathCanceled', //Cancelado por morte;
-        'LostOrTheftCanceled', //Cancelado por perda ou roubo;
-        'UseFraudLocked', //Bloqueado por uso em transações com fraude;
-        'CardCanceledByAccount', //Cancelado após a conta ser cancelada;
+        'Building', // Cartão encontra-se em construção, não está pronto para uso;
+        'Active', // Cartão encontra-se ativo para utilizar em transações;
+        'ReturnedLocked', // Devolvido, ocorre quando o cartão não foi entregue no destino;
+        'Sleeping', // Cartão disponível na göndola sem vínculo com a conta do cliente;
+        'InTransitLocked', // Cartão sendo confeccionado ou a caminho do endereço de entrega;
+        'Inactive', // Cartão comprado na gôndola sem vínculo com a conta do cliente;
+        'WithoutMovementLocked', // Bloqueado por falta de uso;
+        'TemporarilyUserLocked', // Bloqueado temporariamente pelo cliente;
+        'WrongPasswordAttemptLocked', // Bloqueado por tentativa de senha excedida;
+        'UseFraudCanceled', // Cancelado por uso em transações com fraude;
+        'CredentialOnFile', // Referentes a transações de uso em serviço de recorrência;
+        'RegisterFraudLocked', // Bloqueado por suspeita de fraude no cadastro;
+        'UpdateRegisterLocked', // Bloqueado por pendência de atualização cadastral;
+        // Non-reversible
+        'UpdateRegisterCanceled', // Cancelado por pendência de atualização cadastral;
+        'RegisterFraudCanceled', // Cancelado por suspeita de fraude no cadastro;
+        'CanceledByCustomer', // Cancelado pelo cliente;
+        'CanceledByEmitter', // Cancelado pelo emissor/parceiro;
+        'ExpiredCanceled', // Cancelado por expiração;
+        'StrayedCanceled', // Cancelado por extravio;
+        'DeathCanceled', // Cancelado por morte;
+        'LostOrTheftCanceled', // Cancelado por perda ou roubo;
+        'UseFraudLocked', // Bloqueado por uso em transações com fraude;
+        'CardCanceledByAccount', // Cancelado após a conta ser cancelada;
     ];
 
     private ChangeStatus $changeStatus;

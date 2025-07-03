@@ -40,7 +40,7 @@ class GetPixAddressingKeysTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetPixAddressingKeys()
+    public function test_success_get_pix_addressing_keys()
     {
         Http::fake($this->getFakerHttp([
             [

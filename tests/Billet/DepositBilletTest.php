@@ -86,7 +86,7 @@ class DepositBilletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessDepositBillet()
+    public function test_success_deposit_billet()
     {
         Http::fake($this->getFakerHttp('/bankslip', [
             'account' => [
@@ -128,7 +128,7 @@ class DepositBilletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetDepositBillet()
+    public function test_success_get_deposit_billet()
     {
         Http::fake($this->getFakerHttp('/bankslip/*', [
             'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6',
@@ -169,7 +169,7 @@ class DepositBilletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetDepositBilletByBarcode()
+    public function test_success_get_deposit_billet_by_barcode()
     {
         Http::fake($this->getFakerHttp('/bankslip/*', [
             'authenticationCode' => '3fa85f64-5717-4562-b3fc-2c963f66afa6',
@@ -210,7 +210,7 @@ class DepositBilletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetDepositBilletByDate()
+    public function test_success_get_deposit_billet_by_date()
     {
         Http::fake($this->getFakerHttp('/bankslip/*', [
             'nextPageToken' => 'string',
@@ -251,7 +251,7 @@ class DepositBilletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessPrintDepositBillet()
+    public function test_success_print_deposit_billet()
     {
         Http::fake($this->getFakerHttp('/bankslip/*', [], 200));
 

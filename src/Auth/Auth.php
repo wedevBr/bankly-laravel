@@ -170,7 +170,7 @@ final class Auth
     {
         $this->setClientCredentials();
 
-        //TODO: Add auth for username and password
+        // TODO: Add auth for username and password
         $body = [
             'grant_type' => $this->grantType,
             'client_secret' => $this->clientSecret,

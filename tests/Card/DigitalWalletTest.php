@@ -24,7 +24,7 @@ class DigitalWalletTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -68,7 +68,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGenerateDigitalWallet()
+    public function test_success_generate_digital_wallet()
     {
         Http::fake($this->getFakerHttp('/cards-pci/12345678/wallet/GooglePay/brand/Mastercard', 200));
 
@@ -85,7 +85,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateProxy()
+    public function test_validate_proxy()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('proxy should be a string');
@@ -97,7 +97,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateEmptyWallet()
+    public function test_validate_empty_wallet()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('wallet should be a string');
@@ -109,7 +109,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateInvalidWallet()
+    public function test_validate_invalid_wallet()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this wallet is not valid');
@@ -121,7 +121,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateEmptyBrand()
+    public function test_validate_empty_brand()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('brand should be a string');
@@ -133,7 +133,7 @@ class DigitalWalletTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateInvalidBrand()
+    public function test_validate_invalid_brand()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this brand is not valid');
