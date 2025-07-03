@@ -65,7 +65,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAmountIsNumeric()
+    public function test_validate_amount_is_numeric()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
@@ -77,7 +77,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateAmountIsGreaterZero()
+    public function test_validate_amount_is_greater_zero()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('amount should be a numeric string and greater than zero');
@@ -89,7 +89,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateDescription()
+    public function test_validate_description()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('cashout description should be a string');
@@ -101,7 +101,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderObject()
+    public function test_validate_sender_object()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('sender should be a BankAccount');
@@ -113,7 +113,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderAccountBranch()
+    public function test_validate_sender_account_branch()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('branch should be a numeric string');
@@ -125,7 +125,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderAccountNumber()
+    public function test_validate_sender_account_number()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('number account should be a numeric string');
@@ -137,7 +137,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderAccountTypeIsNull()
+    public function test_validate_sender_account_type_is_null()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('type account should be a string');
@@ -149,7 +149,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderAccountTypeIsValid()
+    public function test_validate_sender_account_type_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this account type is not valid');
@@ -161,7 +161,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderBankIspb()
+    public function test_validate_sender_bank_ispb()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('bank ispb should be a numeric string');
@@ -173,7 +173,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderDocumentNumber()
+    public function test_validate_sender_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('document number should be a numeric string');
@@ -185,7 +185,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateSenderName()
+    public function test_validate_sender_name()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('name should be a string');
@@ -197,7 +197,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateInitializationTypeIsString()
+    public function test_validate_initialization_type_is_string()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('initialization type should be a string');
@@ -209,7 +209,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateInitializationTypeIsValid()
+    public function test_validate_initialization_type_is_valid()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('this initialization type is not valid');
@@ -221,7 +221,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateEndToEndId()
+    public function test_validate_end_to_end_id()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('end to end id should be a string');

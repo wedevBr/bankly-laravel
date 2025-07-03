@@ -23,7 +23,7 @@ class CardsByAccountTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -76,7 +76,7 @@ class CardsByAccountTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCardsByAccount()
+    public function test_success_get_cards_by_account()
     {
         Http::fake($this->getFakerHttp(200));
 

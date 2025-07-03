@@ -29,7 +29,6 @@ class DocumentAnalysisCorporationBusiness implements DocumentInterface
 
     protected ?string $provider = null;
 
-
     public function setDocumentSide(string $documentSide): static
     {
         $this->documentSide = $documentSide;

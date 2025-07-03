@@ -41,7 +41,7 @@ class GetCustomerTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCustomerData()
+    public function test_success_get_customer_data()
     {
         Http::fake($this->getFakerHttp([
             'phone' => [

@@ -24,7 +24,7 @@ class ChangePasswordTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -59,7 +59,7 @@ class ChangePasswordTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessChangePassword()
+    public function test_success_change_password()
     {
         Http::fake($this->getFakerHttp('/cards/12345678/password', 200));
 

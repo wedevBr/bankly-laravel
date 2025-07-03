@@ -27,7 +27,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodTransferExists()
+    public function test_ensure_method_transfer_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'transfer')
@@ -37,7 +37,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetBankListExists()
+    public function test_ensure_method_get_bank_list_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getBankList')
@@ -47,7 +47,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetBalanceExists()
+    public function test_ensure_method_get_balance_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getBalance')
@@ -57,7 +57,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetStatementExists()
+    public function test_ensure_method_get_statement_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getStatement')
@@ -67,7 +67,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetEventsExists()
+    public function test_ensure_method_get_events_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getEvents')
@@ -77,7 +77,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetTransferStatusExists()
+    public function test_ensure_method_get_transfer_status_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getTransferStatus')
@@ -87,7 +87,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodSetApiVersionExists()
+    public function test_ensure_method_set_api_version_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getTransferStatus')
@@ -97,7 +97,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetTransferFundsExists()
+    public function test_ensure_method_get_transfer_funds_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getTransferFunds')
@@ -107,7 +107,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodFindTransferFundByAuthCodeExists()
+    public function test_ensure_method_find_transfer_fund_by_auth_code_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'findTransferFundByAuthCode')
@@ -117,7 +117,7 @@ class BanklyTest extends TestCase
     /**
      * @test
      */
-    public function testEnsureMethodGetAccountExists()
+    public function test_ensure_method_get_account_exists()
     {
         $this->assertTrue(
             method_exists($this->bankly(), 'getAccount')

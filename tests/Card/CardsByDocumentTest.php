@@ -23,7 +23,7 @@ class CardsByDocumentTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -76,7 +76,7 @@ class CardsByDocumentTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCardsByDocumentNumber()
+    public function test_success_get_cards_by_document_number()
     {
         Http::fake($this->getFakerHttp(200));
 

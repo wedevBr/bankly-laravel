@@ -29,7 +29,7 @@ class SendDocumentAnalysisTest extends TestCase
         return [BanklyServiceProvider::class];
     }
 
-    public function testSendDocumentAnalysis()
+    public function test_send_document_analysis()
     {
         $document = $this->getMockBuilder(DocumentAnalysis::class)
             ->onlyMethods(['getFileContents'])
@@ -77,7 +77,7 @@ class SendDocumentAnalysisTest extends TestCase
     /**
      * @return void
      */
-    public function testReturnTypeErrorIfIncompatibleDocument()
+    public function test_return_type_error_if_incompatible_document()
     {
         $client = new Bankly;
         $document = new \stdClass;

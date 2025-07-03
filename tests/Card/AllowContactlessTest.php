@@ -23,7 +23,7 @@ class AllowContactlessTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -47,7 +47,7 @@ class AllowContactlessTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessAllowContactless()
+    public function test_success_allow_contactless()
     {
         Http::fake($this->getFakerHttp('/cards/12345678/contactless?allowContactless=false', 200));
 

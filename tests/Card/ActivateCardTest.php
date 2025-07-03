@@ -23,7 +23,7 @@ class ActivateCardTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -59,7 +59,7 @@ class ActivateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessActivateCard()
+    public function test_success_activate_card()
     {
         Http::fake($this->getFakerHttp('/cards/2370021007715002820/activate', [], 200));
 
@@ -77,7 +77,7 @@ class ActivateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidatePassword()
+    public function test_validate_password()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('password should be a numeric string');
@@ -89,7 +89,7 @@ class ActivateCardTest extends TestCase
     /**
      * @return void
      */
-    public function testValidateActivateCode()
+    public function test_validate_activate_code()
     {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid Activation code');

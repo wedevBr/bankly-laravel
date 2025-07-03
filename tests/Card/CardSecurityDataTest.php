@@ -23,7 +23,7 @@ class CardSecurityDataTest extends TestCase
 {
     use WithFaker;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->auth();
@@ -73,7 +73,7 @@ class CardSecurityDataTest extends TestCase
     /**
      * @return void
      */
-    public function testSuccessGetCardPciData()
+    public function test_success_get_card_pci_data()
     {
         $client = $this->getBanklyClient();
 
@@ -96,7 +96,7 @@ class CardSecurityDataTest extends TestCase
     /**
      * @return void
      */
-    public function testValidatePassword()
+    public function test_validate_password()
     {
         $this->expectExceptionMessage('password should be a numeric string');
         $password = $this->invalidPassword();

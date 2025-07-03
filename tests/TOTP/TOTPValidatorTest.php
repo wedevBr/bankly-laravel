@@ -14,7 +14,7 @@ class TOTPValidatorTest extends TestCase
      *
      * @test
      */
-    public function testInvalidContext()
+    public function test_invalid_context()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('TOTP operation needs context');
@@ -28,7 +28,7 @@ class TOTPValidatorTest extends TestCase
      *
      * @test
      */
-    public function testInvalidOperation()
+    public function test_invalid_operation()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('TOTP operation not permitted');
@@ -42,7 +42,7 @@ class TOTPValidatorTest extends TestCase
      *
      * @test
      */
-    public function testInvalidRegistryEntryType()
+    public function test_invalid_registry_entry_type()
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid addressing key type');
@@ -57,7 +57,7 @@ class TOTPValidatorTest extends TestCase
      *
      * @test
      */
-    public function testInvalidRegistryEntryPhone()
+    public function test_invalid_registry_entry_phone()
     {
         $addressingKey = new AddressingKey;
         $addressingKey->type = 'PHONE';
@@ -76,7 +76,7 @@ class TOTPValidatorTest extends TestCase
      *
      * @test
      */
-    public function testConvertToArray()
+    public function test_convert_to_array()
     {
         $totp = $this->mockedTOTP();
         $totp = $totp->toArray();
