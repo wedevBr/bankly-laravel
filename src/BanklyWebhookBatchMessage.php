@@ -67,6 +67,6 @@ class BanklyWebhookBatchMessage extends BaseHttpClient
             'eventState' => $eventState?->value,
         ];
 
-        return $this->post('/webhooks/processed-messages/batch', array_filter($body));
+        return $this->post('/webhooks/processed-messages/batch', array_filter($body), asJson: true);
     }
 }
