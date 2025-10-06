@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly;
 
 use Ramsey\Uuid\Uuid;
+use WeDevBr\Bankly\Enums\OpenFinance\RedirectTypeEnum;
 use WeDevBr\Bankly\Inputs\Ticket;
 use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
@@ -35,16 +36,14 @@ class BanklyOpenFinance
 
     public function createConsentManagement(string $accountNumber,
         string $documentNumber,
-        int $redirectType = 1,
+        RedirectTypeEnum $redirectTypeEnum,
         ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
         ]);
 
-        if ($redirectType > 3 || $redirectType < 1) {
-            throw new \InvalidArgumentException('Invalid redirect type');
-        }
+        $redirectType = $redirectTypeEnum->value;
 
         return $this->post('/openfinance/consent-management/ticket',
             compact('accountNumber', 'documentNumber', 'redirectType'),

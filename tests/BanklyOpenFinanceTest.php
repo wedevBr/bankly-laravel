@@ -6,6 +6,7 @@ use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyOpenFinance;
 use WeDevBr\Bankly\BanklyServiceProvider;
+use WeDevBr\Bankly\Enums\OpenFinance\RedirectTypeEnum;
 use WeDevBr\Bankly\Inputs\Ticket;
 
 class BanklyOpenFinanceTest extends TestCase
@@ -83,7 +84,7 @@ class BanklyOpenFinanceTest extends TestCase
 
         $client = new BanklyOpenFinance;
 
-        $response = $client->createConsentManagement('12345678', '12345678901', 1);
+        $response = $client->createConsentManagement('12345678', '12345678901', RedirectTypeEnum::MySharedInformation);
 
         Http::assertSent(function (Request $request) {
             $body = collect($request->data());
@@ -107,7 +108,7 @@ class BanklyOpenFinanceTest extends TestCase
         $client = new BanklyOpenFinance;
         $customIdempotencyKey = 'custom-consent-key-123';
 
-        $response = $client->createConsentManagement('12345678', '12345678901', 2, $customIdempotencyKey);
+        $response = $client->createConsentManagement('12345678', '12345678901', RedirectTypeEnum::MyPayments, $customIdempotencyKey);
 
         Http::assertSent(function (Request $request) use ($customIdempotencyKey) {
             $body = collect($request->data());
@@ -115,25 +116,5 @@ class BanklyOpenFinanceTest extends TestCase
             return $body['redirectType'] === 2
                 && $request->header('Idempotency-Key')[0] === $customIdempotencyKey;
         });
-    }
-
-    public function test_create_consent_management_with_invalid_redirect_type_throws_exception()
-    {
-        $client = new BanklyOpenFinance;
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid redirect type');
-
-        $client->createConsentManagement('12345678', '12345678901', 4);
-    }
-
-    public function test_create_consent_management_with_invalid_redirect_type_zero_throws_exception()
-    {
-        $client = new BanklyOpenFinance;
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid redirect type');
-
-        $client->createConsentManagement('12345678', '12345678901', 0);
     }
 }
