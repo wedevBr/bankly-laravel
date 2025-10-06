@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Http;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
 use ReflectionException;
 use ReflectionProperty;
@@ -65,5 +66,26 @@ abstract class TestCase extends TestbenchTestCase
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
 
         return $client;
+    }
+
+    protected function mockHttpResponse(array $responseData, int $status = 200): void
+    {
+        Http::fake([
+            '*' => Http::response($responseData, $status),
+        ]);
+    }
+
+    protected function mockHttpError(int $status = 500, array $responseData = []): void
+    {
+        Http::fake([
+            '*' => Http::response($responseData, $status),
+        ]);
+    }
+
+    protected function assertHeaderWasSet(string $headerName, string $expectedValue): void
+    {
+        Http::assertSent(function ($request) use ($headerName, $expectedValue) {
+            return $request->hasHeader($headerName, $expectedValue);
+        });
     }
 }
