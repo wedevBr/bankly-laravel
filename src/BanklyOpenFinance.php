@@ -33,14 +33,21 @@ class BanklyOpenFinance
             asJson: true);
     }
 
-    public function createConsentManagement(string $accountNumber, string $documentNumber, ?string $idempotencyKey = null): array
+    public function createConsentManagement(string $accountNumber,
+        string $documentNumber,
+        int $redirectType = 1,
+        ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
         ]);
 
+        if ($redirectType > 3 || $redirectType < 1) {
+            throw new \InvalidArgumentException('Invalid redirect type');
+        }
+
         return $this->post('/openfinance/consent-management/ticket',
-            compact('accountNumber', 'documentNumber'),
+            compact('accountNumber', 'documentNumber', 'redirectType'),
             asJson: true);
     }
 }
