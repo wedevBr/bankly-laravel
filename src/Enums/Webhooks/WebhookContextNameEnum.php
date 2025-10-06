@@ -14,6 +14,7 @@ enum WebhookContextNameEnum: string
     case CUSTOMER = 'Customer';
     case DOCUMENT = 'Document';
     case INVOICE = 'Invoice';
+    case OPEN_FINANCE = 'Openfinance';
     case PARTNER = 'Partner';
     case PAYMENT = 'Payment';
     case PIX = 'Pix';

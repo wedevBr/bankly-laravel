@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly;
 
 use Ramsey\Uuid\Uuid;
+use WeDevBr\Bankly\Enums\OpenFinance\RedirectTypeEnum;
 use WeDevBr\Bankly\Inputs\Ticket;
 use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
@@ -33,14 +34,19 @@ class BanklyOpenFinance
             asJson: true);
     }
 
-    public function createConsentManagement(string $accountNumber, string $documentNumber, ?string $idempotencyKey = null): array
+    public function createConsentManagement(string $accountNumber,
+        string $documentNumber,
+        RedirectTypeEnum $redirectTypeEnum,
+        ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),
         ]);
 
+        $redirectType = $redirectTypeEnum->value;
+
         return $this->post('/openfinance/consent-management/ticket',
-            compact('accountNumber', 'documentNumber'),
+            compact('accountNumber', 'documentNumber', 'redirectType'),
             asJson: true);
     }
 }
