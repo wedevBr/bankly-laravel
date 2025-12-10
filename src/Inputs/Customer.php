@@ -45,6 +45,8 @@ class Customer implements CustomerInterface
 
     protected ?string $currency = 'BRL';
 
+    protected ?bool $hasBrazilianNationality = false;
+
     public function setRegisterName(string $name): Customer
     {
         $this->registerName = $name;
@@ -148,6 +150,13 @@ class Customer implements CustomerInterface
         return $this;
     }
 
+    public function setHasBrazilianNationality(bool $hasBrazilianNationality): Customer
+    {
+        $this->hasBrazilianNationality = $hasBrazilianNationality;
+
+        return $this;
+    }
+
     public function getRegisterName(): string
     {
         return $this->registerName;
@@ -213,6 +222,11 @@ class Customer implements CustomerInterface
         return $this->idCardBackToken;
     }
 
+    public function getHasBrazilianNationality(): ?bool
+    {
+        return $this->hasBrazilianNationality;
+    }
+
     public function toArray(): array
     {
         return [
@@ -236,6 +250,7 @@ class Customer implements CustomerInterface
                 'idCardFront' => $this->idCardFrontToken,
                 'idCardBack' => $this->idCardBackToken,
             ],
+            'hasBrazilianNationality' => $this->hasBrazilianNationality,
         ];
     }
 }
