@@ -11,6 +11,8 @@ class PixQrCodeData implements Arrayable
 
     public ?string $documentNumber;
 
+    public ?string $cityCode;
+
     /**
      * This validate and return an array
      */

@@ -67,7 +67,8 @@ class RegisterCustomerTest extends TestCase
             ->setSocialName('JOJO')
             ->setBirthDate('0000-00-00')
             ->setMotherName('SARA RAS')
-            ->setEmail('jonh-ras@test.com');
+            ->setEmail('jonh-ras@test.com')
+            ->setHasBrazilianNationality(true);
 
         $nifNumber = '00000000000000';
 
@@ -96,7 +97,8 @@ class RegisterCustomerTest extends TestCase
                 && $body['registerName'] === 'JHON RAS'
                 && $body['birthDate'] === '0000-00-00'
                 && $body['motherName'] === 'SARA RAS'
-                && $body['email'] === 'jonh-ras@test.com';
+                && $body['email'] === 'jonh-ras@test.com'
+                && $body['hasBrazilianNationality'] === true;
         });
     }
 
