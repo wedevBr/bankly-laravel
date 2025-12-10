@@ -39,5 +39,6 @@ class BanklyServiceProvider extends ServiceProvider
         $this->app->singleton('bankly_open_finance', fn () => new BanklyOpenFinance);
         $this->app->singleton('bankly_automatic_pix', fn () => new BanklyAutomaticPix);
         $this->app->singleton('bankly_scheduled_pix', fn () => new BanklyScheduledPix);
+        $this->app->singleton('bankly_customer', fn () => new BanklyCustomer);
     }
 }

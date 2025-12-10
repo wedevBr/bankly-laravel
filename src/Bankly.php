@@ -489,11 +489,14 @@ class Bankly
                 'assertedIncome',
                 'pep',
                 'occupation',
+                'hasBrazilianNationality',
             ]
         )->toArray();
 
         return $this->patch('/customers/'.$documentNumber,
-            ['data' => array_filter($customer)],
+            [
+                'data' => array_filter($customer, fn ($value) => ! is_null($value)),
+            ],
             $correlationId,
             true
         );
