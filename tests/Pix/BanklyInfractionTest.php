@@ -24,7 +24,7 @@ class BanklyInfractionTest extends TestCase
         $account = '1234567';
         $nifNumber = '12345678909';
 
-        $pixInfraction = new PixInfraction();
+        $pixInfraction = new PixInfraction;
         $pixInfraction->endToEndId = 'E2E1234567890';
         $pixInfraction->description = 'Suspected scam';
         $pixInfraction->requestDate = Carbon::create(2025, 1, 2, 3, 4, 5, 'UTC');
@@ -32,7 +32,7 @@ class BanklyInfractionTest extends TestCase
         $pixInfraction->branch = $branch;
         $pixInfraction->account = $account;
 
-        $expectedUrl = config('bankly')['api_url'] . "/pix/branches/{$branch}/accounts/{$account}/infractions";
+        $expectedUrl = config('bankly')['api_url']."/pix/branches/{$branch}/accounts/{$account}/infractions";
 
         $fakeResponse = [
             'protocol' => [
@@ -45,7 +45,7 @@ class BanklyInfractionTest extends TestCase
             $expectedUrl => Http::response($fakeResponse, 201),
         ]);
 
-        $client = new BanklyInfraction();
+        $client = new BanklyInfraction;
         $response = $client->createInfraction($nifNumber, $pixInfraction);
 
         Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $pixInfraction, $nifNumber) {

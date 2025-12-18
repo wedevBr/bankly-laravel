@@ -10,12 +10,16 @@ use WeDevBr\Bankly\Support\Contracts\PixInfractionInterface;
 class PixInfraction implements Arrayable, PixInfractionInterface
 {
     public string $endToEndId;
-    public Carbon $requestDate;
-    public string $branch;
-    public string $account;
-    public InfractionSituationEnum $situation;
-    public ?string $description;
 
+    public Carbon $requestDate;
+
+    public string $branch;
+
+    public string $account;
+
+    public InfractionSituationEnum $situation;
+
+    public ?string $description;
 
     public function toArray(): array
     {
