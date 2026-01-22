@@ -56,7 +56,7 @@ class BanklyInfractionTest extends TestCase
                 && $request->hasHeader('x-bkly-pix-user-id', $nifNumber)
                 && $body['endToEndId'] === $pixInfraction->endToEndId
                 && $body['description'] === $pixInfraction->description
-                && $body['requestDate'] === $pixInfraction->requestDate->toIso8601String()
+                && $body['requestDate'] === $pixInfraction->requestDate->toIso8601ZuluString()
                 && $body['situation'] === $pixInfraction->situation->value;
         });
 
