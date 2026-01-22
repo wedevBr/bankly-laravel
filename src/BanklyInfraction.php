@@ -17,6 +17,7 @@ class BanklyInfraction extends BaseHttpClient
             ->post(
                 '/pix/branches/'.$pixInfraction->branch.'/accounts/'.$pixInfraction->account.'/infractions',
                 $pixInfraction->toArray(),
+                asJson: true,
             );
     }
 }
