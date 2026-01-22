@@ -26,7 +26,7 @@ class PixInfraction implements Arrayable, PixInfractionInterface
         return array_filter([
             'endToEndId' => $this->endToEndId,
             'description' => $this->description,
-            'requestDate' => $this->requestDate->toIso8601String(),
+            'requestDate' => $this->requestDate->toIso8601ZuluString(),
             'situation' => $this->situation->value,
         ]);
     }
