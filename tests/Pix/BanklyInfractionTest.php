@@ -68,7 +68,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
 
@@ -79,7 +79,7 @@ class BanklyInfractionTest extends TestCase
                 [
                     'protocolNumber' => '20250712175650999455',
                     'endToEndId' => 'E2E1234567890',
-                ]
+                ],
             ],
         ];
 
@@ -104,7 +104,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
         $protocolNumber = '20250712175650999455';
@@ -139,7 +139,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
         $protocolNumber = '20250712175650999455';

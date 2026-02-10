@@ -57,5 +57,4 @@ class BanklyInfraction extends BaseHttpClient
                 '/pix/branches/'.$account->branch.'/accounts/'.$account->number.'/infractions/'.$protocolNumber,
             );
     }
-
 }
