@@ -62,4 +62,103 @@ class BanklyInfractionTest extends TestCase
 
         $this->assertSame($fakeResponse, $response);
     }
+
+    public function test_get_infractions_sends_correct_request_and_returns_response(): void
+    {
+        $this->auth();
+
+        $nifNumber = '12345678909';
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account->branch = '0001';
+        $account->number = '1234567';
+
+        $expectedUrl = config('bankly')['api_url']."/pix/branches/{$account->branch}/accounts/{$account->number}/infractions";
+
+        $fakeResponse = [
+            'infractions' => [
+                [
+                    'protocolNumber' => '20250712175650999455',
+                    'endToEndId' => 'E2E1234567890',
+                ]
+            ],
+        ];
+
+        Http::fake([
+            $expectedUrl => Http::response($fakeResponse, 200),
+        ]);
+
+        $client = new BanklyInfraction;
+        $response = $client->getInfractions($nifNumber, $account);
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+            return $request->url() === $expectedUrl
+                && $request->method() === 'GET'
+                && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
+        });
+
+        $this->assertSame($fakeResponse, $response);
+    }
+
+    public function test_find_infraction_sends_correct_request_and_returns_response(): void
+    {
+        $this->auth();
+
+        $nifNumber = '12345678909';
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account->branch = '0001';
+        $account->number = '1234567';
+        $protocolNumber = '20250712175650999455';
+
+        $expectedUrl = config('bankly')['api_url']."/pix/branches/{$account->branch}/accounts/{$account->number}/infractions/{$protocolNumber}";
+
+        $fakeResponse = [
+            'protocol' => [
+                'number' => $protocolNumber,
+                'openDate' => '2025-07-12T17:56:50.999Z',
+            ],
+        ];
+
+        Http::fake([
+            $expectedUrl => Http::response($fakeResponse, 200),
+        ]);
+
+        $client = new BanklyInfraction;
+        $response = $client->findInfraction($nifNumber, $account, $protocolNumber);
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+            return $request->url() === $expectedUrl
+                && $request->method() === 'GET'
+                && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
+        });
+
+        $this->assertSame($fakeResponse, $response);
+    }
+
+    public function test_cancel_infraction_sends_correct_request_and_returns_response(): void
+    {
+        $this->auth();
+
+        $nifNumber = '12345678909';
+        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount();
+        $account->branch = '0001';
+        $account->number = '1234567';
+        $protocolNumber = '20250712175650999455';
+
+        $expectedUrl = config('bankly')['api_url']."/pix/branches/{$account->branch}/accounts/{$account->number}/infractions/{$protocolNumber}";
+
+        Http::fake([
+            $expectedUrl => Http::response([], 204),
+        ]);
+
+        $client = new BanklyInfraction;
+        $response = $client->cancelInfraction($nifNumber, $account, $protocolNumber);
+
+        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+            return $request->url() === $expectedUrl
+                && $request->method() === 'DELETE'
+                && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
+        });
+
+        $this->assertSame([], $response);
+    }
 }
