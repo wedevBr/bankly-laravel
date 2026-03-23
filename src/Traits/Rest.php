@@ -7,7 +7,7 @@ use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Ramsey\Uuid\Uuid;
 use WeDevBr\Bankly\Auth\Auth;
-use WeDevBr\Bankly\Inputs\DocumentAnalysis;
+use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
 
 /**
  * Trait Rest
@@ -110,8 +110,14 @@ trait Rest
      *
      * @throws RequestException
      */
-    protected function post(string $endpoint, array $body = [], $correlationId = null, bool $asJson = false): mixed
-    {
+    protected function post(
+        string $endpoint,
+        array $body = [],
+        $correlationId = null,
+        bool $asJson = false,
+        bool $attachment = false,
+        ?DocumentInterface $document = null
+    ): mixed {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();
         }
@@ -132,6 +138,10 @@ trait Rest
             $request = $this->setRequestMtls($request);
         }
 
+        if ($attachment && ! is_null($document)) {
+            $request->attach($document->getFieldName(), $document->getFileContents(), $document->getFileName());
+        }
+
         return $request->post($this->getFinalUrl($endpoint), $body)
             ->throw()
             ->json();
@@ -149,7 +159,7 @@ trait Rest
         $correlationId = null,
         bool $asJson = false,
         bool $attachment = false,
-        ?DocumentAnalysis $document = null
+        ?DocumentInterface $document = null
     ) {
         if (is_null($correlationId) && $this->requireCorrelationId($endpoint)) {
             $correlationId = Uuid::uuid4()->toString();

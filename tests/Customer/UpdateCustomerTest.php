@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests\Customer;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -72,7 +73,7 @@ class UpdateCustomerTest extends TestCase
         $client = $this->getBanklyClient();
         $client->updateCustomer($documentNumber, $customer);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($documentNumber) {
+        Http::assertSent(function (Request $request) use ($documentNumber) {
             $urlOk = Str::contains($request->url(), "/customers/{$documentNumber}");
             $methodOk = strtoupper($request->method()) === 'PATCH';
             $body = $request->data();

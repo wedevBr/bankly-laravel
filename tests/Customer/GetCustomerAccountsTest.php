@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests\Customer;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -59,7 +60,7 @@ class GetCustomerAccountsTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getCustomerAccounts('12345678909');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), 'customers/12345678909');
         });
 

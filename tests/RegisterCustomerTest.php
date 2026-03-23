@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use TypeError;
 use WeDevBr\Bankly\Bankly;
@@ -77,7 +78,7 @@ class RegisterCustomerTest extends TestCase
         $client = $this->getBanklyClient();
         $client->customer($nifNumber, $customer);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             $phone = $body['phone'];

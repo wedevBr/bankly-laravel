@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyCard;
@@ -75,7 +76,7 @@ class DigitalWalletTest extends TestCase
         $card = new BanklyCard;
         $card->digitalWallet($this->validWallet());
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return Str::contains($request->url(), '12345678/wallet/GooglePay/brand/Mastercard');
