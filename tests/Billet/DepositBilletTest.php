@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -99,7 +100,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBilletClient();
         $response = $client->depositBillet($this->validDepositBillet());
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = $request->data();
             $account = $body['account'];
             $payer = $body['payer'];
@@ -151,7 +152,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBilletClient();
         $response = $client->getBillet('0001', '1234', '123456789123456789');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), '/branch/0001/number/1234/123456789123456789');
         });
 
@@ -192,7 +193,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBilletClient();
         $response = $client->getBilletByBarcode('123456789123456789123456789123456789');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), '/123456789123456789123456789123456789');
         });
 
@@ -234,7 +235,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBilletClient();
         $response = $client->getBilletByDate($datetime);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($datetime) {
+        Http::assertSent(function (Request $request) use ($datetime) {
             return Str::contains(urldecode($request->url()), "/searchstatus/{$datetime}");
         });
 
@@ -258,7 +259,7 @@ class DepositBilletTest extends TestCase
         $client = $this->getBilletClient();
         $client->printBillet('123456789123456789');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), '/123456789123456789/pdf');
         });
     }

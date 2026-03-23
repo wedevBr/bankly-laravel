@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -82,7 +83,7 @@ class CardByProxyTest extends TestCase
         $card = new BanklyCard;
         $response = $card->getByProxy('1234567890');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains(
                 $request->url(),
                 'cards/1234567890'

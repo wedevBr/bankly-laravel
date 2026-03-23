@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests\Customer;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\Bankly;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -70,7 +71,7 @@ class CreateCustomerAccountTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->createCustomerAccount('12345678909', $paymentAccount);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['accountType'] === 'PAYMENT_ACCOUNT';

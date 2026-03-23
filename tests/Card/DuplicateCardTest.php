@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -92,7 +93,7 @@ class DuplicateCardTest extends TestCase
         $card = new BanklyCard;
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard'));
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 
@@ -126,7 +127,7 @@ class DuplicateCardTest extends TestCase
         $card = new BanklyCard;
         $response = $card->duplicate('2370021007715002820', $this->validDuplicateCard('LostMyCard', false));
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 

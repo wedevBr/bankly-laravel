@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Carbon\Carbon;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyInfraction;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -48,7 +49,7 @@ class BanklyInfractionTest extends TestCase
         $client = new BanklyInfraction;
         $response = $client->createInfraction($nifNumber, $pixInfraction);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $pixInfraction, $nifNumber) {
+        Http::assertSent(function (Request $request) use ($expectedUrl, $pixInfraction, $nifNumber) {
             $body = $request->data();
 
             return $request->url() === $expectedUrl

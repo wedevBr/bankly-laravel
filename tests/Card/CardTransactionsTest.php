@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -93,7 +94,7 @@ class CardTransactionsTest extends TestCase
             '2021-06-07'
         );
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains(
                 $request->url(),
                 '1234567890/transactions?page=1&pageSize=20&startDate=2021-06-06&endDate=2021-06-07'

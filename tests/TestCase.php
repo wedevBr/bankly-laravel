@@ -59,10 +59,10 @@ abstract class TestCase extends TestbenchTestCase
     {
         $client = new BanklyBillet;
         $auth = Auth::login();
-        $token = new \ReflectionProperty($auth, 'token');
+        $token = new ReflectionProperty($auth, 'token');
         $token->setValue($auth, $this->faker->uuid);
 
-        $tokenExpiry = new \ReflectionProperty($auth, 'tokenExpiry');
+        $tokenExpiry = new ReflectionProperty($auth, 'tokenExpiry');
         $tokenExpiry->setValue($auth, now()->addSeconds(3600)->unix());
 
         return $client;

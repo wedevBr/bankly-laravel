@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -90,7 +91,7 @@ class CardTest extends TestCase
 
         $response = $client->virtualCard($this->validCard('virtual'));
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 
@@ -129,7 +130,7 @@ class CardTest extends TestCase
 
         $response = $client->physicalCard($this->validCard('physical'));
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
             $address = $body['address'];
 

@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyCard;
@@ -69,7 +70,7 @@ class ChangeStatusTest extends TestCase
         $card = new BanklyCard;
         $card->changeStatus('12345678', $this->validStatus());
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['status'] === 'TemporarilyUserLocked'

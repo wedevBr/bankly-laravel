@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -52,7 +53,7 @@ class GetPixAddressingKeysTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->getPixAddressingKeys('1234');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), 'accounts/1234/addressing-keys');
         });
 
