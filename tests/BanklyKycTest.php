@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly\Tests;
 
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyKyc;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -43,7 +44,7 @@ class BanklyKycTest extends TestCase
         $client = new BanklyKyc;
         $sendDocument = $client->documentAnalysis('00000000000', $document);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             $documentType = $body->where('name', 'documentType')->first();
@@ -86,7 +87,7 @@ class BanklyKycTest extends TestCase
         $client = new BanklyKyc;
         $sendDocument = $client->documentAnalysisCorporationBusiness('00000000000000', $document);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
             $documentType = $body->where('name', 'documentType')->first();
 
@@ -143,7 +144,7 @@ class BanklyKycTest extends TestCase
         $client = new BanklyKyc;
         $response = $client->createSelfieProcess('01234567890');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = $request->data();
 
             return $request->url() === config('bankly')['api_url'].'/documents/create-process'

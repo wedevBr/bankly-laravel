@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BillPayment;
@@ -52,7 +53,7 @@ class PaymentTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->paymentValidate($code, $correlationId);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['code'] === '34191790010104351004791020150008785680026000'
@@ -82,7 +83,7 @@ class PaymentTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->paymentConfirm($billPayment, $correlationId);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['amount'] === 789.49

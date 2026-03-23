@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\Bankly;
@@ -48,7 +49,7 @@ class DeletePixAddressingKeyValueTest extends TestCase
         $client = $this->getBanklyClient();
         $client->deletePixAddressingKeyValue('12345678909');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains($request->url(), 'pix/entries/12345678909');
         });
     }

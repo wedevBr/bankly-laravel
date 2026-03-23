@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\AddressingAccount;
@@ -124,7 +125,7 @@ class PixCashoutKeyTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->pixCashout($this->validPixCashout(), $this->faker->uuid);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             $sender = $body['sender'];

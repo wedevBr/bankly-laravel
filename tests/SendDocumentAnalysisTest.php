@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use TypeError;
 use WeDevBr\Bankly\Bankly;
@@ -56,7 +57,7 @@ class SendDocumentAnalysisTest extends TestCase
 
         $sendDocument = $client->documentAnalysis('00000000000', $document);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             $documentType = $body->where('name', 'documentType')->first();

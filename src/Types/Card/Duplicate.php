@@ -15,7 +15,7 @@ class Duplicate extends \stdClass implements Arrayable
 
     public string $password;
 
-    /** @var \WeDevBr\Bankly\Types\Card\Address */
+    /** @var Address */
     public $address;
 
     /**

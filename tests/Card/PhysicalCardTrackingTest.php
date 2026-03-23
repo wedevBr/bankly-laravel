@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use WeDevBr\Bankly\BanklyCard;
@@ -108,7 +109,7 @@ class PhysicalCardTrackingTest extends TestCase
         $card = new BanklyCard;
         $response = $card->cardTracking('12345678');
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             return Str::contains(
                 $request->url(),
                 '12345678/tracking'

@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyCard;
 use WeDevBr\Bankly\BanklyServiceProvider;
@@ -82,7 +83,7 @@ class CardSecurityDataTest extends TestCase
         $card = new BanklyCard;
         $response = $card->pciData('2370021007715002820', $this->validPassword());
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['password'] === '1234';

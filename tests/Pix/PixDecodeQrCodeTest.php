@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
@@ -108,7 +109,7 @@ class PixDecodeQrCodeTest extends TestCase
         $client = $this->getBanklyClient();
         $response = $client->qrCodeDecode($this->validCodedQrCodeData());
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) {
+        Http::assertSent(function (Request $request) {
             $body = collect($request->data());
 
             return $body['encodedValue'] === $this->encodedValue;
