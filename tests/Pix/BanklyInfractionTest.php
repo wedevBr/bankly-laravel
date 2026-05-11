@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Http;
 use WeDevBr\Bankly\BanklyInfraction;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Enums\Pix\InfractionPix\InfractionSituationEnum;
+use WeDevBr\Bankly\Types\Pix\AddressingAccount;
 use WeDevBr\Bankly\Types\Pix\PixInfraction;
 
 class BanklyInfractionTest extends TestCase
@@ -69,7 +70,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
+        $account = new AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
 
@@ -91,7 +92,7 @@ class BanklyInfractionTest extends TestCase
         $client = new BanklyInfraction;
         $response = $client->getInfractions($nifNumber, $account);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+        Http::assertSent(function (Request $request) use ($expectedUrl, $nifNumber) {
             return $request->url() === $expectedUrl
                 && $request->method() === 'GET'
                 && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
@@ -105,7 +106,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
+        $account = new AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
         $protocolNumber = '20250712175650999455';
@@ -126,7 +127,7 @@ class BanklyInfractionTest extends TestCase
         $client = new BanklyInfraction;
         $response = $client->findInfraction($nifNumber, $account, $protocolNumber);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+        Http::assertSent(function (Request $request) use ($expectedUrl, $nifNumber) {
             return $request->url() === $expectedUrl
                 && $request->method() === 'GET'
                 && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
@@ -140,7 +141,7 @@ class BanklyInfractionTest extends TestCase
         $this->auth();
 
         $nifNumber = '12345678909';
-        $account = new \WeDevBr\Bankly\Types\Pix\AddressingAccount;
+        $account = new AddressingAccount;
         $account->branch = '0001';
         $account->number = '1234567';
         $protocolNumber = '20250712175650999455';
@@ -154,7 +155,7 @@ class BanklyInfractionTest extends TestCase
         $client = new BanklyInfraction;
         $response = $client->cancelInfraction($nifNumber, $account, $protocolNumber);
 
-        Http::assertSent(function (\Illuminate\Http\Client\Request $request) use ($expectedUrl, $nifNumber) {
+        Http::assertSent(function (Request $request) use ($expectedUrl, $nifNumber) {
             return $request->url() === $expectedUrl
                 && $request->method() === 'DELETE'
                 && $request->hasHeader('x-bkly-pix-user-id', $nifNumber);
