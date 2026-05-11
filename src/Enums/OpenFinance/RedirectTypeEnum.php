@@ -7,4 +7,5 @@ enum RedirectTypeEnum: int
     case MySharedInformation = 1;
     case MyPayments = 2;
     case MyAuthorizations = 3;
+    case MyLinkedAccounts = 4;
 }
