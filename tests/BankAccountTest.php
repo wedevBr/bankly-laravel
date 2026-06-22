@@ -14,6 +14,7 @@
 
 namespace WeDevBr\Bankly\Tests;
 
+use PHPUnit\Framework\Attributes\Test;
 use WeDevBr\Bankly\BankAccount;
 
 class BankAccountTest extends TestCase
@@ -29,9 +30,7 @@ class BankAccountTest extends TestCase
         return $bankAccount;
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_invalid_bank_branch()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -41,9 +40,7 @@ class BankAccountTest extends TestCase
         $bankAccount->validate();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_invalid_bank_account()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -53,9 +50,7 @@ class BankAccountTest extends TestCase
         $bankAccount->validate();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_invalid_bank_document()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -71,9 +66,7 @@ class BankAccountTest extends TestCase
 
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_invalid_bank_name()
     {
         $this->expectException(\InvalidArgumentException::class);
@@ -83,9 +76,7 @@ class BankAccountTest extends TestCase
         $bankAccount->validate();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_invalid_account_type()
     {
         $this->expectException(\InvalidArgumentException::class);
