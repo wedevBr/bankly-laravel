@@ -8,8 +8,8 @@
 This package is an **UNOFFICIAL** API Wrapper for [Bankly/Acesso API](https://bankly.readme.io/).
 
 ## Requirements
-PHP >= 7.2
-Laravel >= 7.x
+PHP >= 8.2
+Laravel >= 12.x
 
 ## Installation
 
