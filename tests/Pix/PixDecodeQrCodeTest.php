@@ -143,7 +143,7 @@ class PixDecodeQrCodeTest extends TestCase
     public function test_validate_if_document_number_is_invalid()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
 
         $qrCodeData = $this->validCodedQrCodeData();
         $qrCodeData->documentNumber = null;

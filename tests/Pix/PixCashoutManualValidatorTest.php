@@ -200,7 +200,7 @@ class PixCashoutManualValidatorTest extends TestCase
     public function test_validate_sender_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $pixCashout = $this->validPixCashoutManual();
         $pixCashout->sender->documentNumber = null;
         $pixCashout->validate();
@@ -296,7 +296,7 @@ class PixCashoutManualValidatorTest extends TestCase
     public function test_validate_recipient_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $pixCashout = $this->validPixCashoutManual();
         $pixCashout->recipient->documentNumber = null;
         $pixCashout->validate();

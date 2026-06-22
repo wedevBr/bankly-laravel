@@ -1,6 +1,14 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 2.0.0 - 2026-06-22
+- `BREAKING CHANGE`: Support for the new Alphanumeric CNPJ (IN RFB nº 2.229/2024, effective from 07/01/2026)
+    - The `CpfCnpjValidator` now accepts alphanumeric CNPJs (0-9, A-Z), keeping backward compatibility with legacy numeric CNPJs
+    - Character conversion by ASCII - 48 (A=17, B=18, ..., Z=42) according to Nota Técnica COCAD/SUARA/RFB nº 49/2024
+    - CNPJ check digits remain always numeric (0-9)
+    - Modulo 11 algorithm and weights kept identical to the legacy format
+- `BREAKING CHANGE`: Document validation error messages changed from "numeric string" to "alphanumeric string" in Card, Pix and Billet validators
+- Added tests for valid alphanumeric CNPJ, invalid CNPJ and backward compatibility
 ## 1.33.0 - 2023-11-27
 - Refactoring Bankly onboarding rules
 - Added Update Customer endpoint

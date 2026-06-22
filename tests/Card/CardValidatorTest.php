@@ -55,7 +55,7 @@ class CardValidatorTest extends TestCase
      */
     public function test_validate_document_number()
     {
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $virtualCard = $this->validVirtualCard();
         $virtualCard->documentNumber = null;
         $virtualCard->validate();

@@ -159,7 +159,7 @@ class DuplicateCardTest extends TestCase
     public function test_validate_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $duplicateCard = $this->validDuplicateCard();
         $duplicateCard->documentNumber = null;
         $duplicateCard->validate();

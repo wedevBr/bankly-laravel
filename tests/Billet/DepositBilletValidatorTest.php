@@ -112,7 +112,7 @@ class DepositBilletValidatorTest extends TestCase
     public function test_validate_payer_document()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('payer document should be a numeric string');
+        $this->expectExceptionMessage('payer document should be an alphanumeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->payer->document = null;
         $depositBillet->validate();
@@ -220,7 +220,7 @@ class DepositBilletValidatorTest extends TestCase
     public function test_validate_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $depositBillet = $this->validDepositBillet();
         $depositBillet->documentNumber = null;
         $depositBillet->validate();
