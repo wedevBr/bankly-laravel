@@ -11,6 +11,12 @@ All notable changes to `bankly-laravel` will be documented in this file
 - `BREAKING CHANGE`: Document validation error messages changed from "numeric string" to "alphanumeric string" in Card, Pix and Billet validators
 - Pinned Symfony components to `^7.0` in `require-dev` to maintain PHP 8.2 compatibility during testing
 - Added tests for valid alphanumeric CNPJ, invalid CNPJ and backward compatibility
+- New `BanklyCredit` class with 6 credit endpoints (analysis, pre-analysis, contract query, proposal acceptance, reanalysis, limit acceptance)
+- New `BanklyInvoice` class with 9 invoice endpoints (open invoice, by ID, by period, credit limit, payment options, generate payment, simulate installments, installment advance simulation and confirmation)
+- Added 14 new card endpoints to `BanklyCard` (combo/multiple cards, No Name batches, encrypted password, PAN query, due date, tracking address, Apple Pay activation data, modality status, account binding)
+- Added 5 recurring Pix scheduling endpoints to `BanklyScheduledPix` (create, list, query, cancel recurrences)
+- Added Pix Automático authorization edit endpoint to `BanklyAutomaticPix`
+- Added Pix cash-out status query, bill payment queries (by account and by auth code), CEP address lookup, and dollar rate queries to `Bankly`
 ## 1.33.0 - 2023-11-27
 - Refactoring Bankly onboarding rules
 - Added Update Customer endpoint

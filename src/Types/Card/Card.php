@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\CardInterface;
 use WeDevBr\Bankly\Validators\Card\CardValidator;
 
-class Card extends \stdClass implements Arrayable
+class Card extends \stdClass implements Arrayable, CardInterface
 {
     public ?string $documentNumber;
 

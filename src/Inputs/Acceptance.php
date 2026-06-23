@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Inputs;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\AcceptanceInterface;
 use WeDevBr\Bankly\Types\Billet\BankAccount;
 
-class Acceptance extends \stdClass implements Arrayable
+class Acceptance extends \stdClass implements AcceptanceInterface, Arrayable
 {
     public BankAccount $account;
 

@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\BillPaymentInterface;
 use WeDevBr\Bankly\Validators\BillPaymentValidator;
 
 /**
@@ -16,7 +17,7 @@ use WeDevBr\Bankly\Validators\BillPaymentValidator;
  *
  * @link      https://github.com/wedevBr/bankly-laravel/
  */
-class BillPayment extends \stdClass implements Arrayable
+class BillPayment extends \stdClass implements Arrayable, BillPaymentInterface
 {
     public $amount;
 

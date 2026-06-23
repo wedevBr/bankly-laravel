@@ -2,7 +2,7 @@
 
 namespace WeDevBr\Bankly;
 
-use WeDevBr\Bankly\Inputs\Acceptance;
+use WeDevBr\Bankly\Support\Contracts\AcceptanceInterface;
 use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 
@@ -29,7 +29,7 @@ class BanklyLegalAgreement
         ]);
     }
 
-    public function acceptLegalAgreement(Acceptance $acceptance, string $type = 'TERMS_AND_CONDITIONS_OF_USE')
+    public function acceptLegalAgreement(AcceptanceInterface $acceptance, string $type = 'TERMS_AND_CONDITIONS_OF_USE')
     {
         return $this->post('/legal-agreements/accept', [
             'acceptance' => $acceptance->toArray(),

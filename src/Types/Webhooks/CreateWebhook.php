@@ -4,8 +4,9 @@ namespace WeDevBr\Bankly\Types\Webhooks;
 
 use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Enums\Webhooks\WebhookEventNameEnum;
+use WeDevBr\Bankly\Support\Contracts\CreateWebhookInterface;
 
-class CreateWebhook implements Arrayable
+class CreateWebhook implements Arrayable, CreateWebhookInterface
 {
     public function __construct(
         public string $uri,

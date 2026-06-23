@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\WalletInterface;
 use WeDevBr\Bankly\Validators\Card\WalletValidator;
 
-class Wallet extends \stdClass implements Arrayable
+class Wallet extends \stdClass implements Arrayable, WalletInterface
 {
     public ?string $proxy;
 

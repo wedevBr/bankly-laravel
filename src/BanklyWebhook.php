@@ -5,14 +5,14 @@ namespace WeDevBr\Bankly;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Arr;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Types\Webhooks\CreateWebhook;
+use WeDevBr\Bankly\Support\Contracts\CreateWebhookInterface;
 
 class BanklyWebhook extends BaseHttpClient
 {
     /**
      * @throws RequestException
      */
-    public function registerWebhook(CreateWebhook $createWebhook): ?array
+    public function registerWebhook(CreateWebhookInterface $createWebhook): ?array
     {
         return $this->post('/webhooks/configurations', $createWebhook->toArray(), asJson: true);
     }
@@ -42,7 +42,7 @@ class BanklyWebhook extends BaseHttpClient
     /**
      * @throws RequestException
      */
-    public function updateWebhook(CreateWebhook $createWebhook, string $id): ?array
+    public function updateWebhook(CreateWebhookInterface $createWebhook, string $id): ?array
     {
         return $this->patch(
             '/webhooks/configurations/'.$id,

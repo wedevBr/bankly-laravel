@@ -4,7 +4,7 @@ namespace WeDevBr\Bankly;
 
 use Ramsey\Uuid\Uuid;
 use WeDevBr\Bankly\Enums\OpenFinance\RedirectTypeEnum;
-use WeDevBr\Bankly\Inputs\Ticket;
+use WeDevBr\Bankly\Support\Contracts\TicketInterface;
 use WeDevBr\Bankly\Traits\Mtls;
 use WeDevBr\Bankly\Traits\Rest;
 
@@ -23,7 +23,7 @@ class BanklyOpenFinance
 {
     use Mtls, Rest;
 
-    public function createTicket(Ticket $ticket, ?string $idempotencyKey = null): array
+    public function createTicket(TicketInterface $ticket, ?string $idempotencyKey = null): array
     {
         $this->setHeaders([
             'Idempotency-Key' => $idempotencyKey ?: Uuid::uuid4()->toString(),

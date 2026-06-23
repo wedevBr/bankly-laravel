@@ -3,10 +3,11 @@
 namespace WeDevBr\Bankly\Types\Pix;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\PixEntriesInterface;
 use WeDevBr\Bankly\Validators\Pix\AddressingAccountValidator;
 use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
-class PixEntries implements Arrayable
+class PixEntries implements Arrayable, PixEntriesInterface
 {
     public AddressingKey $addressingKey;
 

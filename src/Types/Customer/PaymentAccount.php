@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Customer;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\PaymentAccountInterface;
 use WeDevBr\Bankly\Validators\Customer\PaymentAccountValidator;
 
-class PaymentAccount extends \stdClass implements Arrayable
+class PaymentAccount extends \stdClass implements Arrayable, PaymentAccountInterface
 {
     public string $accountType;
 
