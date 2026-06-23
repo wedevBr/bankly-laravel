@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\CardPasswordInterface;
 use WeDevBr\Bankly\Validators\Card\PasswordValidator;
 
-class Password extends \stdClass implements Arrayable
+class Password extends \stdClass implements Arrayable, CardPasswordInterface
 {
     public ?string $password;
 

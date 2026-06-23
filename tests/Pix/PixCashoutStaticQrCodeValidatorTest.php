@@ -176,7 +176,7 @@ class PixCashoutStaticQrCodeValidatorTest extends TestCase
     public function test_validate_sender_document_number()
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('document number should be a numeric string');
+        $this->expectExceptionMessage('document number should be an alphanumeric string');
         $pixCashout = $this->validPixCashout();
         $pixCashout->sender->documentNumber = null;
         $pixCashout->validate();

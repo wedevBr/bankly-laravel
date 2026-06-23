@@ -18,6 +18,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 use WeDevBr\Bankly\BanklyLegalAgreement;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\Inputs\Acceptance;
@@ -36,9 +37,7 @@ class BanklyLegalAgreementTest extends TestCase
         return [BanklyServiceProvider::class];
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_get_legal_agreement_document()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/file*', [
@@ -56,9 +55,7 @@ class BanklyLegalAgreementTest extends TestCase
         $this->assertArrayHasKey('file', $response);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_accept_legal_agreement()
     {
         Http::fake($this->getFakerHttp('/legal-agreements/accept', [

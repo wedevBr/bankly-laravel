@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Inputs;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\BusinessCustomerInterface;
 
 /**
  * Business Customer class
@@ -15,7 +16,7 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-class BusinessCustomer implements Arrayable
+class BusinessCustomer implements Arrayable, BusinessCustomerInterface
 {
     protected string $businessName;
 

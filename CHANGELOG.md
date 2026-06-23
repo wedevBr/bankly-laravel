@@ -1,6 +1,22 @@
 # Changelog
 
 All notable changes to `bankly-laravel` will be documented in this file
+## 2.0.0 - 2026-06-22
+- `BREAKING CHANGE`: Minimum PHP version raised from 8.1 to 8.2; minimum Laravel version raised from 9 to 12
+- `BREAKING CHANGE`: Support for the new Alphanumeric CNPJ (IN RFB nº 2.229/2024, effective from 07/01/2026)
+    - The `CpfCnpjValidator` now accepts alphanumeric CNPJs (0-9, A-Z), keeping backward compatibility with legacy numeric CNPJs
+    - Character conversion by ASCII - 48 (A=17, B=18, ..., Z=42) according to Nota Técnica COCAD/SUARA/RFB nº 49/2024
+    - CNPJ check digits remain always numeric (0-9)
+    - Modulo 11 algorithm and weights kept identical to the legacy format
+- `BREAKING CHANGE`: Document validation error messages changed from "numeric string" to "alphanumeric string" in Card, Pix and Billet validators
+- Pinned Symfony components to `^7.0` in `require-dev` to maintain PHP 8.2 compatibility during testing
+- Added tests for valid alphanumeric CNPJ, invalid CNPJ and backward compatibility
+- New `BanklyCredit` class with 6 credit endpoints (analysis, pre-analysis, contract query, proposal acceptance, reanalysis, limit acceptance)
+- New `BanklyInvoice` class with 9 invoice endpoints (open invoice, by ID, by period, credit limit, payment options, generate payment, simulate installments, installment advance simulation and confirmation)
+- Added 14 new card endpoints to `BanklyCard` (combo/multiple cards, No Name batches, encrypted password, PAN query, due date, tracking address, Apple Pay activation data, modality status, account binding)
+- Added 5 recurring Pix scheduling endpoints to `BanklyScheduledPix` (create, list, query, cancel recurrences)
+- Added Pix Automático authorization edit endpoint to `BanklyAutomaticPix`
+- Added Pix cash-out status query, bill payment queries (by account and by auth code), CEP address lookup, and dollar rate queries to `Bankly`
 ## 1.33.0 - 2023-11-27
 - Refactoring Bankly onboarding rules
 - Added Update Customer endpoint

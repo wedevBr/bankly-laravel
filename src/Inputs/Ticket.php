@@ -3,6 +3,7 @@
 namespace WeDevBr\Bankly\Inputs;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\TicketInterface;
 
 /**
  * Open Finance Ticket class
@@ -14,7 +15,7 @@ use Illuminate\Contracts\Support\Arrayable;
  *
  * @link      https://github.com/wedevBr/bankly-laravel
  */
-class Ticket implements Arrayable
+class Ticket implements Arrayable, TicketInterface
 {
     protected string $requestUri;
 

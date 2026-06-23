@@ -15,6 +15,7 @@
 namespace WeDevBr\Bankly\Tests;
 
 use Orchestra\Testbench\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 use WeDevBr\Bankly\Bankly;
 
 class BanklyTest extends TestCase
@@ -24,9 +25,7 @@ class BanklyTest extends TestCase
         return $this->mock(Bankly::class);
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_transfer_exists()
     {
         $this->assertTrue(
@@ -34,9 +33,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_bank_list_exists()
     {
         $this->assertTrue(
@@ -44,9 +41,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_balance_exists()
     {
         $this->assertTrue(
@@ -54,9 +49,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_statement_exists()
     {
         $this->assertTrue(
@@ -64,9 +57,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_events_exists()
     {
         $this->assertTrue(
@@ -74,9 +65,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_transfer_status_exists()
     {
         $this->assertTrue(
@@ -84,9 +73,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_set_api_version_exists()
     {
         $this->assertTrue(
@@ -94,9 +81,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_transfer_funds_exists()
     {
         $this->assertTrue(
@@ -104,9 +89,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_find_transfer_fund_by_auth_code_exists()
     {
         $this->assertTrue(
@@ -114,9 +97,7 @@ class BanklyTest extends TestCase
         );
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function test_ensure_method_get_account_exists()
     {
         $this->assertTrue(

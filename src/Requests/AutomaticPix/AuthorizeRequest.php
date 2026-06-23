@@ -5,16 +5,18 @@ declare(strict_types=1);
 namespace WeDevBr\Bankly\Requests\AutomaticPix;
 
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Enums\Pix\AutomaticPix\AuthorizationTypeEnum;
 use WeDevBr\Bankly\Enums\Pix\AutomaticPix\FrequencyTypeEnum;
 use WeDevBr\Bankly\Enums\Pix\AutomaticPix\RejectReasonEnum;
 use WeDevBr\Bankly\Enums\Pix\AutomaticPix\RetryPolicyEnum;
+use WeDevBr\Bankly\Support\Contracts\AuthorizeRequestInterface;
 use WeDevBr\Bankly\ValueObjects\AutomaticPix\Amount;
 use WeDevBr\Bankly\ValueObjects\AutomaticPix\Creditor;
 use WeDevBr\Bankly\ValueObjects\AutomaticPix\Debtor;
 use WeDevBr\Bankly\ValueObjects\AutomaticPix\OriginalDebtor;
 
-class AuthorizeRequest
+class AuthorizeRequest implements Arrayable, AuthorizeRequestInterface
 {
     public function __construct(
         public bool $accepted,

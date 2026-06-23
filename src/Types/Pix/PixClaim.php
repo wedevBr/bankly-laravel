@@ -4,9 +4,10 @@ namespace WeDevBr\Bankly\Types\Pix;
 
 use Illuminate\Contracts\Support\Arrayable;
 use WeDevBr\Bankly\Enums\Pix\ClaimTypeEnum;
+use WeDevBr\Bankly\Support\Contracts\PixClaimInterface;
 use WeDevBr\Bankly\Validators\Pix\AddressingKeyValidator;
 
-class PixClaim implements Arrayable
+class PixClaim implements Arrayable, PixClaimInterface
 {
     public Claimer $claimer;
 

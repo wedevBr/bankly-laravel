@@ -56,8 +56,8 @@ class PixQrCodeDataValidator
     private function validateDocumentNumber(): void
     {
         $documentNumber = $this->pixQrCodeData->documentNumber;
-        if (empty($documentNumber) || ! is_string($documentNumber) || ! is_numeric($documentNumber)) {
-            throw new InvalidArgumentException('document number should be a numeric string');
+        if (empty($documentNumber) || ! is_string($documentNumber) || ! preg_match('/^[0-9A-Za-z]+$/', $documentNumber)) {
+            throw new InvalidArgumentException('document number should be an alphanumeric string');
         }
 
         $documentValidator = new CpfCnpjValidator($documentNumber);

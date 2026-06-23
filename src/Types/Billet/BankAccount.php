@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Billet;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\BilletBankAccountInterface;
 use WeDevBr\Bankly\Validators\Billet\BankAccountValidator;
 
-class BankAccount implements Arrayable
+class BankAccount implements Arrayable, BilletBankAccountInterface
 {
     public ?string $branch;
 

@@ -57,8 +57,8 @@ class PayerValidator
     private function validateDocumentNumber(): void
     {
         $document = $this->payer->documentNumber;
-        if (empty($document) || ! is_string($document) || ! is_numeric($document)) {
-            throw new InvalidArgumentException('payer document number should be a numeric string');
+        if (empty($document) || ! is_string($document) || ! preg_match('/^[0-9A-Za-z]+$/', $document)) {
+            throw new InvalidArgumentException('payer document number should be an alphanumeric string');
         }
     }
 

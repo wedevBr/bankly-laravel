@@ -2,6 +2,7 @@
 
 namespace WeDevBr\Bankly;
 
+use Carbon\Carbon;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
@@ -9,17 +10,18 @@ use Ramsey\Uuid\Uuid;
 use TypeError;
 use WeDevBr\Bankly\Auth\Auth;
 use WeDevBr\Bankly\Contracts\Pix\PixCashoutInterface;
-use WeDevBr\Bankly\Inputs\BusinessCustomer;
-use WeDevBr\Bankly\Inputs\CorporationBusinessCustomer;
 use WeDevBr\Bankly\Inputs\DocumentAnalysis;
 use WeDevBr\Bankly\Inputs\DocumentAnalysisCorporationBusiness;
+use WeDevBr\Bankly\Support\Contracts\BillPaymentInterface;
+use WeDevBr\Bankly\Support\Contracts\BusinessCustomerInterface;
+use WeDevBr\Bankly\Support\Contracts\CorporationBusinessCustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
 use WeDevBr\Bankly\Support\Contracts\DocumentInterface;
-use WeDevBr\Bankly\Types\Customer\PaymentAccount;
-use WeDevBr\Bankly\Types\Pix\PixDynamicQrCode;
-use WeDevBr\Bankly\Types\Pix\PixEntries;
-use WeDevBr\Bankly\Types\Pix\PixQrCodeData;
-use WeDevBr\Bankly\Types\Pix\PixStaticQrCode;
+use WeDevBr\Bankly\Support\Contracts\PaymentAccountInterface;
+use WeDevBr\Bankly\Support\Contracts\PixDynamicQrCodeInterface;
+use WeDevBr\Bankly\Support\Contracts\PixEntriesInterface;
+use WeDevBr\Bankly\Support\Contracts\PixQrCodeDataInterface;
+use WeDevBr\Bankly\Support\Contracts\PixStaticQrCodeInterface;
 
 /**
  * Class Bankly
@@ -424,7 +426,7 @@ class Bankly
      */
     public function businessCustomer(
         string $documentNumber,
-        BusinessCustomer $customer,
+        BusinessCustomerInterface $customer,
         ?string $correlationId = null
     ): mixed {
         return $this->put("/business/{$documentNumber}", $customer->toArray(), $correlationId, true);
@@ -439,7 +441,7 @@ class Bankly
      */
     public function corporationBusinessCustomer(
         string $documentNumber,
-        CorporationBusinessCustomer $customer,
+        CorporationBusinessCustomerInterface $customer,
         ?string $correlationId = null
     ): mixed {
         return $this->put("/corporation-business/{$documentNumber}", $customer->toArray(), $correlationId, true);
@@ -571,7 +573,7 @@ class Bankly
      */
     public function createCustomerAccount(
         string $documentNumber,
-        PaymentAccount $paymentAccount,
+        PaymentAccountInterface $paymentAccount,
         ?string $idempotencyKey = null
     ): mixed {
         $this->setHeaders([
@@ -593,7 +595,7 @@ class Bankly
      */
     public function createBusinessCustomerAccount(
         string $documentNumber,
-        PaymentAccount $paymentAccount,
+        PaymentAccountInterface $paymentAccount,
         ?string $idempotencyKey = null
     ): mixed {
         $this->setHeaders([
@@ -629,7 +631,7 @@ class Bankly
      * @throws RequestException
      */
     public function paymentConfirm(
-        BillPayment $billPayment,
+        BillPaymentInterface $billPayment,
         string $correlationId
     ): mixed {
         return $this->post('/bill-payment/confirm', $billPayment->toArray(), $correlationId, true);
@@ -642,7 +644,7 @@ class Bankly
      *
      * @throws RequestException
      */
-    public function registerPixKey(PixEntries $pixEntries, ?string $hash = null): mixed
+    public function registerPixKey(PixEntriesInterface $pixEntries, ?string $hash = null): mixed
     {
         if ($hash) {
             $this->setHeaders(['x-bkly-transactional-hash' => $hash]);
@@ -722,7 +724,7 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function qrCode(string $documentNumber, PixStaticQrCode $data): array
+    public function qrCode(string $documentNumber, PixStaticQrCodeInterface $data): array
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
 
@@ -733,7 +735,7 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function dynamicQrCode(string $documentNumber, PixDynamicQrCode $data): array
+    public function dynamicQrCode(string $documentNumber, PixDynamicQrCodeInterface $data): array
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $documentNumber]);
 
@@ -744,7 +746,7 @@ class Bankly
      * @throws RequestException
      * @throws RequestException
      */
-    public function qrCodeDecode(PixQrCodeData $data): array
+    public function qrCodeDecode(PixQrCodeDataInterface $data): array
     {
         $qrCode = $data->toArray();
 
@@ -818,6 +820,97 @@ class Bankly
     public function updateCustomerLimits(string $documentNumber, array $data): array
     {
         return $this->put('/holders/'.$documentNumber.'/max-limits', $data);
+    }
+
+    /**
+     * Query the status of a Pix cash-out transaction.
+     *
+     * @param  string  $accountNumber  Account number.
+     * @param  string  $authenticationCode  Transaction authentication code.
+     *
+     * @throws RequestException
+     */
+    public function getPixCashoutStatus(string $accountNumber, string $authenticationCode): mixed
+    {
+        return $this->get("/pix/cash-out/accounts/{$accountNumber}/authenticationcode/{$authenticationCode}");
+    }
+
+    /**
+     * Query bill payments by account.
+     *
+     * @param  string  $branch  Bank branch.
+     * @param  string  $account  Account number.
+     * @param  int  $pageSize  Number of results per page.
+     * @param  string|null  $nextPage  Pagination token.
+     *
+     * @throws RequestException
+     */
+    public function getBillPayments(string $branch, string $account, int $pageSize = 10, ?string $nextPage = null): mixed
+    {
+        $queryParams = array_filter([
+            'branch' => $branch,
+            'account' => $account,
+            'pageSize' => $pageSize,
+            'nextPage' => $nextPage,
+        ]);
+
+        return $this->get('/bill-payment', $queryParams);
+    }
+
+    /**
+     * Query a bill payment by authentication code.
+     *
+     * @param  string  $authenticationCode  Transaction authentication code.
+     *
+     * @throws RequestException
+     */
+    public function getBillPaymentByAuthCode(string $authenticationCode): mixed
+    {
+        return $this->get('/bill-payment/detail', ['authenticationCode' => $authenticationCode]);
+    }
+
+    /**
+     * Query an address by ZIP code (CEP).
+     *
+     * @param  string  $zipCode  ZIP code (CEP).
+     *
+     * @throws RequestException
+     */
+    public function getAddressByZipCode(string $zipCode): mixed
+    {
+        return $this->get("/addresses/{$zipCode}");
+    }
+
+    /**
+     * Query the dollar rate by date.
+     *
+     * @param  Carbon  $date  Date for the dollar rate query.
+     *
+     * @throws RequestException
+     */
+    public function getDollarRateByDate(Carbon $date): mixed
+    {
+        return $this->get('/network-authorization/fees/dolar-rates', ['date' => $date->format('Y-m-d')]);
+    }
+
+    /**
+     * Query dollar rates by date range.
+     *
+     * @param  Carbon  $startDate  Start date.
+     * @param  Carbon  $endDate  End date.
+     * @param  int  $page  Page number.
+     * @param  int  $pageSize  Number of results per page.
+     *
+     * @throws RequestException
+     */
+    public function getDollarRateByDateRange(Carbon $startDate, Carbon $endDate, int $page = 1, int $pageSize = 30): mixed
+    {
+        return $this->get('/network-authorization/fees/dolar-rates/date-range', [
+            'startDate' => $startDate->format('Y-m-d'),
+            'endDate' => $endDate->format('Y-m-d'),
+            'page' => $page,
+            'pageSize' => $pageSize,
+        ]);
     }
 
     /**

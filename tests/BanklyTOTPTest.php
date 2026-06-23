@@ -5,6 +5,7 @@ namespace WeDevBr\Bankly\Tests;
 use Faker\Provider\Uuid;
 use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use PHPUnit\Framework\Attributes\Test;
 use WeDevBr\Bankly\BanklyServiceProvider;
 use WeDevBr\Bankly\BanklyTOTP;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
@@ -20,12 +21,11 @@ class BanklyTOTPTest extends TestCase
         return [BanklyServiceProvider::class];
     }
 
+    #[Test]
     /**
      * @return void
      *
      * @throws RequestException
-     *
-     * @test
      */
     public function test_valid_totp_register_entry()
     {
@@ -108,12 +108,11 @@ class BanklyTOTPTest extends TestCase
         $banklyTOTP->createTOTP($totp);
     }
 
+    #[Test]
     /**
      * @return void
      *
      * @throws RequestException
-     *
-     * @test
      */
     public function test_invalid_parameter_totp()
     {
@@ -132,10 +131,9 @@ class BanklyTOTPTest extends TestCase
         $banklyTOTP->createTOTP($totp);
     }
 
+    #[Test]
     /**
      * @throws RequestException
-     *
-     * @test
      */
     public function test_success_verify_totp()
     {
@@ -155,10 +153,9 @@ class BanklyTOTPTest extends TestCase
         $this->assertArrayHasKey('expireInSeconds', $response);
     }
 
+    #[Test]
     /**
      * @throws RequestException
-     *
-     * @test
      */
     public function test_invalid_parameter_verify_totp()
     {
@@ -177,10 +174,9 @@ class BanklyTOTPTest extends TestCase
         );
     }
 
+    #[Test]
     /**
      * @throws RequestException
-     *
-     * @test
      */
     public function test_invalid_user_id_verify_totp()
     {
@@ -199,12 +195,11 @@ class BanklyTOTPTest extends TestCase
         );
     }
 
+    #[Test]
     /**
      * @return void
      *
      * @throws RequestException
-     *
-     * @test
      */
     public function test_not_found_user_verify_totp()
     {
@@ -223,12 +218,11 @@ class BanklyTOTPTest extends TestCase
         );
     }
 
+    #[Test]
     /**
      * @return void
      *
      * @throws RequestException
-     *
-     * @test
      */
     public function test_invalid_hash_verify_totp()
     {

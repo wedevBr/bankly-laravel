@@ -4,14 +4,14 @@ namespace WeDevBr\Bankly;
 
 use WeDevBr\Bankly\Enums\Pix\CancelReasonEnum;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Types\Pix\PixClaim;
+use WeDevBr\Bankly\Support\Contracts\PixClaimInterface;
 
 class BanklyPixClaim extends BaseHttpClient
 {
     /**
      * @return array|mixed
      */
-    public function claim(PixClaim $claimer, string $nifNumber): mixed
+    public function claim(PixClaimInterface $claimer, string $nifNumber): mixed
     {
         $this->setHeaders(['x-bkly-pix-user-id' => $nifNumber]);
 

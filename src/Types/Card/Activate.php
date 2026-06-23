@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\CardActivationInterface;
 use WeDevBr\Bankly\Validators\Card\ActivateValidator;
 
-class Activate extends \stdClass implements Arrayable
+class Activate extends \stdClass implements Arrayable, CardActivationInterface
 {
     public string $activateCode;
 

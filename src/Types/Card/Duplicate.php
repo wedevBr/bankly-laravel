@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\DuplicateCardInterface;
 use WeDevBr\Bankly\Validators\Card\DuplicateCardValidator;
 
-class Duplicate extends \stdClass implements Arrayable
+class Duplicate extends \stdClass implements Arrayable, DuplicateCardInterface
 {
     public string $status;
 

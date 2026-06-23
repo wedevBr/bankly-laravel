@@ -6,7 +6,7 @@ use Illuminate\Http\Client\RequestException;
 use Ramsey\Uuid\Uuid;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
 use WeDevBr\Bankly\Support\Contracts\CustomerInterface;
-use WeDevBr\Bankly\Types\Customer\PaymentAccount;
+use WeDevBr\Bankly\Support\Contracts\PaymentAccountInterface;
 
 class BanklyCustomer extends BaseHttpClient
 {
@@ -22,7 +22,7 @@ class BanklyCustomer extends BaseHttpClient
 
     public function createCustomerAccount(
         string $documentNumber,
-        PaymentAccount $paymentAccount,
+        PaymentAccountInterface $paymentAccount,
         ?string $idempotencyKey = null
     ): mixed {
         $this->setHeaders([

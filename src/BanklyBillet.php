@@ -4,6 +4,7 @@ namespace WeDevBr\Bankly;
 
 use Illuminate\Http\Client\RequestException;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
+use WeDevBr\Bankly\Support\Contracts\BilletBankAccountInterface;
 use WeDevBr\Bankly\Types\Billet\CancelBillet;
 use WeDevBr\Bankly\Types\Billet\DepositBillet;
 
@@ -78,7 +79,7 @@ class BanklyBillet extends BaseHttpClient
      *
      * @throws RequestException
      */
-    public function billSettlementSimulate(BankAccount $bankAccount, string $txid): array
+    public function billSettlementSimulate(BilletBankAccountInterface $bankAccount, string $txid): array
     {
         return $this->post('/bankslip/settlementpayment', [
             'authenticationCode' => $txid,

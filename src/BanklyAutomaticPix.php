@@ -5,7 +5,8 @@ namespace WeDevBr\Bankly;
 use Carbon\Carbon;
 use Illuminate\Http\Client\RequestException;
 use WeDevBr\Bankly\HttpClients\BaseHttpClient;
-use WeDevBr\Bankly\Requests\AutomaticPix\AuthorizeRequest;
+use WeDevBr\Bankly\Support\Contracts\AuthorizeRequestInterface;
+use WeDevBr\Bankly\Support\Contracts\AutomaticPixAuthorizationEditInterface;
 
 class BanklyAutomaticPix extends BaseHttpClient
 {
@@ -48,7 +49,7 @@ class BanklyAutomaticPix extends BaseHttpClient
     /**
      * @throws RequestException
      */
-    public function authorize(string $idRecurrence, string $nifNumber, AuthorizeRequest $request): array
+    public function authorize(string $idRecurrence, string $nifNumber, AuthorizeRequestInterface $request): array
     {
         $endpoint = str_replace('{idRecurrence}', $idRecurrence, self::AUTHORIZE_ENDPOINT);
 
@@ -71,5 +72,22 @@ class BanklyAutomaticPix extends BaseHttpClient
         ]);
 
         return $this->delete($endpoint);
+    }
+
+    /**
+     * Edit the max value of a Pix Automático authorization.
+     *
+     * @param  string  $nifNumber  User document number.
+     * @param  AutomaticPixAuthorizationEditInterface  $authorization  The authorization update data.
+     *
+     * @throws RequestException
+     */
+    public function editAuthorization(string $nifNumber, AutomaticPixAuthorizationEditInterface $authorization): array
+    {
+        $this->setHeaders([
+            'x-bkly-pix-user-id' => $nifNumber,
+        ]);
+
+        return $this->put('/pix/automatic/authorization', $authorization->toArray(), null, true);
     }
 }

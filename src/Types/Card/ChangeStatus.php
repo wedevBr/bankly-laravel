@@ -3,9 +3,10 @@
 namespace WeDevBr\Bankly\Types\Card;
 
 use Illuminate\Contracts\Support\Arrayable;
+use WeDevBr\Bankly\Support\Contracts\ChangeStatusInterface;
 use WeDevBr\Bankly\Validators\Card\ChangeStatusValidator;
 
-class ChangeStatus extends \stdClass implements Arrayable
+class ChangeStatus extends \stdClass implements Arrayable, ChangeStatusInterface
 {
     public ?string $password;
 

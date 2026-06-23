@@ -3,16 +3,16 @@
 namespace WeDevBr\Bankly\Tests\TOTP;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\Test;
 use WeDevBr\Bankly\Tests\TestCase;
 use WeDevBr\Bankly\Types\Pix\AddressingKey;
 use WeDevBr\Bankly\Types\TOTP\TOTP;
 
 class TOTPValidatorTest extends TestCase
 {
+    #[Test]
     /**
      * @return void
-     *
-     * @test
      */
     public function test_invalid_context()
     {
@@ -23,10 +23,9 @@ class TOTPValidatorTest extends TestCase
         $totp->validate();
     }
 
+    #[Test]
     /**
      * @return void
-     *
-     * @test
      */
     public function test_invalid_operation()
     {
@@ -37,10 +36,9 @@ class TOTPValidatorTest extends TestCase
         $totp->validate();
     }
 
+    #[Test]
     /**
      * @return void
-     *
-     * @test
      */
     public function test_invalid_registry_entry_type()
     {
@@ -52,10 +50,9 @@ class TOTPValidatorTest extends TestCase
         $totp->validate();
     }
 
+    #[Test]
     /**
      * @return void
-     *
-     * @test
      */
     public function test_invalid_registry_entry_phone()
     {
@@ -71,10 +68,9 @@ class TOTPValidatorTest extends TestCase
         $totp->validate();
     }
 
+    #[Test]
     /**
      * @return void
-     *
-     * @test
      */
     public function test_convert_to_array()
     {
